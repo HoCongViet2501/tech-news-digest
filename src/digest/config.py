@@ -21,6 +21,8 @@ class _Strict(BaseModel):
 class HackerNewsConfig(_Strict):
     enabled: bool = True
     min_points: int = 50
+    # Lower bound sent to the API; min_points itself is applied in filter.py.
+    fetch_min_points: int = 10
 
 
 class GitHubTrendingConfig(_Strict):

@@ -4,7 +4,7 @@ from zoneinfo import ZoneInfo
 
 import pytest
 
-from digest.__main__ import main, parse_args, resolve_run_date
+from digest.__main__ import main, parse_args, resolve_now, resolve_run_date
 
 REPO_CONFIG = Path(__file__).parent.parent / "config.yaml"
 
@@ -78,3 +78,39 @@ def test_main_reports_config_error(tmp_path: Path, capsys: pytest.CaptureFixture
 
     assert code == 2
     assert "profile" in capsys.readouterr().err
+
+
+def test_now_is_real_clock_without_explicit_date() -> None:
+    tz = ZoneInfo("Asia/Ho_Chi_Minh")
+    real = datetime(2026, 9, 1, 3, 0, tzinfo=UTC)
+
+    assert resolve_now(None, tz, real) == real
+
+
+def test_now_is_0700_local_on_explicit_date() -> None:
+    tz = ZoneInfo("Asia/Ho_Chi_Minh")
+
+    now = resolve_now(date(2026, 8, 15), tz, datetime(2026, 9, 1, tzinfo=UTC))
+
+    # 07:00 in Vietnam (UTC+7) = 00:00 UTC, the time the daily cron fires
+    assert now == datetime(2026, 8, 15, 0, 0, tzinfo=UTC)
+
+
+def test_offline_dry_run_reports_items_per_source(capsys: pytest.CaptureFixture[str]) -> None:
+    code = main(
+        [
+            "run",
+            "--dry-run",
+            "--only",
+            "hn,lobsters",
+            "--date",
+            "2026-09-27",
+            "--config",
+            str(REPO_CONFIG),
+        ]
+    )
+
+    out = capsys.readouterr().out
+    assert code == 0
+    assert "hn: 47" in out
+    assert "lobsters: 25" in out
