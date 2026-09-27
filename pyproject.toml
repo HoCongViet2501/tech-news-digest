@@ -23,6 +23,7 @@ module-name = "digest"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["scripts"]
 
 [tool.ruff]
 line-length = 100
@@ -38,3 +39,6 @@ dev = [
     "respx>=0.23.1",
     "ruff>=0.16.9",
 ]
+
+[tool.ruff.lint.isort]
+known-first-party = ["digest", "refresh_fixtures"]

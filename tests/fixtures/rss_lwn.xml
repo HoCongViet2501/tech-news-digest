@@ -1,0 +1,307 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"
+    		xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <channel>
+        <title>LWN.net</title>
+        <link>https://lwn.net</link>
+        <description> LWN.net is a comprehensive source of news and opinions from
+        and about the Linux community.  This is the main LWN.net feed,
+        listing all articles which are posted to the site front page.
+</description>
+        <language>en-us</language>
+        <pubDate>Sun, 27 Sep 2026 14:51:04 +0000</pubDate>
+        <lastBuildDate>Sun, 27 Sep 2026 14:51:04 +0000</lastBuildDate>
+        <docs>https://www.rssboard.org/rss-specification</docs>
+        <webMaster>lwn@lwn.net</webMaster>
+        <atom:link href="https://lwn.net/headlines/rss2"
+    		rel="self" type="application/rss+xml"/>
+    <item>
+        <title>GDB 18.1 released</title>
+        <link>https://lwn.net/Articles/1096897/</link>
+        <guid>https://lwn.net/Articles/1096897/</guid>
+        <dc:creator>corbet</dc:creator>
+        <description>Version 18.1 of the GDB interactive debugger has been released.  Changes
+include new commands to manipulate the environment of the subprocess, the
+ability to save the command history to a file, support for a couple of new
+targets, several Python API additions, and more.  See &lt;a
+href=&quot;https://sourceware.org/git/gitweb.cgi?p=binutils-gdb.git;a=blob_plain;f=gdb/NEWS;hb=gdb-18.1-release&quot;&gt;the
+NEWS file&lt;/a&gt; for the complete list.
+</description>
+        <pubDate>Sat, 26 Sep 2026 15:03:20 +0000</pubDate>
+        </item>
+        <item>
+        <title>[$] How KDE got funding to add enterprise features</title>
+        <link>https://lwn.net/Articles/1096245/</link>
+        <guid>https://lwn.net/Articles/1096245/</guid>
+        <dc:creator>jzb</dc:creator>
+        <description>&lt;p&gt;The &lt;a href=&quot;https://www.sovereign.tech/&quot;&gt;Sovereign Tech Agency&lt;/a&gt; (STA) is
+&lt;a href=&quot;https://www.sovereign.tech/tech/kde&quot;&gt;investing nearly €1.3 million&lt;/a&gt;
+in KDE through 2027. At &lt;a href=&quot;https://akademy.kde.org/2026/&quot;&gt;Akademy 2026&lt;/a&gt;
+in Graz, Austria, Nate Graham and Kevin Ottens, two of the contributors who
+helped bring in the investment, explained how the funding was secured, provided
+tips on how projects should approach organizations like STA, and talked about
+how that money will be improving KDE for everyone. In addition to keeping the
+community informed about the work, the pair hoped to pass on what they have learned
+to encourage others to help raise funds for development as well.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 25 Sep 2026 15:59:55 +0000</pubDate>
+        </item>
+        <item>
+        <title>Two stable kernels for Friday</title>
+        <link>https://lwn.net/Articles/1096818/</link>
+        <guid>https://lwn.net/Articles/1096818/</guid>
+        <dc:creator>jzb</dc:creator>
+        <description>&lt;p&gt;Greg Kroah-Hartman has announced the release of the &lt;a
+href=&quot;https://lwn.net/Articles/1096820/&quot;&gt;7.2.8&lt;/a&gt; and &lt;a href=&quot;https://lwn.net/Articles/1096821/&quot;&gt;6.18.54&lt;/a&gt;
+stable kernels. Each contains a number of important fixes throughout the tree;
+users are advised to upgrade.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+        <pubDate>Fri, 25 Sep 2026 15:13:25 +0000</pubDate>
+        </item>
+        <item>
+        <title>A summary from the 2026 Git Contributors' Summit</title>
+        <link>https://lwn.net/Articles/1096819/</link>
+        <guid>https://lwn.net/Articles/1096819/</guid>
+        <dc:creator>corbet</dc:creator>
+        <description>Johannes Schindelin has posted &lt;a
+href=&quot;https://lwn.net/ml/all/5cc325c6-579e-4fed-7071-a3ff98d51ccb@gmx.de&quot;&gt;a detailed
+summary&lt;/a&gt; of the discussions held at the 2026 Git Contributors' Summit.
+Topics covered include Git&amp;#160;3.0, security process, documentation, the
+pluggable object database, use of LLMs, and more.</description>
+        <pubDate>Fri, 25 Sep 2026 15:12:05 +0000</pubDate>
+        </item>
+        <item>
+        <title>Security updates for Friday</title>
+        <link>https://lwn.net/Articles/1096637/</link>
+        <guid>https://lwn.net/Articles/1096637/</guid>
+        <dc:creator>jzb</dc:creator>
+        <description>Security updates have been issued by &lt;b&gt;AlmaLinux&lt;/b&gt; (kernel, kernel-rt, perl-DBI:1.641, and unbound), &lt;b&gt;Debian&lt;/b&gt; (jq, libreoffice, openssl, and redis), &lt;b&gt;Fedora&lt;/b&gt; (389-ds-base, bcm283x-firmware, cockpit, flatpak-builder, mingw-gdk-pixbuf, openssl3, pcs, rust-cryptoki, squid, uboot-tools, and webkitgtk), &lt;b&gt;Mageia&lt;/b&gt; (fuse3, perl-Net-DNS, python-gitpython, python-webob, thunderbird, thunderbird-l10n, and unbound), &lt;b&gt;Oracle&lt;/b&gt; (postgresql:12, postgresql:15, postgresql:16, and skopeo), &lt;b&gt;Slackware&lt;/b&gt; (php), &lt;b&gt;SUSE&lt;/b&gt; (alloy, amazon-ssm-agent, ant, apptainer, chromium, corosync, cyrus-imapd, distribution, exiv2, ffmpeg-7, freeipmi, gdb, gnome-remote-desktop, google-osconfig-agent, govulncheck-vulndb, gvfs, hplip, ImageMagick, imagemagick, java-11-openjdk, jsoup, re2j, kernel, keybase-client, libsoup, libx11, libxrender, mcphost, memcached, opensc, perl-DBI, python-gitpython, python-weasyprint, rabbitmq-server, ruby3.4, util-linux, and zstd-jni), and &lt;b&gt;Ubuntu&lt;/b&gt; (curl, expat, gdal, libass, libpcap, linux, linux-aws, linux-aws-7.0, linux-hwe-7.0, linux-ibm, linux-oracle, linux-raspi, linux-realtime, linux, linux-azure, linux-azure-6.8, linux-azure-fde, linux-azure-fde-6.8, linux-azure-fips, linux-fips, linux-gcp, linux-gcp-6.8, linux-gcp-fips, linux-gke, linux-gkeop, linux-ibm, linux-lowlatency, linux-lowlatency-hwe-6.8, linux-oracle, linux-oracle-6.8, linux-raspi, linux-raspi-realtime, linux-realtime, linux-realtime-6.8, linux, linux-hwe, linux-kvm, linux-aws, linux-aws-fips, linux-azure, linux-azure-fde, linux-azure-fips, linux-gcp, linux-gcp-fips, linux-gke, linux-gkeop, linux-hwe-5.15, linux-ibm, linux-intel-iot-realtime, linux-intel-iotg, linux-kvm, linux-lowlatency, linux-lowlatency-hwe-5.15, linux-oracle, linux-realtime, linux-xilinx-zynqmp, linux-aws, linux-gcp, linux-gcp-4.15, linux-gcp-fips, linux-aws-fips, linux-ibm-5.15, linux-intel-iotg-5.15, octavia, and swift).
+</description>
+        <pubDate>Fri, 25 Sep 2026 13:17:10 +0000</pubDate>
+        </item>
+        <item>
+        <title>F-Droid 2.0: A new chapter for Android freedom</title>
+        <link>https://lwn.net/Articles/1096444/</link>
+        <guid>https://lwn.net/Articles/1096444/</guid>
+        <dc:creator>jzb</dc:creator>
+        <description>&lt;p&gt;The &lt;a href=&quot;https://f-droid.org/en/&quot;&gt;F-Droid project&lt;/a&gt; has &lt;a
+href=&quot;https://f-droid.org/2026/09/24/f-droid-2.0-a-new-chapter-for-android-freedom.html&quot;&gt;announced&lt;/a&gt;
+the release of F-Droid&amp;#160;2.0, which is a complete redesign of the official
+app. Notable changes in the release include making it easier to discover and
+install applications, more useful app categories, improved search, and
+much more.&lt;/p&gt;
+
+&lt;blockquote class=&quot;bq&quot;&gt;
+&lt;p&gt;For more than a decade, F-Droid has helped people discover and install free
+and open source Android apps. F-Droid 2.0 builds on that foundation with a
+modern interface, better app discovery, improved search, and a simpler
+experience that works well, whether you're new to F-Droid or have been using it
+for years.&lt;/p&gt;
+
+&lt;p&gt;This isn't just a visual refresh. The user experience was redesigned to
+integrate smoothly with current Android patterns, like Material Design, while
+keeping familiar F-Droid interactions in place. Key components were reworked and
+rewritten using Kotlin Compose, the standard toolkit these days, creating a
+foundation that will help us deliver improvements more quickly in the years
+ahead.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+        <pubDate>Thu, 24 Sep 2026 18:01:55 +0000</pubDate>
+        </item>
+        <item>
+        <title>Research into file-notification attacks on Linux</title>
+        <link>https://lwn.net/Articles/1096431/</link>
+        <guid>https://lwn.net/Articles/1096431/</guid>
+        <dc:creator>jzb</dc:creator>
+        <description>&lt;p&gt;Sudheendra Raghav Neela, a member of a group of researchers from &lt;a
+href=&quot;https://www.tugraz.at/en/home&quot;&gt;Graz University of Technology&lt;/a&gt;, has &lt;a
+href=&quot;https://infosec.exchange/@vmcall/117327103049106849&quot;&gt;announced&lt;/a&gt; the
+release of research into file-notification attacks that would allow spying on
+user activity on Android, Linux, macOS, and Windows. The group has published &lt;a
+href=&quot;https://inoti.fyi/pubs/file-notification-attacks.pdf&quot;&gt;a paper&lt;/a&gt; with
+details on the research as well as a &lt;a href=&quot;https://inoti.fyi/&quot;&gt;web site&lt;/a&gt;
+with demonstrations of the vulnerabilities.&lt;/p&gt;
+
+&lt;p&gt;On Linux, an attacker can use &lt;a
+href=&quot;https://linux.die.net/man/1/inotifywatch&quot;&gt;&lt;tt&gt;inotifywatch&lt;/tt&gt;&lt;/a&gt; to
+monitor a directory to conduct an inter-keystroke timing attack&amp;mdash;even if
+they do not have read access to the files within a directory. The group also
+discovered a method to conduct a &lt;a
+href=&quot;https://www.deepwatch.com/glossary/ui-redress-attack/&quot;&gt;UI-redress
+attack&lt;/a&gt; (or &quot;&lt;a
+href=&quot;https://en.wikipedia.org/wiki/Clickjacking&quot;&gt;clickjacking&lt;/a&gt;&quot; attack) on
+KDE&amp;#160;5 and KDE&amp;#160;6 by monitoring &lt;tt&gt;/usr/bin/pkexec&lt;/tt&gt; to detect when &lt;a
+href=&quot;https://en.wikipedia.org/wiki/Polkit&quot;&gt;Polkit&lt;/a&gt; spawns an authentication
+prompt. An attacker could draw a fake password window on top of the real window
+to collect a user's credentials.&lt;/p&gt;
+
+&lt;p&gt;Both of these flaws are still present today,
+though the Linux kernel did partially mitigate the issue with &lt;a
+href=&quot;https://lore.kernel.org/linux-cve-announce/2026011303-CVE-2025-68788-05bd@gregkh/&quot;&gt;a
+fix&lt;/a&gt; that was included in the 5.10.248, 5.15.198, 6.1.160, 6.6.120, 6.12.65,
+and 6.18.3 kernels shipped in January. See the web site for more information and
+a mitigation to prevent password-prompt windows from losing focus.&lt;/p&gt;</description>
+        <pubDate>Thu, 24 Sep 2026 17:40:36 +0000</pubDate>
+        </item>
+        <item>
+        <title>[$] Listening to the radio with Rust</title>
+        <link>https://lwn.net/Articles/1095721/</link>
+        <guid>https://lwn.net/Articles/1095721/</guid>
+        <dc:creator>daroc</dc:creator>
+        <description>&lt;p&gt;
+Many of the transmissions sent over the radio spectrum can
+be decoded with a relatively cheap hardware dongle. Thomas Eckert presented at
+&lt;a href=&quot;https://rustconf.com/&quot;&gt;
+RustConf 2026&lt;/a&gt; in Montreal about his hobby:
+decoding radio transmissions with Rust.
+In his presentation, he
+covered all of the math necessary to get started with
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Software-defined_radio&quot;&gt;
+software-defined radio&lt;/a&gt;,
+and gave demonstrations of listening to AM and FM radio, as well as decoding
+transmissions from
+aircraft transponders. His slides and example code are
+&lt;a href=&quot;https://github.com/t-eckert/listening-to-the-radio-with-rust#listening-to-the-radio-with-rust&quot;&gt;
+available&lt;/a&gt; on GitHub.
+&lt;/p&gt;
+</description>
+        <pubDate>Thu, 24 Sep 2026 14:26:30 +0000</pubDate>
+        </item>
+        <item>
+        <title>The Kernel Report 2026 edition</title>
+        <link>https://lwn.net/Articles/1096411/</link>
+        <guid>https://lwn.net/Articles/1096411/</guid>
+        <dc:creator>jzb</dc:creator>
+        <description>&lt;p&gt;After a two-year hiatus, LWN's Jonathan Corbet presented an updated edition
+of his &lt;a
+href=&quot;https://kernel-recipes.org/en/2026/schedule/the-kernel-report/&quot;&gt;Kernel
+Report&lt;/a&gt; at the &lt;a href=&quot;https://kernel-recipes.org/en/2026/&quot;&gt;Kernel
+Recipes&lt;/a&gt; conference. Corbet looked at what is happening in the kernel
+community, how it's dealing with a period of accelerated change, and where
+things might go in the future. &lt;a
+href=&quot;https://www.youtube.com/live/3KAcS05H31Y?t=1242s&quot;&gt;Video of the talk&lt;/a&gt; is
+available on YouTube for those who'd like to tune in.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+        <pubDate>Thu, 24 Sep 2026 13:57:44 +0000</pubDate>
+        </item>
+        <item>
+        <title>Security updates for Thursday</title>
+        <link>https://lwn.net/Articles/1096407/</link>
+        <guid>https://lwn.net/Articles/1096407/</guid>
+        <dc:creator>jzb</dc:creator>
+        <description>Security updates have been issued by &lt;b&gt;AlmaLinux&lt;/b&gt; (buildah, containernetworking-plugins, firefox, kernel, kernel-rt, openexr, perl-DBI, podman, postgresql, postgresql16, postgresql:15, runc, skopeo, and tar), &lt;b&gt;Debian&lt;/b&gt; (libdatetime-timezone-perl, tzdata, xdg-dbus-proxy, and znc), &lt;b&gt;Fedora&lt;/b&gt; (chromium, evolution, evolution-data-server, evolution-ews, kernel, libheif, mingw-pcre2, nginx-mod-modsecurity, unbound, and webkitgtk), &lt;b&gt;Mageia&lt;/b&gt; (borgbackup, coreutils, firefox, nss, kbd, libnfs, libwebsockets, perl-URI, pipewire, and xdg-dbus-proxy), &lt;b&gt;Oracle&lt;/b&gt; (apr-util, containernetworking-plugins, coreutils, curl, firefox, freerdp, gstreamer1-plugins-base, host-metering, libarchive, libtiff, libxml2, openexr, openssh, perl-DBI, podman, postgresql16, postgresql18-postgis, postgresql:15, rsyslog, runc, tar, and unbound), &lt;b&gt;SUSE&lt;/b&gt; (apptainer, gimp, librepods, libX11-6, perl-Authen-SASL, podofo, python-WebOb, and python313-graphifyy), and &lt;b&gt;Ubuntu&lt;/b&gt; (imagemagick, libgit2, moodle, network-manager, Open-iSNS, python-urllib3, sqlparse, and xdg-desktop-portal).
+</description>
+        <pubDate>Thu, 24 Sep 2026 13:05:18 +0000</pubDate>
+        </item>
+        <item>
+        <title>[$] LWN.net Weekly Edition for September 24, 2026</title>
+        <link>https://lwn.net/Articles/1094840/</link>
+        <guid>https://lwn.net/Articles/1094840/</guid>
+        <dc:creator>corbet</dc:creator>
+        <description>Inside this week's LWN.net Weekly Edition:
+        &lt;p&gt;
+        &lt;ul&gt;
+&lt;li&gt; &lt;a href=&quot;https://lwn.net/Articles/1094840/&quot;&gt;Front&lt;/a&gt;: Git 2.56; gccrs; NetBSD and compat_linux; io_uring; Desktop UX.
+            &lt;li&gt; &lt;a href=&quot;https://lwn.net/Articles/1094842/&quot;&gt;Briefs&lt;/a&gt;: WordPress vulnerability; Radicle vulnerability; Systemtap 5.6; GNOME 51; Systemd v262; Quotes; ...
+            &lt;li&gt; &lt;a href=&quot;https://lwn.net/Articles/1094843/&quot;&gt;Announcements&lt;/a&gt;: Newsletters, conferences, security updates, patches, and more.
+            &lt;/ul&gt;
+
+        </description>
+        <pubDate>Thu, 24 Sep 2026 00:22:42 +0000</pubDate>
+        </item>
+        <item>
+        <title>[$] Ideas on modernizing the open-source desktop</title>
+        <link>https://lwn.net/Articles/1095425/</link>
+        <guid>https://lwn.net/Articles/1095425/</guid>
+        <dc:creator>jzb</dc:creator>
+        <description>&lt;p&gt;Scott Jenson has been working on user interfaces (UIs) and user experience (UX)
+for many years at Apple, Google, and other companies. Now, he's trying to convince
+open-source projects to experiment more and drive the desktop beyond the age-old &quot;&lt;a
+href=&quot;https://en.wikipedia.org/wiki/WIMP_(computing)&quot;&gt;windows, icons, menus,
+pointer&lt;/a&gt;&quot; (WIMP) model. At &lt;a
+href=&quot;https://akademy.kde.org/2026/&quot;&gt;Akademy&amp;#160;2026&lt;/a&gt;, KDE's annual developer
+conference, he shared his complaints and ideas in a talk aimed
+at convincing those in attendance to take the lead on desktop design.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 23 Sep 2026 15:39:30 +0000</pubDate>
+        </item>
+        <item>
+        <title>Systemd v262 released</title>
+        <link>https://lwn.net/Articles/1096204/</link>
+        <guid>https://lwn.net/Articles/1096204/</guid>
+        <dc:creator>jzb</dc:creator>
+        <description>&lt;p&gt;Systemd v262 has been released. Some of the notable new features include the
+ability to build systemd as a single statically linked binary for small
+containers, support for the kernel coredump socket protocol introduced with
+Linux&amp;#160;6.17, addition of OpenSSL&amp;#160;4 support, and many other changes. See
+the &lt;a href=&quot;https://github.com/systemd/systemd/releases/tag/v262&quot;&gt;release
+notes&lt;/a&gt; for a full list of changes.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+        <pubDate>Wed, 23 Sep 2026 14:51:37 +0000</pubDate>
+        </item>
+        <item>
+        <title>Critical security vulnerabilities in the Radicle network protocol</title>
+        <link>https://lwn.net/Articles/1096200/</link>
+        <guid>https://lwn.net/Articles/1096200/</guid>
+        <dc:creator>jzb</dc:creator>
+        <description>&lt;p&gt;The &lt;a href=&quot;https://radicle.dev/&quot;&gt;Radicle&lt;/a&gt; peer-to-peer
+code-collaboration project has &lt;a
+href=&quot;https://radicle.dev/2026/09/23/disclosure-of-vulnerability-in-network-protocol&quot;&gt;disclosed
+two critical vulnerabilities&lt;/a&gt; in the network protocol used by Radicle
+nodes. The first flaw is that the network protocol used by Radicle &quot;&lt;q&gt;does not
+give the confidentiality it was expected to give&lt;/q&gt;&quot;, which allows anyone who
+can observe the network between two nodes to read the data exchanged. The second
+is that peer authentication is broken and allows impersonation, so an attacker
+can spoof their Node ID and read private repositories they should not be able to
+read.&lt;/p&gt;
+
+&lt;blockquote class=&quot;bq&quot;&gt;
+&lt;p&gt;In practice, the two flaws are most useful when they can be exploited
+together: an attacker on the path sees the Node IDs at both ends of a
+connection, and both are normally on the allow-list. That attacker can read
+whatever is exchanged while they watch, and can then use a Node ID they saw to
+fetch the whole repository on demand. The realistic threat is anyone on the path
+between your node and node it syncs with, and no setting or allow-list protects
+against them.&lt;/p&gt;
+
+&lt;p&gt;We are publishing this before the security update is available. You can act
+on it today, and no fix we release later can undo an exposure that has already
+happened.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;See the post for workarounds that can be used today; a major update that will
+be backward-incompatible is underway.&lt;/p&gt;</description>
+        <pubDate>Wed, 23 Sep 2026 14:20:46 +0000</pubDate>
+        </item>
+        <item>
+        <title>Critical WordPress RCE vulnerability announced</title>
+        <link>https://lwn.net/Articles/1096195/</link>
+        <guid>https://lwn.net/Articles/1096195/</guid>
+        <dc:creator>jzb</dc:creator>
+        <description>&lt;p&gt;A &lt;a
+href=&quot;https://github.com/WordPress/wordpress-develop/security/advisories/GHSA-7hp8-65ch-5whp&quot;&gt;critical
+vulnerability&lt;/a&gt; has been discovered in &lt;a
+href=&quot;https://wordpress.org/&quot;&gt;WordPress&lt;/a&gt;'s &lt;a
+href=&quot;https://developer.wordpress.org/reference/functions/get_page_template/&quot;&gt;&lt;tt&gt;get_page_template()&lt;/tt&gt;&lt;/a&gt;
+function for page-template resolution that could allow remote-code execution
+(RCE) by an unauthenticated attacker, in some limited circumstances. The project
+has provided an update for the most recent branch of WordPress, as well as
+backports of the fix for branches back to &lt;a
+href=&quot;https://wordpress.org/download/releases/#branch-47&quot;&gt;4.7&lt;/a&gt;. See the
+vulnerability report for the conditions required for an RCE attack to be successful.&lt;/p&gt;
+
+&lt;p&gt;The vulnerability &lt;a
+href=&quot;https://forums.classicpress.net/t/critical-unauthenticated-path-traversal-vulnerability-patched-in-wordpress-core/6775&quot;&gt;also
+affects&lt;/a&gt; the &lt;a href=&quot;https://www.classicpress.net/&quot;&gt;ClassicPress&lt;/a&gt; fork of
+WordPress, though a security update has not been provided for that project
+yet. LWN &lt;a href=&quot;https://lwn.net/Articles/992219/&quot;&gt;covered&lt;/a&gt; ClassicPress in
+2024. Users of either content-management system should update soon.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+        <pubDate>Wed, 23 Sep 2026 13:55:40 +0000</pubDate>
+        </item>
+        </channel>
+</rss>
