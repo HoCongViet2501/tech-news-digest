@@ -1,0 +1,38 @@
+timezone: Asia/Ho_Chi_Minh
+max_items: 10
+
+# TODO(owner): edit to match your stack.
+profile: |
+  Backend developer, Go and Python, Postgres, Kubernetes.
+  Interested in: LLM tooling, system design, database performance, developer productivity.
+  Not interested in: crypto, hiring drama, frontend framework wars.
+
+sources:
+  hackernews: {enabled: true, min_points: 50}
+  github_trending: {enabled: true, languages: [python, go], min_stars_today: 50}
+  lobsters: {enabled: true, min_score: 10}
+  reddit: {enabled: true, subreddits: [programming, golang, Python], min_score: 100}
+  rss: []   # entries like {name: ..., url: ..., base_score: 60}
+
+filters:
+  keywords_include: [postgres, kubernetes, llm, golang]   # always kept, even below threshold
+  keywords_exclude: [crypto, bitcoin, nft]
+  seen_retention_days: 60
+
+ai:
+  enabled: false            # turned on in phase 2
+  output_language: vi       # summaries and reasons are written in Vietnamese
+  providers:                # tried in order; on failure move to the next
+    - name: gemini
+      base_url: https://generativelanguage.googleapis.com/v1beta/openai/
+      model: gemini-2.5-flash-lite
+      api_key_env: GEMINI_API_KEY
+    - name: groq
+      base_url: https://api.groq.com/openai/v1
+      model: llama-3.3-70b-versatile
+      api_key_env: GROQ_API_KEY
+
+delivery:
+  telegram: {enabled: true}
+  # TODO(owner): set to your GitHub Pages URL once the repo exists.
+  pages: {enabled: true, base_url: "https://<username>.github.io/tech-digest/"}
