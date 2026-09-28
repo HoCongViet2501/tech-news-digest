@@ -1,0 +1,187 @@
+{
+ "date": "2026-09-28",
+ "items": [
+  {
+   "id": "3bd40c5dcc31f1689cdcee0bd64a92d01fdf5b55",
+   "source": "hn",
+   "title": "When did Google get so weird?",
+   "url": "https://sancho.bearblog.dev/google-weird",
+   "discussion_url": "https://news.ycombinator.com/item?id=49870367",
+   "score": 1603,
+   "comments": 858,
+   "published_at": "2026-09-27T20:12:54Z",
+   "tags": [],
+   "also_on": [
+    "lobsters"
+   ],
+   "relevance": 10.8889,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "0dc955c86c2b08ca5952af7bf8434215dd32e7ca",
+   "source": "hn",
+   "title": "Owed a billion dollars in Nvidia stock",
+   "url": "https://colo.to/nvidia-stock-narrative.html",
+   "discussion_url": "https://news.ycombinator.com/item?id=49872723",
+   "score": 945,
+   "comments": 400,
+   "published_at": "2026-09-28T02:05:13Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.6667,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "adab374e680bb1bfa86ef646badac5a401efa632",
+   "source": "lobsters",
+   "title": "“They had no concept of a duty of care to their users.”",
+   "url": "https://unsung.aresluna.org/they-had-no-concept-of-a-duty-of-care-to-their-users",
+   "discussion_url": "https://lobste.rs/s/1colyy/they_had_no_concept_duty_care_their_users",
+   "score": 165,
+   "comments": 43,
+   "published_at": "2026-09-27T09:44:53.153000-05:00",
+   "tags": [
+    "vim"
+   ],
+   "also_on": [],
+   "relevance": 9.6667,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "4260c244130cf5323fa64b0b786b4c68bfe96f65",
+   "source": "github",
+   "title": "vectorize-io/hindsight: Hindsight: Agent Memory That Learns",
+   "url": "https://github.com/vectorize-io/hindsight",
+   "discussion_url": null,
+   "score": 4413,
+   "comments": 0,
+   "published_at": "2026-09-28T23:02:26.876680+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.6429,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "66af25621bdfb88ae4390c3d995dfa4629bee61e",
+   "source": "hn",
+   "title": "Don't couple your Go code to GitHub",
+   "url": "https://iain.rocks/blog/dont-couple-your-go-code-to-github",
+   "discussion_url": "https://news.ycombinator.com/item?id=49868404",
+   "score": 301,
+   "comments": 156,
+   "published_at": "2026-09-27T16:50:58Z",
+   "tags": [],
+   "also_on": [
+    "lobsters"
+   ],
+   "relevance": 9.5556,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "a365d26f319b69b091537462f6c06ce55040e994",
+   "source": "hn",
+   "title": "Ember-1",
+   "url": "https://fireworks.ai/blog/ember-1",
+   "discussion_url": "https://news.ycombinator.com/item?id=49868830",
+   "score": 550,
+   "comments": 237,
+   "published_at": "2026-09-27T17:31:53Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.4444,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "db3e760e700f9b18fb6c3213f19976317944c898",
+   "source": "hn",
+   "title": "AI companies in race to demonstrate their model most threatening to humanity",
+   "url": "https://thecivilian.co.nz/2026/09/27/ai-companies-in-fierce-arms-race-to-demonstrate-their-model-is-the-most-existentially-threatening-to-humanity",
+   "discussion_url": "https://news.ycombinator.com/item?id=49875148",
+   "score": 404,
+   "comments": 355,
+   "published_at": "2026-09-28T08:35:40Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.2222,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "21eb099d4d049c741a977201bdf1d72c5a4b460a",
+   "source": "github",
+   "title": "ashhart/TensorFold: Fast, exact LLM decoding on Apple Silicon (MLX) behind an OpenAI-compatible endpoint",
+   "url": "https://github.com/ashhart/TensorFold",
+   "discussion_url": null,
+   "score": 160,
+   "comments": 0,
+   "published_at": "2026-09-28T23:02:26.876680+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0714,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "4aa8cdc749d349a242677e1d3675d8fca4aaaf26",
+   "source": "hn",
+   "title": "There are no \"rogue\" AI agents",
+   "url": "https://eoinhiggins.substack.com/p/there-are-no-rogue-ai-agents",
+   "discussion_url": "https://news.ycombinator.com/item?id=49868083",
+   "score": 382,
+   "comments": 264,
+   "published_at": "2026-09-27T16:19:46Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "ab6a90f5d123d78d9a24209d9eb16398c76a9f56",
+   "source": "lobsters",
+   "title": "One month without AI",
+   "url": "https://blog.bustikiller.com/2026/09/25/one-month-without-ai.html",
+   "discussion_url": "https://lobste.rs/s/ivbx5f/one_month_without_ai",
+   "score": 94,
+   "comments": 12,
+   "published_at": "2026-09-27T01:22:21.194000-05:00",
+   "tags": [
+    "vibecoding"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  }
+ ],
+ "stats": {
+  "fetched_hn": 92,
+  "fetched_github": 31,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 148,
+  "after_dedupe": 143,
+  "after_filter": 74,
+  "sent": 10
+ }
+}
