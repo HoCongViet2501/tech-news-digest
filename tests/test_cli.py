@@ -247,3 +247,22 @@ def test_all_sources_failing_sends_warning_instead_of_digest(
     assert "⚠️" in out
     assert "<a " not in out
     assert not (data / "digests").exists()
+
+
+def test_one_source_failing_still_produces_digest(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture
+) -> None:
+    from digest import offline
+
+    caplog.set_level("INFO", logger="digest")
+    # Lobsters now 404s in offline mode, like a source outage
+    routes = [r for r in offline.ROUTES if r[0] != "lobste.rs"]
+    monkeypatch.setattr(offline, "ROUTES", routes)
+    data = tmp_path / "data"
+
+    assert run_offline(data, tmp_path / "site") == 0
+
+    digest = json.loads((data / "digests" / "2026-09-27.json").read_text(encoding="utf-8"))
+    assert len(digest["items"]) == 10
+    assert {i["source"] for i in digest["items"]} <= {"hn", "github"}
+    assert "fetched_lobsters=0" in caplog.text
