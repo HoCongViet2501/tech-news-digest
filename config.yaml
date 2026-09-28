@@ -35,5 +35,4 @@ ai:
 
 delivery:
   telegram: {enabled: true}
-  # TODO(owner): set to your GitHub Pages URL once the repo exists.
-  pages: {enabled: true, base_url: "https://<username>.github.io/tech-digest/"}
+  pages: {enabled: true, base_url: "https://hocongviet2501.github.io/tech-news-digest/"}
