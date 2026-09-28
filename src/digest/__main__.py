@@ -15,6 +15,7 @@ from digest.config import Config, ConfigError, load_config
 from digest.fetchers import fetch_all
 from digest.http import make_client
 from digest.models import Item
+from digest.normalize import normalize
 from digest.offline import is_offline, offline_transport
 
 SOURCE_NAMES = ("hn", "github", "lobsters", "reddit", "rss")
@@ -101,7 +102,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     fetched = asyncio.run(_fetch(cfg, now, args.only))
     for name, items in fetched.items():
         print(f"{name}: {len(items)}")
-    # Next steps (normalize → filter → render → deliver) are added in later steps.
+    items = normalize([item for batch in fetched.values() for item in batch])
+    print(f"after_dedupe: {len(items)}")
+    # Next steps (filter → render → deliver) are added in later steps.
     return 0
 
 

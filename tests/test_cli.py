@@ -114,3 +114,5 @@ def test_offline_dry_run_reports_items_per_source(capsys: pytest.CaptureFixture[
     assert code == 0
     assert "hn: 47" in out
     assert "lobsters: 25" in out
+    # 47 + 25 minus 5 URLs present on both (checked against the fixtures by hand)
+    assert "after_dedupe: 67" in out
