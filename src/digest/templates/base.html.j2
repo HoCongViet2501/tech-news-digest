@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="{{ language }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{{ t.title }}{% endblock %}</title>
+<link rel="alternate" type="application/rss+xml" title="{{ t.title }}" href="feed.xml">
+<style>
+:root { --bg: #fdfdfc; --fg: #1d1d1b; --muted: #6b6b66; --link: #1a56b8; --line: #e4e4df; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #161615; --fg: #e8e8e3; --muted: #9a9a93; --link: #7fb0ff; --line: #2e2e2b; }
+}
+* { box-sizing: border-box; }
+body { margin: 0 auto; max-width: 44rem; padding: 1.5rem 1rem 3rem; background: var(--bg); color: var(--fg);
+  font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+a { color: var(--link); }
+h1 { font-size: 1.4rem; margin: 0 0 1rem; }
+h2 { font-size: 1.1rem; margin: 2rem 0 .5rem; }
+ol.items { padding-left: 1.5rem; }
+ol.items li { margin: 0 0 1rem; overflow-wrap: anywhere; }
+.meta { color: var(--muted); font-size: .875rem; }
+ul.archive { list-style: none; padding: 0; columns: 2; }
+footer { margin-top: 2rem; border-top: 1px solid var(--line); padding-top: 1rem; font-size: .875rem; }
+</style>
+</head>
+<body>
+{% block body %}{% endblock %}
+<footer><a href="index.html">{{ t.title }}</a> · <a href="feed.xml">{{ t.feed }}</a></footer>
+</body>
+</html>

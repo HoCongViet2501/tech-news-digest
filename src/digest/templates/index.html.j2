@@ -1,0 +1,14 @@
+{% extends "base.html.j2" %}
+{% from "_items.html.j2" import items %}
+{% block body %}
+<h1>{{ t.title }}{% if digest %} · {{ digest.date.isoformat() }}{% endif %}</h1>
+{{ items(digest, t) }}
+{% if archive %}
+<h2>{{ t.archive }}</h2>
+<ul class="archive">
+{% for day in archive %}
+  <li><a href="{{ day.isoformat() }}.html">{{ day.isoformat() }}</a></li>
+{% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{% macro items(digest, t) %}
+{% if digest and digest.items %}
+<ol class="items">
+{% for it in digest.items %}
+  <li>
+    <a href="{{ it.url }}">{{ it.title }}</a><br>
+    <span class="meta">{{ it.source }} · {{ it.score }}{% if it.also_on %} · {{ t.also_on }} {{ it.also_on | join(", ") }}{% endif %}{% if it.discussion_url %} · <a href="{{ it.discussion_url }}">{{ t.discussion }}</a>{% endif %}</span>
+  </li>
+{% endfor %}
+</ol>
+{% else %}
+<p>{{ t.empty }}</p>
+{% endif %}
+{% endmacro %}

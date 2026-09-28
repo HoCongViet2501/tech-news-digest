@@ -15,9 +15,10 @@ from digest.config import Config, ConfigError, load_config
 from digest.fetchers import fetch_all
 from digest.filter import apply_filters, rank
 from digest.http import make_client
-from digest.models import Item
+from digest.models import Digest, Item
 from digest.normalize import normalize
 from digest.offline import is_offline, offline_transport
+from digest.render import render_telegram
 from digest.state import StateError, load_seen
 
 SOURCE_NAMES = ("hn", "github", "lobsters", "reddit", "rss")
@@ -104,16 +105,22 @@ def main(argv: Sequence[str] | None = None) -> int:
     )
 
     fetched = asyncio.run(_fetch(cfg, now, args.only))
-    for name, items in fetched.items():
-        print(f"{name}: {len(items)}")
-    items = normalize([item for batch in fetched.values() for item in batch])
-    print(f"after_dedupe: {len(items)}")
+    stats: dict[str, int | str] = {f"fetched_{name}": len(items) for name, items in fetched.items()}
+    items = [item for batch in fetched.values() for item in batch]
+    stats["fetched"] = len(items)
+    items = normalize(items)
+    stats["after_dedupe"] = len(items)
     items = apply_filters(items, cfg, seen)
-    print(f"after_filter: {len(items)}")
-    ranked = rank(items, cfg, limit=cfg.max_items)
-    for n, item in enumerate(ranked, 1):
-        print(f"{n:2}. [{item.source} {item.score}] {item.title}  ({item.relevance:.2f})")
-    # Next steps (render → deliver) are added in later steps.
+    stats["after_filter"] = len(items)
+    digest = Digest(date=run_date, items=rank(items, cfg, limit=cfg.max_items), stats=stats)
+    digest.stats["sent"] = len(digest.items)
+    log.info("stats %s", " ".join(f"{k}={v}" for k, v in digest.stats.items()))
+
+    messages = render_telegram(digest, cfg.ai.output_language)
+    if args.dry_run:
+        print("\n\n".join(messages))
+        return 0
+    # Delivery and state saving are added in step 7.
     return 0
 
 

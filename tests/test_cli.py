@@ -1,3 +1,4 @@
+import re
 from datetime import UTC, date, datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -97,8 +98,9 @@ def test_now_is_0700_local_on_explicit_date() -> None:
 
 
 def test_offline_dry_run_reports_items_per_source(
-    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+    tmp_path: Path, capsys: pytest.CaptureFixture[str], caplog: pytest.LogCaptureFixture
 ) -> None:
+    caplog.set_level("INFO", logger="digest")
     code = main(
         [
             "run",
@@ -114,16 +116,17 @@ def test_offline_dry_run_reports_items_per_source(
         ]
     )
 
-    out = capsys.readouterr().out
+    captured = capsys.readouterr()
     assert code == 0
-    assert "hn: 47" in out
-    assert "lobsters: 25" in out
+    assert "fetched_hn=47" in caplog.text
+    assert "fetched_lobsters=25" in caplog.text
     # 47 + 25 minus 5 URLs present on both (checked against the fixtures by hand)
-    assert "after_dedupe: 67" in out
+    assert "after_dedupe=67" in caplog.text
     # thresholds + include/exclude keywords from config.yaml, counted by hand
-    assert "after_filter: 33" in out
-    ranked_lines = [line for line in out.splitlines() if line[:3].strip().rstrip(".").isdigit()]
-    assert len(ranked_lines) == 10
+    assert "after_filter=33" in caplog.text
+    assert captured.out.startswith("<b>Bản tin công nghệ · 2026-09-27</b>")
+    numbered = [line for line in captured.out.splitlines() if re.match(r"\d+\. <a ", line)]
+    assert len(numbered) == 10
 
 
 def test_main_reports_corrupt_state(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:

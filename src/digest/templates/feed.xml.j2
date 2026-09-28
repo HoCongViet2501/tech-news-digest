@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+<channel>
+<title>{{ t.title }}</title>
+<link>{{ base_url }}</link>
+<description>{{ t.title }}</description>
+<language>{{ language }}</language>
+{% for digest in digests %}
+{% for it in digest.items %}
+<item>
+  <title>{{ it.title }}</title>
+  <link>{{ it.url }}</link>
+  <guid isPermaLink="false">{{ it.id }}</guid>
+  <pubDate>{{ it.published_at | rfc822 }}</pubDate>
+  <description>{{ it.source }} · {{ it.score }}{% if it.discussion_url %} · {{ it.discussion_url }}{% endif %} · {{ base_url }}{{ digest.date.isoformat() }}.html</description>
+</item>
+{% endfor %}
+{% endfor %}
+</channel>
+</rss>

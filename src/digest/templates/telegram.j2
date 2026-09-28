@@ -1,0 +1,9 @@
+{# Telegram parse_mode=HTML: only b, i, a, code tags are used. #}
+{% macro header(digest, t) %}
+<b>{{ t.title }} · {{ digest.date.isoformat() }}</b>
+{% endmacro %}
+
+{% macro item(n, it, t) %}
+{{ n }}. <a href="{{ it.url }}">{{ it.title | truncate_title }}</a>
+<i>{{ it.source }} · {{ it.score }}{% if it.also_on %} · {{ t.also_on }} {{ it.also_on | join(", ") }}{% endif %}</i>{% if it.discussion_url %} · <a href="{{ it.discussion_url }}">{{ t.discussion }}</a>{% endif %}
+{% endmacro %}
