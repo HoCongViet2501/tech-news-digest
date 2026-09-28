@@ -2,8 +2,8 @@ import asyncio
 
 import httpx
 import respx
-from conftest import NOW, fixture_bytes
 
+from conftest import NOW, fixture_bytes
 from digest.config import Config
 from digest.fetchers import fetch_all
 from digest.http import make_client

@@ -4,10 +4,10 @@ from pathlib import Path
 
 import feedparser
 import pytest
-from snapshot import assert_snapshot
 
 from digest.models import Digest, ScoredItem
 from digest.render import TELEGRAM_LIMIT, build_site, render_telegram
+from snapshot import assert_snapshot
 
 TRICKY = 'Rust & C++ <templates> "quoted" 🚀'
 BASE = "https://example.github.io/tech-digest/"

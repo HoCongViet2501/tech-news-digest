@@ -2,8 +2,8 @@ import asyncio
 from datetime import datetime, timedelta, timezone
 
 import respx
-from conftest import NOW, fixture_bytes
 
+from conftest import NOW, fixture_bytes
 from digest.config import Config
 from digest.fetchers import lobsters
 from digest.http import make_client
