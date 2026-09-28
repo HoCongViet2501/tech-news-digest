@@ -1,3 +1,4 @@
+import json
 import re
 from datetime import UTC, date, datetime
 from pathlib import Path
@@ -136,3 +137,113 @@ def test_main_reports_corrupt_state(tmp_path: Path, capsys: pytest.CaptureFixtur
 
     assert code == 2
     assert "seen.json" in capsys.readouterr().err
+
+
+def run_offline(data: Path, site: Path, *extra: str) -> int:
+    return main(
+        [
+            "run",
+            "--date",
+            "2026-09-27",
+            "--config",
+            str(REPO_CONFIG),
+            "--data-dir",
+            str(data),
+            "--site-dir",
+            str(site),
+            *extra,
+        ]
+    )
+
+
+def test_offline_run_delivers_via_stub_and_saves_state(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    data, site = tmp_path / "data", tmp_path / "site"
+
+    assert run_offline(data, site) == 0
+
+    out = capsys.readouterr().out
+    assert out.startswith("<b>Bản tin công nghệ · 2026-09-27</b>")
+    seen = json.loads((data / "seen.json").read_text(encoding="utf-8"))
+    digest = json.loads((data / "digests" / "2026-09-27.json").read_text(encoding="utf-8"))
+    assert len(digest["items"]) == 10
+    assert set(seen) == {i["id"] for i in digest["items"]}
+    assert set(seen.values()) == {"2026-09-27"}
+    assert (site / "index.html").is_file()
+    assert (site / "2026-09-27.html").is_file()
+    assert (site / "feed.xml").is_file()
+
+
+def test_second_run_does_not_repeat_items(tmp_path: Path) -> None:
+    data, site = tmp_path / "data", tmp_path / "site"
+    digest_file = data / "digests" / "2026-09-27.json"
+
+    assert run_offline(data, site) == 0
+    first = [i["id"] for i in json.loads(digest_file.read_text(encoding="utf-8"))["items"]]
+    assert run_offline(data, site) == 0
+    both = [i["id"] for i in json.loads(digest_file.read_text(encoding="utf-8"))["items"]]
+
+    second = both[len(first) :]
+    assert both[: len(first)] == first
+    assert len(second) == 10
+    assert not set(first) & set(second)
+
+
+def test_dry_run_writes_nothing(tmp_path: Path) -> None:
+    data, site = tmp_path / "data", tmp_path / "site"
+
+    assert run_offline(data, site, "--dry-run") == 0
+
+    assert not data.exists()
+    assert not site.exists()
+
+
+def test_missing_telegram_secrets_fail_before_fetching(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    monkeypatch.delenv("DIGEST_OFFLINE")
+
+    def no_network(*args, **kwargs):
+        raise AssertionError("must not fetch without secrets")
+
+    monkeypatch.setattr("digest.__main__._fetch", no_network)
+
+    code = run_offline(tmp_path / "data", tmp_path / "site")
+
+    assert code == 2
+    err = capsys.readouterr().err
+    assert "TELEGRAM_BOT_TOKEN" in err
+    assert "TELEGRAM_CHAT_ID" in err
+
+
+def test_telegram_failure_exits_nonzero_and_saves_nothing(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from digest.deliver.telegram import DeliveryError
+
+    async def failing(*args, **kwargs):
+        raise DeliveryError("HTTP 400: can't parse entities")
+
+    monkeypatch.setattr("digest.__main__._deliver", failing)
+    data = tmp_path / "data"
+
+    assert run_offline(data, tmp_path / "site") == 1
+    assert not (data / "seen.json").exists()
+    assert not (data / "digests").exists()
+
+
+def test_all_sources_failing_sends_warning_instead_of_digest(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    async def nothing(cfg, now, only):
+        return {"hn": [], "github": [], "lobsters": [], "rss": []}
+
+    monkeypatch.setattr("digest.__main__._fetch", nothing)
+    data = tmp_path / "data"
+
+    assert run_offline(data, tmp_path / "site") == 0
+    out = capsys.readouterr().out
+    assert "⚠️" in out
+    assert "<a " not in out
+    assert not (data / "digests").exists()

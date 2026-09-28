@@ -22,6 +22,12 @@ uv run python -m digest run --date 2026-09-01  # re-run a specific day
 DIGEST_OFFLINE=1 uv run python -m digest run --dry-run  # use test fixtures, no network
 ```
 
+A real run sends to Telegram (needs `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` in the
+environment or `.env`), then writes `data/seen.json`, `data/digests/YYYY-MM-DD.json` and
+the static site in `site/`. With `DIGEST_OFFLINE=1` and no `--dry-run`, Telegram is replaced
+by a stub that prints the messages, and state is still written; pass `--data-dir` and
+`--site-dir` pointing to a scratch directory to keep fixture data out of `data/`.
+
 Behavior is configured in `config.yaml`.
 
 ## Test and lint

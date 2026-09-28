@@ -1,10 +1,11 @@
 """Render a Digest to Telegram HTML messages, static web pages and an RSS feed."""
 
-from datetime import timedelta
+from datetime import date, timedelta
 from email.utils import format_datetime
 from pathlib import Path
 
 from jinja2 import Environment, PackageLoader
+from markupsafe import escape
 
 from digest.models import Digest
 
@@ -20,6 +21,7 @@ LABELS = {
         "archive": "Lưu trữ",
         "empty": "Hôm nay không có tin mới.",
         "feed": "RSS",
+        "all_failed": "Hôm nay không lấy được tin từ nguồn nào. Xem log GitHub Actions.",
     },
     "en": {
         "title": "Tech digest",
@@ -28,6 +30,7 @@ LABELS = {
         "archive": "Archive",
         "empty": "Nothing new today.",
         "feed": "RSS",
+        "all_failed": "No source could be fetched today. Check the GitHub Actions log.",
     },
 }
 
@@ -71,6 +74,12 @@ def render_telegram(digest: Digest, language: str) -> list[str]:
             current = candidate
     messages.append(current)
     return messages
+
+
+def render_warning(run_date: date, language: str) -> str:
+    """Sent instead of an empty digest when every source failed."""
+    t = labels(language)
+    return f"⚠️ <b>{escape(t['title'])} · {run_date.isoformat()}</b>\n{escape(t['all_failed'])}"
 
 
 def build_site(digests: list[Digest], out_dir: Path, base_url: str, language: str) -> None:
