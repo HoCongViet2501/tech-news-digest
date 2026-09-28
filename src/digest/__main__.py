@@ -12,6 +12,8 @@ from zoneinfo import ZoneInfo
 
 from dotenv import load_dotenv
 
+from digest.ai.llm import AIUnavailable, LLMChain
+from digest.ai.scorer import score_items
 from digest.config import Config, ConfigError, load_config
 from digest.deliver.pages import build_pages
 from digest.deliver.telegram import DeliveryError, send_messages
@@ -112,7 +114,11 @@ def _telegram_secrets(cfg: Config, dry_run: bool) -> dict[str, str] | None:
 
 
 def build_digest(
-    cfg: Config, fetched: dict[str, list[Item]], seen: dict[str, str], run_date: date
+    cfg: Config,
+    fetched: dict[str, list[Item]],
+    seen: dict[str, str],
+    run_date: date,
+    chain: LLMChain | None = None,
 ) -> Digest:
     stats: dict[str, int | str] = {f"fetched_{name}": len(items) for name, items in fetched.items()}
     items = [item for batch in fetched.values() for item in batch]
@@ -121,7 +127,21 @@ def build_digest(
     stats["after_dedupe"] = len(items)
     items = apply_filters(items, cfg, seen)
     stats["after_filter"] = len(items)
-    ranked = rank(items, cfg, limit=cfg.max_items)
+    if not cfg.ai.enabled:
+        ranked = rank(items, cfg, limit=cfg.max_items)
+    else:
+        # Widen the heuristic cut so the AI has enough candidates to choose from.
+        candidates = rank(items, cfg, limit=cfg.ai.candidates)
+        try:
+            ranked, completion = score_items(chain or LLMChain([]), cfg, candidates)
+        except AIUnavailable:
+            log.warning("ai: unavailable, sending heuristic ranking")
+            ranked = candidates[: cfg.max_items]
+            stats["ai"] = "unavailable"
+        else:
+            stats["ai"] = completion.provider
+            stats["ai_tokens_in"] = completion.prompt_tokens
+            stats["ai_tokens_out"] = completion.completion_tokens
     stats["sent"] = len(ranked)
     return Digest(date=run_date, items=ranked, stats=stats)
 
@@ -150,7 +170,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         ",".join(args.only) if args.only else "all",
     )
 
-    digest = build_digest(cfg, asyncio.run(_fetch(cfg, now, args.only)), seen, run_date)
+    chain = LLMChain.from_config(cfg.ai) if cfg.ai.enabled else None
+    digest = build_digest(cfg, asyncio.run(_fetch(cfg, now, args.only)), seen, run_date, chain)
     log.info("stats %s", " ".join(f"{k}={v}" for k, v in digest.stats.items()))
 
     language = cfg.ai.output_language

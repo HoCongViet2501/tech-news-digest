@@ -72,6 +72,7 @@ class AIProviderConfig(_Strict):
 class AIConfig(_Strict):
     enabled: bool = False
     output_language: str = "vi"
+    candidates: int = Field(default=60, gt=0)  # heuristic top-N sent to the AI scorer
     providers: list[AIProviderConfig] = Field(default_factory=list)
 
 
