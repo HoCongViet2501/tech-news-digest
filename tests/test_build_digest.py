@@ -3,11 +3,13 @@ import json
 from datetime import UTC, date, datetime
 
 import pytest
+import respx
 
-from digest.__main__ import build_digest
+from conftest import fixture_bytes
+from digest.__main__ import add_summaries, build_digest
 from digest.ai.llm import LLMChain, Provider
 from digest.config import Config
-from digest.models import Item
+from digest.models import Digest, Item, ScoredItem
 from fakes import FakeClient, rate_limited
 
 DAY = date(2026, 9, 27)
@@ -86,3 +88,56 @@ def test_ai_unavailable_falls_back_to_heuristic(cfg: Config, chain: LLMChain) ->
     assert [i.title for i in digest.items] == ["Story 80", "Story 79", "Story 78"]
     assert digest.stats["ai"] == "unavailable"
     assert all(i.reason is None for i in digest.items)
+
+
+def _digest_with(*urls: str, ai: str = "groq") -> Digest:
+    items = [
+        ScoredItem(
+            id=f"id{n}",
+            source="rss:lwn",
+            title=f"T{n}",
+            url=url,
+            score=1,
+            published_at=datetime(2026, 9, 27, tzinfo=UTC),
+            relevance=5.0,
+        )
+        for n, url in enumerate(urls, 1)
+    ]
+    return Digest(date=DAY, items=items, stats={"ai": ai, "ai_tokens_in": 100, "ai_tokens_out": 20})
+
+
+@respx.mock
+def test_add_summaries_fills_items_and_adds_tokens(cfg: Config) -> None:
+    cfg.ai.enabled = True
+    respx.get("https://lwn.net/a").respond(200, content=fixture_bytes("article_lwn.html"))
+    respx.get("https://lwn.net/b").respond(404)
+    client = FakeClient(
+        json.dumps({"items": [{"id": "id1", "summary": "Tóm tắt", "why_it_matters": "Vì"}]})
+    )
+
+    digest = add_summaries(
+        cfg,
+        _digest_with("https://lwn.net/a", "https://lwn.net/b"),
+        LLMChain([Provider("groq", "m", client)]),
+    )
+
+    assert [(i.summary, i.why_it_matters) for i in digest.items] == [
+        ("Tóm tắt", "Vì"),
+        (None, None),
+    ]
+    assert digest.stats["ai_tokens_in"] == 200
+    assert digest.stats["ai_tokens_out"] == 40
+
+
+def test_add_summaries_skipped_when_ai_unavailable(cfg: Config) -> None:
+    cfg.ai.enabled = True
+    client = FakeClient()
+
+    digest = add_summaries(
+        cfg,
+        _digest_with("https://lwn.net/a", ai="unavailable"),
+        LLMChain([Provider("p", "m", client)]),
+    )
+
+    assert client.calls == []
+    assert digest.items[0].summary is None

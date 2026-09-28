@@ -54,6 +54,12 @@ def build_targets(now: datetime) -> list[Target]:
         ),
         Target("lobsters", "https://lobste.rs/hottest.json", "lobsters.json"),
         Target("rss", "https://lwn.net/headlines/rss", "rss_lwn.xml"),
+        # Summarizer context: article page, HN comments fallback, GitHub description fallback
+        Target("article", "https://lwn.net/Articles/1096897/", "article_lwn.html"),
+        Target("hn_item", "https://hn.algolia.com/api/v1/items/49868083", "hn_item.json"),
+        Target(
+            "github_repo", "https://api.github.com/repos/vectorize-io/hindsight", "github_repo.json"
+        ),
     ]
 
 

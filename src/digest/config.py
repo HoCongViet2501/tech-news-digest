@@ -73,6 +73,8 @@ class AIConfig(_Strict):
     enabled: bool = False
     output_language: str = "vi"
     candidates: int = Field(default=60, gt=0)  # heuristic top-N sent to the AI scorer
+    summary_batch_size: int = Field(default=5, gt=0)
+    article_max_chars: int = Field(default=4000, gt=0)
     providers: list[AIProviderConfig] = Field(default_factory=list)
 
 

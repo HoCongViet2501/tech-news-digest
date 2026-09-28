@@ -10,10 +10,12 @@ from datetime import date, datetime, time
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+import httpx
 from dotenv import load_dotenv
 
 from digest.ai.llm import AIUnavailable, LLMChain
 from digest.ai.scorer import score_items
+from digest.ai.summarizer import gather_context, summarize_items
 from digest.config import Config, ConfigError, load_config
 from digest.deliver.pages import build_pages
 from digest.deliver.telegram import DeliveryError, send_messages
@@ -21,7 +23,7 @@ from digest.fetchers import fetch_all
 from digest.filter import apply_filters, rank
 from digest.http import make_client
 from digest.logs import setup_logging
-from digest.models import Digest, Item
+from digest.models import Digest, Item, ScoredItem
 from digest.normalize import normalize
 from digest.offline import is_offline, offline_transport
 from digest.render import render_telegram, render_warning
@@ -146,6 +148,35 @@ def build_digest(
     return Digest(date=run_date, items=ranked, stats=stats)
 
 
+async def _contexts(
+    cfg: Config, items: list[ScoredItem], transport: httpx.AsyncBaseTransport | None
+) -> dict[str, str]:
+    async with make_client(transport) as client:
+        texts = await asyncio.gather(
+            *(gather_context(client, item, cfg.ai.article_max_chars) for item in items)
+        )
+    return {item.id: text for item, text in zip(items, texts, strict=True) if text}
+
+
+def add_summaries(
+    cfg: Config,
+    digest: Digest,
+    chain: LLMChain,
+    transport: httpx.AsyncBaseTransport | None = None,
+) -> Digest:
+    """Summarize the final items; skipped when AI scoring was unavailable."""
+    if not cfg.ai.enabled or digest.stats.get("ai") in (None, "unavailable"):
+        return digest
+    contexts = asyncio.run(_contexts(cfg, digest.items, transport))
+    items, completions = summarize_items(chain, cfg, digest.items, contexts)
+    stats = dict(digest.stats)
+    for c in completions:
+        stats["ai_tokens_in"] = int(stats.get("ai_tokens_in", 0)) + c.prompt_tokens
+        stats["ai_tokens_out"] = int(stats.get("ai_tokens_out", 0)) + c.completion_tokens
+    stats["summarized"] = sum(1 for i in items if i.summary)
+    return digest.model_copy(update={"items": items, "stats": stats})
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
     setup_logging()
@@ -172,6 +203,8 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     chain = LLMChain.from_config(cfg.ai) if cfg.ai.enabled else None
     digest = build_digest(cfg, asyncio.run(_fetch(cfg, now, args.only)), seen, run_date, chain)
+    if chain is not None:
+        digest = add_summaries(cfg, digest, chain, offline_transport() if is_offline() else None)
     log.info("stats %s", " ".join(f"{k}={v}" for k, v in digest.stats.items()))
 
     language = cfg.ai.output_language
