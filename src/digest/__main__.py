@@ -13,10 +13,12 @@ from dotenv import load_dotenv
 
 from digest.config import Config, ConfigError, load_config
 from digest.fetchers import fetch_all
+from digest.filter import apply_filters, rank
 from digest.http import make_client
 from digest.models import Item
 from digest.normalize import normalize
 from digest.offline import is_offline, offline_transport
+from digest.state import StateError, load_seen
 
 SOURCE_NAMES = ("hn", "github", "lobsters", "reddit", "rss")
 
@@ -54,6 +56,7 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     )
     run.add_argument("--date", type=_parse_date, help="run for a specific day (YYYY-MM-DD)")
     run.add_argument("--config", type=Path, default=Path("config.yaml"), help="path to config")
+    run.add_argument("--data-dir", type=Path, default=Path("data"), help="state directory")
 
     return parser.parse_args(argv)
 
@@ -84,7 +87,8 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     try:
         cfg = load_config(args.config)
-    except ConfigError as exc:
+        seen = load_seen(args.data_dir / "seen.json")
+    except (ConfigError, StateError) as exc:
         print(exc, file=sys.stderr)
         return 2
 
@@ -104,7 +108,12 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(f"{name}: {len(items)}")
     items = normalize([item for batch in fetched.values() for item in batch])
     print(f"after_dedupe: {len(items)}")
-    # Next steps (filter → render → deliver) are added in later steps.
+    items = apply_filters(items, cfg, seen)
+    print(f"after_filter: {len(items)}")
+    ranked = rank(items, cfg, limit=cfg.max_items)
+    for n, item in enumerate(ranked, 1):
+        print(f"{n:2}. [{item.source} {item.score}] {item.title}  ({item.relevance:.2f})")
+    # Next steps (render → deliver) are added in later steps.
     return 0
 
 

@@ -96,7 +96,9 @@ def test_now_is_0700_local_on_explicit_date() -> None:
     assert now == datetime(2026, 8, 15, 0, 0, tzinfo=UTC)
 
 
-def test_offline_dry_run_reports_items_per_source(capsys: pytest.CaptureFixture[str]) -> None:
+def test_offline_dry_run_reports_items_per_source(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
     code = main(
         [
             "run",
@@ -107,6 +109,8 @@ def test_offline_dry_run_reports_items_per_source(capsys: pytest.CaptureFixture[
             "2026-09-27",
             "--config",
             str(REPO_CONFIG),
+            "--data-dir",
+            str(tmp_path),
         ]
     )
 
@@ -116,3 +120,16 @@ def test_offline_dry_run_reports_items_per_source(capsys: pytest.CaptureFixture[
     assert "lobsters: 25" in out
     # 47 + 25 minus 5 URLs present on both (checked against the fixtures by hand)
     assert "after_dedupe: 67" in out
+    # thresholds + include/exclude keywords from config.yaml, counted by hand
+    assert "after_filter: 33" in out
+    ranked_lines = [line for line in out.splitlines() if line[:3].strip().rstrip(".").isdigit()]
+    assert len(ranked_lines) == 10
+
+
+def test_main_reports_corrupt_state(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    (tmp_path / "seen.json").write_text("{broken", encoding="utf-8")
+
+    code = main(["run", "--dry-run", "--config", str(REPO_CONFIG), "--data-dir", str(tmp_path)])
+
+    assert code == 2
+    assert "seen.json" in capsys.readouterr().err
