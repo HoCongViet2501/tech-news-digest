@@ -30,6 +30,13 @@ by a stub that prints the messages, and state is still written; pass `--data-dir
 
 Behavior is configured in `config.yaml`.
 
+## AI scoring and summaries
+
+Set `ai.enabled: true` in `config.yaml` and provide at least one provider key
+(`GEMINI_API_KEY`, `GROQ_API_KEY`) in `.env` locally or as a GitHub Actions secret.
+Providers are tried in order; with no working provider the digest is sent with the
+heuristic ranking and an "AI unavailable" note. Prompts live in `src/digest/ai/prompts/`.
+
 ## Test and lint
 
 ```bash

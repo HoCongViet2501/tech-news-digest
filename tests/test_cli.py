@@ -266,3 +266,39 @@ def test_one_source_failing_still_produces_digest(
     assert len(digest["items"]) == 10
     assert {i["source"] for i in digest["items"]} <= {"hn", "github"}
     assert "fetched_lobsters=0" in caplog.text
+
+
+def test_ai_enabled_without_keys_sends_heuristic_digest_with_note(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    for var in ("GEMINI_API_KEY", "GROQ_API_KEY", "OPENROUTER_API_KEY"):
+        monkeypatch.delenv(var, raising=False)
+    config = tmp_path / "config.yaml"
+    config.write_text(
+        REPO_CONFIG.read_text(encoding="utf-8").replace(
+            "enabled: false            # turned on in phase 2", "enabled: true"
+        ),
+        encoding="utf-8",
+    )
+    data = tmp_path / "data"
+
+    code = main(
+        [
+            "run",
+            "--date",
+            "2026-09-27",
+            "--config",
+            str(config),
+            "--data-dir",
+            str(data),
+            "--site-dir",
+            str(tmp_path / "site"),
+        ]
+    )
+
+    out = capsys.readouterr().out
+    assert code == 0
+    assert "AI không khả dụng hôm nay" in out
+    digest = json.loads((data / "digests" / "2026-09-27.json").read_text(encoding="utf-8"))
+    assert len(digest["items"]) == 10
+    assert digest["stats"]["ai"] == "unavailable"

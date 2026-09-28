@@ -14,3 +14,11 @@ Options if it is revived:
   `REDDIT_CLIENT_ID` / `REDDIT_CLIENT_SECRET` secrets and owner account setup.
 - Subreddit RSS (`/r/{sub}/top/.rss?t=day`): no key, but no upvote score, so
   `min_score` cannot be applied; would need a `base_score` like other RSS feeds.
+
+## Local embedding scorer (optional extra from phase 2 step 7)
+
+Not implemented. An `embed` dependency group with sentence-transformers
+(`paraphrase-multilingual-MiniLM-L12-v2`) could score titles by cosine similarity
+to the profile when every LLM provider fails, instead of falling back to the
+heuristic. Fully local and keyless, but adds a large dependency and model download
+to every Actions run.
