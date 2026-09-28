@@ -22,6 +22,7 @@ LABELS = {
         "empty": "Hôm nay không có tin mới.",
         "feed": "RSS",
         "all_failed": "Hôm nay không lấy được tin từ nguồn nào. Xem log GitHub Actions.",
+        "ai_unavailable": "AI không khả dụng hôm nay, tin được xếp hạng theo heuristic.",
     },
     "en": {
         "title": "Tech digest",
@@ -31,6 +32,7 @@ LABELS = {
         "empty": "Nothing new today.",
         "feed": "RSS",
         "all_failed": "No source could be fetched today. Check the GitHub Actions log.",
+        "ai_unavailable": "AI unavailable today; items are ranked by heuristic.",
     },
 }
 
@@ -52,6 +54,9 @@ _env = Environment(
 )
 _env.filters["truncate_title"] = _truncate
 _env.filters["rfc822"] = format_datetime
+_env.filters["score10"] = lambda value: f"{value:g}/10"
+# RSS <description> holds HTML: escape once for HTML (plain str), autoescape adds the XML layer.
+_env.filters["html_text"] = lambda value: str(escape(value))
 
 
 def render_telegram(digest: Digest, language: str) -> list[str]:

@@ -12,7 +12,7 @@
   <link>{{ it.url }}</link>
   <guid isPermaLink="false">{{ it.id }}</guid>
   <pubDate>{{ it.published_at | rfc822 }}</pubDate>
-  <description>{{ it.source }} · {{ it.score }}{% if it.discussion_url %} · {{ it.discussion_url }}{% endif %} · {{ base_url }}{{ digest.date.isoformat() }}.html</description>
+  <description>{% if it.summary %}{{ it.summary | html_text }} {% endif %}{% if it.why_it_matters %}💡 {{ it.why_it_matters | html_text }} · {% endif %}{{ it.source }} · {{ it.score }}{% if it.discussion_url %} · {{ it.discussion_url }}{% endif %} · {{ base_url }}{{ digest.date.isoformat() }}.html</description>
 </item>
 {% endfor %}
 {% endfor %}

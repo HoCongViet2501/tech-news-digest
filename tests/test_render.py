@@ -1,3 +1,4 @@
+import html
 import re
 from datetime import UTC, date, datetime
 from pathlib import Path
@@ -147,3 +148,73 @@ def test_day_page_snapshot(site: Path) -> None:
 
 def test_feed_snapshot(site: Path) -> None:
     assert_snapshot("feed.xml", (site / "feed.xml").read_text(encoding="utf-8"))
+
+
+# --- AI fields (phase 2) -----------------------------------------------------------
+
+
+def ai_digest(**stats) -> Digest:
+    return Digest(
+        date=date(2026, 9, 27),
+        items=[
+            scored(
+                1,
+                relevance=8.0,
+                reason="Liên quan Postgres",
+                summary="Postgres 19 thêm <async I/O> & nhiều cải tiến.",
+                why_it_matters="Bạn dùng Postgres hằng ngày.",
+            ),
+            scored(2, relevance=7.5, reason="r", summary=None, why_it_matters=None),
+            scored(3, relevance=6.0),  # not AI-scored: no reason
+        ],
+        stats={"ai": "groq", **stats},
+    )
+
+
+def test_telegram_shows_summary_why_and_ai_score() -> None:
+    [msg] = render_telegram(ai_digest(), "vi")
+    first = msg.split("\n\n")[1]
+
+    assert "Postgres 19 thêm &lt;async I/O&gt; &amp; nhiều cải tiến." in first
+    assert "💡 Bạn dùng Postgres hằng ngày." in first
+    assert "8/10" in first
+    assert "7.5/10" in msg
+
+
+def test_telegram_hides_score_for_items_without_ai_reason() -> None:
+    [msg] = render_telegram(ai_digest(), "vi")
+    third = msg.split("\n\n")[3]
+
+    assert "/10" not in third
+
+
+def test_telegram_notes_when_ai_was_unavailable() -> None:
+    digest = sample_digest().model_copy(update={"stats": {"ai": "unavailable"}})
+
+    [msg] = render_telegram(digest, "vi")
+
+    assert "AI không khả dụng hôm nay" in msg.split("\n\n")[0]
+
+
+def test_telegram_has_no_ai_note_when_ai_worked_or_disabled() -> None:
+    assert "AI không khả dụng" not in render_telegram(ai_digest(), "vi")[0]
+    assert "AI không khả dụng" not in render_telegram(sample_digest(), "vi")[0]
+
+
+def test_telegram_ai_snapshot() -> None:
+    assert_snapshot("telegram_ai_vi.html", "\n=====\n".join(render_telegram(ai_digest(), "vi")))
+
+
+def test_site_and_feed_show_summary_and_why(tmp_path: Path) -> None:
+    build_site([ai_digest()], tmp_path, base_url=BASE, language="vi")
+
+    page = (tmp_path / "2026-09-27.html").read_text(encoding="utf-8")
+    assert "Postgres 19 thêm &lt;async I/O&gt; &amp; nhiều cải tiến." in page
+    assert "Bạn dùng Postgres hằng ngày." in page
+    assert "8/10" in page
+    feed = feedparser.parse((tmp_path / "feed.xml").read_bytes())
+    entry = next(e for e in feed.entries if e.title == "Story 1")
+    # description is HTML; readers display its unescaped text, so "<async I/O>" survives
+    shown = html.unescape(entry.description)
+    assert "Postgres 19 thêm <async I/O> & nhiều cải tiến." in shown
+    assert "Bạn dùng Postgres hằng ngày." in shown
