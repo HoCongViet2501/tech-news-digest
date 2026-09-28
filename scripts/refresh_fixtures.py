@@ -53,11 +53,6 @@ def build_targets(now: datetime) -> list[Target]:
             "github_search.json",
         ),
         Target("lobsters", "https://lobste.rs/hottest.json", "lobsters.json"),
-        Target(
-            "reddit",
-            "https://www.reddit.com/r/programming/top.json?t=day&limit=25",
-            "reddit_programming.json",
-        ),
         Target("rss", "https://lwn.net/headlines/rss", "rss_lwn.xml"),
     ]
 

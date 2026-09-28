@@ -13,7 +13,6 @@ ROUTES: list[tuple[str, str, str]] = [
     ("github.com", "/trending/", "github_trending_python.html"),
     ("api.github.com", "/search/repositories", "github_search.json"),
     ("lobste.rs", "/hottest.json", "lobsters.json"),
-    ("www.reddit.com", "/r/", "reddit_programming.json"),
     ("lwn.net", "/headlines/rss", "rss_lwn.xml"),
 ]
 

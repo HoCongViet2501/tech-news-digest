@@ -11,7 +11,8 @@ sources:
   hackernews: {enabled: true, min_points: 50}
   github_trending: {enabled: true, languages: [python, go], min_stars_today: 50}
   lobsters: {enabled: true, min_score: 10}
-  reddit: {enabled: true, subreddits: [programming, golang, Python], min_score: 100}
+  # Disabled: anonymous JSON API now redirects to login / 403. See docs/IDEAS.md.
+  reddit: {enabled: false, subreddits: [programming, golang, Python], min_score: 100}
   rss: []   # entries like {name: ..., url: ..., base_score: 60}
 
 filters:
