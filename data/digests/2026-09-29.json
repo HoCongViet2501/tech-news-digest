@@ -1,0 +1,186 @@
+{
+ "date": "2026-09-29",
+ "items": [
+  {
+   "id": "aecfd421f648355709cba603a8145ba85eed7af8",
+   "source": "hn",
+   "title": "Sonnet 5.5",
+   "url": "https://anthropic.com/claude-sonnet-5-5",
+   "discussion_url": "https://news.ycombinator.com/item?id=49881850",
+   "score": 631,
+   "comments": 425,
+   "published_at": "2026-09-28T17:58:11Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.8936,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "a37b0826d6222c22c3f904b69ab6197254762a4b",
+   "source": "hn",
+   "title": "It's Time to Investigate the AI Labs",
+   "url": "https://calnewport.com/its-time-to-investigate-the-ai-labs",
+   "discussion_url": "https://news.ycombinator.com/item?id=49883471",
+   "score": 332,
+   "comments": 131,
+   "published_at": "2026-09-28T19:53:35Z",
+   "tags": [],
+   "also_on": [
+    "lobsters"
+   ],
+   "relevance": 9.8298,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "477373a559eced7e638839d1ce8f40c661727a42",
+   "source": "hn",
+   "title": "Coding is not solved",
+   "url": "https://blog.alexewerlof.com/p/coding-is-not-solved",
+   "discussion_url": "https://news.ycombinator.com/item?id=49877988",
+   "score": 449,
+   "comments": 451,
+   "published_at": "2026-09-28T13:52:57Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.6809,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "9641f0c84823c573b79c4cf9239a8c0338fb6bd5",
+   "source": "lobsters",
+   "title": "Yes, no AI is now a feature",
+   "url": "https://blog.documentfoundation.org/blog/2026/09/03/yes-no-ai-is-now-a-feature",
+   "discussion_url": "https://lobste.rs/s/sxcz4v/yes_no_ai_is_now_feature",
+   "score": 110,
+   "comments": 10,
+   "published_at": "2026-09-28T04:58:26.129000-05:00",
+   "tags": [
+    "practices",
+    "vibecoding"
+   ],
+   "also_on": [],
+   "relevance": 9.6154,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "1c9d47a9794512b728120064b4e1ef5b112970d2",
+   "source": "github",
+   "title": "debpalash/VoiceStudio: VoiceStudio is the open-source, fully-local ElevenLabs alternative — voice cloning, voice design, video dubbing, dictation, transcription & audiobook creation in 646 languages.",
+   "url": "https://github.com/debpalash/VoiceStudio",
+   "discussion_url": null,
+   "score": 3221,
+   "comments": 0,
+   "published_at": "2026-09-29T10:23:46.444314+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.5455,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "cf35c5927732ccc7a8e9ac3f2b08bd32045ec3aa",
+   "source": "hn",
+   "title": "Pirating the Pirates",
+   "url": "https://mubi.com/en/notebook/posts/pirating-the-pirates",
+   "discussion_url": "https://news.ycombinator.com/item?id=49880036",
+   "score": 442,
+   "comments": 234,
+   "published_at": "2026-09-28T15:54:15Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.4681,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "5136b4775f01edbaa01dfc1248034782b06fa354",
+   "source": "hn",
+   "title": "MicroLLM Lab – Try 7 tiny LLM's in the browser",
+   "url": "https://stateofutopia.com/experiments/microllmlab",
+   "discussion_url": "https://news.ycombinator.com/item?id=49882781",
+   "score": 154,
+   "comments": 66,
+   "published_at": "2026-09-28T18:58:53Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.2766,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "3496f7f400007fbbafb8b3f95e6f15b526264e74",
+   "source": "hn",
+   "title": "Windows 11½",
+   "url": "https://definitelynotwindows.com",
+   "discussion_url": "https://news.ycombinator.com/item?id=49881747",
+   "score": 441,
+   "comments": 135,
+   "published_at": "2026-09-28T17:51:24Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.2553,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "bad67d806019fa7ab30d47a623c6beb4f17bd7b8",
+   "source": "lobsters",
+   "title": "What makes Lisp difficult to read?",
+   "url": "https://paultm.nl/paren-thesis",
+   "discussion_url": "https://lobste.rs/s/fqype1/what_makes_lisp_difficult_read",
+   "score": 66,
+   "comments": 41,
+   "published_at": "2026-09-27T23:44:02.263000-05:00",
+   "tags": [
+    "plt"
+   ],
+   "also_on": [
+    "hn"
+   ],
+   "relevance": 9.0769,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "aadd1dae2e0b10dd0a5d20da20bc2cb5133c7782",
+   "source": "hn",
+   "title": "The problem is not AI code, but not knowing about system architecture or intent",
+   "url": "https://ssp.sh/brain/the-problem-is-not-the-ai-code-but-nobody-knows-anything-anymore",
+   "discussion_url": "https://news.ycombinator.com/item?id=49880312",
+   "score": 351,
+   "comments": 225,
+   "published_at": "2026-09-28T16:11:42Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0426,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  }
+ ],
+ "stats": {
+  "fetched_hn": 100,
+  "fetched_github": 30,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 155,
+  "after_dedupe": 151,
+  "after_filter": 71,
+  "sent": 10
+ }
+}
