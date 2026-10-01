@@ -8,7 +8,7 @@
 
 {% macro item(n, it, t) %}
 {{ n }}. <a href="{{ it.url }}">{{ it.title | truncate_title }}</a>
-<i>{{ it.source }} · {{ it.score }}{% if it.reason is not none %} · {{ it.relevance | score10 }}{% endif %}{% if it.also_on %} · {{ t.also_on }} {{ it.also_on | join(", ") }}{% endif %}</i>{% if it.discussion_url %} · <a href="{{ it.discussion_url }}">{{ t.discussion }}</a>{% endif %}
+<i>{{ it.source }} · {{ it.score }}{% if it.reason is not none %} · {{ it.relevance | score10 }}{% endif %}{% if it.also_on %} · {{ t.also_on }} {{ it.also_on | join(", ") }}{% endif %}</i>{% if it.discussion_url %} · <a href="{{ it.discussion_url }}">{{ t.discussion }}</a>{% endif +%}
 {% if it.summary %}
 {{ it.summary }}
 {% endif %}
