@@ -1,36 +1,37 @@
 timezone: Asia/Ho_Chi_Minh
 max_items: 10
 
-# TODO(owner): edit to match your stack.
 profile: |
-  Backend developer, Go and Python, Postgres, Kubernetes.
-  Interested in: LLM tooling, system design, database performance, developer productivity.
-  Not interested in: crypto, hiring drama, frontend framework wars.
+  Full-stack developer who also does DevOps (TypeScript/JavaScript, Python, Go; Docker, Kubernetes, CI/CD, cloud).
+  Interested in: new AI technology and models, AI-powered developer tools (coding agents, MCP, LLM tooling),
+  trending open-source projects on GitHub, practical full-stack and DevOps tools, releases and techniques
+  that make day-to-day work faster.
+  Not interested in: crypto, hiring/layoff drama, funding news, pure marketing or opinion pieces without technical depth.
 
 sources:
   hackernews: {enabled: true, min_points: 50}
-  github_trending: {enabled: true, languages: [python, go], min_stars_today: 50}
+  github_trending: {enabled: true, languages: [python, go, typescript], min_stars_today: 50}
   lobsters: {enabled: true, min_score: 10}
   # Disabled: anonymous JSON API now redirects to login / 403. See docs/IDEAS.md.
   reddit: {enabled: false, subreddits: [programming, golang, Python], min_score: 100}
   rss: []   # entries like {name: ..., url: ..., base_score: 60}
 
 filters:
-  keywords_include: [postgres, kubernetes, llm, golang]   # always kept, even below threshold
+  keywords_include: [llm, mcp, agent, kubernetes, docker, terraform, postgres]   # always kept, even below threshold
   keywords_exclude: [crypto, bitcoin, nft]
   seen_retention_days: 60
 
 ai:
-  enabled: false            # turned on in phase 2
+  enabled: true
   output_language: vi       # summaries and reasons are written in Vietnamese
   providers:                # tried in order; on failure move to the next
     - name: gemini
       base_url: https://generativelanguage.googleapis.com/v1beta/openai/
-      model: gemini-2.5-flash-lite
+      model: gemini-3.5-flash-lite
       api_key_env: GEMINI_API_KEY
     - name: groq
       base_url: https://api.groq.com/openai/v1
-      model: llama-3.3-70b-versatile
+      model: openai/gpt-oss-120b
       api_key_env: GROQ_API_KEY
 
 delivery:
