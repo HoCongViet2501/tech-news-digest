@@ -33,6 +33,10 @@ ai:
       base_url: https://api.groq.com/openai/v1
       model: openai/gpt-oss-120b
       api_key_env: GROQ_API_KEY
+    - name: openrouter
+      base_url: https://openrouter.ai/api/v1
+      model: nvidia/nemotron-3-super-120b-a12b:free
+      api_key_env: OPENROUTER_API_KEY
 
 delivery:
   telegram: {enabled: true}
