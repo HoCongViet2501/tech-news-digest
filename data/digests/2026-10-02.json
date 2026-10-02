@@ -1,0 +1,195 @@
+{
+ "date": "2026-10-02",
+ "items": [
+  {
+   "id": "c4764ac37ccdddc8e7717cba92f01f19c175907a",
+   "source": "github",
+   "title": "mksglu/context-mode: Context window optimization for AI coding agents. Sandboxes tool output (98% reduction), persists session memory, and enforces routing across 17 platforms via MCP + hooks.",
+   "url": "https://github.com/mksglu/context-mode",
+   "discussion_url": null,
+   "score": 362,
+   "comments": 0,
+   "published_at": "2026-10-02T10:14:40.213911+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Tối ưu context window cho AI coding agents qua MCP rất thiết thực.",
+   "summary": "Context Mode là một MCP server giúp tối ưu hóa cửa sổ ngữ cảnh cho các AI coding agent bằng cách sandbox dữ liệu thô từ các công cụ, giúp giảm tới 98% lượng token tiêu thụ. Nó lưu trữ lịch sử phiên làm việc vào SQLite và sử dụng FTS5 kết hợp BM25 để khôi phục ngữ cảnh liên tục, đồng thời ép buộc agent viết mã lệnh để xử lý dữ liệu thay vì đọc trực tiếp vào ngữ cảnh.",
+   "why_it_matters": "Công cụ này giúp bạn tiết kiệm đáng kể chi phí token và duy trì hiệu quả làm việc xuyên suốt của các coding agent trong các dự án phát triển phần mềm phức tạp."
+  },
+  {
+   "id": "b8da10635efbda0c4c165e7fe1eeef9cfbfe64a1",
+   "source": "github",
+   "title": "thedotmack/claude-mem: Persistent Context Across Sessions for Every Agent – Captures everything your agent does during sessions, compresses it with AI, and injects relevant context back into future sessions. Works with Claude Code, OpenClaw, Codex, Gemini, Hermes, Copilot, OpenCode + More",
+   "url": "https://github.com/thedotmack/claude-mem",
+   "discussion_url": null,
+   "score": 99,
+   "comments": 0,
+   "published_at": "2026-10-02T10:14:40.213911+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ duy trì context dài hạn qua các phiên cho coding agents.",
+   "summary": "Claude-Mem là một hệ thống nén và duy trì bộ nhớ ngữ cảnh liên tục cho Claude Code cùng nhiều agent khác, tự động ghi lại quá trình sử dụng công cụ để tạo tóm tắt ngữ nghĩa. Hệ thống này giúp các phiên làm việc sau tiếp tục kế thừa kiến thức dự án một cách liền mạch thông qua cơ chế lưu trữ linh hoạt.",
+   "why_it_matters": "Giải pháp này giúp các AI coding assistant giữ được ngữ cảnh xuyên suốt giữa các lần làm việc, giúp quá trình phát triển dự án full-stack không bị ngắt quãng."
+  },
+  {
+   "id": "95d0ef58b8507cc21951f13118d8b066df670c79",
+   "source": "hn",
+   "title": "Several vulnerabilities have been discovered in the Linux kernel",
+   "url": "https://lwn.net/Articles/1097401",
+   "discussion_url": "https://news.ycombinator.com/item?id=49928121",
+   "score": 143,
+   "comments": 78,
+   "published_at": "2026-10-01T23:10:44Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Phát hiện lỗ hổng quan trọng mới trong Linux kernel.",
+   "summary": "Debian đã phát hành bản cập nhật bảo mật mới cho nhân Linux nhằm khắc phục hàng loạt lỗ hổng nghiêm trọng được phát hiện gần đây. Bản thông báo liệt kê chi tiết các mã CVE ảnh hưởng đến gói phần mềm kernel trên hệ thống.",
+   "why_it_matters": "Cập nhật này rất quan trọng đối với công việc quản trị hạ tầng DevOps của bạn để đảm bảo an toàn cho các môi trường chạy Linux."
+  },
+  {
+   "id": "586d93ecfa9d49563367800d9d5fdee8aa740a31",
+   "source": "github",
+   "title": "diegosouzapw/OmniRoute: Never stop coding. Free MIT AI gateway: one endpoint, 359 providers (150+ free), 1200+ models Kimi, Claude, GPT, Gemini, GLM, DeepSeek, MiniMax. Works with Claude Code, Codex, Cursor, OpenCode, Cline & Copilot. Quota-aware auto-fallback, RTK+Caveman compression saves 15-95% tokens, MCP/A2A, Desktop/PWA. Built by hundreds of contributors",
+   "url": "https://github.com/diegosouzapw/OmniRoute",
+   "discussion_url": null,
+   "score": 311,
+   "comments": 0,
+   "published_at": "2026-10-02T10:14:40.213911+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "AI gateway miễn phí giúp tiết kiệm token và hỗ trợ coding agents.",
+   "summary": "OmniRoute là một AI gateway mã nguồn mở hỗ trợ kết nối tới hàng trăm nhà cung cấp và hàng nghìn mô hình AI thông qua một endpoint duy nhất tương thích với OpenAI. Phiên bản mới cập nhật thêm tính năng điều phối hạn mức thông minh (Quota-Share), cầu nối đa phương thức (vision, audio, video) và danhcatalog miễn phí.",
+   "why_it_matters": "Công cụ này cung cấp một endpoint linh hoạt và miễn phí để tích hợp nhiều LLM khác nhau vào các ứng dụng và coding agent của bạn."
+  },
+  {
+   "id": "b3718af977585a65af28c1a42323002dc305191c",
+   "source": "github",
+   "title": "earendil-works/pi: AI agent toolkit: unified LLM API, agent loop, TUI, coding agent CLI",
+   "url": "https://github.com/earendil-works/pi",
+   "discussion_url": null,
+   "score": 298,
+   "comments": 0,
+   "published_at": "2026-10-02T10:14:40.213911+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Toolkit cho AI agent với unified LLM API và CLI.",
+   "summary": "Pi là một bộ công cụ phát triển AI agent bao gồm CLI tương tác, vòng lặp agent, TUI và API đa nhà cung cấp hợp nhất cho các mô hình ngôn ngữ lớn. Dự án cung cấp kiến trúc mô-đun rõ ràng cùng các tài liệu hướng dẫn cấu hình môi trường chạy sandbox hoặc Docker để đảm bảo an toàn thực thi.",
+   "why_it_matters": "Bộ công cụ này cung cấp nền tảng mã nguồn mở mạnh mẽ để xây dựng các agent tự động hóa quy trình phát triển và kiểm thử phần mềm."
+  },
+  {
+   "id": "b32771b7cbd062acd99f25d40417b7796c12c719",
+   "source": "github",
+   "title": "mvschwarz/openrig: Build your own network of agents from Claude Code, Codex and Pi: persistent teams with roles, shared context and owned work.",
+   "url": "https://github.com/mvschwarz/openrig",
+   "discussion_url": null,
+   "score": 642,
+   "comments": 0,
+   "published_at": "2026-10-02T10:14:40.213911+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Xây dựng mạng lưới team AI agents phối hợp cùng nhau.",
+   "summary": "OpenRig là một open-source system giúp gom nhóm các AI coding agent như Claude Code và Codex thành một network có tổ chức, chuyên môn hóa với shared context. Công cụ này cho phép định nghĩa các agent team qua file YAML và quản lý chung một hệ thống thông qua CLI đơn giản. Nó yêu cầu Node.js và tmux trên macOS hoặc Linux để vận hành.",
+   "why_it_matters": "Giúp tự động hóa quy trình phát triển phần mềm bằng cách kết hợp nhiều coding agent để phối hợp thực hiện các tác vụ coding phức tạp."
+  },
+  {
+   "id": "317971da35b148b97cc4914c72e77fb99e55982a",
+   "source": "hn",
+   "title": "Clef: Open-weight decision models, and new RL fine-tuning platform",
+   "url": "https://blog.cloudflare.com/clef-decision-models",
+   "discussion_url": "https://news.ycombinator.com/item?id=49923692",
+   "score": 450,
+   "comments": 165,
+   "published_at": "2026-10-01T16:18:57Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Mô hình quyết định open-weight và nền tảng RL fine-tuning.",
+   "summary": "Cloudflare giới thiệu Clef và Clef-flash, các open-weight decision model được train chuyên biệt để đưa ra các classification và structured output nhanh chóng, chi phí thấp. Các model này tương thích với Jev-API và có thêm vision encoder cùng context window lớn 64k. Đi kèm là một nền tảng reinforcement learning (RL) mới để fine-tune trực tiếp trên Workers AI.",
+   "why_it_matters": "Cung cấp giải pháp thay thế LLM thông thường với độ trễ thấp hơn cho các tác vụ routing và quyết định tự động trong các agentic workflow."
+  },
+  {
+   "id": "e2fd3d80ed7c3bcfb802b552ae086c12140565af",
+   "source": "github",
+   "title": "TencentCloud/Octop: A smarter, self-hosted AI assistant — multi-user, multi-agent.",
+   "url": "https://github.com/TencentCloud/Octop",
+   "discussion_url": null,
+   "score": 189,
+   "comments": 0,
+   "published_at": "2026-10-02T10:14:40.213911+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "AI assistant self-hosted hỗ trợ multi-agent.",
+   "summary": "Octop là một self-hosted AI assistant platform hỗ trợ đa người dùng và đa agent, chạy hoàn toàn cục bộ trên máy của bạn với một tiến trình duy nhất. Hệ thống cung cấp web dashboard, CLI, tích hợp nhiều kênh chat IM và hỗ trợ ACP để kết nối trực tiếp với các IDE workflow như Claude Code. Nó đi kèm các tính năng bảo mật tích hợp, RAG knowledge base và hệ thống quản lý bộ nhớ linh hoạt.",
+   "why_it_matters": "Mang lại một môi trường trợ lý AI tự host toàn diện với khả năng tích hợp sâu vào môi trường phát triển cục bộ và DevOps."
+  },
+  {
+   "id": "1578476054924343c30bb9dcb9ee3ac3e52de914",
+   "source": "github",
+   "title": "alirezarezvani/claude-skills: 380 Claude Code skills & agent skills & plugins (30+ Agents, 70+ custom commands, 380+ skills, customizable references, scripts)for Claude Code, Codex, Gemini CLI, Cursor, and 8 more coding agents — engineering, marketing, product, compliance, C-level advisory, research, business operations, commercial & finance, and your daily productivity skills.",
+   "url": "https://github.com/alirezarezvani/claude-skills",
+   "discussion_url": null,
+   "score": 138,
+   "comments": 0,
+   "published_at": "2026-10-02T10:14:40.213911+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Kho tàng skills và lệnh tùy chỉnh cho Claude Code và các coding agents.",
+   "summary": "Kho lưu trữ mã nguồn mở này cung cấp hơn 380 production-ready skill và plugin cho các AI coding agent phổ biến như Claude Code, Codex, Cursor và Gemini CLI. Các gói này bao gồm các kỹ thuật chuyên ngành từ engineering, DevOps, security cho đến các script Python không phụ thuộc vào thư viện bên ngoài. Bộ công cụ giúp mở rộng năng lực tự động hóa của các coding agent hiện có.",
+   "why_it_matters": "Trang bị thêm các kỹ năng chuyên sâu về kỹ thuật và DevOps để nâng cao hiệu quả làm việc hàng ngày với các coding agent."
+  },
+  {
+   "id": "b409dc7b8493b72378e884c89cdd651343e64c0f",
+   "source": "github",
+   "title": "Shubhamsaboo/awesome-llm-apps: 100+ AI Agents, Agent Skills and RAG Apps - Free and Open Source.",
+   "url": "https://github.com/Shubhamsaboo/awesome-llm-apps",
+   "discussion_url": null,
+   "score": 136,
+   "comments": 0,
+   "published_at": "2026-10-02T10:14:40.213911+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Tổng hợp ứng dụng AI Agents và RAG mã nguồn mở.",
+   "summary": "Shubhamsaboo/awesome-llm-apps là bộ sưu tập mã nguồn mở gồm hơn 100 AI agent, agent skill và RAG app chạy được với nhiều LLM khác nhau. Các template này hỗ trợ cài đặt nhanh chóng qua dòng lệnh để bổ sung kỹ năng mới cho các coding agent hoặc chạy độc lập làm ứng dụng thực tế. Dự án cung cấp cả các skill kiểm tra mã nguồn như Scope Creep Detector và Dependency Doctor.",
+   "why_it_matters": "Cung cấp sẵn các mẫu agent và công cụ thực tế giúp tối ưu hóa quy trình kiểm tra mã nguồn và phát triển ứng dụng AI."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 94,
+  "fetched_github": 57,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 176,
+  "after_dedupe": 171,
+  "after_filter": 92,
+  "ai": "gemini",
+  "ai_tokens_in": 17497,
+  "ai_tokens_out": 3968,
+  "sent": 10,
+  "summarized": 10
+ }
+}
