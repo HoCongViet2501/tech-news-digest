@@ -7,7 +7,7 @@ from pathlib import Path
 from jinja2 import Environment, PackageLoader
 from markupsafe import escape
 
-from digest.models import Digest
+from digest.models import Digest, TelegramMessage
 
 TELEGRAM_LIMIT = 4096
 TITLE_MAX = 200
@@ -75,32 +75,48 @@ _env.filters["score10"] = lambda value: f"{value:g}/10"
 _env.filters["html_text"] = lambda value: str(escape(value))
 
 
-def render_telegram(digest: Digest, language: str) -> list[str]:
-    """One or more parse_mode=HTML messages, each <= 4096 chars; items are never split."""
+def telegram_messages(
+    digest: Digest, language: str, buttons: bool = False
+) -> list[TelegramMessage]:
+    """parse_mode=HTML messages, each <= 4096 chars; items are never split.
+
+    With buttons, each message lists the numbered items it contains so delivery can
+    attach one like/dislike row per item.
+    """
     macros = _env.get_template("telegram.j2").module
     t = labels(language)
     header = str(macros.header(digest, t)).strip()
-    blocks = [str(macros.item(n, item, t)).strip() for n, item in enumerate(digest.items, 1)]
+    # (text, (number, item id) or None)
+    blocks: list[tuple[str, tuple[int, str] | None]] = [
+        (str(macros.item(n, item, t)).strip(), (n, item.id))
+        for n, item in enumerate(digest.items, 1)
+    ]
     if not blocks:
-        blocks = [t["empty"]]
+        blocks = [(t["empty"], None)]
     if digest.radar:
         # Section headings ride on the first block of each section so they never end a message.
-        radar = [str(macros.radar_entry(entry, t)).strip() for entry in digest.radar]
-        radar[0] = f"<b>📡 {escape(t['radar'])}</b>\n{radar[0]}"
-        blocks[0] = f"<b>📰 {escape(t['news'])}</b>\n{blocks[0]}"
+        radar = [(str(macros.radar_entry(entry, t)).strip(), None) for entry in digest.radar]
+        radar[0] = (f"<b>📡 {escape(t['radar'])}</b>\n{radar[0][0]}", None)
+        blocks[0] = (f"<b>📰 {escape(t['news'])}</b>\n{blocks[0][0]}", blocks[0][1])
         blocks = radar + blocks
 
-    messages: list[str] = []
-    current = header
-    for block in blocks:
-        candidate = f"{current}\n\n{block}" if current else block
-        if len(candidate) > TELEGRAM_LIMIT and current:
+    messages: list[TelegramMessage] = []
+    current = TelegramMessage(text=header)
+    for text, ref in blocks:
+        candidate = f"{current.text}\n\n{text}" if current.text else text
+        if len(candidate) > TELEGRAM_LIMIT and current.text:
             messages.append(current)
-            current = block
+            current = TelegramMessage(text=text)
         else:
-            current = candidate
+            current.text = candidate
+        if buttons and ref is not None:
+            current.buttons.append(ref)
     messages.append(current)
     return messages
+
+
+def render_telegram(digest: Digest, language: str) -> list[str]:
+    return [m.text for m in telegram_messages(digest, language)]
 
 
 def render_warning(run_date: date, language: str) -> str:

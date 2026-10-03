@@ -69,3 +69,8 @@ class Digest(BaseModel):
     items: list[ScoredItem]
     radar: list[RadarEntry] = Field(default_factory=list)
     stats: dict[str, int | str] = Field(default_factory=dict)
+
+
+class TelegramMessage(BaseModel):
+    text: str  # parse_mode=HTML
+    buttons: list[tuple[int, str]] = Field(default_factory=list)  # (number shown, item id)

@@ -301,3 +301,31 @@ def test_site_shows_radar_only_when_present(tmp_path: Path) -> None:
 
     build_site([sample_digest()], tmp_path / "plain", BASE, "vi")
     assert "📡" not in (tmp_path / "plain" / "2026-09-27.html").read_text(encoding="utf-8")
+
+
+# --- Feedback buttons ------------------------------------------------------------
+
+
+def test_buttons_follow_the_items_in_each_message() -> None:
+    from digest.render import telegram_messages
+
+    long = "x" * 1500
+    digest = Digest(date=date(2026, 9, 27), items=[scored(n, summary=long) for n in range(1, 6)])
+
+    messages = telegram_messages(digest, "vi", buttons=True)
+
+    assert len(messages) > 1
+    numbers = [n for m in messages for n, _ in m.buttons]
+    assert numbers == [1, 2, 3, 4, 5]
+    for m in messages:
+        for n, item_id in m.buttons:
+            assert item_id == f"id{n}"
+            assert f"{n}. <a " in m.text
+
+
+def test_no_buttons_unless_asked() -> None:
+    from digest.render import telegram_messages
+
+    assert all(not m.buttons for m in telegram_messages(radar_digest(), "vi"))
+    radar_messages = telegram_messages(radar_digest(), "vi", buttons=True)
+    assert [n for m in radar_messages for n, _ in m.buttons] == [1, 2, 3]

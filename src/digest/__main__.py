@@ -24,12 +24,12 @@ from digest.fetchers import fetch_all
 from digest.filter import apply_filters, rank
 from digest.http import make_client
 from digest.logs import setup_logging
-from digest.models import Digest, Item, ScoredItem
+from digest.models import Digest, Item, ScoredItem, TelegramMessage
 from digest.normalize import normalize
 from digest.offline import is_offline, offline_transport
 from digest.radar.github import github_token
 from digest.radar.run import RadarResult, run_radar
-from digest.render import render_telegram, render_warning
+from digest.render import render_warning, telegram_messages
 from digest.state import (
     StateError,
     load_radar_map,
@@ -103,10 +103,12 @@ async def _fetch(cfg: Config, now: datetime, only: list[str] | None) -> dict[str
         return await fetch_all(cfg, client, now, only)
 
 
-async def _deliver(cfg: Config, messages: list[str], secrets: dict[str, str] | None) -> None:
+async def _deliver(
+    cfg: Config, messages: list[TelegramMessage], secrets: dict[str, str] | None
+) -> None:
     if is_offline():
         # Offline stub: print instead of sending, and report success so state is written.
-        print("\n\n".join(messages))
+        print("\n\n".join(m.text for m in messages))
         return
     if not cfg.delivery.telegram.enabled or secrets is None:
         log.info("telegram: disabled, not sending")
@@ -258,12 +260,12 @@ def main(argv: Sequence[str] | None = None) -> int:
     all_failed = digest.stats["fetched"] == 0
     if all_failed:
         log.error("every source returned 0 items; sending a warning instead of a digest")
-        messages = [render_warning(run_date, language)]
+        messages = [TelegramMessage(text=render_warning(run_date, language))]
     else:
-        messages = render_telegram(digest, language)
+        messages = telegram_messages(digest, language, buttons=cfg.feedback.enabled)
 
     if args.dry_run:
-        print("\n\n".join(messages))
+        print("\n\n".join(m.text for m in messages))
         return 0
 
     try:

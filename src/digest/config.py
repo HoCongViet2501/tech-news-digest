@@ -95,6 +95,19 @@ class RadarConfig(_Strict):
     state_retention_days: int = Field(default=365, gt=0)
 
 
+class FeedbackConfig(_Strict):
+    enabled: bool = False  # like/dislike buttons under each item
+    window_days: int = Field(default=30, gt=0)  # votes older than this are ignored
+    max_examples: int = Field(default=15, ge=0)  # liked and disliked titles each, in the prompt
+    source_weight_min: float = Field(default=0.5, gt=0)
+    source_weight_max: float = Field(default=1.5, gt=0)
+
+
+class WeeklyConfig(_Strict):
+    top_items: int = Field(default=5, gt=0)
+    max_profile_suggestions: int = Field(default=3, ge=0)
+
+
 class TelegramConfig(_Strict):
     enabled: bool = True
 
@@ -117,6 +130,8 @@ class Config(_Strict):
     filters: FiltersConfig = Field(default_factory=FiltersConfig)
     ai: AIConfig = Field(default_factory=AIConfig)
     radar: RadarConfig = Field(default_factory=RadarConfig)
+    feedback: FeedbackConfig = Field(default_factory=FeedbackConfig)
+    weekly: WeeklyConfig = Field(default_factory=WeeklyConfig)
     delivery: DeliveryConfig = Field(default_factory=DeliveryConfig)
 
     @field_validator("timezone")
