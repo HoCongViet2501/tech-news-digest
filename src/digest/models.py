@@ -45,7 +45,27 @@ class Dependency(BaseModel):
         return f"{self.ecosystem}:{self.name}"
 
 
+RadarKind = Literal["vulnerability", "major", "breaking"]
+
+
+class RadarEntry(BaseModel):
+    id: str  # state key: "release:owner/repo@tag" or "vuln:<osv id>:<ecosystem>:<name>"
+    kind: RadarKind
+    ecosystem: Ecosystem
+    package: str
+    installed: str | None
+    version: str | None = None  # release tag, or the first fixed version of a vulnerability
+    title: str
+    url: str
+    severity: str | None = None
+    published_at: datetime | None = None
+    summary: str | None = None  # AI: release notes in 1-2 sentences
+    action_required: bool | None = None  # AI: does upgrading need changes on our side?
+    notes: str | None = Field(default=None, exclude=True)  # raw release notes, never saved
+
+
 class Digest(BaseModel):
     date: date
     items: list[ScoredItem]
+    radar: list[RadarEntry] = Field(default_factory=list)
     stats: dict[str, int | str] = Field(default_factory=dict)
