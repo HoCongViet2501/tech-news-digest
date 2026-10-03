@@ -28,6 +28,7 @@ from digest.feedback.collect import (
     parse_votes,
 )
 from digest.feedback.signals import examples, recent_votes, source_weights
+from digest.feedback.weekly import build_weekly
 from digest.fetchers import fetch_all
 from digest.filter import apply_filters, rank
 from digest.http import make_client
@@ -37,7 +38,7 @@ from digest.normalize import normalize
 from digest.offline import OFFLINE_CHAT_ID, is_offline, offline_transport
 from digest.radar.github import github_token
 from digest.radar.run import RadarResult, run_radar
-from digest.render import render_warning, telegram_messages
+from digest.render import render_warning, render_weekly, telegram_messages
 from digest.state import (
     StateError,
     append_votes,
@@ -100,6 +101,12 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     feedback.add_argument("--dry-run", action="store_true", help="print new votes; write no state")
     feedback.add_argument("--config", type=Path, default=Path("config.yaml"), help="config path")
     feedback.add_argument("--data-dir", type=Path, default=Path("data"), help="state directory")
+
+    weekly = commands.add_parser("weekly", help="send the Sunday recap of the last 7 days")
+    weekly.add_argument("--dry-run", action="store_true", help="print the recap; send nothing")
+    weekly.add_argument("--date", type=_parse_date, help="last day of the week (YYYY-MM-DD)")
+    weekly.add_argument("--config", type=Path, default=Path("config.yaml"), help="config path")
+    weekly.add_argument("--data-dir", type=Path, default=Path("data"), help="state directory")
 
     return parser.parse_args(argv)
 
@@ -254,7 +261,40 @@ def main(argv: Sequence[str] | None = None) -> int:
     load_dotenv(Path(".env"))
     if args.command == "feedback":
         return collect_feedback(args)
+    if args.command == "weekly":
+        return send_weekly(args)
     return run_digest(args)
+
+
+def send_weekly(args: argparse.Namespace) -> int:
+    """Recap of the 7 days ending on --date (default today); writes no state."""
+    try:
+        cfg = load_config(args.config)
+        secrets = _telegram_secrets(cfg, args.dry_run)
+    except ConfigError as exc:
+        print(exc, file=sys.stderr)
+        return 2
+    end = resolve_run_date(args.date, cfg.tz)
+    votes = load_votes(args.data_dir / FEEDBACK)
+    report = build_weekly(load_digests(args.data_dir / "digests"), votes, end, cfg.weekly.top_items)
+    log.info(
+        "weekly %s..%s items=%d votes=%d likes=%d",
+        report.start,
+        report.end,
+        report.items_sent,
+        report.votes,
+        report.likes,
+    )
+    message = TelegramMessage(text=render_weekly(report, cfg.ai.output_language))
+    if args.dry_run:
+        print(message.text)
+        return 0
+    try:
+        asyncio.run(_deliver(cfg, [message], secrets))
+    except DeliveryError as exc:
+        log.error("telegram delivery failed: %s", exc)
+        return 1
+    return 0
 
 
 def collect_feedback(args: argparse.Namespace) -> int:
