@@ -1,0 +1,200 @@
+{
+ "date": "2026-10-03",
+ "items": [
+  {
+   "id": "e30f8dee0b0bb108c2cf44a554cfd974a5900266",
+   "source": "github",
+   "title": "NVIDIA/SkillSpector: Security scanner for AI agent skills. Detect vulnerabilities, malicious patterns, security risks, prompt injection, data exfiltration, and supply-chain risks in Claude Code, Codex, and MCP skills before you install them.",
+   "url": "https://github.com/NVIDIA/SkillSpector",
+   "discussion_url": null,
+   "score": 168,
+   "comments": 0,
+   "published_at": "2026-10-03T10:00:18.151354+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ quét bảo mật cực kỳ quan trọng cho các Claude Code và MCP skills.",
+   "summary": "NVIDIA SkillSpector là một công cụ quét bảo mật mã nguồn mở được thiết kế để phát hiện các lỗ hổng, mã độc và rủi ro chuỗi cung ứng trong các skill của AI agent như Claude Code và Codex. Công cụ này hỗ trợ phân tích tĩnh kết hợp đánh giá ngữ nghĩa bằng LLM, truy vấn lỗ hổng thời gian thực từ OSV.dev qua 71 mẫu bảo mật khác nhau.",
+   "why_it_matters": "Công cụ này giúp bạn đảm bảo an toàn khi tích hợp các AI agent và MCP skills vào quy trình phát triển mà không sợ dính mã độc hay rò rỉ dữ liệu."
+  },
+  {
+   "id": "369731e9ece2dde66d8704b6a9f8bb8bcf3c5e72",
+   "source": "github",
+   "title": "aquasecurity/trivy: Find vulnerabilities, misconfigurations, secrets, SBOM in containers, Kubernetes, code repositories, clouds and more",
+   "url": "https://github.com/aquasecurity/trivy",
+   "discussion_url": null,
+   "score": 22,
+   "comments": 0,
+   "published_at": "2026-10-03T10:00:18.151354+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ bảo mật quen thuộc quét container, Kubernetes và vulnerabilities.",
+   "summary": "Trivy là một máy quét bảo mật toàn diện cho phép tìm kiếm lỗ hổng CVE, vấn đề cấu hình IaC, thông tin nhạy cảm và SBOM trong các container image, filesystem, kho lưu trữ Git và cụm Kubernetes. Dự án hỗ trợ nhiều ngôn ngữ lập trình, hệ điều hành và tích hợp sẵn vào các nền tảng như GitHub Actions hay VS Code.",
+   "why_it_matters": "Đây là một công cụ thiết yếu trong DevOps giúp bạn tự động hóa kiểm tra bảo mật container và CI/CD pipeline một cách nhanh chóng."
+  },
+  {
+   "id": "d659f89dd8df2d9933136925947b3f87c3579c10",
+   "source": "github",
+   "title": "argoproj/argo-cd: Declarative Continuous Deployment for Kubernetes",
+   "url": "https://github.com/argoproj/argo-cd",
+   "discussion_url": null,
+   "score": 13,
+   "comments": 0,
+   "published_at": "2026-10-03T10:00:18.151354+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Argo CD là công cụ cốt lõi cho GitOps và Kubernetes CI/CD.",
+   "summary": "Argo CD là công cụ triển khai liên tục (Continuous Delivery) theo mô hình GitOps, khai báo trạng thái cho Kubernetes. Nó giúp tự động hóa quá trình đồng bộ ứng dụng và cấu hình từ kho lưu trữ Git trực tiếp lên các cụm Kubernetes một cách có kiểm soát.",
+   "why_it_matters": "Giúp bạn quản lý hạ tầng Kubernetes và triển khai ứng dụng full-stack theo chuẩn GitOps một cách minh bạch và dễ kiểm toán."
+  },
+  {
+   "id": "c16d567c3839dc86df75a9ddd64d970e557d6800",
+   "source": "github",
+   "title": "kubernetes-sigs/kueue: 🚦 Kubernetes-native Job Queueing and Scheduling",
+   "url": "https://github.com/kubernetes-sigs/kueue",
+   "discussion_url": null,
+   "score": 3,
+   "comments": 0,
+   "published_at": "2026-10-03T10:00:18.151354+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ quản lý Job Queueing và Scheduling native cho Kubernetes.",
+   "summary": "Kueue là một API và bộ điều khiển (controller) quản lý hàng đợi job cấp cao nguyên bản cho Kubernetes, quyết định thời điểm các job được phép chạy hoặc dừng dựa trên độ ưu tiên và tài nguyên. Phiên bản mới tiếp tục cải thiện MultiKueue để điều phối đa cụm và tối ưu hóa lập lịch nhận biết topology.",
+   "why_it_matters": "Hỗ trợ đắc lực cho việc tối ưu hóa lập lịch và quản lý tài nguyên tính toán cho các workload nặng hoặc cụm Kubernetes phức tạp."
+  },
+  {
+   "id": "d00d272b2b99c11feb829323113461cd03bcf38e",
+   "source": "github",
+   "title": "Panniantong/Agent-Reach: Give your AI agent eyes to see the entire internet. Read & search Twitter, Reddit, YouTube, GitHub, Bilibili, XiaoHongShu — one CLI, zero API fees.",
+   "url": "https://github.com/Panniantong/Agent-Reach",
+   "discussion_url": null,
+   "score": 696,
+   "comments": 0,
+   "published_at": "2026-10-03T10:00:18.151354+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "CLI công cụ mở rộng nguồn dữ liệu internet cho AI agent cực hữu ích.",
+   "summary": "Agent Reach là công cụ CLI mã nguồn mở giúp AI agent truy cập và tìm kiếm thông tin trên các nền tảng như Twitter, Reddit, YouTube, GitHub và web mà không tốn phí API riêng. Nó sử dụng hệ thống định tuyến đa backend và tự động xử lý các rào cản truy cập, giúp AI agent dễ dàng thu thập dữ liệu qua dòng lệnh.",
+   "why_it_matters": "Cải thiện năng suất đáng kể khi dùng các coding agent hoặc LLM tooling bằng cách mở rộng khả năng tra cứu tài liệu và dữ liệu internet trực tiếp."
+  },
+  {
+   "id": "8898dc1fb352feb74bc1d4ed3953354a1dd7997d",
+   "source": "github",
+   "title": "heygen-com/hyperframes: Write HTML. Render video. Built for agents.",
+   "url": "https://github.com/heygen-com/hyperframes",
+   "discussion_url": null,
+   "score": 580,
+   "comments": 0,
+   "published_at": "2026-10-03T10:00:18.151354+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Công cụ viết HTML render video tối ưu hóa riêng cho các agent.",
+   "summary": "HyperFrames là một framework mã nguồn mở giúp chuyển đổi HTML, CSS và các animation thành file video MP4 deterministic. Công cụ này cung cấp các skill cho các AI coding agent như Claude Code để tự động hóa quy trình lên kế hoạch, thiết kế và render video trực tiếp từ terminal.",
+   "why_it_matters": "Giúp bạn tích hợp khả năng tạo video tự động vào các AI coding agent và workflow phát triển hàng ngày."
+  },
+  {
+   "id": "cb5a7e360bc1fccfbd14489899e0d6c360622821",
+   "source": "lobsters",
+   "title": "Announcing Rust 1.99.0",
+   "url": "https://blog.rust-lang.org/2026/10/01/Rust-1.99.0",
+   "discussion_url": "https://lobste.rs/s/dfvxvs/announcing_rust_1_99_0",
+   "score": 76,
+   "comments": 21,
+   "published_at": "2026-10-01T08:08:57.777000-05:00",
+   "tags": [
+    "release",
+    "rust"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Bản phát hành Rust 1.99.0 quan trọng cho hệ sinh thái ngôn ngữ.",
+   "summary": "Rust 1.99.0 chính thức phát hành, mang đến tính năng ổn định cho việc định nghĩa hàm variadic theo chuẩn C-ABI (\"C\" và \"C-unwind\"). Bản cập nhật này cũng chuẩn hóa thông tin layout từ raw pointer và cập nhật tài liệu cảnh báo về việc sử dụng Box::leak.",
+   "why_it_matters": "Cải thiện khả năng tương tác với mã nguồn C và tối ưu hóa hiệu suất viết mã hệ thống cho lập trình viên Rust."
+  },
+  {
+   "id": "c289dc3d991e222b970344c35cf58dc3763342a2",
+   "source": "github",
+   "title": "ruvnet/ruflo: 🌊 The original agent harness. Deploy intelligent multi-player swarms, coordinate autonomous workflows, and build conversational AI systems. Features adaptive memory, self-learning intelligence, federation, vector RAG integration, and native Claude Code / Codex / Hermes and many more Integrated",
+   "url": "https://github.com/ruvnet/ruflo",
+   "discussion_url": null,
+   "score": 109,
+   "comments": 0,
+   "published_at": "2026-10-03T10:00:18.151354+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Harness framework mã nguồn mở cho multi-agent swarms và workflows.",
+   "summary": "RuFlo (trước đây là Claude Flow) là một meta-harness mã nguồn mở dành cho Claude Code và Codex, cung cấp hơn 100 agent chuyên biệt, hệ thống swarm phối hợp, bộ nhớ tự học và tích hợp vector RAG. Công cụ này hoạt động như một lớp thực thi giúp các AI agent tự tổ chức và cộng tác hiệu quả hơn.",
+   "why_it_matters": "Nâng cấp các AI coding agent của bạn thành các đội nhóm tự trị có khả năng phối hợp công việc phức tạp."
+  },
+  {
+   "id": "9f58bc056c1dcfa314a8464d0cc0b9a94e9cd37c",
+   "source": "lobsters",
+   "title": "Git 3.0's upcoming SHA-256 default will be a costly mistake",
+   "url": "https://blog.gitbutler.com/git-3-sha-256",
+   "discussion_url": "https://lobste.rs/s/bytzgl/git_3_0_s_upcoming_sha_256_default_will_be",
+   "score": 75,
+   "comments": 69,
+   "published_at": "2026-10-01T13:26:59.318000-05:00",
+   "tags": [
+    "vcs"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Phân tích kỹ thuật chuyên sâu về cấu hình SHA-256 mặc định sắp tới của Git.",
+   "summary": "Bài viết phân tích và tranh luận về kế hoạch chuyển đổi thuật toán băm mặc định của Git 3.0 từ SHA-1 sang SHA-256. Tác giả chỉ ra rằng việc thay đổi này có thể gây ra nhiều phiền toái và tốn kém thời gian cho cộng đồng nhưng mang lại ít giá trị thực tế.",
+   "why_it_matters": "Giúp bạn chuẩn bị trước cho các thay đổi lớn về cơ chế quản lý mã nguồn và tính tương thích trong các hệ thống CI/CD."
+  },
+  {
+   "id": "3fa1090af0f1f1a682c42ba1860959b241927c96",
+   "source": "github",
+   "title": "JuliusBrussee/caveman: 🪨 why use many token when few token do trick. Viral skill + proxy for coding agents that cuts 65% of tokens by talking like a caveman.",
+   "url": "https://github.com/JuliusBrussee/caveman",
+   "discussion_url": null,
+   "score": 209,
+   "comments": 0,
+   "published_at": "2026-10-03T10:00:18.151354+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Plugin/skill tối ưu token cực kỳ tiết kiệm cho coding agents.",
+   "summary": "Caveman là một skill và proxy mã nguồn mở giúp cắt giảm đến 65% số lượng token tiêu thụ của các AI coding agent bằng cách tối ưu hóa văn bản phản hồi. Công cụ này hoạt động bằng cách tinh gọn phần văn bản giải thích prose trong khi vẫn giữ nguyên vẹn mã nguồn và thông báo lỗi.",
+   "why_it_matters": "Giúp bạn tiết kiệm đáng kể chi phí gọi LLM và tăng tốc độ phản hồi của các coding agent trong quá trình làm việc."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 98,
+  "fetched_github": 54,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 177,
+  "after_dedupe": 171,
+  "after_filter": 84,
+  "ai": "gemini",
+  "ai_tokens_in": 15347,
+  "ai_tokens_out": 3986,
+  "sent": 10,
+  "summarized": 10
+ }
+}
