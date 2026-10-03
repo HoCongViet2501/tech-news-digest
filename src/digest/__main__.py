@@ -20,21 +20,33 @@ from digest.ai.summarizer import gather_context, summarize_items
 from digest.config import Config, ConfigError, load_config
 from digest.deliver.pages import build_pages
 from digest.deliver.telegram import DeliveryError, send_messages
+from digest.feedback.collect import (
+    FeedbackError,
+    get_updates,
+    items_by_prefix,
+    next_offset,
+    parse_votes,
+)
 from digest.fetchers import fetch_all
 from digest.filter import apply_filters, rank
 from digest.http import make_client
 from digest.logs import setup_logging
 from digest.models import Digest, Item, ScoredItem, TelegramMessage
 from digest.normalize import normalize
-from digest.offline import is_offline, offline_transport
+from digest.offline import OFFLINE_CHAT_ID, is_offline, offline_transport
 from digest.radar.github import github_token
 from digest.radar.run import RadarResult, run_radar
 from digest.render import render_warning, telegram_messages
 from digest.state import (
     StateError,
+    append_votes,
+    load_digests,
+    load_offset,
     load_radar_map,
     load_seen,
+    load_votes,
     save_digest,
+    save_offset,
     save_radar_map,
     save_seen,
 )
@@ -43,6 +55,8 @@ SOURCE_NAMES = ("hn", "github", "lobsters", "reddit", "rss")
 TELEGRAM_ENV = ("TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID")
 RADAR_STATE = "radar_state.json"  # reported radar ids -> date, same format as seen.json
 RADAR_MAP = "radar_map.json"
+FEEDBACK = "feedback.jsonl"
+TELEGRAM_OFFSET = "telegram_offset.json"
 
 log = logging.getLogger("digest")
 
@@ -80,6 +94,11 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     run.add_argument("--config", type=Path, default=Path("config.yaml"), help="path to config")
     run.add_argument("--data-dir", type=Path, default=Path("data"), help="state directory")
     run.add_argument("--site-dir", type=Path, default=Path("site"), help="Pages output directory")
+
+    feedback = commands.add_parser("feedback", help="collect like/dislike taps from Telegram")
+    feedback.add_argument("--dry-run", action="store_true", help="print new votes; write no state")
+    feedback.add_argument("--config", type=Path, default=Path("config.yaml"), help="config path")
+    feedback.add_argument("--data-dir", type=Path, default=Path("data"), help="state directory")
 
     return parser.parse_args(argv)
 
@@ -119,9 +138,9 @@ async def _deliver(
         )
 
 
-def _telegram_secrets(cfg: Config, dry_run: bool) -> dict[str, str] | None:
+def _telegram_secrets(cfg: Config, dry_run: bool, force: bool = False) -> dict[str, str] | None:
     """Env secrets needed for a real send; raises ConfigError naming any missing variable."""
-    if dry_run or is_offline() or not cfg.delivery.telegram.enabled:
+    if not force and (dry_run or is_offline() or not cfg.delivery.telegram.enabled):
         return None
     missing = [name for name in TELEGRAM_ENV if not os.environ.get(name)]
     if missing:
@@ -224,7 +243,57 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
     setup_logging()
     load_dotenv(Path(".env"))
+    if args.command == "feedback":
+        return collect_feedback(args)
+    return run_digest(args)
 
+
+def collect_feedback(args: argparse.Namespace) -> int:
+    """Fetch button taps since the stored offset and append new votes to feedback.jsonl."""
+    try:
+        cfg = load_config(args.config)
+        offset = load_offset(args.data_dir / TELEGRAM_OFFSET)
+        if is_offline():
+            token, chat_id = "offline", OFFLINE_CHAT_ID
+        else:
+            secrets = _telegram_secrets(cfg, dry_run=False, force=True) or {}
+            token, chat_id = secrets["TELEGRAM_BOT_TOKEN"], secrets["TELEGRAM_CHAT_ID"]
+    except (ConfigError, StateError) as exc:
+        print(exc, file=sys.stderr)
+        return 2
+    if not cfg.feedback.enabled:
+        log.info("feedback: disabled in config, nothing to collect")
+        return 0
+
+    async def fetch() -> list[dict]:
+        async with make_client(offline_transport() if is_offline() else None) as client:
+            return await get_updates(client, token, offset)
+
+    try:
+        updates = asyncio.run(fetch())
+    except FeedbackError as exc:
+        log.error("feedback: getUpdates failed: %s", exc)
+        return 1
+
+    feedback_path = args.data_dir / FEEDBACK
+    known = {v.update_id for v in load_votes(feedback_path)}
+    items = items_by_prefix(i for d in load_digests(args.data_dir / "digests") for i in d.items)
+    votes = parse_votes(updates, chat_id, items, known, datetime.now(cfg.tz))
+    log.info("feedback: %d updates, %d new votes", len(updates), len(votes))
+    if args.dry_run:
+        for vote in votes:
+            print(f"{vote.vote:>4} {vote.source} {vote.title}")
+        return 0
+    # Votes first: if saving the offset fails, the same updates are fetched again
+    # next time and skipped by update id, so nothing is lost or duplicated.
+    append_votes(feedback_path, votes)
+    new_offset = next_offset(updates, offset)
+    if new_offset is not None:
+        save_offset(args.data_dir / TELEGRAM_OFFSET, new_offset)
+    return 0
+
+
+def run_digest(args: argparse.Namespace) -> int:
     try:
         cfg = load_config(args.config)
         seen = load_seen(args.data_dir / "seen.json")

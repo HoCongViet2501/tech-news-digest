@@ -13,3 +13,6 @@ Hand-built files (same shape as the real API, contents written for tests):
 
 `radar_npm_lodash.json` and `radar_pypi_httpx.json` are real registry responses
 (PyPI trimmed: `releases`, `urls` and the long description removed).
+- `telegram_getUpdates.json`: Bot API getUpdates answer with button taps (chat id 42): a like
+  and a dislike, a plain text message, a changed vote, a tap from another chat and a tap on
+  an unknown item.

@@ -8,6 +8,7 @@ from pathlib import Path
 import httpx
 
 FIXTURES_DIR = Path(__file__).resolve().parents[2] / "tests" / "fixtures"
+OFFLINE_CHAT_ID = "42"  # chat id used by the Telegram fixtures
 
 # (host, path prefix) -> fixture file
 ROUTES: list[tuple[str, str, str]] = [
@@ -33,6 +34,7 @@ PATTERNS: list[tuple[str, re.Pattern[str], str]] = [
     ("registry.npmjs.org", re.compile(r"^/([^/@]+)/latest$"), "radar_npm_{0}.json"),
     ("pypi.org", re.compile(r"^/pypi/([^/]+)/json$"), "radar_pypi_{0}.json"),
     ("api.osv.dev", re.compile(r"^/v1/vulns/([\w-]+)$"), "radar_osv_{0}.json"),
+    ("api.telegram.org", re.compile(r"^/bot[^/]+/(getUpdates)$"), "telegram_{0}.json"),
 ]
 
 

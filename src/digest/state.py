@@ -6,7 +6,7 @@ from collections.abc import Iterable
 from datetime import date, timedelta
 from pathlib import Path
 
-from digest.models import Digest
+from digest.models import Digest, Vote
 
 log = logging.getLogger(__name__)
 
@@ -91,3 +91,49 @@ def load_radar_map(path: Path) -> dict[str, str | None]:
 
 def save_radar_map(path: Path, repo_map: dict[str, str | None]) -> None:
     _write_atomic(path, json.dumps(dict(sorted(repo_map.items())), indent=1) + "\n")
+
+
+def load_votes(path: Path) -> list[Vote]:
+    """Every vote in feedback.jsonl, in file order; unreadable lines are skipped."""
+    if not path.is_file():
+        return []
+    votes = []
+    for n, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+        if not line.strip():
+            continue
+        try:
+            votes.append(Vote.model_validate_json(line))
+        except ValueError as exc:
+            log.warning("%s:%d skipped: %s", path, n, type(exc).__name__)
+    return votes
+
+
+def latest_votes(votes: Iterable[Vote]) -> dict[str, Vote]:
+    """item id -> its most recent vote (highest Telegram update id)."""
+    latest: dict[str, Vote] = {}
+    for vote in sorted(votes, key=lambda v: v.update_id):
+        latest[vote.item_id] = vote
+    return latest
+
+
+def append_votes(path: Path, votes: Iterable[Vote]) -> None:
+    lines = "".join(v.model_dump_json() + "\n" for v in votes)
+    if not lines:
+        return
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a", encoding="utf-8") as f:
+        f.write(lines)
+
+
+def load_offset(path: Path) -> int | None:
+    """Next Telegram update id to fetch; None before the first run."""
+    if not path.is_file():
+        return None
+    try:
+        return int(json.loads(path.read_text(encoding="utf-8"))["offset"])
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        raise StateError(f"Cannot read {path}: {exc}") from exc
+
+
+def save_offset(path: Path, offset: int) -> None:
+    _write_atomic(path, json.dumps({"offset": offset}) + "\n")

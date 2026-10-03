@@ -74,3 +74,12 @@ class Digest(BaseModel):
 class TelegramMessage(BaseModel):
     text: str  # parse_mode=HTML
     buttons: list[tuple[int, str]] = Field(default_factory=list)  # (number shown, item id)
+
+
+class Vote(BaseModel):
+    ts: datetime  # when the vote was collected (Telegram does not timestamp button taps)
+    update_id: int  # Telegram update id; orders votes and prevents duplicates
+    item_id: str
+    vote: Literal["up", "down"]
+    title: str
+    source: str
