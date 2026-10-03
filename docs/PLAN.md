@@ -2,7 +2,7 @@
 
 A daily, personalized tech news digest. Every morning at 07:00 (Asia/Ho_Chi_Minh), a GitHub Actions job collects stories from 5–6 sources, filters them down to at most 10 items that match the owner's profile, sends them to Telegram, and archives them on GitHub Pages with an RSS feed. Running cost: zero.
 
-Work is split into 4 phases. Each phase ends with a working, shippable version; the project can stop after any phase.
+Work is split into 5 phases. Each phase ends with a working, shippable version; the project can stop after any phase.
 
 ---
 
@@ -79,6 +79,7 @@ tech-digest/
 │   │   ├── summarizer.py
 │   │   └── prompts/
 │   ├── radar/               # phase 3
+│   ├── community/           # phase 5: HN / Lobsters threads
 │   ├── render.py            # Jinja2 → Telegram HTML, web pages, feed.xml
 │   ├── deliver/
 │   │   ├── telegram.py
@@ -370,7 +371,110 @@ The owner taps like/dislike under the Telegram digest, and later scoring uses th
 
 ---
 
-## 8. Testing and risks
+## 8. Phase 5 — Community pulse and a richer site
+
+On Hacker News and Lobsters the discussion is often worth more than the article: benchmarks, corrections, better alternatives, and replies from the authors themselves. This phase reads those threads and adds a short "what the community says" analysis to the most discussed items. Everything is still computed in the daily job and published as static files on GitHub Pages. There is no separate web app, no backend and no database.
+
+Telegram stays short (one extra line per analyzed item, linking to the web page). The detail lives on the website, which also gains search, topic filters and a trends page.
+
+**Out of scope:** a separate web app or server, user accounts, comments posted on the site, Reddit or X comments, realtime updates.
+
+```yaml
+community:
+  enabled: true
+  min_comments: 30          # only threads at least this big are analyzed
+  max_analyses: 5           # AI requests per day for this phase, rechecks included
+  max_comments: 80          # comments sent to the AI per item
+  max_chars: 12000          # cap on comment text per item
+  recheck_after_hours: 24   # second pass on the next run
+  recheck_min_growth: 0.5   # recheck only if the comment count grew by 50%+
+
+site:
+  search: true
+  topics: [ai, llm-tooling, devops, kubernetes, cloud, frontend, backend, databases, security, open-source]
+  trends_weeks: 8
+```
+
+### Models
+
+```python
+class CommunityComment(BaseModel):   # in memory only, never saved
+    ref: str                         # "c1", "c2", ... sent to the AI instead of real ids
+    source: str                      # "hn" | "lobsters"
+    url: str                         # permalink to the comment
+    author: str
+    depth: int                       # 0 = top-level
+    replies: int
+    score: int | None                # Lobsters has scores; HN's API does not expose them
+    is_op: bool                      # written by the submitter / article author
+    text: str                        # plain text
+
+class Viewpoint(BaseModel):
+    side: Literal["for", "against", "neutral"]
+    text: str                        # in output_language
+    comment_urls: list[str]          # at least one; every claim links to its source
+
+class Contribution(BaseModel):
+    kind: Literal["benchmark", "correction", "alternative", "resource", "insider"]
+    text: str                        # in output_language
+    comment_url: str
+
+class CommunityPulse(BaseModel):
+    analyzed_at: datetime
+    comment_count: int               # across all sources, at analysis time
+    mood: Literal["enthusiastic", "positive", "mixed", "skeptical", "negative"]
+    controversy: float               # comments / points heuristic, 0-1, computed without AI
+    headline: str                    # one sentence in output_language
+    viewpoints: list[Viewpoint]      # at most 4
+    contributions: list[Contribution]  # at most 5
+    shift: str | None = None         # set by the recheck: how the reaction changed
+
+# ScoredItem gains:  pulse: CommunityPulse | None = None
+#                    topics: list[str] = []        (from site.topics, set by the scorer)
+# Item gains:        discussions: dict[str, str] = {}   source -> discussion URL
+```
+
+Only the analysis and comment permalinks are saved in `data/digests/`; the comment text itself is never stored.
+
+### Steps
+
+1. **Keep every discussion link.** When `normalize.py` merges the same URL from several sources, it currently keeps one `discussion_url` and lists the others in `also_on`. Fill `discussions` with every source's discussion URL so both the HN and Lobsters threads can be read.
+2. **`community/comments.py` — fetch threads.** Fetchers never raise; on error, log and return `[]`.
+    - HN: `https://hn.algolia.com/api/v1/items/{id}` (already used by the summarizer). Flatten the tree, convert HTML to text, mark `is_op` when the author is the story's author, count direct replies.
+    - Lobsters: `https://lobste.rs/s/{short_id}.json` (short id parsed from the discussion URL). Comments carry `score`, `depth` and a permalink.
+    - Selection: all top-level comments first, ordered by score (Lobsters) or reply count (HN), then the most-replied deeper comments, until `max_comments` or `max_chars` is reached. Assign `ref` ids `c1..cN` in that order.
+3. **Choose what to analyze.** Among today's final items, those whose combined comment count is at least `min_comments`, most discussed first, up to `max_analyses` minus today's rechecks (step 5). Compute `controversy` from comments and points without AI.
+4. **`ai/community.py` — one request per item.** Prompt `ai/prompts/community.md`. Input: title, the item's summary if any, and the selected comments as `{ref, source, author, depth, replies, score, is_op, text}`. Output: `{mood, headline, viewpoints: [{side, text, refs}], contributions: [{kind, text, ref}]}`.
+    - Rules in the prompt: respond with JSON only; write in `output_language` with technical terms in English; use only what the comments say; every viewpoint and contribution must cite refs; never quote more than 25 words verbatim.
+    - Validation in code: refs that do not exist are dropped; a viewpoint or contribution left with no valid ref is dropped; refs are replaced by permalinks. If nothing valid remains, the item gets no pulse.
+    - On `AIUnavailable` the item simply has no pulse; the digest is otherwise unchanged.
+5. **Recheck the next day.** Threads keep growing after 07:00, so the first analysis often sees an early, unrepresentative mood.
+    - `data/community_pending.json` records `{item_id: {date, analyzed_at, comment_count}}` for first-pass analyses.
+    - The next run re-fetches those threads if at least `recheck_after_hours` have passed and the comment count grew by `recheck_min_growth`. The prompt then also receives the previous pulse and must fill `shift` ("Ban đầu hào hứng, sau đó nhiều người chỉ ra benchmark sai").
+    - The updated pulse is written back into that day's `data/digests/YYYY-MM-DD.json`. Each item is rechecked at most once and then removed from the pending file; entries older than 3 days are dropped.
+    - When the mood changed category, today's Telegram digest gets a short "🔄 Phản ứng thay đổi" section linking to the updated pages. No other message is sent.
+6. **Topics.** Extend the scoring prompt so each scored item also gets up to 3 `topics` from `site.topics`. This adds no extra requests; unknown topics are dropped.
+7. **Render in Telegram.** One extra line under analyzed items: mood icon and label, the headline, and a link to `{base_url}{date}.html#i-{first 8 chars of item_id}`. Message splitting and escaping rules stay as they are.
+8. **Render on the site.**
+    - Day pages: each item gets an anchor; analyzed items get a `<details>` block "Cộng đồng nói gì" with the headline, viewpoints grouped by side, contributions with an icon per kind, `shift` if present, and a ↗ link on every point to the comment it came from.
+    - `search.json`: every saved item (date, title, url, source, topics, summary, mood). `index.html` gets a search box and topic chips, using a small vanilla JS file in the site. No CDN or framework, so the page works offline once loaded.
+    - `trends.html`: items per topic per week for the last `trends_weeks` weeks, drawn as inline SVG at build time (no JS charting library), plus a "rising this week" list comparing this week to the average of the previous 4.
+9. **Budget.** Phase 2 uses about 3–5 requests per day; this phase adds at most `max_analyses` (5) more, each around 4k input tokens. Log requests and tokens per phase in `stats`, as for scoring and summaries.
+
+### Phase 5 acceptance
+
+- [ ] With a fixture HN thread and a fake LLM, the pulse keeps only viewpoints and contributions whose refs exist, and every saved link is a real comment permalink.
+- [ ] Items below `min_comments` are not analyzed, and a run never makes more than `max_analyses` community requests (counted with the fake client).
+- [ ] When every provider fails, the digest is sent exactly as before, without pulse lines or empty sections.
+- [ ] A second offline run 24 hours later with a grown fixture thread sets `shift`, updates the previous day's JSON, and does not recheck the same item a third time.
+- [ ] Telegram messages stay within 4096 characters; snapshot tests cover a pulse line with `& < >` and emoji.
+- [ ] `search.json` contains every saved item; `trends.html` renders with less than 2 weeks of data.
+- [ ] Owner checks on a phone that search, topic chips and the `<details>` blocks work on the Pages site.
+- [ ] Owner reads 5 real analyses, follows their links, and judges at least 4 faithful to the thread. If not, tune the prompt before calling the phase done.
+
+---
+
+## 9. Testing and risks
 
 All tests must run without network access and without keys, so the coding agent can verify its own work after every step.
 
@@ -392,11 +496,13 @@ All tests must run without network access and without keys, so the coding agent 
 | GitHub cron delay | Digest arrives at 07:20 instead of 07:00 | Accept; if exact timing matters, move to Cloudflare Workers |
 | Telegram rejects HTML | 400 "can't parse entities" | Mandatory escaping, snapshot tests for special characters |
 | Secret leakage | Key appears in Actions logs | Never log headers or resolved config; read keys only from env |
+| AI misreads a thread | Pulse claims something no comment says | Every point must cite comments; uncited points are dropped; owner spot-checks links |
+| Quoting other people's comments | Long verbatim copies on the public site | At most 25 words quoted; link to the original; comment text is never stored |
 | Repo growth from `data/` | Steady size increase | Each digest is a few tens of KB; `seen.json` prunes after 60 days |
 
 ---
 
-## 9. Human-only setup
+## 10. Human-only setup
 
 These steps require account access; the coding agent should remind the owner when a phase depends on them, not attempt them.
 
