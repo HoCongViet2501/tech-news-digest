@@ -6,6 +6,7 @@ to data/radar_state.json) and only if published within `release_max_age_days`.
 
 import asyncio
 import logging
+import re
 from datetime import datetime, timedelta
 
 import httpx
@@ -21,6 +22,8 @@ RELEASES_API = API + "/repos/{repo}/releases"
 PER_PAGE = 5
 NOTES_MAX = 3000
 CONCURRENCY = 8
+# "breaking" anywhere, except in "no breaking changes" / "non-breaking".
+BREAKING = re.compile(r"(?<!\bno )(?<!non-)\bbreaking\b", re.IGNORECASE)
 
 log = logging.getLogger(__name__)
 
@@ -78,7 +81,7 @@ def pick_releases(
         notes = str(release.get("body") or "")
         if installed and version and version[0] > installed[0]:
             kind = "major"
-        elif "breaking" in f"{name}\n{notes}".lower():
+        elif BREAKING.search(f"{name}\n{notes}"):
             kind = "breaking"
         else:
             continue

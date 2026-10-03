@@ -106,3 +106,25 @@ def test_failed_repo_is_skipped(caplog) -> None:
 
     assert entries == []
     assert "cannot list releases of encode/httpx (HTTPStatusError)" in caplog.text
+
+
+def test_no_breaking_changes_is_not_flagged() -> None:
+    def release(body: str) -> dict:
+        return {
+            "tag_name": "0.28.5",
+            "name": "",
+            "html_url": "https://github.com/encode/httpx/releases/tag/0.28.5",
+            "published_at": "2026-09-26T00:00:00Z",
+            "body": body,
+        }
+
+    def flagged(body: str) -> bool:
+        return bool(
+            pick_releases(RadarConfig(), httpx_dep(), "encode/httpx", [release(body)], {}, NOW)
+        )
+
+    assert flagged("### Breaking Changes\n* Drop Python 3.9")
+    assert flagged("BREAKING: transports API changed")
+    assert not flagged("No breaking changes in this release.")
+    assert not flagged("A non-breaking fix.")
+    assert not flagged("Fix SSL context reuse.")
