@@ -55,6 +55,14 @@ def items_by_prefix(items: Iterable[ScoredItem]) -> dict[str, ScoredItem]:
     return {item.id[:8]: item for item in items}
 
 
+def _same_chat(chat: dict, chat_id: str) -> bool:
+    """TELEGRAM_CHAT_ID may be a numeric id or a public "@channelname"."""
+    if str(chat.get("id")) == str(chat_id):
+        return True
+    username = chat.get("username")
+    return bool(username) and f"@{username}".lower() == str(chat_id).lower()
+
+
 def parse_votes(
     updates: list[dict],
     chat_id: str,
@@ -68,8 +76,7 @@ def parse_votes(
         update_id = update.get("update_id")
         if not query or not isinstance(update_id, int) or update_id in known_updates:
             continue
-        chat = str(((query.get("message") or {}).get("chat") or {}).get("id"))
-        if chat != str(chat_id):
+        if not _same_chat((query.get("message") or {}).get("chat") or {}, chat_id):
             log.info("feedback: ignoring a tap from another chat")
             continue
         match = CALLBACK.match(str(query.get("data") or ""))

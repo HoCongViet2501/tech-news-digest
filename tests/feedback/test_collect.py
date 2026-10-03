@@ -190,3 +190,16 @@ def test_real_run_requires_telegram_secrets(
 
     assert collect(tmp_path / "data") == 2
     assert "TELEGRAM_BOT_TOKEN" in capsys.readouterr().err
+
+
+def test_chat_id_can_be_a_channel_username() -> None:
+    channel = updates()[0]
+    channel["callback_query"]["message"]["chat"] = {
+        "id": -1001234567890,
+        "type": "channel",
+        "username": "MyTechDigest",
+    }
+
+    assert len(parse_votes([channel], "@mytechdigest", ITEMS, set(), NOW)) == 1
+    assert len(parse_votes([channel], "-1001234567890", ITEMS, set(), NOW)) == 1
+    assert parse_votes([channel], "@other", ITEMS, set(), NOW) == []
