@@ -23,6 +23,14 @@ LABELS = {
         "feed": "RSS",
         "all_failed": "Hôm nay không lấy được tin từ nguồn nào. Xem log GitHub Actions.",
         "ai_unavailable": "AI không khả dụng hôm nay, tin được xếp hạng theo heuristic.",
+        "radar": "Radar thư viện",
+        "news": "Tin tức",
+        "installed": "đang dùng",
+        "fixed_in": "đã sửa ở",
+        "major": "bản major mới",
+        "breaking": "có breaking change",
+        "action_required": "Cần sửa code khi nâng cấp.",
+        "no_action": "Nâng cấp không cần sửa code.",
     },
     "en": {
         "title": "Tech digest",
@@ -33,6 +41,14 @@ LABELS = {
         "feed": "RSS",
         "all_failed": "No source could be fetched today. Check the GitHub Actions log.",
         "ai_unavailable": "AI unavailable today; items are ranked by heuristic.",
+        "radar": "Dependency radar",
+        "news": "News",
+        "installed": "installed",
+        "fixed_in": "fixed in",
+        "major": "new major",
+        "breaking": "breaking changes",
+        "action_required": "Upgrading needs code changes.",
+        "no_action": "Upgrading needs no code changes.",
     },
 }
 
@@ -67,6 +83,12 @@ def render_telegram(digest: Digest, language: str) -> list[str]:
     blocks = [str(macros.item(n, item, t)).strip() for n, item in enumerate(digest.items, 1)]
     if not blocks:
         blocks = [t["empty"]]
+    if digest.radar:
+        # Section headings ride on the first block of each section so they never end a message.
+        radar = [str(macros.radar_entry(entry, t)).strip() for entry in digest.radar]
+        radar[0] = f"<b>📡 {escape(t['radar'])}</b>\n{radar[0]}"
+        blocks[0] = f"<b>📰 {escape(t['news'])}</b>\n{blocks[0]}"
+        blocks = radar + blocks
 
     messages: list[str] = []
     current = header

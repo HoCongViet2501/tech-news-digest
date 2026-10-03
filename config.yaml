@@ -38,6 +38,16 @@ ai:
       model: nvidia/nemotron-3-super-120b-a12b:free
       api_key_env: OPENROUTER_API_KEY
 
+radar:
+  enabled: true
+  manifests:                # direct dependencies of these files are tracked
+    - repo: hocongviet2501/tech-news-digest
+      paths: [pyproject.toml]
+  include_dev_dependencies: false
+  ignore: []                # package names never reported
+  release_max_age_days: 7   # older releases are never reported (keeps the first run quiet)
+  max_entries: 15
+
 delivery:
   telegram: {enabled: true}
   pages: {enabled: true, base_url: "https://hocongviet2501.github.io/tech-news-digest/"}

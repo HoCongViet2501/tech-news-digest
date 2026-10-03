@@ -26,11 +26,22 @@ from digest.logs import setup_logging
 from digest.models import Digest, Item, ScoredItem
 from digest.normalize import normalize
 from digest.offline import is_offline, offline_transport
+from digest.radar.github import github_token
+from digest.radar.run import RadarResult, run_radar
 from digest.render import render_telegram, render_warning
-from digest.state import StateError, load_seen, save_digest, save_seen
+from digest.state import (
+    StateError,
+    load_radar_map,
+    load_seen,
+    save_digest,
+    save_radar_map,
+    save_seen,
+)
 
 SOURCE_NAMES = ("hn", "github", "lobsters", "reddit", "rss")
 TELEGRAM_ENV = ("TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID")
+RADAR_STATE = "radar_state.json"  # reported radar ids -> date, same format as seen.json
+RADAR_MAP = "radar_map.json"
 
 log = logging.getLogger("digest")
 
@@ -177,6 +188,24 @@ def add_summaries(
     return digest.model_copy(update={"items": items, "stats": stats})
 
 
+async def _radar(
+    cfg: Config, now: datetime, reported: dict[str, str], repo_map: dict[str, str | None]
+) -> RadarResult:
+    transport = offline_transport() if is_offline() else None
+    token = None if is_offline() else github_token()
+    async with make_client(transport) as client:
+        return await run_radar(cfg.radar, client, now, reported, repo_map, token)
+
+
+def add_radar(digest: Digest, result: RadarResult) -> Digest:
+    stats = {
+        **digest.stats,
+        "radar_dependencies": result.dependencies,
+        "radar": len(result.entries),
+    }
+    return digest.model_copy(update={"radar": result.entries, "stats": stats})
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
     setup_logging()
@@ -185,6 +214,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     try:
         cfg = load_config(args.config)
         seen = load_seen(args.data_dir / "seen.json")
+        reported = load_seen(args.data_dir / RADAR_STATE) if cfg.radar.enabled else {}
         secrets = _telegram_secrets(cfg, args.dry_run)
     except (ConfigError, StateError) as exc:
         print(exc, file=sys.stderr)
@@ -205,6 +235,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     digest = build_digest(cfg, asyncio.run(_fetch(cfg, now, args.only)), seen, run_date, chain)
     if chain is not None:
         digest = add_summaries(cfg, digest, chain, offline_transport() if is_offline() else None)
+    radar = None
+    if cfg.radar.enabled:
+        repo_map = load_radar_map(args.data_dir / RADAR_MAP)
+        radar = asyncio.run(_radar(cfg, now, reported, repo_map))
+        digest = add_radar(digest, radar)
     log.info("stats %s", " ".join(f"{k}={v}" for k, v in digest.stats.items()))
 
     language = cfg.ai.output_language
@@ -236,6 +271,15 @@ def main(argv: Sequence[str] | None = None) -> int:
         cfg.filters.seen_retention_days,
     )
     save_digest(args.data_dir / "digests", digest)
+    if radar is not None:
+        save_seen(
+            args.data_dir / RADAR_STATE,
+            reported,
+            [entry.id for entry in digest.radar],
+            run_date,
+            cfg.radar.state_retention_days,
+        )
+        save_radar_map(args.data_dir / RADAR_MAP, radar.repo_map)
     if cfg.delivery.pages.enabled:
         build_pages(cfg, args.data_dir / "digests", args.site_dir)
     return 0
