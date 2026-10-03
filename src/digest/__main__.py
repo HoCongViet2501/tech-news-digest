@@ -13,7 +13,8 @@ from zoneinfo import ZoneInfo
 import httpx
 from dotenv import load_dotenv
 
-from digest.ai.llm import AIUnavailable, LLMChain
+from digest.ai.llm import AIUnavailable, Completion, LLMChain
+from digest.ai.release_notes import summarize_releases
 from digest.ai.scorer import score_items
 from digest.ai.summarizer import gather_context, summarize_items
 from digest.config import Config, ConfigError, load_config
@@ -180,12 +181,19 @@ def add_summaries(
         return digest
     contexts = asyncio.run(_contexts(cfg, digest.items, transport))
     items, completions = summarize_items(chain, cfg, digest.items, contexts)
-    stats = dict(digest.stats)
+    stats = _add_tokens(digest.stats, completions)
+    stats["summarized"] = sum(1 for i in items if i.summary)
+    return digest.model_copy(update={"items": items, "stats": stats})
+
+
+def _add_tokens(
+    stats: dict[str, int | str], completions: Sequence[Completion]
+) -> dict[str, int | str]:
+    stats = dict(stats)
     for c in completions:
         stats["ai_tokens_in"] = int(stats.get("ai_tokens_in", 0)) + c.prompt_tokens
         stats["ai_tokens_out"] = int(stats.get("ai_tokens_out", 0)) + c.completion_tokens
-    stats["summarized"] = sum(1 for i in items if i.summary)
-    return digest.model_copy(update={"items": items, "stats": stats})
+    return stats
 
 
 async def _radar(
@@ -197,13 +205,17 @@ async def _radar(
         return await run_radar(cfg.radar, client, now, reported, repo_map, token)
 
 
-def add_radar(digest: Digest, result: RadarResult) -> Digest:
-    stats = {
-        **digest.stats,
-        "radar_dependencies": result.dependencies,
-        "radar": len(result.entries),
-    }
-    return digest.model_copy(update={"radar": result.entries, "stats": stats})
+def add_radar(
+    cfg: Config, digest: Digest, result: RadarResult, chain: LLMChain | None = None
+) -> Digest:
+    """Attach radar entries; release notes are condensed by AI when it worked today."""
+    entries, completions = result.entries, []
+    if chain is not None and digest.stats.get("ai") not in (None, "unavailable"):
+        entries, completions = summarize_releases(chain, cfg, entries)
+    stats = _add_tokens(digest.stats, completions)
+    stats["radar_dependencies"] = result.dependencies
+    stats["radar"] = len(entries)
+    return digest.model_copy(update={"radar": entries, "stats": stats})
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -239,7 +251,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     if cfg.radar.enabled:
         repo_map = load_radar_map(args.data_dir / RADAR_MAP)
         radar = asyncio.run(_radar(cfg, now, reported, repo_map))
-        digest = add_radar(digest, radar)
+        digest = add_radar(cfg, digest, radar, chain)
     log.info("stats %s", " ".join(f"{k}={v}" for k, v in digest.stats.items()))
 
     language = cfg.ai.output_language
