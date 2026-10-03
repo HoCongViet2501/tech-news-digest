@@ -27,11 +27,12 @@ from digest.feedback.collect import (
     next_offset,
     parse_votes,
 )
+from digest.feedback.signals import examples, recent_votes, source_weights
 from digest.fetchers import fetch_all
 from digest.filter import apply_filters, rank
 from digest.http import make_client
 from digest.logs import setup_logging
-from digest.models import Digest, Item, ScoredItem, TelegramMessage
+from digest.models import Digest, Item, ScoredItem, TelegramMessage, Vote
 from digest.normalize import normalize
 from digest.offline import OFFLINE_CHAT_ID, is_offline, offline_transport
 from digest.radar.github import github_token
@@ -154,8 +155,14 @@ def build_digest(
     seen: dict[str, str],
     run_date: date,
     chain: LLMChain | None = None,
+    votes: Sequence[Vote] = (),
 ) -> Digest:
     stats: dict[str, int | str] = {f"fetched_{name}": len(items) for name, items in fetched.items()}
+    recent = recent_votes(votes, run_date, cfg.feedback.window_days) if cfg.feedback.enabled else []
+    weights = source_weights(recent, cfg.feedback)
+    liked, disliked = examples(recent, cfg.feedback.max_examples)
+    if recent:
+        stats["feedback_votes"] = len(recent)
     items = [item for batch in fetched.values() for item in batch]
     stats["fetched"] = len(items)
     items = normalize(items)
@@ -163,12 +170,14 @@ def build_digest(
     items = apply_filters(items, cfg, seen)
     stats["after_filter"] = len(items)
     if not cfg.ai.enabled:
-        ranked = rank(items, cfg, limit=cfg.max_items)
+        ranked = rank(items, cfg, limit=cfg.max_items, weights=weights)
     else:
         # Widen the heuristic cut so the AI has enough candidates to choose from.
-        candidates = rank(items, cfg, limit=cfg.ai.candidates)
+        candidates = rank(items, cfg, limit=cfg.ai.candidates, weights=weights)
         try:
-            ranked, completion = score_items(chain or LLMChain([]), cfg, candidates)
+            ranked, completion = score_items(
+                chain or LLMChain([]), cfg, candidates, liked, disliked
+            )
         except AIUnavailable:
             log.warning("ai: unavailable, sending heuristic ranking")
             ranked = candidates[: cfg.max_items]
@@ -315,7 +324,9 @@ def run_digest(args: argparse.Namespace) -> int:
     )
 
     chain = LLMChain.from_config(cfg.ai) if cfg.ai.enabled else None
-    digest = build_digest(cfg, asyncio.run(_fetch(cfg, now, args.only)), seen, run_date, chain)
+    votes = load_votes(args.data_dir / FEEDBACK) if cfg.feedback.enabled else []
+    fetched = asyncio.run(_fetch(cfg, now, args.only))
+    digest = build_digest(cfg, fetched, seen, run_date, chain, votes)
     if chain is not None:
         digest = add_summaries(cfg, digest, chain, offline_transport() if is_offline() else None)
     radar = None

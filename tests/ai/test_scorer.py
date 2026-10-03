@@ -118,3 +118,29 @@ def test_out_of_range_scores_are_clamped(cfg: Config) -> None:
 def test_all_providers_failing_propagates(cfg: Config) -> None:
     with pytest.raises(AIUnavailable):
         score_items(LLMChain([Provider("p", "m", FakeClient(rate_limited()))]), cfg, [cand(1, 1.0)])
+
+
+def test_prompt_includes_feedback_examples(cfg: Config) -> None:
+    client = FakeClient(reply((1, 5, "ok")))
+
+    score_items(
+        LLMChain([Provider("p", "m", client)]),
+        cfg,
+        [cand(1, 4.0)],
+        liked=["Postgres 19 released"],
+        disliked=["Crypto drama"],
+    )
+
+    prompt = client.calls[0]["messages"][-1]["content"]
+    assert "Liked:\n- Postgres 19 released\nDisliked:\n- Crypto drama\n" in prompt
+
+
+def test_prompt_without_feedback_has_no_section(cfg: Config) -> None:
+    client = FakeClient(reply((1, 5, "ok")))
+
+    score_items(LLMChain([Provider("p", "m", client)]), cfg, [cand(1, 4.0)])
+
+    prompt = client.calls[0]["messages"][-1]["content"]
+    assert "Liked" not in prompt
+    assert "{feedback}" not in prompt
+    assert "marketing\n\nRules:" in prompt

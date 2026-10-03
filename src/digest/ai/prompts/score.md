@@ -6,7 +6,7 @@ Score each item from 0 to 10 by how useful it is to this specific person:
 - 6-8: on a topic they care about, with real technical depth
 - 3-5: general tech news, fine to read
 - 0-2: on their not-interested list, or just drama / marketing
-
+{feedback}
 Rules:
 - Respond with JSON only, no other text.
 - Write each "reason" in {output_language}, at most 15 words. Keep technical terms in English.
