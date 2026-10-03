@@ -105,7 +105,8 @@ class FeedbackConfig(_Strict):
 
 class WeeklyConfig(_Strict):
     top_items: int = Field(default=5, gt=0)
-    max_profile_suggestions: int = Field(default=3, ge=0)
+    max_profile_suggestions: int = Field(default=3, ge=0)  # 0 turns suggestions off
+    min_votes_for_suggestions: int = Field(default=5, ge=1)  # fewer votes say too little
 
 
 class TelegramConfig(_Strict):

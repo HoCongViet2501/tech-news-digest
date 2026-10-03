@@ -22,3 +22,10 @@ Not implemented. An `embed` dependency group with sentence-transformers
 to the profile when every LLM provider fails, instead of falling back to the
 heuristic. Fully local and keyless, but adds a large dependency and model download
 to every Actions run.
+
+## Confirm feedback taps (phase 4 follow-up)
+
+Taps are collected up to 3 hours later, so buttons just spin and give no sign the vote
+counted. `digest feedback` could call `editMessageReplyMarkup` on the voted message to mark
+the chosen button (e.g. "👍 3 ✓"), which shows the vote was recorded. `answerCallbackQuery`
+does not help: by then the query is too old to answer.

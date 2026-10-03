@@ -48,6 +48,18 @@ radar:
   release_max_age_days: 7   # older releases are never reported (keeps the first run quiet)
   max_entries: 15
 
+feedback:
+  enabled: true             # 👍/👎 buttons under each item, collected by feedback.yml every 3h
+  window_days: 30           # only votes from the last 30 days are used
+  max_examples: 15          # liked and disliked titles each, shown to the AI scorer
+  source_weight_min: 0.5    # heuristic weight per source, from its like ratio
+  source_weight_max: 1.5
+
+weekly:                     # Sunday 08:00 recap (weekly.yml)
+  top_items: 5
+  max_profile_suggestions: 3   # AI suggests profile edits; config.yaml is never changed
+  min_votes_for_suggestions: 5
+
 delivery:
   telegram: {enabled: true}
   pages: {enabled: true, base_url: "https://hocongviet2501.github.io/tech-news-digest/"}

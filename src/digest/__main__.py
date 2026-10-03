@@ -14,6 +14,7 @@ import httpx
 from dotenv import load_dotenv
 
 from digest.ai.llm import AIUnavailable, Completion, LLMChain
+from digest.ai.profile import suggest_profile_changes
 from digest.ai.release_notes import summarize_releases
 from digest.ai.scorer import score_items
 from digest.ai.summarizer import gather_context, summarize_items
@@ -28,7 +29,7 @@ from digest.feedback.collect import (
     parse_votes,
 )
 from digest.feedback.signals import examples, recent_votes, source_weights
-from digest.feedback.weekly import build_weekly
+from digest.feedback.weekly import ProfileSuggestion, build_weekly
 from digest.fetchers import fetch_all
 from digest.filter import apply_filters, rank
 from digest.http import make_client
@@ -266,6 +267,21 @@ def main(argv: Sequence[str] | None = None) -> int:
     return run_digest(args)
 
 
+def _profile_suggestions(
+    cfg: Config, votes: list[Vote], end: date, chain: LLMChain | None = None
+) -> list[ProfileSuggestion]:
+    recent = recent_votes(votes, end, cfg.feedback.window_days)
+    wanted = cfg.ai.enabled and cfg.weekly.max_profile_suggestions > 0
+    if not wanted or len(recent) < cfg.weekly.min_votes_for_suggestions:
+        return []
+    try:
+        suggestions, _ = suggest_profile_changes(chain or LLMChain.from_config(cfg.ai), cfg, recent)
+    except AIUnavailable:
+        log.warning("weekly: AI unavailable, no profile suggestions this week")
+        return []
+    return suggestions
+
+
 def send_weekly(args: argparse.Namespace) -> int:
     """Recap of the 7 days ending on --date (default today); writes no state."""
     try:
@@ -277,6 +293,7 @@ def send_weekly(args: argparse.Namespace) -> int:
     end = resolve_run_date(args.date, cfg.tz)
     votes = load_votes(args.data_dir / FEEDBACK)
     report = build_weekly(load_digests(args.data_dir / "digests"), votes, end, cfg.weekly.top_items)
+    report.suggestions = _profile_suggestions(cfg, votes, end)
     log.info(
         "weekly %s..%s items=%d votes=%d likes=%d",
         report.start,
