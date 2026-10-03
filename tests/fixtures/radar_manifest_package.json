@@ -1,0 +1,14 @@
+{
+  "name": "demo-web",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "lodash": "4.17.15",
+    "express": "^4.18.2",
+    "left-pad": "github:stevemao/left-pad",
+    "react": "latest"
+  },
+  "devDependencies": {
+    "jest": "~29.7.0"
+  }
+}

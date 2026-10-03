@@ -1,0 +1,8 @@
+# Pinned production dependencies
+-r base.txt
+--index-url https://pypi.org/simple
+Django==4.2.1  # web framework
+requests>=2.31,<3
+pydantic_core~=2.14.5
+uvicorn[standard]
+private-lib @ https://example.com/private-lib-1.0.tar.gz

@@ -2,6 +2,7 @@
 
 import hashlib
 from datetime import date, datetime
+from typing import Literal
 
 from pydantic import BaseModel, Field
 
@@ -28,6 +29,20 @@ class ScoredItem(Item):
     reason: str | None = None
     summary: str | None = None
     why_it_matters: str | None = None
+
+
+Ecosystem = Literal["npm", "PyPI", "Go"]  # OSV ecosystem names
+
+
+class Dependency(BaseModel):
+    ecosystem: Ecosystem
+    name: str
+    version: str | None  # pinned or minimum version from the manifest; None if unknown
+    manifests: list[str] = Field(default_factory=list)  # "owner/repo:path" that declare it
+
+    @property
+    def key(self) -> str:
+        return f"{self.ecosystem}:{self.name}"
 
 
 class Digest(BaseModel):

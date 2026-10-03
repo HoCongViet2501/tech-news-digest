@@ -78,6 +78,23 @@ class AIConfig(_Strict):
     providers: list[AIProviderConfig] = Field(default_factory=list)
 
 
+class RadarManifestConfig(_Strict):
+    repo: str  # owner/name on GitHub
+    paths: list[str]  # package.json, requirements*.txt, pyproject.toml, go.mod
+
+
+class RadarConfig(_Strict):
+    enabled: bool = False
+    manifests: list[RadarManifestConfig] = Field(default_factory=list)
+    include_dev_dependencies: bool = False
+    ignore: list[str] = Field(default_factory=list)  # package names never reported
+    # Releases older than this are never reported, so the first run does not dump history.
+    release_max_age_days: int = Field(default=7, gt=0)
+    include_prereleases: bool = False
+    max_entries: int = Field(default=15, gt=0)  # cap per digest; the rest waits a day
+    state_retention_days: int = Field(default=365, gt=0)
+
+
 class TelegramConfig(_Strict):
     enabled: bool = True
 
@@ -99,6 +116,7 @@ class Config(_Strict):
     sources: SourcesConfig = Field(default_factory=SourcesConfig)
     filters: FiltersConfig = Field(default_factory=FiltersConfig)
     ai: AIConfig = Field(default_factory=AIConfig)
+    radar: RadarConfig = Field(default_factory=RadarConfig)
     delivery: DeliveryConfig = Field(default_factory=DeliveryConfig)
 
     @field_validator("timezone")
