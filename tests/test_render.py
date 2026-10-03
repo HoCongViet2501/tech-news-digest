@@ -218,3 +218,114 @@ def test_site_and_feed_show_summary_and_why(tmp_path: Path) -> None:
     shown = html.unescape(entry.description)
     assert "Postgres 19 thêm <async I/O> & nhiều cải tiến." in shown
     assert "Bạn dùng Postgres hằng ngày." in shown
+
+
+# --- Radar ---------------------------------------------------------------------
+
+
+def radar_digest() -> Digest:
+    from digest.models import RadarEntry
+
+    return sample_digest().model_copy(
+        update={
+            "radar": [
+                RadarEntry(
+                    id="vuln:GHSA-p6mc-m468-83gw:npm:lodash",
+                    kind="vulnerability",
+                    ecosystem="npm",
+                    package="lodash",
+                    installed="4.17.15",
+                    version="4.17.19",
+                    title="Prototype Pollution in lodash",
+                    url="https://osv.dev/vulnerability/GHSA-p6mc-m468-83gw",
+                    severity="high",
+                ),
+                RadarEntry(
+                    id="release:encode/httpx@1.0.0",
+                    kind="major",
+                    ecosystem="PyPI",
+                    package="httpx",
+                    installed="0.28.1",
+                    version="1.0.0",
+                    title="Version 1.0.0",
+                    url="https://github.com/encode/httpx/releases/tag/1.0.0",
+                    summary="Bỏ tham số <proxies>.",
+                    action_required=True,
+                ),
+                RadarEntry(
+                    id="release:gin-gonic/gin@v1.10.0",
+                    kind="breaking",
+                    ecosystem="Go",
+                    package="github.com/gin-gonic/gin",
+                    installed="1.9.1",
+                    version="v1.10.0",
+                    title="v1.10.0",
+                    url="https://github.com/gin-gonic/gin/releases/tag/v1.10.0",
+                    action_required=False,
+                ),
+            ]
+        }
+    )
+
+
+def test_telegram_radar_comes_first_and_escapes() -> None:
+    [msg] = render_telegram(radar_digest(), "vi")
+
+    radar_at, news_at = msg.index("📡 Radar thư viện"), msg.index("📰 Tin tức")
+    assert radar_at < msg.index("lodash 4.17.15") < msg.index("httpx 1.0.0") < news_at
+    assert news_at < msg.index("1. <a ")
+    assert "Bỏ tham số &lt;proxies&gt;." in msg
+    assert set(re.findall(r"</?([a-zA-Z]+)", msg)) <= {"b", "i", "a", "code"}
+
+
+def test_telegram_without_radar_has_no_section_headings() -> None:
+    [msg] = render_telegram(sample_digest(), "vi")
+
+    assert "📡" not in msg
+    assert "📰" not in msg
+
+
+def test_telegram_radar_snapshot() -> None:
+    assert_snapshot(
+        "telegram_radar_vi.html", "\n=====\n".join(render_telegram(radar_digest(), "vi"))
+    )
+
+
+def test_site_shows_radar_only_when_present(tmp_path: Path) -> None:
+    build_site([radar_digest()], tmp_path, BASE, "vi")
+    page = (tmp_path / "2026-09-27.html").read_text(encoding="utf-8")
+    assert "📡 Radar thư viện" in page
+    assert "Prototype Pollution in lodash" in page
+    assert "⚠️ Cần sửa code khi nâng cấp." in page
+    assert "✅ Nâng cấp không cần sửa code." in page
+
+    build_site([sample_digest()], tmp_path / "plain", BASE, "vi")
+    assert "📡" not in (tmp_path / "plain" / "2026-09-27.html").read_text(encoding="utf-8")
+
+
+# --- Feedback buttons ------------------------------------------------------------
+
+
+def test_buttons_follow_the_items_in_each_message() -> None:
+    from digest.render import telegram_messages
+
+    long = "x" * 1500
+    digest = Digest(date=date(2026, 9, 27), items=[scored(n, summary=long) for n in range(1, 6)])
+
+    messages = telegram_messages(digest, "vi", buttons=True)
+
+    assert len(messages) > 1
+    numbers = [n for m in messages for n, _ in m.buttons]
+    assert numbers == [1, 2, 3, 4, 5]
+    for m in messages:
+        for n, item_id in m.buttons:
+            assert item_id == f"id{n}"
+            assert f"{n}. <a " in m.text
+
+
+def test_no_buttons_unless_asked() -> None:
+    from digest.render import telegram_messages
+
+    assert all(not m.buttons for m in telegram_messages(radar_digest(), "vi"))
+    radar_messages = telegram_messages(radar_digest(), "vi", buttons=True)
+    assert [n for m in radar_messages for n, _ in m.buttons] == [1, 2, 3]

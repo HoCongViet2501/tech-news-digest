@@ -1,0 +1,26 @@
+{% macro radar(digest, t) %}
+{% if digest and digest.radar %}
+<h2>📡 {{ t.radar }}</h2>
+<ul class="radar">
+{% for e in digest.radar %}
+  <li>
+{% if e.kind == "vulnerability" %}
+    🛡 <a href="{{ e.url }}">{{ e.package }} {{ e.installed }}</a>
+    <span class="meta">{% if e.severity %}{{ e.severity }}{% endif %}{% if e.severity and e.version %} · {% endif %}{% if e.version %}{{ t.fixed_in }} {{ e.version }}{% endif %}</span><br>
+    {{ e.title }}
+{% else %}
+    {{ "🚀" if e.kind == "major" else "💥" }} <a href="{{ e.url }}">{{ e.package }} {{ e.version }}</a>
+    <span class="meta">{{ t[e.kind] }}{% if e.installed %} · {{ t.installed }} {{ e.installed }}{% endif %}</span>
+{% if e.summary %}
+    <p class="summary">{{ e.summary }}</p>
+{% endif %}
+{% if e.action_required is not none %}
+    <p class="why">{{ ("⚠️ " ~ t.action_required) if e.action_required else ("✅ " ~ t.no_action) }}</p>
+{% endif %}
+{% endif %}
+  </li>
+{% endfor %}
+</ul>
+<h2>📰 {{ t.news }}</h2>
+{% endif %}
+{% endmacro %}

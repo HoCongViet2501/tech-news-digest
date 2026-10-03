@@ -1,6 +1,7 @@
 """Score the heuristic candidates against the owner's profile in a single request."""
 
 import json
+from collections.abc import Sequence
 from urllib.parse import urlsplit
 
 from pydantic import BaseModel
@@ -27,8 +28,24 @@ def _clamp(value: float) -> float:
     return max(0.0, min(10.0, value))
 
 
+def feedback_section(liked: Sequence[str], disliked: Sequence[str]) -> str:
+    """Prompt block with the owner's recent votes; empty when there are none."""
+    if not liked and not disliked:
+        return ""
+    lines = ["", "Their recent reactions to past digests (calibrate with them, not hard rules):"]
+    for label, titles in (("Liked", liked), ("Disliked", disliked)):
+        if titles:
+            lines.append(f"{label}:")
+            lines += [f"- {title}" for title in titles]
+    return "\n".join(lines) + "\n"
+
+
 def score_items(
-    chain: LLMChain, cfg: Config, candidates: list[ScoredItem]
+    chain: LLMChain,
+    cfg: Config,
+    candidates: list[ScoredItem],
+    liked: Sequence[str] = (),
+    disliked: Sequence[str] = (),
 ) -> tuple[list[ScoredItem], Completion[_ScoreResponse]]:
     """AI relevance replaces the heuristic; unscored items keep it (clamped to 0-10).
 
@@ -54,6 +71,7 @@ def score_items(
         profile=cfg.profile.strip(),
         output_language=language_name(cfg.ai.output_language),
         items_json=items_json,
+        feedback=feedback_section(liked, disliked),
     )
     completion = chain.complete([{"role": "user", "content": prompt}], _ScoreResponse)
 

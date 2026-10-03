@@ -302,3 +302,103 @@ def test_ai_enabled_without_keys_sends_heuristic_digest_with_note(
     digest = json.loads((data / "digests" / "2026-09-27.json").read_text(encoding="utf-8"))
     assert len(digest["items"]) == 10
     assert digest["stats"]["ai"] == "unavailable"
+
+
+# --- Radar ---------------------------------------------------------------------
+
+
+def radar_config(tmp_path: Path, manifests: list[dict]) -> Path:
+    import yaml
+
+    raw = yaml.safe_load(REPO_CONFIG.read_text(encoding="utf-8"))
+    raw["radar"] = {"enabled": True, "manifests": manifests}
+    path = tmp_path / "config.yaml"
+    path.write_text(yaml.safe_dump(raw), encoding="utf-8")
+    return path
+
+
+def run_day(config: Path, data: Path, day: str) -> int:
+    return main(
+        [
+            "run",
+            "--only",
+            "hn",
+            "--date",
+            day,
+            "--config",
+            str(config),
+            "--data-dir",
+            str(data),
+            "--site-dir",
+            str(data.parent / "site"),
+        ]
+    )
+
+
+DEMO_MANIFESTS = [
+    {"repo": "me/web", "paths": ["package.json"]},
+    {"repo": "me/api", "paths": ["pyproject.toml"]},
+]
+
+
+def test_radar_reports_lodash_vulnerabilities_and_new_major_first(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    config = radar_config(tmp_path, DEMO_MANIFESTS)
+
+    assert run_day(config, tmp_path / "data", "2026-09-27") == 0
+
+    out = capsys.readouterr().out
+    radar = out[out.index("📡") : out.index("📰")]
+    assert radar.count("🛡 ") == 3
+    assert "lodash 4.17.15</a> · <b>high</b> · đã sửa ở 4.17.19" in radar
+    assert radar.index("🛡") < radar.index('🚀 <a href="https://github.com/encode/httpx')
+    digest = json.loads((tmp_path / "data/digests/2026-09-27.json").read_text(encoding="utf-8"))
+    assert len(digest["radar"]) == 4
+    assert "notes" not in digest["radar"][0]
+
+
+def test_radar_does_not_repeat_on_the_next_day(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    config, data = radar_config(tmp_path, DEMO_MANIFESTS), tmp_path / "data"
+
+    assert run_day(config, data, "2026-09-27") == 0
+    capsys.readouterr()
+    assert run_day(config, data, "2026-09-28") == 0
+
+    out = capsys.readouterr().out
+    assert "📡" not in out
+    state = json.loads((data / "radar_state.json").read_text(encoding="utf-8"))
+    assert len(state) == 4
+    assert set(state.values()) == {"2026-09-27"}
+    repo_map = json.loads((data / "radar_map.json").read_text(encoding="utf-8"))
+    assert repo_map["npm:lodash"] == "lodash/lodash"
+    assert repo_map["PyPI:httpx"] == "encode/httpx"
+
+
+def test_broken_manifest_still_sends_the_digest(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    config = radar_config(
+        tmp_path, [{"repo": "me/private", "paths": ["requirements-prod.txt", "Cargo.toml"]}]
+    )
+
+    assert run_day(config, tmp_path / "data", "2026-09-27") == 0
+
+    out = capsys.readouterr().out
+    assert out.startswith("<b>Bản tin công nghệ · 2026-09-27</b>")
+    assert "📡" not in out
+    assert "1. <a " in out
+
+
+def test_corrupt_radar_state_fails_loudly(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    # Treating it as empty would report every known vulnerability again.
+    (tmp_path / "radar_state.json").write_text("[", encoding="utf-8")
+
+    code = main(["run", "--dry-run", "--config", str(REPO_CONFIG), "--data-dir", str(tmp_path)])
+
+    assert code == 2
+    assert "radar_state.json" in capsys.readouterr().err

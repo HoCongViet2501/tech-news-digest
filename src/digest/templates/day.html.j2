@@ -1,7 +1,9 @@
 {% extends "base.html.j2" %}
 {% from "_items.html.j2" import items %}
+{% from "_radar.html.j2" import radar %}
 {% block title %}{{ t.title }} · {{ digest.date.isoformat() }}{% endblock %}
 {% block body %}
 <h1>{{ t.title }} · {{ digest.date.isoformat() }}</h1>
+{{ radar(digest, t) }}
 {{ items(digest, t) }}
 {% endblock %}

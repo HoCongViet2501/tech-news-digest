@@ -37,6 +37,34 @@ Set `ai.enabled: true` in `config.yaml` and provide at least one provider key
 Providers are tried in order; with no working provider the digest is sent with the
 heuristic ranking and an "AI unavailable" note. Prompts live in `src/digest/ai/prompts/`.
 
+## Dependency radar
+
+`radar.manifests` in `config.yaml` lists the repos and manifest files to watch
+(`package.json`, `requirements*.txt`, `pyproject.toml`, `go.mod`). Each day the radar
+reports, at the top of the digest and only when there is something new:
+
+1. vulnerabilities affecting the declared version (OSV, no key needed),
+2. new major versions,
+3. releases whose notes mention breaking changes.
+
+Each vulnerability and release is reported once (`data/radar_state.json`); package to
+GitHub repo lookups are cached in `data/radar_map.json`. The GitHub API is called with
+`GH_READ_TOKEN` if set (needed only for private repos, fine-grained PAT with Contents:
+read), otherwise `GITHUB_TOKEN`, which the daily workflow passes automatically.
+
+## Feedback and weekly recap
+
+With `feedback.enabled`, every item in the Telegram digest gets 👍/👎 buttons. The bot
+has no server, so taps are collected by polling: `uv run python -m digest feedback`
+(run every 3 hours by `feedback.yml`) reads them with `getUpdates` and appends them to
+`data/feedback.jsonl`. Buttons keep spinning until then; that is expected. Never set a
+webhook on the bot, or `getUpdates` stops working.
+
+Recent votes are shown to the AI scorer as examples, and each source's heuristic score is
+weighted by its like ratio. On Sunday at 08:00, `weekly.yml` runs
+`uv run python -m digest weekly`: the week's top 5, feedback stats and, with AI enabled,
+up to 3 suggested profile changes (only suggestions; `config.yaml` is never edited).
+
 ## Test and lint
 
 ```bash

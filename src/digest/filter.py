@@ -2,7 +2,7 @@
 
 import re
 from collections import defaultdict
-from collections.abc import Collection
+from collections.abc import Collection, Mapping
 
 from digest.config import Config
 from digest.models import Item, ScoredItem
@@ -52,13 +52,19 @@ def _percentiles(items: list[Item]) -> list[float]:
     return result
 
 
-def rank(items: list[Item], cfg: Config, limit: int) -> list[ScoredItem]:
-    """Heuristic relevance; can exceed 10 with bonuses. Ties break on raw score."""
+def rank(
+    items: list[Item], cfg: Config, limit: int, weights: Mapping[str, float] | None = None
+) -> list[ScoredItem]:
+    """Heuristic relevance; can exceed 10 with bonuses. Ties break on raw score.
+
+    `weights` (from feedback) multiply the relevance of each source's items.
+    """
     scored = []
     for item, pct in zip(items, _percentiles(items), strict=True):
         relevance = pct + ALSO_ON_BONUS * len(item.also_on)
         if _matches(item.title, cfg.filters.keywords_include):
             relevance += INCLUDE_BONUS
+        relevance *= (weights or {}).get(item.source, 1.0)
         scored.append(ScoredItem(**item.model_dump(), relevance=round(relevance, 4)))
     scored.sort(key=lambda s: (s.relevance, s.score), reverse=True)
     return scored[:limit]
