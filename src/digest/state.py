@@ -1,11 +1,14 @@
 """Read/write the JSON state committed under data/."""
 
 import json
+import logging
 from collections.abc import Iterable
 from datetime import date, timedelta
 from pathlib import Path
 
 from digest.models import Digest
+
+log = logging.getLogger(__name__)
 
 
 class StateError(Exception):
@@ -68,3 +71,21 @@ def load_digests(digests_dir: Path) -> list[Digest]:
         Digest.model_validate_json(p.read_text(encoding="utf-8"))
         for p in sorted(digests_dir.glob("*.json"))
     ]
+
+
+def load_radar_map(path: Path) -> dict[str, str | None]:
+    """Package -> GitHub repo cache. A broken cache is only a cache: start over."""
+    if not path.is_file():
+        return {}
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        log.warning("cannot read %s, rebuilding it: %s", path, exc)
+        return {}
+    if not isinstance(data, dict):
+        return {}
+    return {str(k): (str(v) if v else None) for k, v in data.items()}
+
+
+def save_radar_map(path: Path, repo_map: dict[str, str | None]) -> None:
+    _write_atomic(path, json.dumps(dict(sorted(repo_map.items())), indent=1) + "\n")
