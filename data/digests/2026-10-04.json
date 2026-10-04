@@ -1,0 +1,198 @@
+{
+ "date": "2026-10-04",
+ "items": [
+  {
+   "id": "9c241fb43bc9a6592b7a03258cae5b930445544b",
+   "source": "github",
+   "title": "anthropics/claude-code: Claude Code is an agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster by executing routine tasks, explaining complex code, and handling git workflows - all through natural language commands.",
+   "url": "https://github.com/anthropics/claude-code",
+   "discussion_url": null,
+   "score": 128,
+   "comments": 0,
+   "published_at": "2026-10-04T10:29:23.556396+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ Claude Code agentic chạy trực tiếp trong terminal.",
+   "summary": "Claude Code là một agentic coding tool chạy trực tiếp trong terminal, giúp hiểu rõ codebase và tăng tốc độ lập trình. Công cụ này hỗ trợ thực thi các tác vụ routine, giải thích code phức tạp và quản lý git workflows thông qua câu lệnh tự nhiên.",
+   "why_it_matters": "Cung cấp một trợ lý AI mạnh mẽ ngay trong terminal, giúp tối ưu hóa quy trình làm việc hàng ngày của full-stack developer."
+  },
+  {
+   "id": "452124a1ecf61c2e2740b3e8655731244b12133a",
+   "source": "github",
+   "title": "github/github-mcp-server: GitHub's official MCP Server",
+   "url": "https://github.com/github/github-mcp-server",
+   "discussion_url": null,
+   "score": 19,
+   "comments": 0,
+   "published_at": "2026-10-04T10:29:23.556396+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "MCP server chính thức từ GitHub.",
+   "summary": "GitHub MCP Server kết nối trực tiếp các AI tools với nền tảng GitHub. Công cụ này cho phép các AI agents đọc repositories, quản lý issues và PRs, phân tích CI/CD workflows, cũng như xử lý các vấn đề bảo mật thông qua tương tác ngôn ngữ tự nhiên.",
+   "why_it_matters": "Mở rộng khả năng của các LLM coding tool bằng cách cung cấp quyền truy cập ngữ cảnh repository thực tế và tự động hóa các tác vụ DevOps."
+  },
+  {
+   "id": "e53f91b8c346871134bb705daf85e250c15961bd",
+   "source": "github",
+   "title": "calesthio/OpenMontage: World's first open-source, agentic video production system. 12 production pipelines, 100+ tools, 700+ agent skill and production-knowledge files. Turn your AI coding assistant into a full video production studio.",
+   "url": "https://github.com/calesthio/OpenMontage",
+   "discussion_url": null,
+   "score": 292,
+   "comments": 0,
+   "published_at": "2026-10-04T10:29:23.556396+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Hệ thống video production agentic, tích hợp công cụ AI.",
+   "summary": "OpenMontage là open-source agentic video production system đầu tiên, tích hợp hơn 100 tools và các pipelines sản xuất video. Hệ thống này cho phép biến AI coding assistant thành một studio sản xuất video hoàn chỉnh thông qua các câu lệnh tự nhiên.",
+   "why_it_matters": "Giúp tận dụng các AI coding workflows hiện có để tự động hóa việc tạo nội dung video và media đa phương tiện."
+  },
+  {
+   "id": "4543fe55cde7adb06dd0bffe7dad7d4302166c5c",
+   "source": "github",
+   "title": "Effect-TS/effect: Build production-ready applications in TypeScript",
+   "url": "https://github.com/Effect-TS/effect",
+   "discussion_url": null,
+   "score": 302,
+   "comments": 0,
+   "published_at": "2026-10-04T10:29:23.556396+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Thư viện TypeScript giúp xây dựng ứng dụng production-ready.",
+   "summary": "Effect 4.x là bản phát hành long-term support (LTS) giúp xây dựng các TypeScript applications robust, type-safe và production-grade. Thư viện này giải quyết các bài toán phức tạp ở quy mô lớn như typed errors, dependency injection, structured concurrency và tracing.",
+   "why_it_matters": "Cung cấp một bộ công cụ mạnh mẽ và an toàn kiểu dữ liệu để xây dựng các ứng dụng TypeScript phức tạp, sẵn sàng cho production."
+  },
+  {
+   "id": "c22864d63ba1ae6ed57f72a87d0ee8de69d394a5",
+   "source": "lobsters",
+   "title": "I got targeted: Trying to get your credentials via a git post-checkout hook",
+   "url": "https://frankwiles.com/posts/i-got-targeted",
+   "discussion_url": "https://lobste.rs/s/cd5gdk/i_got_targeted_trying_get_your",
+   "score": 109,
+   "comments": 37,
+   "published_at": "2026-10-02T17:19:02.622000-05:00",
+   "tags": [
+    "security",
+    "vcs"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Cảnh báo lỗ hổng bảo mật git post-checkout hook.",
+   "summary": "Một nhà phát triển đã vạch trần một cuộc tấn công tinh vi nhắm vào thông tin đăng nhập thông qua git post-checkout hook ẩn trong một nhánh Git của dự án giả mạo. Kẻ tấn công sử dụng các ứng dụng Vercel làm lệnh và điều khiển (C&C) để tải xuống và chạy mã độc hại nhắm vào hệ thống của nạn nhân.",
+   "why_it_matters": "Nhắc nhở quan trọng về bảo mật trong CI/CD và quy trình git hàng ngày, đặc biệt khi làm việc với các kho lưu trữ từ bên ngoài."
+  },
+  {
+   "id": "da7c582ec8421efecbc5aa04ec61050d0e62110e",
+   "source": "github",
+   "title": "can1357/oh-my-pi: ⌥ Coding agent with the IDE wired in. Built by Stencil Labs.",
+   "url": "https://github.com/can1357/oh-my-pi",
+   "discussion_url": null,
+   "score": 99,
+   "comments": 0,
+   "published_at": "2026-10-04T10:29:23.556396+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Coding agent tích hợp trực tiếp với IDE.",
+   "summary": "Oh-my-pi (omp) là một AI coding agent mã nguồn mở dựa trên Rust, tích hợp trực tiếp với IDE, hỗ trợ hơn 60 providers và hàng chục công cụ LSP/DAP. Công cụ này chạy một tiến trình Python và Bun song song với các loopback bridge để agent có thể thao tác trực tiếp, thực thi lệnh debug qua lldb, dlv hay debugpy thay vì in log thủ công.",
+   "why_it_matters": "Cung cấp một môi trường agentic coding tối ưu hóa hiệu suất cho dev toàn stack, hỗ trợ sâu các công cụ debug hệ thống và tích hợp trôi chảy vào quy trình làm việc với TypeScript, Python và Go."
+  },
+  {
+   "id": "0f24fd84d2eb47557281f36a8a5f32d9f8e46563",
+   "source": "github",
+   "title": "cloudflare/cloudflare-os: Agent workspace built on Cloudflare Workers for creating documents, building apps, and running agents with your company’s context and systems.",
+   "url": "https://github.com/cloudflare/cloudflare-os",
+   "discussion_url": null,
+   "score": 85,
+   "comments": 0,
+   "published_at": "2026-10-04T10:29:23.556396+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Agent workspace chạy trên Cloudflare Workers.",
+   "summary": "Cloudflare OS v2 là một hệ điều hành AI workspace chạy trên nền Cloudflare Workers (workerd), cung cấp giao diện chat agent cùng các sandbox riêng tư để tạo tài liệu và ứng dụng nhỏ (\"gadgets\"). Phiên bản mã nguồn mở này đi kèm với hệ thống bảo mật Gatekeepers giúp kiểm soát truy cập dữ liệu và quản lý các tác vụ tự động một cách an toàn.",
+   "why_it_matters": "Đại diện cho mô hình DevOps và kiến trúc cloud-native mới, cho phép bạn tự host các ứng dụng tích hợp AI sandbox an toàn ngay trên hạ tầng edge của Cloudflare."
+  },
+  {
+   "id": "9d0f79dbc94561efbd2eb9f3f93268f10295bd1c",
+   "source": "github",
+   "title": "usestrix/strix: Open-source AI penetration testing tool to find and fix your app’s vulnerabilities.",
+   "url": "https://github.com/usestrix/strix",
+   "discussion_url": null,
+   "score": 215,
+   "comments": 0,
+   "published_at": "2026-10-04T10:29:23.556396+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Công cụ AI pentest mã nguồn mở hỗ trợ bảo mật.",
+   "summary": "Strix là công cụ pentest mã nguồn mở sử dụng autonomous AI agent để chạy kiểm thử bảo mật động, tìm kiếm lỗ hổng và xác thực bằng các exploit PoC thực tế. Công cụ tích hợp trực tiếp với GitHub Actions và các CI/CD pipeline để quét mã, tạo bản vá lỗi tự động trên các PR trước khi đưa lên production.",
+   "why_it_matters": "Giúp tích hợp liền mạch quy trình kiểm tra bảo mật (DevSecOps) vào CI/CD pipeline của bạn bằng AI mà không tốn công sức cấu hình phức tạp."
+  },
+  {
+   "id": "fc994d69ad09d9fe606a29c733bdd1a093f98374",
+   "source": "hn",
+   "title": "Getting the most out of Opus 5.5 in Claude and Claude Code",
+   "url": "https://claude.dev/blog/getting-the-most-out-of-opus-5-5",
+   "discussion_url": "https://news.ycombinator.com/item?id=49946567",
+   "score": 179,
+   "comments": 127,
+   "published_at": "2026-10-03T18:29:30Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Kinh nghiệm tối ưu Claude Code và Opus 5.5.",
+   "summary": "Hướng dẫn này chia sẻ các kỹ thuật tối ưu hóa khi sử dụng model Opus 5.5 trong Claude apps và Claude Code cho các tác vụ dài hạn, đa bước. Nội dung tập trung vào việc giao việc với đích đến rõ ràng, loại bỏ các prompt nhắc tư duy thủ công vì model tự động xử lý, và cấu hình file CLAUDE.md để kiểm soát thời điểm agent cần dừng lại hoặc tiếp tục chạy.",
+   "why_it_matters": "Giúp bạn tận dụng tối đa khả năng coding agent của Opus 5.5 để tự động hóa các đợt refactor mã nguồn lớn trong các dự án TypeScript, Python hay Go của mình."
+  },
+  {
+   "id": "475ac33afe189ead314783febc7dd40d596ecb19",
+   "source": "github",
+   "title": "getsentry/sentry: Developer-first error tracking and performance monitoring",
+   "url": "https://github.com/getsentry/sentry",
+   "discussion_url": null,
+   "score": 214,
+   "comments": 0,
+   "published_at": "2026-10-04T10:29:23.556396+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Công cụ giám sát lỗi và hiệu năng Sentry quen thuộc.",
+   "summary": "Sentry là nền tảng tracking lỗi và monitoring hiệu suất mã nguồn mở dành cho nhà phát triển, hỗ trợ hầu hết các ngôn ngữ lập trình chính như JavaScript, Python, Go, Rust và nhiều ngôn ngữ khác. Nền tảng giúp phát hiện, truy vết và khắc phục sự cố code nhanh chóng từ phía client lẫn backend.",
+   "why_it_matters": "Cung cấp công cụ tracing và error tracking tiêu chuẩn công nghiệp cho toàn bộ các dịch vụ full-stack và backend Go/Python của bạn."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 68,
+  "fetched_github": 60,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 153,
+  "after_dedupe": 151,
+  "after_filter": 82,
+  "ai": "gemini",
+  "ai_tokens_in": 13213,
+  "ai_tokens_out": 3886,
+  "sent": 10,
+  "summarized": 10
+ }
+}
