@@ -1,0 +1,195 @@
+{
+ "date": "2026-10-05",
+ "items": [
+  {
+   "id": "bca476fd34631d9d662cd56662a8baa94313727b",
+   "source": "hn",
+   "title": "Run Qwen 3.8 Flash Next (125B) on consumer hardware (RTX 4090) at 100T/s",
+   "url": "https://github.com/Niko1221/Strata",
+   "discussion_url": "https://news.ycombinator.com/item?id=49953495",
+   "score": 637,
+   "comments": 298,
+   "published_at": "2026-10-04T12:51:53Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Chạy mô hình LLM lớn trên phần cứng cá nhân với tốc độ cao.",
+   "summary": "Strata là một công cụ mã nguồn mở cho phép chạy mô hình AI 125B parameter như Qwen 3.8 Flash Next trực tiếp trên PC cá nhân với phần cứng phổ thông (NVIDIA hoặc AMD GPU). Công cụ này hỗ trợ tốc độ xử lý token cao, cung cấp giao diện web cục bộ và tích hợp MCP server để các AI coding assistant kết nối và tự động cài đặt.",
+   "why_it_matters": "Giúp bạn tận dụng GPU cá nhân để chạy các mô hình AI lớn và tích hợp trực tiếp với các AI coding tool thông qua MCP mà không cần phụ thuộc vào API bên ngoài."
+  },
+  {
+   "id": "a1b02a6424f5c8f231f4ceec4f19280b8cbf806b",
+   "source": "github",
+   "title": "experientiallabs/experiential: Experiential is the open source, zero markup gateway for BYOK, self-hosted and 1000+ marketplace models. It learns from your traffic to cut costs, recommend better models, and train a specialized model you own.",
+   "url": "https://github.com/experientiallabs/experiential",
+   "discussion_url": null,
+   "score": 472,
+   "comments": 0,
+   "published_at": "2026-10-05T10:09:23.049105+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "AI gateway mã nguồn mở hỗ trợ tối ưu chi phí và self-hosted model.",
+   "summary": "Experiential là một open-source gateway và router tương thích với OpenAI API, cho phép quản lý các mô hình BYOK, tự host và hàng nghìn mô hình marketplace cho agent workflow. Công cụ này phân tích production traffic để tối ưu hóa chi phí, kiểm soát hạn mức và hỗ trợ fine-tune mô hình chuyên biệt từ telemetry traces.",
+   "why_it_matters": "Cung cấp một gateway tập trung để định tuyến và tối ưu hóa chi phí gọi LLM cho các agent workflow và coding tool của bạn."
+  },
+  {
+   "id": "2df8df67d9e5642c47192c2bab50bf11c9b33f93",
+   "source": "github",
+   "title": "jamwithai/production-agentic-rag-course",
+   "url": "https://github.com/jamwithai/production-agentic-rag-course",
+   "discussion_url": null,
+   "score": 220,
+   "comments": 0,
+   "published_at": "2026-10-05T10:09:23.049105+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Khóa học thực chiến xây dựng hệ thống Agentic RAG.",
+   "summary": "Đây là một khóa học thực hành xây dựng hệ thống RAG và trợ lý nghiên cứu AI từ cơ bản đến nâng cao sử dụng kiến trúc production-grade. Khóa học bao gồm Docker, FastAPI, PostgreSQL, OpenSearch, Airflow, hybrid search, caching, và tích hợp Agentic RAG với LangGraph cùng Telegram bot.",
+   "why_it_matters": "Cung cấp kiến trúc và mã nguồn thực tế để dựng hệ thống tìm kiếm hybrid kết hợp RAG và Agentic workflow bằng Docker và Python."
+  },
+  {
+   "id": "73b2640088636051742cac2b4d959c5b40a61eae",
+   "source": "github",
+   "title": "router-for-me/CLIProxyAPI: Wrap Antigravity, ChatGPT Codex, Claude Code, Grok Build, Muse Code, Devin as an OpenAI/Gemini/Claude/Codex compatible API service, allowing you to enjoy the free Gemini Series, GPT Series, Grok Series, Claude model through API",
+   "url": "https://github.com/router-for-me/CLIProxyAPI",
+   "discussion_url": null,
+   "score": 129,
+   "comments": 0,
+   "published_at": "2026-10-05T10:09:23.049105+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Proxy API gom nhiều mô hình LLM và coding agent thành chuẩn OpenAI.",
+   "summary": "CLIProxyAPI là một proxy server chuyển đổi các dịch vụ CLI thành các API endpoint tương thích với OpenAI, Gemini, Claude và Codex. Dự án này cho phép truy cập cục bộ vào nhiều mô hình AI từ các nhà cung cấp khác nhau thông qua một giao diện API duy nhất.",
+   "why_it_matters": "Giúp bạn dễ dàng đồng bộ và tích hợp nhiều dòng mô hình AI khác nhau vào các công cụ phát triển hiện có thông qua một API chuẩn duy nhất."
+  },
+  {
+   "id": "b22ad9f6b573aaab52d3a7684b7158394502d8d4",
+   "source": "github",
+   "title": "garrytan/gstack: Use Garry Tan's exact Claude Code setup: 23 opinionated tools that serve as CEO, Designer, Eng Manager, Release Manager, Doc Engineer, and QA",
+   "url": "https://github.com/garrytan/gstack",
+   "discussion_url": null,
+   "score": 125,
+   "comments": 0,
+   "published_at": "2026-10-05T10:09:23.049105+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Bộ công cụ cấu hình Claude Code tự động hóa vai trò kỹ thuật.",
+   "summary": "gstack là một bộ gồm 23 công cụ cấu hình sẵn dành cho Claude Code do Garry Tan phát triển, giúp tự động hóa các vai trò từ quản lý, thiết kế, kỹ thuật đến QA và release. Bộ công cụ này hoạt động dựa trên các lệnh slash và file Markdown để biến Claude Code thành một quy trình sản xuất phần mềm hoàn chỉnh.",
+   "why_it_matters": "Tối ưu hóa năng suất lập trình hàng ngày bằng cách biến Claude Code thành một hệ thống tự động hóa CI/CD, QA và code review có cấu trúc."
+  },
+  {
+   "id": "2cd8b720a2d572c1a0601ccf92609a87995d672b",
+   "source": "github",
+   "title": "golang/go: The Go programming language",
+   "url": "https://github.com/golang/go",
+   "discussion_url": null,
+   "score": 77,
+   "comments": 0,
+   "published_at": "2026-10-05T10:09:23.049105+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Kho lưu trữ chính thức của ngôn ngữ lập trình Go.",
+   "summary": "Go là một ngôn ngữ lập trình mã nguồn mở giúp xây dựng phần mềm đơn giản, đáng tin cậy và hiệu quả. Kho lưu trữ Git chính thức được đặt trên GoSource với một bản mirror trên GitHub.",
+   "why_it_matters": "Cung cấp quyền truy cập vào mã nguồn và các bản phân phối nhị phân mới nhất của Go cho các dự án backend của bạn."
+  },
+  {
+   "id": "3115c6f7bb984a24931b7be50353e2b6bce3d738",
+   "source": "github",
+   "title": "vllm-project/semantic-router: A programmable Mixture-of-Models router for heterogeneous LLM inference",
+   "url": "https://github.com/vllm-project/semantic-router",
+   "discussion_url": null,
+   "score": 15,
+   "comments": 0,
+   "published_at": "2026-10-05T10:09:23.049105+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Router Mixture-of-Models lập trình được cho suy luận LLM.",
+   "summary": "vLLM Semantic Router là một lớp định tuyến có thể lập trình để xây dựng hệ thống Mixture-of-Models trên hạ tầng LLM dị thể. Công cụ này đánh giá các tín hiệu yêu cầu, sở thích người dùng và chính sách ứng dụng để lựa chọn hoặc kết hợp đường dẫn mô hình phù hợp mà không cầnhard-code logic định tuyến.",
+   "why_it_matters": "Giúp tối ưu hóa chi phí, độ trễ và hiệu năng khi triển khai các ứng dụng AI kết hợp nhiều mô hình LLM trong môi trường production."
+  },
+  {
+   "id": "3382c310c59c816a1341d1f44a33e2232977044a",
+   "source": "github",
+   "title": "ys-ll/uniterm: A lightweight all-in-one terminal with 30+ protocols — SSH, RDP, SFTP, databases, Kubernetes and more. With a built-in autonomous AI Agent that plans and runs multi-turn shell commands.",
+   "url": "https://github.com/ys-ll/uniterm",
+   "discussion_url": null,
+   "score": 7,
+   "comments": 0,
+   "published_at": "2026-10-05T10:09:23.049105+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Terminal tích hợp đa giao thức và AI agent tự động hóa lệnh.",
+   "summary": "uniterm là một terminal all-in-one hạng nhẹ hỗ trợ hơn 30 giao thức bao gồm SSH, RDP, SFTP, cơ sở dữ liệu và Kubernetes. Công cụ này tích hợp một AI Agent tự chủ để lập kế hoạch và chạy các lệnh shell nhiều vòng trực tiếp trong tab terminal hoạt động.",
+   "why_it_matters": "Cung cấp một giao diện dòng lệnh mạnh mẽ kết hợp AI Agent và MCP server để quản lý hạ tầng DevOps và các kết nối từ xa hiệu quả."
+  },
+  {
+   "id": "edebac27558d7be169be39133d1a6b1c484437d4",
+   "source": "hn",
+   "title": "Xray-core concealed a certificate verification bypass vulnerability",
+   "url": "https://github.com/net4people/bbs/issues/672",
+   "discussion_url": "https://news.ycombinator.com/item?id=49956003",
+   "score": 61,
+   "comments": 2,
+   "published_at": "2026-10-04T17:38:54Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Lỗ hổng bảo mật bypass xác thực chứng chỉ trong Xray-core.",
+   "summary": "Xray-core đã gặp phải lỗi bypass xác thực chứng chỉ liên quan đến tùy chọn pinnedPeerCertSha256 mới. Lỗi này khiến logic ghim chứng chỉ tùy chỉnh hoạt động sai và bỏ qua việc xác thực chứng chỉ thông thường, tạo tiền đề cho các cuộc tấn công man-in-the-middle.",
+   "why_it_matters": "Cảnh báo quan trọng về các lỗ hổng bảo mật trong cấu hình proxy và chứng chỉ khi bạn đang quản lý hạ tầng mạng hoặc DevOps."
+  },
+  {
+   "id": "d8ea9701e2c6b77085701a9daaf19eb647f40a95",
+   "source": "github",
+   "title": "ifixai-ai/iFixAi: Independent Auditing of AI Agents. Run by human or the agent itself, to answer the most crucial question in the AI Agent Economy. Is the agent doing what is supposed to do? With iFixAi you can have this answer in less than 120 seconds.",
+   "url": "https://github.com/ifixai-ai/iFixAi",
+   "discussion_url": null,
+   "score": 298,
+   "comments": 0,
+   "published_at": "2026-10-05T10:09:23.049105+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 7.0,
+   "reason": "Công cụ audit độc lập cho AI agent, phù hợp xu hướng phát triển LLM.",
+   "summary": "iFixAi là một công cụ kiểm toán độc lập dành cho AI Agents nhằm kiểm tra xem agent có đang thực hiện đúng các mục tiêu kinh doanh hay không. Công cụ chạy 32 lượt kiểm tra qua 5 trụ cột và trả về bảng điểm dạng A-F cùng báo cáo chi tiết chỉ trong vòng chưa đầy 120 giây.",
+   "why_it_matters": "Cung cấp khả năng đánh giá và đảm bảo vận hành thực tế cho các AI-powered developer tools và coding agents mà bạn tích hợp vào quy trình làm việc."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 63,
+  "fetched_github": 48,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 136,
+  "after_dedupe": 131,
+  "after_filter": 65,
+  "ai": "gemini",
+  "ai_tokens_in": 14965,
+  "ai_tokens_out": 3949,
+  "sent": 10,
+  "summarized": 10
+ }
+}
