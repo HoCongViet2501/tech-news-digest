@@ -1,0 +1,200 @@
+{
+ "date": "2026-10-06",
+ "items": [
+  {
+   "id": "2c21e7b3471dc7b939861e984e35721b16edbb2f",
+   "source": "github",
+   "title": "skyhook-io/radar: The missing open-source Kubernetes UI with a built-in MCP server for AI agents. See what's broken, why, and what changed. Issues, Topology, event timeline, Helm, GitOps, live service traffic, and cluster audits - all in one Go binary.",
+   "url": "https://github.com/skyhook-io/radar",
+   "discussion_url": null,
+   "score": 36,
+   "comments": 0,
+   "published_at": "2026-10-06T10:57:34.272523+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 10.0,
+   "reason": "Kubernetes UI tích hợp sẵn MCP server cho AI agent viết bằng Go.",
+   "summary": "Skyhook Radar là một Kubernetes UI nguồn mở được đóng gói thành một single binary duy nhất, cho phép chạy trực tiếp từ máy cá nhân hoặc trong cluster mà không cần cấu hình phức tạp. Công cụ này cung cấp giao diện trực quan theo dõi topology, resource, GitOps, traffic cùng với một tích hợp MCP server sẵn có để các AI agent có thể thao tác và kiểm tra cluster.",
+   "why_it_matters": "Giúp bạn dễ dàng debug Kubernetes và kết nối trực tiếp các AI coding agent vào hạ tầng thông qua chuẩn MCP."
+  },
+  {
+   "id": "2955e31aa2908643b48f2aab4ba35094fb5e9de1",
+   "source": "github",
+   "title": "earthtojake/text-to-cad: Give your agent CAD superpowers.",
+   "url": "https://github.com/earthtojake/text-to-cad",
+   "discussion_url": null,
+   "score": 437,
+   "comments": 0,
+   "published_at": "2026-10-06T10:57:34.272523+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Công cụ AI agent thú vị tích hợp CAD.",
+   "summary": "Text-to-CAD là một plugin tích hợp các kỹ năng CAD cục bộ và chạy thông qua uv, cho phép các AI agent như Claude Code, Cursor hay Codex tạo mô hình 3D dưới dạng STEP, GLB, STL hoặc 3MF. Plugin này cung cấp một local server (cadgen mcp) giúp hiển thị trực tiếp các thẻ xem mô hình ngay trong cuộc trò chuyện của agent.",
+   "why_it_matters": "Mở rộng khả năng của các AI coding agent bạn đang dùng sang việc thiết kế kỹ thuật và tạo mô hình 3D tự động."
+  },
+  {
+   "id": "dc7a66cb784f713084df639d80c30dde470a72c4",
+   "source": "github",
+   "title": "tashfeenahmed/freellmapi: 7.4 billion tokens per month. 34 free LLM providers. 635 free model endpoints. All behind one /v1 endpoint, plus any custom OpenAI-compatible endpoint. Smart routing, automatic failover, encrypted keys. Personal experimentation only.",
+   "url": "https://github.com/tashfeenahmed/freellmapi",
+   "discussion_url": null,
+   "score": 321,
+   "comments": 0,
+   "published_at": "2026-10-06T10:57:34.272523+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Proxy API tích hợp nhiều LLM hữu ích cho thử nghiệm.",
+   "summary": "FreeLLMAPI tổng hợp hơn 34 nhà cung cấp LLM miễn phí với hơn 635 model endpoint đằng sau một endpoint chuẩn tương thích với OpenAI duy nhất. Công cụ tự động xử lý việc định tuyến thông minh, chuyển đổi dự phòng khi gặp lỗi rate-limit và cập nhật danh mục model liên tục.",
+   "why_it_matters": "Cho phép bạn tận dụng tối đa các hạn mức free tier của nhiều LLM khác nhau cho các tác vụ lập trình và thử nghiệm hàng ngày một cách liền mạch."
+  },
+  {
+   "id": "cb97d21a32795d49c6c0049cc553ed011a15523e",
+   "source": "github",
+   "title": "caddyserver/caddy: Fast and extensible multi-platform HTTP/1-2-3 web server with automatic HTTPS",
+   "url": "https://github.com/caddyserver/caddy",
+   "discussion_url": null,
+   "score": 515,
+   "comments": 0,
+   "published_at": "2026-10-06T10:57:34.272523+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Caddy web server phổ biến có bản cập nhật.",
+   "summary": "Caddy là một HTTP web server hiệu năng cao viết bằng Go, hỗ trợ tự động cấu hình HTTPS bằng Let's Encrypt hoặc ZeroSSL theo mặc định. Server này nổi bật với kiến trúc module có thể mở rộng linh hoạt, không có phụ thuộc bên ngoài và hỗ trợ đầy đủ HTTP/1, HTTP/2, cũng như HTTP/3.",
+   "why_it_matters": "Cung cấp một giải pháp web server và reverse proxy viết bằng Go vô cùng gọn nhẹ, dễ cấu hình và tự động hóa chứng chỉ SSL cho các ứng dụng của bạn."
+  },
+  {
+   "id": "fa919f7d6aff8e6abe9da638913f4169448d7cea",
+   "source": "lobsters",
+   "title": "Using docker-compose with Podman rootless",
+   "url": "https://elou.world/en/tutorial/podman-docker-compose",
+   "discussion_url": "https://lobste.rs/s/tpxwfe/using_docker_compose_with_podman",
+   "score": 14,
+   "comments": 10,
+   "published_at": "2026-10-05T04:51:28.692000-05:00",
+   "tags": [
+    "devops",
+    "linux",
+    "systemd",
+    "virtualization"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Hướng dẫn Docker Compose với Podman rootless cho DevOps.",
+   "summary": "Bài viết hướng dẫn cách cấu hình và sử dụng Podman ở chế độ rootless cùng với docker-compose thông qua việc kích hoạt podman.socket trên systemd. Bằng cách thiết lập biến môi trường DOCKER_HOST trỏ đến UNIX socket của Podman, các công cụ trong hệ sinh thái Docker có thể hoạt động trơn tru mà không cần quyền root.",
+   "why_it_matters": "Giúp bạn vận hành các container cục bộ theo mô hình rootless bảo mật hơn nhưng vẫn giữ nguyên được workflow quen thuộc với docker-compose."
+  },
+  {
+   "id": "3ee3cc6dee003c095c43f528c89e0dc3381c74a4",
+   "source": "github",
+   "title": "linshenkx/prompt-optimizer: An AI prompt optimizer for writing better prompts and getting better AI results.",
+   "url": "https://github.com/linshenkx/prompt-optimizer",
+   "discussion_url": null,
+   "score": 146,
+   "comments": 0,
+   "published_at": "2026-10-06T10:57:34.272523+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Công cụ tối ưu hóa prompt LLM cho developer.",
+   "summary": "Prompt Optimizer là một công cụ tối ưu hóa prompt AI mạnh mẽ hỗ trợ triển khai qua Docker, web, ứng dụng desktop và tiện ích mở rộng Chrome. Công cụ này cung cấp khả năng đánh giá đa vòng lặp, kiểm thử nâng cao với biến ngữ cảnh và tích hợp giao thức Model Context Protocol (MCP).",
+   "why_it_matters": "Hỗ trợ Docker và MCP giúp bạn dễ dàng tích hợp quy trình tối ưu hóa prompt vào môi trường phát triển và các ứng dụng AI như Claude Desktop."
+  },
+  {
+   "id": "e91f785b6a1d5cf059bff548eff3828effd94856",
+   "source": "hn",
+   "title": "Linux containers in 500 lines of code (2016)",
+   "url": "https://blog.lizzie.io/linux-containers-in-500-loc.html",
+   "discussion_url": "https://news.ycombinator.com/item?id=49965118",
+   "score": 110,
+   "comments": 22,
+   "published_at": "2026-10-05T14:09:15Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Tìm hiểu cách xây dựng Linux containers từ đầu bằng code.",
+   "summary": "Bài viết giới thiệu cách tự xây dựng các Linux container tối giản bằng các cơ chế cốt lõi của kernel như namespaces, cgroups và capabilities. Code nguồn tập trung vào việc tìm ra tập hợp các giới hạn tối thiểu để chạy mã không đáng tin cậy.",
+   "why_it_matters": "Giúp bạn hiểu sâu hơn về cơ chế cách ly của Docker và Kubernetes ở tầng hệ thống Linux."
+  },
+  {
+   "id": "111eda8b81a7f6ed7d0185e695bcb2e7da4ce159",
+   "source": "github",
+   "title": "Autumn-27/ARTEX: AI 自主渗透测试系统 | 百度“agent+”攻防挑战赛冠军项目",
+   "url": "https://github.com/Autumn-27/ARTEX",
+   "discussion_url": null,
+   "score": 61,
+   "comments": 0,
+   "published_at": "2026-10-06T10:57:34.272523+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Hệ thống AI tự động pentest ứng dụng.",
+   "summary": "ARTEX là một hệ thống kiểm thử thâm nhập tự động sử dụng AI, hỗ trợ triển khai bằng Docker hoặc dịch vụ Go nhúng một file nhị phân duy nhất. Hệ thống cung cấp bảng điều khiển quản lý tác vụ, ghi lại lưu lượng truy cập và tích hợp giao thức MCP từ xa.",
+   "why_it_matters": "Cung cấp một giải pháp agentic AI tự động hóa bảo mật với cách đóng gói bằng Docker thuận tiện cho việc vẫn hành CI/CD."
+  },
+  {
+   "id": "d1aa340a643527c9458f562f06b6497685c99bdd",
+   "source": "github",
+   "title": "Alishahryar1/free-claude-code: Use Claude Code, Codex, VSCode, Pi, and OpenCode (and 6 other harnesses) for free (1.3B+ free tokens) from your terminal, app, IDE, or phone, and now from the browser with native browser sessions (multi-harness + multi-model) like OpenClaw (voice supported + ToS friendly)",
+   "url": "https://github.com/Alishahryar1/free-claude-code",
+   "discussion_url": null,
+   "score": 120,
+   "comments": 0,
+   "published_at": "2026-10-06T10:57:34.272523+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Công cụ kết hợp nhiều harness và LLM cho developer.",
+   "summary": "Free-claude-code là một dự án mã nguồn mở độc lập cho phép sử dụng miễn phí các coding agent như Claude Code, Codex, Aider và nhiều agent khác thông qua một giao diện quản trị tập trung. Công cụ này hỗ trợ proxy mã nguồn cục bộ, tối ưu hóa token đầu ra terminal và cung cấp các trình cài đặt cho Linux, macOS và Windows.",
+   "why_it_matters": "Giúp bạn thử nghiệm nhiều AI coding agent và mô hình khác nhau trực tiếp từ terminal hoặc IDE mà không tốn kém chi phí API."
+  },
+  {
+   "id": "e9fecc0b009fd09a7e81ef5c35af12d93b044ff2",
+   "source": "github",
+   "title": "tester-army/e2e: Next generation e2e testing framework for web and mobile apps.",
+   "url": "https://github.com/tester-army/e2e",
+   "discussion_url": null,
+   "score": 1398,
+   "comments": 0,
+   "published_at": "2026-10-06T10:57:34.272523+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 7.0,
+   "reason": "Framework e2e testing mới cho web và mobile.",
+   "summary": "E2e là một framework kiểm thử end-to-end thế hệ mới dành cho ứng dụng web và di động, cho phép điều khiển ứng dụng thông qua các câu lệnh ngôn ngữ tự nhiên. Framework này ghi lại các thao tác của agent và phát lại chúng ở các lần chạy sau mà không cần gọi model nếu ứng dụng không thay đổi.",
+   "why_it_matters": "Mang lại cách viết test E2E bằng TypeScript trực quan hơn, giúp tiết kiệm chi phí gọi LLM và dễ dàng tích hợp vào CI/CD."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 97,
+  "fetched_github": 41,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 163,
+  "after_dedupe": 157,
+  "after_filter": 83,
+  "ai": "gemini",
+  "ai_tokens_in": 15636,
+  "ai_tokens_out": 3729,
+  "sent": 10,
+  "summarized": 10
+ }
+}
