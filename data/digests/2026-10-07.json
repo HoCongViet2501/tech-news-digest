@@ -1,0 +1,197 @@
+{
+ "date": "2026-10-07",
+ "items": [
+  {
+   "id": "519ff9d3faffb4888b2c51d0e8edd87a5c8cda06",
+   "source": "github",
+   "title": "0x4m4/hexstrike-ai: HexStrike AI MCP Agents is an advanced MCP server that lets AI agents (Claude, GPT, Copilot, etc.) autonomously run 150+ cybersecurity tools for automated pentesting, vulnerability discovery, bug bounty automation, and security research. Seamlessly bridge LLMs with real-world offensive security capabilities.",
+   "url": "https://github.com/0x4m4/hexstrike-ai",
+   "discussion_url": null,
+   "score": 53,
+   "comments": 0,
+   "published_at": "2026-10-07T10:25:30.464177+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "MCP server tích hợp AI agent với công cụ bảo mật cybersecurity.",
+   "summary": "HexStrike AI MCP v6.0 là một framework kiểm thử xâm nhập tự động tích hợp hơn 150 công cụ bảo mật thông qua giao thức Model Context Protocol (MCP). Phiên bản này bổ sung kiến trúc đa tác nhân (multi-agent) với hơn 12 AI agent tự động hỗ trợ khám phá lỗ hổng, giải quyết CTF và thực hiện pentest.",
+   "why_it_matters": "Công cụ này cho phép bạn tích hợp trực tiếp khả năng quét bảo mật và pentest tự động vào các AI coding assistant quen thuộc như Claude hay VS Code Copilot."
+  },
+  {
+   "id": "a67bb8d2a6b423507df124720c24d43b990cf127",
+   "source": "github",
+   "title": "ChromeDevTools/chrome-devtools-mcp: Chrome DevTools for coding agents",
+   "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+   "discussion_url": null,
+   "score": 44,
+   "comments": 0,
+   "published_at": "2026-10-07T10:25:30.464177+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "MCP tích hợp Chrome DevTools cho coding agents.",
+   "summary": "Công cụ chrome-devtools-mcp hoạt động như một MCP server giúp các AI coding agent kiểm soát và tương tác trực tiếp với một phiên bản trình duyệt Chrome thực tế. Nó cung cấp khả năng thu thập thông tin hiệu suất, gỡ lỗi mạng và tự động hóa thao tác thông qua Puppeteer.",
+   "why_it_matters": "Giúp AI assistant của bạn tự động kiểm thử giao diện, phân tích mạng và gỡ lỗi trực tiếp trên trình duyệt trong quá trình phát triển full-stack."
+  },
+  {
+   "id": "1fb256ce62b78d40de29de3e5fd15a4d696f7982",
+   "source": "github",
+   "title": "cursor/plugins: Cursor plugin specification and official plugins",
+   "url": "https://github.com/cursor/plugins",
+   "discussion_url": null,
+   "score": 154,
+   "comments": 0,
+   "published_at": "2026-10-07T10:25:30.464177+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Đặc tả plugin và extension chính thức cho Cursor.",
+   "summary": "Kho lưu trữ này cung cấp các plugin chính thức cho trình soạn thảo Cursor, giúp mở rộng khả năng của AI trong các tác vụ lập trình và quản lý quy trình làm việc. Các plugin bao gồm từ công cụ kiểm tra độ tương thích của agent, đánh giá code đến tích hợp SDK và các dịch vụ bên ngoài.",
+   "why_it_matters": "Cung cấp các tiện ích và quy trình tự động hóa sẵn có giúp tối ưu hóa chu trình CI/CD và quy trình phát triển hàng ngày bằng AI trong Cursor."
+  },
+  {
+   "id": "2c650dc340b0f56d4e0d05ec091a45fbe48197bf",
+   "source": "github",
+   "title": "omnigent-ai/omnigent: Omnigent is an open-source AI agent framework and meta-harness: orchestrate Claude Code, Codex, Cursor, Pi, and custom agents — swap harnesses without rewriting, enforce policies and sandboxing, and collaborate in real time from any device.",
+   "url": "https://github.com/omnigent-ai/omnigent",
+   "discussion_url": null,
+   "score": 28,
+   "comments": 0,
+   "published_at": "2026-10-07T10:25:30.464177+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Khung orchestrate AI agent mã nguồn mở đa năng.",
+   "summary": "Omnigent là một framework AI agent mã nguồn mở đóng vai trò là lớp điều phối chung cho nhiều công cụ như Claude Code, Cursor và các custom agent khác. Hệ thống này cho phép đồng bộ hóa phiên làm việc trên nhiều thiết bị, cộng tác thời gian thực và thực thi agent trong các môi trường cloud sandbox khác nhau.",
+   "why_it_matters": "Cung cấp một giải pháp DevOps thống nhất để quản lý, cấu hình sandboxing và giám sát các coding agent trên hạ tầng cloud hoặc Kubernetes của bạn."
+  },
+  {
+   "id": "4c7a691915f4d075daff949fdd490adf2fcaede9",
+   "source": "github",
+   "title": "raullenchai/Rapid-MLX: Rapid-MLX is an open-source (Apache 2.0) OpenAI- and Anthropic-compatible LLM inference server for Apple Silicon, built on MLX, focused on reliable tool calling for coding agents. Up to 4× faster than Apple's MLX (mlx-lm) on the same weights.",
+   "url": "https://github.com/raullenchai/Rapid-MLX",
+   "discussion_url": null,
+   "score": 16,
+   "comments": 0,
+   "published_at": "2026-10-07T10:25:30.464177+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Server inference LLM tối ưu cho Apple Silicon phục vụ coding agent.",
+   "summary": "Rapid-MLX là một OpenAI- và Anthropic-compatible LLM inference server chạy trên Apple Silicon, được tối ưu hóa đặc biệt cho việc gọi công cụ của các coding agent. Phiên bản này mang lại tốc độ giải mã nhanh hơn tới 4 lần so với mlx-lm nhờ cơ chế suy luận và suy diễn thông minh.",
+   "why_it_matters": "Giúp bạn chạy các mô hình AI cục bộ trên máy Mac với hiệu suất cao, tối ưu hóa tốc độ phản hồi cho các công cụ lập trình tích hợp LLM."
+  },
+  {
+   "id": "89bc9f4915741df99e189c1670ff5bb26ad3b625",
+   "source": "github",
+   "title": "wonderwhy-er/DesktopCommanderMCP: This is MCP server for Claude that gives it terminal control, file system search and diff file editing capabilities",
+   "url": "https://github.com/wonderwhy-er/DesktopCommanderMCP",
+   "discussion_url": null,
+   "score": 13,
+   "comments": 0,
+   "published_at": "2026-10-07T10:25:30.464177+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "MCP server cho Claude cung cấp quyền điều khiển terminal và filesystem.",
+   "summary": "Desktop Commander là một MCP server dành cho Claude, cung cấp khả năng điều khiển terminal, tìm kiếm hệ thống tệp và chỉnh sửa tệp dạng diff. Công cụ này gom các tác vụ dev vào một giao diện chat duy nhất, cho phép thực thi lệnh dài hạn, phân tích dữ liệu và chỉnh sửa tài liệu như PDF hay Excel.",
+   "why_it_matters": "Công cụ này tận dụng LLM tooling và giao thức MCP để biến AI thành một coding agent mạnh mẽ trực tiếp trên môi trường làm việc của bạn."
+  },
+  {
+   "id": "3b42e75165e8174fff6edf8f119236cc352c47d1",
+   "source": "github",
+   "title": "derailed/k9s: 🐶 Kubernetes CLI To Manage Your Clusters In Style!",
+   "url": "https://github.com/derailed/k9s",
+   "discussion_url": null,
+   "score": 6,
+   "comments": 0,
+   "published_at": "2026-10-07T10:25:30.464177+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ Kubernetes CLI quen thuộc và thiết thực cho DevOps.",
+   "summary": "K9s là một công cụ giao diện dòng lệnh (TUI) bằng Go giúp tương tác, quan sát và quản lý các Kubernetes cluster dễ dàng hơn. Nó liên tục theo dõi các thay đổi trong cụm K8s và cung cấp các lệnh tương tác trực tiếp ngay trên terminal.",
+   "why_it_matters": "Đây là một công cụ DevOps thiết thực giúp tối ưu hóa công việc quản lý cluster Kubernetes hàng ngày của bạn một cách nhanh chóng và trực quan."
+  },
+  {
+   "id": "2dbe5444e0b3f2b60934615c9e487b0332f6a3dc",
+   "source": "hn",
+   "title": "OpenSSH 10.6",
+   "url": "https://openssh.org/releasenotes.html",
+   "discussion_url": "https://news.ycombinator.com/item?id=49983791",
+   "score": 93,
+   "comments": 23,
+   "published_at": "2026-10-06T20:41:39Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Phát hành phiên bản mới OpenSSH rất quan trọng cho DevOps.",
+   "summary": "Phiên bản OpenSSH 10.6 mang đến nhiều bản vá bảo mật quan trọng, các tính năng mới và các thay đổi chuẩn bị loại bỏ một số cờ cũ như -R trong scp. Đội ngũ phát triển lưu ý rằng họ đang nhận được nhiều báo cáo lỗi từ AI và sẽ phát hành các bản vá thường xuyên hơn.",
+   "why_it_matters": "Cập nhật này giúp đảm bảo tính bảo mật và ổn định cho hạ tầng cloud và các hệ thống CI/CD mà bạn vận hành hàng ngày."
+  },
+  {
+   "id": "338c5bbdf532a0af39657e6d1d1bf845ad61f066",
+   "source": "github",
+   "title": "helm/helm: The Kubernetes Package Manager",
+   "url": "https://github.com/helm/helm",
+   "discussion_url": null,
+   "score": 5,
+   "comments": 0,
+   "published_at": "2026-10-07T10:25:30.464177+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ quản lý gói Kubernetes cốt lõi cho DevOps.",
+   "summary": "Helm là trình quản lý gói phổ biến cho Kubernetes, cho phép tìm kiếm, chia sẻ và tạo các bản dựng tái tạo của các ứng dụng thông qua các Helm Chart. Phiên bản Helm v4 hiện đang được phát triển trên nhánh chính trong khi Helm v3 đang trong giai đoạn hỗ trợ bảo trì.",
+   "why_it_matters": "Là một full-stack developer làm việc với DevOps, bạn có thể tận dụng Helm để quản lý và triển khai các manifest Kubernetes một cách tự động và nhất quán trong quy trình CI/CD."
+  },
+  {
+   "id": "726825b5c88d04ebde7b3906199b49d01caa0a84",
+   "source": "github",
+   "title": "kubescape/kubescape: Kubescape is an open-source Kubernetes security platform for your IDE, CI/CD pipelines, and clusters. It includes risk analysis, security, compliance, and misconfiguration scanning, saving Kubernetes users and administrators precious time, effort, and resources.",
+   "url": "https://github.com/kubescape/kubescape",
+   "discussion_url": null,
+   "score": 4,
+   "comments": 0,
+   "published_at": "2026-10-07T10:25:30.464177+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Nền tảng bảo mật Kubernetes cho CI/CD và cụm cluster.",
+   "summary": "Kubescape là một nền tảng bảo mật Kubernetes mã nguồn mở hỗ trợ quét cấu hình sai, lỗ hổng container image và giám sát runtime dựa trên eBPF. Công cụ này tích hợp xuyên suốt từ môi trường IDE, CI/CD pipeline cho đến các cluster đang chạy và cung cấp cả MCP server cho trợ lý AI.",
+   "why_it_matters": "Nó cung cấp giải pháp bảo mật toàn diện cho hạ tầng Kubernetes và tích hợp tốt vào các pipeline CI/CD cũng như công cụ AI của bạn."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 100,
+  "fetched_github": 47,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 172,
+  "after_dedupe": 165,
+  "after_filter": 85,
+  "ai": "gemini",
+  "ai_tokens_in": 15397,
+  "ai_tokens_out": 3879,
+  "sent": 10,
+  "summarized": 10
+ }
+}
