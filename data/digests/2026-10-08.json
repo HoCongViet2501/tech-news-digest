@@ -1,0 +1,195 @@
+{
+ "date": "2026-10-08",
+ "items": [
+  {
+   "id": "92705331275526a8e0b1d0b4ec156bfb5025973f",
+   "source": "github",
+   "title": "morluto/rea: Reverse engineer anything with agents, from app behavior down to native binaries.",
+   "url": "https://github.com/morluto/rea",
+   "discussion_url": null,
+   "score": 4655,
+   "comments": 0,
+   "published_at": "2026-10-08T10:40:11.354897+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ reverse engineering bằng agent rất mạnh cho developer.",
+   "summary": "REA là một công cụ kết nối AI agent với các công cụ kiểm tra native binaries, ứng dụng JavaScript/Electron và .NET assemblies mà không cần source code. Nó cho phép agent phân tích cách hoạt động của tính năng, đưa ra bằng chứng và xây dựng phiên bản tương đương cho dự án của bạn.",
+   "why_it_matters": null
+  },
+  {
+   "id": "1d78f09c640d45a5bbd0bfb1739148cd8f12d3ab",
+   "source": "hn",
+   "title": "Claude Haiku 5.5",
+   "url": "https://anthropic.com/claude-haiku-5-5",
+   "discussion_url": "https://news.ycombinator.com/item?id=49996437",
+   "score": 732,
+   "comments": 370,
+   "published_at": "2026-10-07T18:01:32Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Release mô hình AI mới từ Anthropic, rất đáng chú ý.",
+   "summary": "Anthropic ra mắt Claude Haiku 5.5, mẫu model nhỏ gọn, chi phí thấp và nhanh nhất từ trước đến nay của họ với khả năng lập luận, code và xử lý tác vụ thông minh. Bản phát hành này giảm giá chạy model trung bình 75% so với thế hệ trước và bổ sung tùy chỉnh effort setting.",
+   "why_it_matters": null
+  },
+  {
+   "id": "6af93ea43beb7b950d1f587a395b95d3335813a7",
+   "source": "github",
+   "title": "ollama/ollama: Get up and running with Kimi, GLM, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models.",
+   "url": "https://github.com/ollama/ollama",
+   "discussion_url": null,
+   "score": 130,
+   "comments": 0,
+   "published_at": "2026-10-08T10:40:11.354897+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Ollama cập nhật hỗ trợ nhiều LLM lớn, rất thực tế cho DevOps và AI.",
+   "summary": "Ollama là công cụ giúp chạy các open-source AI models (như Kimi, GLM, DeepSeek, Qwen, Gemma) trực tiếp trên máy local. Dự án cung cấp REST API, thư viện Python/Node.js và tích hợp sẵn với nhiều AI coding assistant phổ biến.",
+   "why_it_matters": null
+  },
+  {
+   "id": "f22e235b95cf66e74b771465e1efca6d1e1650dc",
+   "source": "github",
+   "title": "kubernetes-sigs/agent-sandbox: agent-sandbox enables easy management of isolated, stateful, singleton workloads, ideal for use cases like AI agent runtimes and reinforcement learning (RL).",
+   "url": "https://github.com/kubernetes-sigs/agent-sandbox",
+   "discussion_url": null,
+   "score": 12,
+   "comments": 0,
+   "published_at": "2026-10-08T10:40:11.354897+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Agent sandbox trên Kubernetes tối ưu cho AI agent runtimes.",
+   "summary": "Kubernetes SIG Apps giới thiệu agent-sandbox, một Custom Resource Definition (CRD) và controller cho Kubernetes giúp quản lý các workload singleton có trạng thái, được cô lập tốt. Nó hỗ trợ các sandbox runtime bảo mật như gVisor hoặc Kata Containers, cùng các tiện ích như WarmPool để tối ưu thời gian khởi động.",
+   "why_it_matters": null
+  },
+  {
+   "id": "16169d530ca6c4a06d081d1401b1e8a9334c6d57",
+   "source": "github",
+   "title": "ayghri/i-have-adhd: A skill to stop your coding agent from burying the answer. ADHD-friendly output.",
+   "url": "https://github.com/ayghri/i-have-adhd",
+   "discussion_url": null,
+   "score": 619,
+   "comments": 0,
+   "published_at": "2026-10-08T10:40:11.354897+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Skill tối ưu output cho coding agent, rất hữu ích cho developer.",
+   "summary": "i-have-adhd là một skill dành cho AI coding assistant nhằm loại bỏ các đoạn mở đầu dài dòng, văn phong xã giao và những thông tin không cần thiết. Nó ép agent trả về kết quả tập trung vào hành động, đánh số các bước thực hiện và đi thẳng vào vấn đề kỹ thuật.",
+   "why_it_matters": null
+  },
+  {
+   "id": "e535a2f5bfb49c1d354347ca22574e9c4950cfc6",
+   "source": "github",
+   "title": "superdesigndev/treg: OpenRouter for agent tools. Join community here: https://discord.gg/6mQYYfFMAn",
+   "url": "https://github.com/superdesigndev/treg",
+   "discussion_url": null,
+   "score": 416,
+   "comments": 0,
+   "published_at": "2026-10-08T10:40:11.354897+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "OpenRouter cho agent tools, liên quan trực tiếp LLM tooling.",
+   "summary": "Treg hoạt động giống như OpenRouter nhưng dành cho các công cụ của AI agent thay vì mô hình. Nó cung cấp một catalog tập trung cho phép các agent gọi các dịch vụ trả phí, API bên ngoài hoặc CLI của team thông qua một base URL và token duy nhất mà không cần lộ credentials.",
+   "why_it_matters": "Giúp bạn dễ dàng tích hợp hàng loạt API bên ngoài và công cụ DevOps vào các coding agent của mình mà không cần quản lý thủ công các gói đăng ký hay API key riêng lẻ."
+  },
+  {
+   "id": "19355795289bf641fe2d2f26b622315447d920a8",
+   "source": "hn",
+   "title": "Docker Agent",
+   "url": "https://github.com/docker/docker-agent",
+   "discussion_url": "https://news.ycombinator.com/item?id=49996259",
+   "score": 196,
+   "comments": 87,
+   "published_at": "2026-10-07T17:48:38Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Docker Agent liên quan trực tiếp đến DevOps và công cụ AI.",
+   "summary": "Docker Agent là một docker CLI plugin cho phép bạn xây dựng, chạy và chia sẻ các AI agent sử dụng cấu hình YAML khai báo. Công cụ này hỗ trợ kiến trúc multi-agent, tích hợp hệ sinh thái MCP và có thể được đóng gói và phân phối qua bất kỳ OCI registry nào.",
+   "why_it_matters": "Tận dụng ngay kiến thức Docker hiện có của bạn để quản lý, chạy và chia sẻ các workflow của AI agent một cách nhất quán qua container registry."
+  },
+  {
+   "id": "025f7fa143318c703d01e6f16d22ce1ba30598f7",
+   "source": "github",
+   "title": "pingdotgg/t3code",
+   "url": "https://github.com/pingdotgg/t3code",
+   "discussion_url": null,
+   "score": 241,
+   "comments": 0,
+   "published_at": "2026-10-08T10:40:11.354897+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "GitHub repo t3code mới liên quan đến công cụ lập trình.",
+   "summary": "T3 Code là một \"agent harness control surface\" mã nguồn mở, cho phép bạn điều khiển các AI coding agent trên máy tính thông qua giao diện web, ứng dụng desktop Electron hoặc ứng dụng di động. Công cụ này tích hợp sẵn với các CLI phổ biến như Claude Code, Cursor và Codex.",
+   "why_it_matters": "Cung cấp một giao diện tập trung và linh hoạt để theo dõi, điều khiển các coding agent của bạn từ xa, giúp tối ưu hóa quy trình phát triển hàng ngày."
+  },
+  {
+   "id": "4c1a7c570cbfab53caa0860f0797546271ca4e64",
+   "source": "github",
+   "title": "garrytan/gbrain: Garry's Opinionated OpenClaw/Hermes Agent Brain",
+   "url": "https://github.com/garrytan/gbrain",
+   "discussion_url": null,
+   "score": 40,
+   "comments": 0,
+   "published_at": "2026-10-08T10:40:11.354897+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Cấu hình AI Agent Brain mã nguồn mở.",
+   "summary": "GBrain là hệ thống quản lý bộ nhớ độc lập dành cho các AI agent, giúp lưu trữ các sự kiện, trích dẫn và tài liệu nguồn một cách có cấu trúc. Công cụ này hỗ trợ tìm kiếm kết hợp, đồ thị tri thức có kiểu dữ liệu và có thể phơi bày qua giao thức MCP thông qua Tailscale.",
+   "why_it_matters": "Cung cấp cho các coding agent của bạn một bộ nhớ dài hạn, có thể chia sẻ giữa nhiều công cụ và truy cập an toàn qua mạng riêng ảo nội bộ."
+  },
+  {
+   "id": "8af5991f723cf10ef732bf54646bd3e4af53e2d7",
+   "source": "github",
+   "title": "allenai/olmocr: Toolkit for linearizing PDFs for LLM datasets/training",
+   "url": "https://github.com/allenai/olmocr",
+   "discussion_url": null,
+   "score": 18,
+   "comments": 0,
+   "published_at": "2026-10-08T10:40:11.354897+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Toolkit tiền xử lý PDF cho LLM training dataset.",
+   "summary": "olmOCR là một bộ công cụ chuyển đổi các định dạng tài liệu như PDF, PNG, JPEG thành văn bản thuần túy hoặc Markdown sạch để huấn luyện LLM. Phiên bản v0.4.0 mới nhất cải thiện điểm số benchmark bằng cách sử dụng dữ liệu tổng hợp và huấn luyện học tăng cường (RL).",
+   "why_it_matters": "Hữu ích khi bạn cần tự động hóa việc trích xuất tài liệu kỹ thuật, tài liệu API hoặc paper phức tạp thành dạng Markdown để đưa vào RAG hoặc pipeline AI của mình."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 100,
+  "fetched_github": 45,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 170,
+  "after_dedupe": 164,
+  "after_filter": 79,
+  "ai": "gemini",
+  "ai_tokens_in": 14467,
+  "ai_tokens_out": 3869,
+  "sent": 10,
+  "summarized": 10
+ }
+}
