@@ -1,0 +1,193 @@
+{
+ "date": "2026-10-09",
+ "items": [
+  {
+   "id": "998b1a58955d345098d9c0a83871ff2bd5ca44bf",
+   "source": "github",
+   "title": "Vincentwei1021/video-shotcraft: AI video skill for Claude Code & Codex — cinematic product videos with Remotion: 152 shot recipe cards, 209 motion previews, a production-ready template",
+   "url": "https://github.com/Vincentwei1021/video-shotcraft",
+   "discussion_url": null,
+   "score": 241,
+   "comments": 0,
+   "published_at": "2026-10-09T10:45:44.386215+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "AI video skill tích hợp Claude Code với Remotion, rất thực tế.",
+   "summary": "Công cụ video-shotcraft là một agent skill dành cho Claude Code và Codex, biến các AI coding agent thành studio thiết kế chuyển động chuyên tạo video quảng cáo sản phẩm qua Remotion. Phiên bản cập nhật mở rộng thư viện lên tới 152 thẻ công thức quay, hỗ trợ đồng bộ nhịp điệu âm thanh và cung cấp giao diện workbench kiểu CapCut cùng khả năng xuất project sang JianYing.",
+   "why_it_matters": "Giúp tự động hóa việc tạo video demo sản phẩm bằng AI trực tiếp từ môi trường lập trình của bạn."
+  },
+  {
+   "id": "b12c610e632d565f184cf2f04a0b7422f552774d",
+   "source": "hn",
+   "title": "Show HN: K10s – A Clickable Kubernetes TUI (Go, Bubble Tea)",
+   "url": "https://github.com/p10node/k10s",
+   "discussion_url": "https://news.ycombinator.com/item?id=50009904",
+   "score": 62,
+   "comments": 47,
+   "published_at": "2026-10-08T18:29:06Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Kubernetes TUI viết bằng Go và Bubble Tea, hoàn hảo cho DevOps.",
+   "summary": "K10s là một giao diện dòng lệnh (TUI) tương tác bấm-và-chọn dành cho Kubernetes, được viết bằng Go và sử dụng framework Bubble Tea. Công cụ này khởi động tức thì, hỗ trợ tìm kiếm toàn cục, cho phép dùng chuột và tích hợp sẵn trợ lý AI để phân tích trạng thái cluster bằng ngôn ngữ tự nhiên.",
+   "why_it_matters": "Cung cấp một công cụ quản lý cluster Kubernetes nhanh chóng và trực quan ngay trong terminal của một DevOps engineer."
+  },
+  {
+   "id": "54439e74880bee2cf4527a055b12619798bcc9bb",
+   "source": "github",
+   "title": "microsoft/agent-framework: A framework for building, orchestrating and deploying AI agents and multi-agent workflows with support for Python and .NET.",
+   "url": "https://github.com/microsoft/agent-framework",
+   "discussion_url": null,
+   "score": 27,
+   "comments": 0,
+   "published_at": "2026-10-09T10:45:44.386215+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Framework xây dựng và orchestrate AI agents hỗ trợ Python.",
+   "summary": "Microsoft Agent Framework (MAF) là một framework đa ngôn ngữ mã nguồn mở (hỗ trợ Python, .NET và Go) dùng để xây dựng và điều phối các AI agent cấp độ sản xuất. Framework này cung cấp các mô hình workflow dạng đồ họa, tích hợp sẵn OpenTelemetry để quan sát và hỗ trợ triển khai linh hoạt trên nhiều LLM khác nhau.",
+   "why_it_matters": "Cung cấp nền tảng chuẩn hóa bằng Python/Go để xây dựng các hệ thống multi-agent phức tạp từ khâu thử nghiệm lên production."
+  },
+  {
+   "id": "09a3e479d01f6a195901726d8934a962334397f5",
+   "source": "github",
+   "title": "backnotprop/plannotator: Annotate and review coding agent plans and code diffs visually, share with your team, send feedback to agents with one click.",
+   "url": "https://github.com/backnotprop/plannotator",
+   "discussion_url": null,
+   "score": 27,
+   "comments": 0,
+   "published_at": "2026-10-09T10:45:44.386215+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ review coding agent plans và code diffs trực quan.",
+   "summary": "Plannotator là một giao diện đánh giá chạy cục bộ trên trình duyệt, tích hợp với các AI coding agent thông qua hook để xem xét kế hoạch, mã nguồn và diff trực quan. Công cụ này cho phép nhà phát triển chú thích tài liệu, xem lại thay đổi mã từ git và gửi phản hồi trực tiếp ngược lại cho agent.",
+   "why_it_matters": "Tăng cường khả năng kiểm soát và tương tác trực quan với các kế hoạch cũng như mã nguồn do AI coding agent tạo ra."
+  },
+  {
+   "id": "a9bca652f0af07292e56786810a9175a58bfe137",
+   "source": "github",
+   "title": "Tracer-Cloud/opensre: Build your own AI SRE agents. The open source toolkit for the AI era.",
+   "url": "https://github.com/Tracer-Cloud/opensre",
+   "discussion_url": null,
+   "score": 81,
+   "comments": 0,
+   "published_at": "2026-10-09T10:45:44.386215+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Toolkit mã nguồn mở xây dựng AI SRE agents cho DevOps.",
+   "summary": "OpenSRE là một framework mã nguồn mở cung cấp môi trường và công cụ để xây dựng các AI SRE agent chuyên giải quyết sự cố hạ tầng trên chính hạ tầng của bạn. Dự án bao gồm một môi trường thử nghiệm học tăng cường và hỗ trợ tích hợp hơn 60 công cụ vận hành sẵn có.",
+   "why_it_matters": "Mang lại khả năng tự động hóa việc khắc phục sự cố production và phân tích log/metrics bằng AI trong môi trường DevOps của bạn."
+  },
+  {
+   "id": "9b2ec5107ce5cbad95007f9af71cacd4867beb91",
+   "source": "github",
+   "title": "stacklok/toolhive: ToolHive is an enterprise-grade platform for running and managing Model Context Protocol (MCP) servers.",
+   "url": "https://github.com/stacklok/toolhive",
+   "discussion_url": null,
+   "score": 8,
+   "comments": 0,
+   "published_at": "2026-10-09T10:45:44.386215+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Enterprise platform quản lý và chạy MCP servers.",
+   "summary": "ToolHive là một nền tảng cấp độ doanh nghiệp giúp chạy và quản lý các Model Context Protocol (MCP) server bên trong các container cô lập. Công cụ này cung cấp cơ chế kiểm soát truy cập, xác thực danh tính, tìm kiếm ngữ nghĩa để tiết kiệm token và hỗ trợ triển khai trực tiếp trên hạ tầng Kubernetes hoặc chạy cục bộ thông qua Docker.",
+   "why_it_matters": "Giúp bạn dễ dàng tự host và quản lý các MCP server một cách bảo mật trên hạ tầng Kubernetes của mình khi tích hợp các AI coding assistant."
+  },
+  {
+   "id": "fb7597a7e34181f29f9c92e92472d44028956303",
+   "source": "github",
+   "title": "kai-scheduler/KAI-Scheduler: KAI Scheduler is an open source Kubernetes Native scheduler for AI workloads at large scale",
+   "url": "https://github.com/kai-scheduler/KAI-Scheduler",
+   "discussion_url": null,
+   "score": 3,
+   "comments": 0,
+   "published_at": "2026-10-09T10:45:44.386215+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Kubernetes Native scheduler thiết kế riêng cho AI workloads.",
+   "summary": "KAI Scheduler là một open-source Kubernetes scheduler bản địa, được thiết kế để tối ưu hóa việc phân bổ tài nguyên GPU cho các workload AI và ML quy mô lớn. Dự án hỗ trợ lập lịch hàng loạt (batch scheduling), nhận diện topology (Topology-Aware Scheduling) và chia sẻ công bằng theo thời gian (Time-based Fairshare) trên các cụm cluster phức tạp.",
+   "why_it_matters": "Cung cấp giải pháp quản lý lịch trình và phân bổ GPU nâng cao ngay trên Kubernetes cho các ứng dụng AI và mô hình lớn của bạn."
+  },
+  {
+   "id": "352a8be27229a4e59c8596670085d16d9b7b0ce4",
+   "source": "hn",
+   "title": "Show HN: AI SRE Arena, an Open Benchmark for AI SRE Agents on Kubernetes",
+   "url": "https://github.com/edgedelta/project-arena",
+   "discussion_url": "https://news.ycombinator.com/item?id=50008642",
+   "score": 22,
+   "comments": 8,
+   "published_at": "2026-10-08T17:13:08Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Open benchmark đánh giá AI SRE agents chạy trên Kubernetes.",
+   "summary": "AI SRE Arena là một benchmark mở giúp triển khai môi trường Kubernetes giả lập để tiêm lỗi và đánh giá năng lực tự động điều tra sự cố của các tác nhân AI (AI SRE agents). Dự án cung cấp sẵn các kịch bản lỗi và bộ tiêu chí chấm điểm để so sánh hiệu suất phân tích nguyên nhân gốc rễ giữa các nền tảng observability gốc và Claude.",
+   "why_it_matters": "Cung cấp công cụ thực tế để đánh giá hiệu quả của các AI agent trong việc chẩn đoán và khắc phục sự cố trên hạ tầng Kubernetes."
+  },
+  {
+   "id": "15674fb790b6de4747abba3f665678c6ec9d8c12",
+   "source": "github",
+   "title": "CursorTouch/Windows-MCP: MCP Server for Computer Use in Windows",
+   "url": "https://github.com/CursorTouch/Windows-MCP",
+   "discussion_url": null,
+   "score": 360,
+   "comments": 0,
+   "published_at": "2026-10-09T10:45:44.386215+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "MCP Server cho Windows Computer Use, phù hợp với AI tooling.",
+   "summary": "Windows-MCP là một open-source MCP server nhẹ giúp kết nối trực tiếp các AI agent với hệ điều hành Windows mà không cần phụ thuộc vào computer vision phức tạp. Dự án hỗ trợ tương tác UI tự nhiên, điều khiển ứng dụng, tự động hóa trình duyệt qua chế độ DOM và dễ dàng cấu hình để chạy cùng Claude Desktop.",
+   "why_it_matters": "Mở rộng khả năng tự động hóa các tác vụ cục bộ trên môi trường Windows thông qua các AI coding assistant và giao thức MCP."
+  },
+  {
+   "id": "3295fd7388cdcc6b9960f1a156f29a0ebf71bbe0",
+   "source": "hn",
+   "title": "Sub-1-Bit LLM Compression via Latent Factorization",
+   "url": "https://github.com/SamsungLabs/LittleBit",
+   "discussion_url": "https://news.ycombinator.com/item?id=50005608",
+   "score": 77,
+   "comments": 23,
+   "published_at": "2026-10-08T13:29:46Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Kỹ thuật nén LLM sub-1-bit qua Latent Factorization, rất chuyên sâu.",
+   "summary": "LittleBit và LittleBit-2 là các mã nguồn nén mô hình ngôn ngữ lớn (LLM) xuống mức dưới 1 bit (sub-1-bit) thông qua phương pháp phân rã nhân tố ẩn (latent factorization) và tối ưu hóa hình học. Kỹ thuật này giúp đạt tỷ lệ nén cực cao (từ 1.0 xuống 0.1 bits-per-weight) thông qua quá trình huấn luyện nhận biết lượng tử hóa (QAT) mà không làm thay đổi kiến trúc mô hình gốc khi suy luận.",
+   "why_it_matters": "Cho phép bạn thử nghiệm các kỹ thuật nén mô hình LLM tiên tiến để giảm dung lượng triển khai mà không làm tăng thêm chi phí tính toán khi inference."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 100,
+  "fetched_github": 45,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 170,
+  "after_dedupe": 165,
+  "after_filter": 75,
+  "ai": "gemini",
+  "ai_tokens_in": 15057,
+  "ai_tokens_out": 4555,
+  "sent": 10,
+  "summarized": 10
+ }
+}
