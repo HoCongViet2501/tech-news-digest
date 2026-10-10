@@ -1,0 +1,197 @@
+{
+ "date": "2026-10-10",
+ "items": [
+  {
+   "id": "25d5d479e3abdd3ab7ecec373d7a3d8eb1efebb6",
+   "source": "hn",
+   "title": "Python 3.15",
+   "url": "https://python.org/downloads/release/python-3150",
+   "discussion_url": "https://news.ycombinator.com/item?id=50021127",
+   "score": 290,
+   "comments": 86,
+   "published_at": "2026-10-09T14:35:42Z",
+   "tags": [],
+   "also_on": [
+    "lobsters"
+   ],
+   "relevance": 9.0,
+   "reason": "Release phiên bản Python 3.15 mới nhất.",
+   "summary": "Python 3.15 mang đến bản phát hành ổn định với hàng loạt cải tiến như hỗ trợ UTF-8 làm mặc định,lazy imports rõ ràng, và bản nâng cấp JIT compiler giúp tăng hiệu suất đáng kể. Phiên bản này cũng giới thiệu nhiều tính năng typing mới, cải tiến C API cùng một tựa game phiêu lưu TUI 'whatsnewt' thú vị để trải nghiệm các tính năng mới ngay trong interpreter.",
+   "why_it_matters": "Nâng cấp hiệu suất của JIT compiler và các tính năng typing mới trong Python 3.15 giúp tăng tốc độ thực thi và độ tin cậy cho các ứng dụng backend hàng ngày của bạn."
+  },
+  {
+   "id": "9a75aafc0f232f11cd056b828b730c35405025ca",
+   "source": "github",
+   "title": "headroomlabs-ai/headroom: Compress tool outputs, logs, files, and RAG chunks before they reach the LLM. 20% fewer tokens for coding agents, 60-95% fewer tokens for JSON, same answers. Library, proxy, MCP server.",
+   "url": "https://github.com/headroomlabs-ai/headroom",
+   "discussion_url": null,
+   "score": 104,
+   "comments": 0,
+   "published_at": "2026-10-10T10:28:17.258109+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ nén token cho coding agent, MCP server và RAG.",
+   "summary": "Headroom là công cụ nén mã nguồn, log và dữ liệu đầu ra trước khi gửi đến LLM, giúp tiết kiệm đáng kể lượng token cho các coding agent. Công cụ này hoạt động cục bộ trên máy thông qua thư viện Python/TypeScript, proxy server hoặc tích hợp MCP mà không làm giảm chất lượng câu trả lời.",
+   "why_it_matters": "Giúp bạn tối ưu hóa chi phí và tốc độ khi sử dụng các AI coding agents và LLM tooling trong quy trình phát triển hàng ngày."
+  },
+  {
+   "id": "e2820020cd6d32b258f6f4536b58e81fe49dc5e8",
+   "source": "github",
+   "title": "BerriAI/litellm: The fastest, litest AI Gateway. Rust core with Python SDK. Call 100+ LLM APIs in OpenAI (or native) format with cost tracking, guardrails, load balancing, and logging [Bedrock, Azure, OpenAI, Anthropic, OpenAI, VertexAI, vLLM, Nvidia NIM]",
+   "url": "https://github.com/BerriAI/litellm",
+   "discussion_url": null,
+   "score": 95,
+   "comments": 0,
+   "published_at": "2026-10-10T10:28:17.258109+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "AI Gateway hiệu năng cao với Rust core, hỗ trợ nhiều LLM.",
+   "summary": "LiteLLM là một AI Gateway mã nguồn mở hiệu năng cao, kết hợp lõi Rust với Python SDK, cung cấp giao diện chuẩn OpenAI duy nhất để gọi hơn 100 nhà cung cấp LLM. Công cụ hỗ trợ quản lý khóa ảo, theo dõi chi phí, cân bằng tải, guardrails và tích hợp sẵn các A2A Agent protocol.",
+   "why_it_matters": "Cung cấp một giải pháp gateway tập trung, giúp bạn dễ dàng chuyển đổi giữa các mô hình LLM và tích hợp AI vào kiến trúc microservices mà không bị phụ thuộc vào SDK riêng lẻ."
+  },
+  {
+   "id": "51cb698d522f50609d943134f1dccdba5c5892b1",
+   "source": "hn",
+   "title": "The Hetzner Cloud network stack – history and technical overview",
+   "url": "https://hetzner.com/blog/the-hetzner-cloud-network-stack-history-and-technical-overview",
+   "discussion_url": "https://news.ycombinator.com/item?id=50019451",
+   "score": 104,
+   "comments": 27,
+   "published_at": "2026-10-09T12:20:55Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Tổng quan kiến trúc và lịch sử network stack của Hetzner Cloud.",
+   "summary": "Bài viết kỹ thuật này điểm lại lịch sử phát triển hạ tầng mạng của Hetzner Cloud từ các giải pháp Linux bridge ban đầu đến kiến trúc Open vSwitch hiện tại. Hệ thống tập trung xử lý các tính năng mạng nâng cao như tường lửa stateful và mạng riêng ảo VXLAN trực tiếp trên các máy chủ ảo hóa.",
+   "why_it_matters": "Cung cấp cái nhìn thực tế về cách thiết kế kiến trúc mạng ảo hóa và các công cụ DevOps cấp thấp trên Linux mà bạn có thể áp dụng cho hạ tầng cloud của mình."
+  },
+  {
+   "id": "ad18a56beeeddea5aed3dd77cb357521867cdb63",
+   "source": "github",
+   "title": "tirth8205/code-review-graph: Local-first code intelligence graph for MCP and CLI. Builds a persistent map of your codebase so AI coding tools read only what matters, with benchmarked context reductions on reviews and large-repo workflows.",
+   "url": "https://github.com/tirth8205/code-review-graph",
+   "discussion_url": null,
+   "score": 27,
+   "comments": 0,
+   "published_at": "2026-10-10T10:28:17.258109+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Biểu đồ thông tin code cho MCP và CLI giúp giảm token LLM.",
+   "summary": "Code-review-graph là một công cụ mã nguồn mở xây dựng bản đồ tri thức mã nguồn cục bộ dựa trên Tree-sitter và cung cấp ngữ cảnh code chính xác qua giao thức MCP. Công cụ tự động cập nhật gia tăng thông qua các git hook, giúp AI coding assistant chỉ đọc những file thực sự liên quan đến thay đổi.",
+   "why_it_matters": "Giúp các công cụ AI coding và MCP hiểu sâu hơn về cấu trúc codebase của bạn một cách nhanh chóng, tiết kiệm token và tăng độ chính xác khi review code."
+  },
+  {
+   "id": "f7cfdfd7bcc39abd56d5784ec638c99a8319617d",
+   "source": "github",
+   "title": "alibaba/open-code-review: Secure, fast, efficient, battle-tested at Alibaba's scale. Hybrid architecture code review tool: deterministic pipelines + LLM Agent, precise line-level comments, built-in multi-language ruleset (NPE, thread-safety, XSS, SQL injection), OpenAI & Anthropic compatible.",
+   "url": "https://github.com/alibaba/open-code-review",
+   "discussion_url": null,
+   "score": 326,
+   "comments": 0,
+   "published_at": "2026-10-10T10:28:17.258109+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Công cụ code review kết hợp pipeline và LLM Agent rất hữu ích cho lập trình viên.",
+   "summary": "Open Code Review là một công cụ CLI đánh giá mã nguồn hỗ trợ AI, kết hợp giữa pipeline kỹ thuật xác định và LLM Agent. Công cụ này đọc các Git diff, thực hiện kiểm tra độ chính xác ở cấp độ dòng mã và cung cấp các quy tắc kiểm tra đa ngôn ngữ tích hợp sẵn để phát hiện các lỗi như NPE, thread-safety, XSS và SQL injection.",
+   "why_it_matters": "Giúp tối ưu hóa quy trình CI/CD và giảm thiểu số lượng cảnh báo giả (false positive) trong quá trình code review nhờ sự kết hợp giữa các ràng buộc kỹ thuật cứng và LLM."
+  },
+  {
+   "id": "cd80ba38bfe09c173ad904985aa90f4bcdb60d48",
+   "source": "github",
+   "title": "Tencent/WeKnora: Open-source LLM knowledge platform: turn raw documents into a queryable RAG, an autonomous reasoning agent, and a self-maintaining Wiki.",
+   "url": "https://github.com/Tencent/WeKnora",
+   "discussion_url": null,
+   "score": 217,
+   "comments": 0,
+   "published_at": "2026-10-10T10:28:17.258109+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Nền tảng tri thức LLM mã nguồn mở cho RAG và AI Agent.",
+   "summary": "Tencent/WeKnora là nền tảng tri thức mã nguồn mở tích hợp LLM, cho phép chuyển đổi tài liệu thô thành hệ thống RAG, autonomous agent và Wiki tự duy trì. Nền tảng này hỗ trợ đồng bộ dữ liệu từ nhiều nguồn khác nhau, tích hợp MCP server và cung cấp khả năng triển khai linh hoạt qua Docker hoặc Kubernetes.",
+   "why_it_matters": "Cung cấp một giải pháp RAG và knowledge platform tự host hoàn chỉnh, dễ dàng tích hợp vào hệ thống hạ tầng cloud và các công cụ AI hiện có của đội ngũ."
+  },
+  {
+   "id": "36917ef32b441dc1267859059cff87fff8d86bcd",
+   "source": "github",
+   "title": "K-Dense-AI/scientific-agent-skills: Turn any AI agent into an AI Scientist. The #1 Agent Skills library for science, used by 250,000+ scientists worldwide. 177 ready-to-use validated skills plus 100+ scientific databases covering biology, chemistry, medicine, and drug discovery. Compatible with Cursor, Claude Code, Codex, Pi, Antigravity, and the open Agent Skills standard.",
+   "url": "https://github.com/K-Dense-AI/scientific-agent-skills",
+   "discussion_url": null,
+   "score": 130,
+   "comments": 0,
+   "published_at": "2026-10-10T10:28:17.258109+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Thư viện kỹ năng Agent tích hợp cho các công cụ lập trình AI.",
+   "summary": "Scientific Agent Skills cung cấp bộ thư viện gồm 177 kỹ năng chuyên môn khoa học và hơn 100 cơ sở dữ liệu cho các AI agent. Thư viện này tuân thủ chuẩn mở Agent Skills và tương thích với nhiều công cụ như Cursor và Claude Code.",
+   "why_it_matters": "Giúp mở rộng năng lực cho các coding agent và LLM tooling bạn đang sử dụng khi cần xử lý các tác vụ phân tích dữ liệu chuyên sâu hoặc tài liệu khoa học kỹ thuật."
+  },
+  {
+   "id": "b01295803dfe98918834333ecc6d27b5766ba65d",
+   "source": "github",
+   "title": "unslothai/unsloth: Local UI to run and train LLMs and diffusion models. Supports GGUF, MLX, Qwen3.8, DeepSeek-V4, MiniMax-H3, Gemma 4, FLUX and more.",
+   "url": "https://github.com/unslothai/unsloth",
+   "discussion_url": null,
+   "score": 132,
+   "comments": 0,
+   "published_at": "2026-10-10T10:28:17.258109+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Giao diện local chạy và train LLM, diffusion models.",
+   "summary": "Unsloth cung cấp ứng dụng Desktop và UI cục bộ để chạy, tinh chỉnh và quản lý các mô hình LLM cũng như diffusion models. Công cụ này hỗ trợ kết nối nhanh chóng các coding agent phổ biến như Claude Code và Codex với các local model thông qua dòng lệnh.",
+   "why_it_matters": "Cho phép bạn dễ dàng chạy và tinh chỉnh các open-source model ngay trên hạ tầng cục bộ để tích hợp vào chuỗi công cụ phát triển phần mềm."
+  },
+  {
+   "id": "53292bf10927939673d46c6610ed62d2ce4f9bfe",
+   "source": "github",
+   "title": "infiniflow/ragflow: RAGFlow is a leading open-source Retrieval-Augmented Generation (RAG) engine that fuses cutting-edge RAG with Agent capabilities to create a superior context layer for LLMs",
+   "url": "https://github.com/infiniflow/ragflow",
+   "discussion_url": null,
+   "score": 81,
+   "comments": 0,
+   "published_at": "2026-10-10T10:28:17.258109+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Engine RAG kết hợp tính năng Agent mã nguồn mở.",
+   "summary": "RAGFlow 1.0.0-rc1 là một công cụ RAG mã nguồn mở kết hợp khả năng RAG với các tính năng Agent để tạo ra lớp ngữ cảnh cho LLM. Phiên bản này bổ sung các tính năng như Knowledge Compilation, ingestion qua sitemap và Agentic RAG với nhiều chế độ tư duy khác nhau.",
+   "why_it_matters": "Cung cấp một tầng ngữ cảnh (context layer) mạnh mẽ và dễ triển khai qua Docker để cải thiện độ chính xác cho các ứng dụng LLM đòi hỏi xử lý tài liệu phức tạp."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 86,
+  "fetched_github": 41,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 152,
+  "after_dedupe": 148,
+  "after_filter": 91,
+  "ai": "gemini",
+  "ai_tokens_in": 15789,
+  "ai_tokens_out": 4589,
+  "sent": 10,
+  "summarized": 10
+ }
+}
