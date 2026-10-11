@@ -1,0 +1,197 @@
+{
+ "date": "2026-10-11",
+ "items": [
+  {
+   "id": "b05b4163a112a892d90ccae3dffe3ef2b3e11c1c",
+   "source": "github",
+   "title": "kubernetes/kubernetes: Production-Grade Container Scheduling and Management",
+   "url": "https://github.com/kubernetes/kubernetes",
+   "discussion_url": null,
+   "score": 46,
+   "comments": 0,
+   "published_at": "2026-10-11T10:01:23.434351+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 10.0,
+   "reason": "Kubernetes là cốt lõi của DevOps.",
+   "summary": "Kubernetes là một hệ thống mã nguồn mở giúp quản lý, triển khai và mở rộng các ứng dụng container trên nhiều host. Dự án này được phát triển dựa trên kinh nghiệm vận hành quy mô lớn tại Google và hỗ trợ xây dựng bằng Go hoặc Docker.",
+   "why_it_matters": "Đây là công nghệ cốt lõi trong DevOps giúp bạn quản lý và scale các containerized applications trong hạ tầng cloud."
+  },
+  {
+   "id": "74a04885c00e4c0d5c81349fce6bb1a73753ccd3",
+   "source": "github",
+   "title": "docker/compose: Define and run multi-container applications with Docker",
+   "url": "https://github.com/docker/compose",
+   "discussion_url": null,
+   "score": 45,
+   "comments": 0,
+   "published_at": "2026-10-11T10:01:23.434351+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 10.0,
+   "reason": "Docker Compose là công cụ thiết yếu hàng ngày cho DevOps.",
+   "summary": "Docker Compose là công cụ cho phép định nghĩa và chạy các ứng dụng nhiều container trên Docker thông qua định dạng file YAML. Chỉ với một lệnh duy nhất là docker compose up, bạn có thể khởi chạy toàn bộ môi trường ứng dụng một cách độc lập.",
+   "why_it_matters": "Công cụ này giúp bạn thiết lập môi trường phát triển và chạy CI/CD cục bộ một cách nhanh chóng và đồng nhất."
+  },
+  {
+   "id": "618e8fb74c6c24a0fd55bce49b1a1f055fb8155b",
+   "source": "github",
+   "title": "anthropics/knowledge-work-plugins: Open source repository of plugins primarily intended for knowledge workers to use in Claude Cowork",
+   "url": "https://github.com/anthropics/knowledge-work-plugins",
+   "discussion_url": null,
+   "score": 625,
+   "comments": 0,
+   "published_at": "2026-10-11T10:01:23.434351+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Open source plugins cho Claude Cowork hỗ trợ trực tiếp lập trình viên.",
+   "summary": "Kho lưu trữ này cung cấp các open-source plugin cho Claude Cowork và Claude Code nhằm biến Claude thành chuyên gia cho các vai trò công việc cụ thể. Các plugin này tích hợp sẵn các công cụ, skills, lệnh slash và kết nối với các dịch vụ bên ngoài như Slack, Jira, Notion.",
+   "why_it_matters": "Giúp bạn tích hợp LLM và coding agent vào các luồng công việc thực tế hàng ngày để tự động hóa các tác vụ phát triển và quản lý."
+  },
+  {
+   "id": "41aca834c0ddd559916853b7f8b0af9564659e40",
+   "source": "github",
+   "title": "QuantumNous/new-api: A unified AI model hub for aggregation & distribution. It supports cross-converting various LLMs into OpenAI-compatible, Claude-compatible, or Gemini-compatible formats. A centralized gateway for personal and enterprise model management.",
+   "url": "https://github.com/QuantumNous/new-api",
+   "discussion_url": null,
+   "score": 135,
+   "comments": 0,
+   "published_at": "2026-10-11T10:01:23.434351+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Gateway tổng hợp LLM tương thích OpenAI/Claude, rất hữu ích cho dev AI.",
+   "summary": "New API là một AI gateway mã nguồn mở tự host giúp kết nối các dịch vụ mô hình upstream và cung cấp một API đồng nhất cho các ứng dụng. Nó hỗ trợ chuyển đổi chéo giữa các định dạng LLM thành chuẩn của OpenAI, Claude hoặc Gemini, đồng thời quản lý routing, quyền truy cập và chi phí.",
+   "why_it_matters": "Cung cấp giải pháp quản lý tập trung và chuyển đổi API linh hoạt khi bạn làm việc với nhiều mô hình AI khác nhau trong các ứng dụng full-stack."
+  },
+  {
+   "id": "9a589f3bdb96102490cf130475f9b2c994616b29",
+   "source": "github",
+   "title": "huggingface/transformers: 🤗 Transformers: the model-definition framework for state-of-the-art machine learning models in text, vision, audio, and multimodal models, for both inference and training.",
+   "url": "https://github.com/huggingface/transformers",
+   "discussion_url": null,
+   "score": 96,
+   "comments": 0,
+   "published_at": "2026-10-11T10:01:23.434351+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Framework Hugging Face Transformers cốt lõi cho ML và LLM.",
+   "summary": "Transformers là một framework định nghĩa mô hình học máy hiện đại cho văn bản, thị giác máy tính, âm thanh và đa phương thức cho cả suy luận và huấn luyện. Nó đóng vai trò trung tâm trong hệ sinh thái AI, tương thích với nhiều framework huấn luyện và công cụ suy luận khác nhau.",
+   "why_it_matters": "Framework này không thể thiếu khi bạn cần tích hợp, thử nghiệm hoặc tinh chỉnh các mô hình AI mới nhất vào các dự án của mình."
+  },
+  {
+   "id": "2150853287a431dc908ef264b8a3922a5f3bcfa9",
+   "source": "github",
+   "title": "pytorch/pytorch: Tensors and Dynamic neural networks in Python with strong GPU acceleration",
+   "url": "https://github.com/pytorch/pytorch",
+   "discussion_url": null,
+   "score": 84,
+   "comments": 0,
+   "published_at": "2026-10-11T10:01:23.434351+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "PyTorch là thư viện AI/ML cơ bản quan trọng.",
+   "summary": "PyTorch là một thư viện Python cung cấp khả năng tính toán Tensor được tăng tốc mạnh mẽ bằng GPU cùng hệ thống mạng neural dựa trên autograd dạng tape-based. Thư viện này cho phép tích hợp sâu vào Python và tương thích hoàn toàn với NumPy, SciPy để mang lại sự linh hoạt tối đa trong việc xây dựng các mô hình deep learning.",
+   "why_it_matters": null
+  },
+  {
+   "id": "e08ef814d6bf703d420b74a09c67347aa6ca6f89",
+   "source": "github",
+   "title": "fastapi/fastapi: FastAPI framework, high performance, easy to learn, fast to code, ready for production",
+   "url": "https://github.com/fastapi/fastapi",
+   "discussion_url": null,
+   "score": 56,
+   "comments": 0,
+   "published_at": "2026-10-11T10:01:23.434351+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Fastapi là framework Python quen thuộc cho full-stack.",
+   "summary": "FastAPI là một web framework hiệu năng cao được xây dựng trên standard Python type hints, giúp tăng tốc độ phát triển API và giảm thiểu lỗi. Phiên bản hiện tại tích hợp công cụ quản lý gói uv cùng giao diện FastAPI CLI tiện lợi cho chế độ development.",
+   "why_it_matters": null
+  },
+  {
+   "id": "6b75dae75d979d91c259738ca89e27c989bbc7bf",
+   "source": "hn",
+   "title": "Talorys – A self-hosted personal AI agent on Cloudflare's free tier",
+   "url": "https://github.com/rociiu/talorys",
+   "discussion_url": "https://news.ycombinator.com/item?id=50031614",
+   "score": 259,
+   "comments": 123,
+   "published_at": "2026-10-10T10:52:09Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Self-hosted AI agent chạy trên Cloudflare rất hữu ích cho developer.",
+   "summary": "Talorys là một trợ lý AI cá nhân mã nguồn mở chạy hoàn toàn trên Cloudflare dưới dạng single-user, tích hợp sẵn tính năng chat, quản lý task và ghi nhớ dữ liệu. Dự án sử dụng Cloudflare Pages, Workers, SQLite Durable Objects và Workers AI để hoạt động mà không cần máy chủ riêng.",
+   "why_it_matters": null
+  },
+  {
+   "id": "94ee2482679fd92798469e6694525f973d7cddc5",
+   "source": "github",
+   "title": "hugohe3/ppt-master: AI turns documents or topics into real, native PowerPoint decks—with native shapes, transitions and animations, data-backed charts and tables on demand, audio narration from speaker notes, and support for your own .pptx templates. · by Hugo He",
+   "url": "https://github.com/hugohe3/ppt-master",
+   "discussion_url": null,
+   "score": 461,
+   "comments": 0,
+   "published_at": "2026-10-11T10:01:23.434351+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Công cụ AI tạo PowerPoint tự động hữu ích cho công việc.",
+   "summary": "PPT Master là một công cụ mã nguồn mở sử dụng mô hình AI (như Kimi) để phân tích tài liệu và tự động tạo ra các file PowerPoint (.pptx) nguyên bản. Công cụ này hỗ trợ định dạng shape, biểu đồ có dữ liệu, bảng biểu và template tùy chỉnh thay vì chỉ trả về các đoạn text đơn thuần.",
+   "why_it_matters": null
+  },
+  {
+   "id": "465423fa5d11c7b41274397be2166f995faa2317",
+   "source": "github",
+   "title": "remotion-dev/remotion: 🎥 Make videos programmatically with React",
+   "url": "https://github.com/remotion-dev/remotion",
+   "discussion_url": null,
+   "score": 283,
+   "comments": 0,
+   "published_at": "2026-10-11T10:01:23.434351+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Thư viện React tạo video programmatically, hữu ích cho full-stack.",
+   "summary": "Remotion là một thư viện cho phép lập trình viên tạo video bằng React code, hỗ trợ cả việc tự động hóa qua coding agent lẫn tương tác kéo thả. Công cụ này giúp quản lý độ phức tạp bằng mã nguồn và cho phép render hàng loạt video trên hạ tầng riêng.",
+   "why_it_matters": null
+  }
+ ],
+ "stats": {
+  "fetched_hn": 64,
+  "fetched_github": 42,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 131,
+  "after_dedupe": 129,
+  "after_filter": 63,
+  "ai": "gemini",
+  "ai_tokens_in": 13047,
+  "ai_tokens_out": 3791,
+  "sent": 10,
+  "summarized": 10
+ }
+}
