@@ -1,0 +1,197 @@
+{
+ "date": "2026-10-12",
+ "items": [
+  {
+   "id": "9b75bda91938b76c7b723e74ceae6c37b2c42cd9",
+   "source": "github",
+   "title": "MadsLorentzen/ai-job-search: The job search that runs on your machine. AI job application framework built on Claude Code: evaluate postings, tailor CVs, write cover letters, prep interviews. Fork it and own it.",
+   "url": "https://github.com/MadsLorentzen/ai-job-search",
+   "discussion_url": null,
+   "score": 504,
+   "comments": 0,
+   "published_at": "2026-10-12T10:24:39.206506+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ AI agent tự động hóa tìm việc hữu ích.",
+   "summary": "MadsLorentzen/ai-job-search là một framework tìm kiếm việc làm chạy cục bộ được xây dựng dựa trên Claude Code. Công cụ này tự động hóa quy trình đánh giá bài tuyển dụng, tùy chỉnh CV bằng LaTeX, viết thư xin việc và chuẩn bị phỏng vấn.",
+   "why_it_matters": "Cung cấp một góc nhìn thực tế về việc tận dụng các AI coding agent như Claude Code để tự động hóa các tác vụ lặp đi lặp lại ngoài lập trình."
+  },
+  {
+   "id": "c252c5fc2bb02f6f86b8733ab644f56e5ce12832",
+   "source": "github",
+   "title": "repowise-dev/repowise: Codebase intelligence for AI and humans: code health scores, auto-generated docs, git analytics, dead code detection, and architectural decisions via MCP.",
+   "url": "https://github.com/repowise-dev/repowise",
+   "discussion_url": null,
+   "score": 67,
+   "comments": 0,
+   "published_at": "2026-10-12T10:24:39.206506+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ mã nguồn mở phân tích codebase tích hợp MCP.",
+   "summary": "Repowise là một công cụ phân tích mã nguồn chạy local giúp lập trình viên và AI agent hiểu sâu về codebase thông qua call graph, điểm sức khỏe mã nguồn, phát hiện code chết và quản lý tài liệu. Nó cung cấp MCP server tích hợp sẵn để kết nối trực tiếp với các agent như Claude Code và Cursor.",
+   "why_it_matters": "Giúp các coding agent nắm bắt chính xác ngữ cảnh kiến trúc và call graph của dự án TypeScript, Python hay Go mà không tốn token cho việc tìm kiếm thủ công."
+  },
+  {
+   "id": "da3220666e74d3ef259b72b7b219c08ad88072e7",
+   "source": "github",
+   "title": "langgenius/dify: Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. Deploy on cloud, VPC, or self-hosted, so teams move from prototype to production without rebuilding the stack.",
+   "url": "https://github.com/langgenius/dify",
+   "discussion_url": null,
+   "score": 79,
+   "comments": 0,
+   "published_at": "2026-10-12T10:24:39.206506+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Framework xây dựng agentic workflows và RAG self-hosted.",
+   "summary": "Dify là một nền tảng mã nguồn mở phát triển ứng dụng LLM, cho phép xây dựng các workflow dạng agent, đường ống RAG và quản lý mô hình trực quan. Công cụ này hỗ trợ triển khai linh hoạt qua Docker, phù hợp để đưa các ứng dụng AI từ thử nghiệm lên production.",
+   "why_it_matters": "Hỗ trợ xây dựng và tự-host các RAG pipeline cũng như agentic workflow một cách nhanh chóng với Docker trong stack công nghệ của bạn."
+  },
+  {
+   "id": "b1802d1de5ce9469b0dae99644c14531992f992b",
+   "source": "hn",
+   "title": "Show HN: Plimsoll, a self-hosted sandbox for code your AI agent writes",
+   "url": "https://github.com/plimsollmark/plimsoll",
+   "discussion_url": "https://news.ycombinator.com/item?id=50049388",
+   "score": 12,
+   "comments": 2,
+   "published_at": "2026-10-11T23:47:59Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Sandbox tự host an toàn để thực thi mã do AI viết.",
+   "summary": "Plimsoll là một sandbox tự-host dùng để chạy mã nguồn không tin cậy được tạo ra bởi AI agent, với hệ thống đo lường mức độ cô lập rõ ràng từ tiến trình, container, kernel cho đến VM. Công cụ này cho phép thiết lập ngưỡng bảo mật tối thiểu trước khi thực thi mã và cung cấp cơ chế kiểm thử mã tự động.",
+   "why_it_matters": "Giải quyết bài toán DevOps cốt lõi về bảo mật khi cho phép chạy mã do LLM sinh ra một cách tự động và an toàn trong các môi trường CI/CD hoặc agentic loop."
+  },
+  {
+   "id": "c6fd25b449cf6dbcf09aff410a9af8049200df98",
+   "source": "github",
+   "title": "openclaw/openclaw: The AI that really does things. Any OS. Any Platform. The lobster way. 🦞",
+   "url": "https://github.com/openclaw/openclaw",
+   "discussion_url": null,
+   "score": 164,
+   "comments": 0,
+   "published_at": "2026-10-12T10:24:39.206506+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Dự án AI agent đa nền tảng thú vị cho dev.",
+   "summary": "OpenClaw là một trợ lý AI mã nguồn mở chạy trực tiếp trên thiết bị cá nhân, tích hợp với các nền tảng chat phổ biến như Discord, Slack, Telegram và cung cấp ứng dụng native cho đa nền tảng. Kiến trúc của nó sử dụng mô hình Gateway cục bộ, cho phép hoán đổi linh hoạt các mô hình AI và plugin.",
+   "why_it_matters": "Mang lại một giải pháp trợ lý AI tự-host toàn diện, bảo mật thông tin xác thực ngay trên máy cá nhân mà không bị phụ thuộc vào các dịch vụ đám mây độc quyền."
+  },
+  {
+   "id": "5535012bfb20c047a83888e0295142a849121971",
+   "source": "github",
+   "title": "datawhalechina/hello-agents: 📚 《从零开始构建智能体》——从零开始的智能体原理与实践教程",
+   "url": "https://github.com/datawhalechina/hello-agents",
+   "discussion_url": null,
+   "score": 128,
+   "comments": 0,
+   "published_at": "2026-10-12T10:24:39.206506+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Tài liệu học tập xây dựng AI agents từ đầu.",
+   "summary": "Hello-Agents là một khóa学习开源教程和从零构建的框架，旨在深入讲解 AI Native Agent 的核心原理、经典范式及主流框架应用。项目涵盖了上下文工程、Memory、多智能体通信协议、Agentic-RL 训练以及真实业务场景的实战案例。",
+   "why_it_matters": "Giúp bạn chuyển từ việc chỉ sử dụng LLM sang tự xây dựng các hệ thống AI Agent phức tạp, phục vụ cho xu hướng phát triển ứng dụng thông minh hiện nay."
+  },
+  {
+   "id": "fd4fe439495eabf51e87a1bb32c2780e50a9093e",
+   "source": "github",
+   "title": "lharries/whatsapp-mcp: WhatsApp MCP server",
+   "url": "https://github.com/lharries/whatsapp-mcp",
+   "discussion_url": null,
+   "score": 59,
+   "comments": 0,
+   "published_at": "2026-10-12T10:24:39.206506+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "WhatsApp MCP server hỗ trợ tích hợp LLM tooling.",
+   "summary": "WhatsApp MCP server cho phép LLM như Claude tương tác trực tiếp với tài khoản WhatsApp cá nhân để tìm kiếm, đọc tin nhắn và gửi phương tiện truyền thông. Kiến trúc gồm một Go WhatsApp Bridge xử lý kết nối đa thiết bị và lưu trữ SQLite, kết hợp với một Python MCP server.",
+   "why_it_matters": "Cung cấp một công cụ tích hợp AI tiện lợi qua giao thức MCP, giúp bạn dễ dàng kết nối LLM với ứng dụng nhắn tin hàng ngày để tự động hóa công việc."
+  },
+  {
+   "id": "602bad44c9608dc6600f4809f582988c78ae1310",
+   "source": "github",
+   "title": "Project-HAMi/HAMi: Heterogeneous GPU Sharing on Kubernetes",
+   "url": "https://github.com/Project-HAMi/HAMi",
+   "discussion_url": null,
+   "score": 36,
+   "comments": 0,
+   "published_at": "2026-10-12T10:24:39.206506+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Chia sẻ GPU dị thể trên Kubernetes, rất hợp DevOps.",
+   "summary": "HAMi (Heterogeneous AI Computing Virtualization Middleware) là một dự án CNCF giúp ảo hóa GPU và lập lịch tăng tốc dị thể trên Kubernetes. Nó cho phép chia sẻ tài nguyên GPU, cô lập bộ nhớ, và hỗ trợ quản lý nhiều loại phần cứng khác nhau mà không cần thay đổi mã nguồn ứng dụng.",
+   "why_it_matters": "Tối ưu hóa chi phí và hiệu suất hạ tầng AI trên Kubernetes bằng cách cho phép chia sẻ GPU giữa nhiều workload một cách linh hoạt."
+  },
+  {
+   "id": "b29335ed02f8fa44f96b9d4b6a6a608e2b1d07c9",
+   "source": "github",
+   "title": "getnao/nao: 👾 nao is an open source analytics agent. (1) Create context with nao-core cli, (2) deploy nao chat interface for everyone",
+   "url": "https://github.com/getnao/nao",
+   "discussion_url": null,
+   "score": 20,
+   "comments": 0,
+   "published_at": "2026-10-12T10:24:39.206506+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Agent phân tích dữ liệu mã nguồn mở tích hợp CLI.",
+   "summary": "Nao là một framework mã nguồn mở giúp xây dựng, kiểm thử và triển khai các analytics agent tự hosting. Công cụ cung cấp CLI để tạo ngữ cảnh dữ liệu tùy chỉnh, kèm theo giao diện chat trực quan để người dùng truy vấn dữ liệu bằng ngôn ngữ tự nhiên.",
+   "why_it_matters": "Cho phép bạn tự host các agent phân tích dữ liệu bảo mật, tích hợp trực tiếp vào kho dữ liệu và LLM key của riêng bạn."
+  },
+  {
+   "id": "d3e15fd66da7c2df86e6192781ed7a22aa2e9424",
+   "source": "github",
+   "title": "multica-ai/multica: Make humans and AI agents work as one team — open-source and self-hostable.",
+   "url": "https://github.com/multica-ai/multica",
+   "discussion_url": null,
+   "score": 70,
+   "comments": 0,
+   "published_at": "2026-10-12T10:24:39.206506+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Nền tảng mã nguồn mở kết hợp con người và AI agents.",
+   "summary": "Multica là một workspace mã nguồn mở, cho phép quản lý và giao việc cho các AI coding agent (như Claude Code, Cursor, Codex) giống như một đồng nghiệp thực thụ. Côngген tích hợp hệ thống quản lý issue, execution log thời gian thực, các review gate và khả năng self-host hoàn chỉnh qua Docker Compose hoặc Helm.",
+   "why_it_matters": "Giải quyết bài toán quản lý nhiều coding agent cùng lúc trong một quy trình CI/CD và Git workflow thống nhất, giúp giảm thiểu việc lặp lại ngữ cảnh."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 94,
+  "fetched_github": 38,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 157,
+  "after_dedupe": 153,
+  "after_filter": 72,
+  "ai": "gemini",
+  "ai_tokens_in": 16123,
+  "ai_tokens_out": 3866,
+  "sent": 10,
+  "summarized": 10
+ }
+}
