@@ -1,0 +1,193 @@
+{
+ "date": "2026-10-14",
+ "items": [
+  {
+   "id": "e9483d71071ea549e23f509869aeea6689cfef21",
+   "source": "github",
+   "title": "apify/apify-mcp-server: The Apify MCP server enables your AI agents to extract data from social media, search engines, maps, e-commerce sites, or any other website using thousands of ready-made scrapers, crawlers, and automation tools available on the Apify Store.",
+   "url": "https://github.com/apify/apify-mcp-server",
+   "discussion_url": null,
+   "score": 200,
+   "comments": 0,
+   "published_at": "2026-10-14T09:48:30.623444+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Apify MCP server cho phép AI agents trích xuất dữ liệu web hiệu quả.",
+   "summary": "Apify MCP Server cho phép các AI agent trích xuất dữ liệu từ các trang mạng xã hội, công cụ tìm kiếm và thương mại điện tử thông qua hàng nghìn trình cạo dữ liệu sẵn có. Công cụ này hỗ trợ OAuth cho các client như Claude.ai hoặc VS Code và cung cấp endpoint HTTP streamable thay thế cho transport SSE cũ.",
+   "why_it_matters": "Giúp bạn tích hợp nhanh chóng các công cụ thu thập dữ liệu web mạnh mẽ vào môi trường lập trình AI và các agent của mình."
+  },
+  {
+   "id": "ebf3dd6aaeb2f4091c1836e520a1721211143ac4",
+   "source": "github",
+   "title": "vercel-labs/skills: The open agent skills tool - npx skills",
+   "url": "https://github.com/vercel-labs/skills",
+   "discussion_url": null,
+   "score": 190,
+   "comments": 0,
+   "published_at": "2026-10-14T09:48:30.623444+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ open agent skills mới hỗ trợ lập trình viên tối ưu AI workflow.",
+   "summary": "Vercel-labs/skills là một công cụ dòng lệnh (CLI) quản lý hệ sinh thái agent skill mở, hỗ trợ hơn 75 coding agent khác nhau như Claude Code và Cursor. CLI này cho phép cài đặt các skill từ Git, GitHub, GitLab hoặc thư mục cục bộ dưới dạng liên kết tượng trưng hoặc sao chép tệp trực tiếp.",
+   "why_it_matters": "Tối ưu hóa quy trình làm việc hằng ngày của bạn bằng cách dễ dàng chia sẻ và tích hợp các prompt kỹ thuật tùy chỉnh vào coding agent."
+  },
+  {
+   "id": "e8989b9c378567c8ac5987947b303a803bdefd98",
+   "source": "github",
+   "title": "maximhq/bifrost: Open-source, high-performance AI gateway that works as your LLM gateway, MCP gateway and agent gateway. One OpenAI-compatible API for 10,000+ models, with failover, load balancing, semantic caching, virtual keys, budgets and MCP Code Mode. Works with any SDK or agent and adds under 200µs of overhead at 5k RPS.",
+   "url": "https://github.com/maximhq/bifrost",
+   "discussion_url": null,
+   "score": 31,
+   "comments": 0,
+   "published_at": "2026-10-14T09:48:30.623444+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "AI gateway hiệu năng cao hỗ trợ LLM, MCP gateway và tích hợp agent.",
+   "summary": "Bifrost là một AI gateway hiệu năng cao, mã nguồn mở, hợp nhất quyền truy cập vào hơn 23 nhà cung cấp mô hình thông qua một API tương thích với OpenAI. Nó cung cấp các tính năng tự động chuyển đổi dự phòng, cân bằng tải, bộ nhớ đệm ngữ nghĩa và hỗ trợ cả MCP gateway.",
+   "why_it_matters": "Mang lại giải pháp quản lý LLM tối ưu với độ trễ thấp và khả năng kiểm soát chi phí hiệu quả cho các ứng dụng full-stack sử dụng AI."
+  },
+  {
+   "id": "e862a90635c7f8f717ce482e235df1acc892066f",
+   "source": "github",
+   "title": "kedacore/keda: KEDA is a Kubernetes-based Event Driven Autoscaling component. It provides event driven scale for any container running in Kubernetes",
+   "url": "https://github.com/kedacore/keda",
+   "discussion_url": null,
+   "score": 18,
+   "comments": 0,
+   "published_at": "2026-10-14T09:48:30.623444+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ Kubernetes event-driven autoscaling cốt lõi cho hệ thống DevOps.",
+   "summary": "KEDA là một thành phần tự động mở rộng dựa trên sự kiện dành cho Kubernetes, cho phép mở rộng chi tiết (kể cả từ số lượng bằng không) cho bất kỳ container nào. Dự án này đã tốt nghiệp CNCF và hoạt động như một Kubernetes Metrics Server.",
+   "why_it_matters": "Hỗ trợ bạn xây dựng cơ sở hạ tầng đám mây và tối ưu hóa tài nguyên container hiệu quả dựa trên các sự kiện thực tế."
+  },
+  {
+   "id": "2e8a64d0e7e2e45718bfa3bb5c69681601a2e1b9",
+   "source": "github",
+   "title": "vxcontrol/pentagi: Fully autonomous AI Agents system capable of performing complex penetration testing tasks",
+   "url": "https://github.com/vxcontrol/pentagi",
+   "discussion_url": null,
+   "score": 1819,
+   "comments": 0,
+   "published_at": "2026-10-14T09:48:30.623444+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Hệ thống AI agents tự động thực hiện penetration testing rất đáng chú ý.",
+   "summary": "Pentagi là một hệ thống AI agent tự động hoàn toàn được thiết kế để thực hiện các tác vụ kiểm tra bảo mật thâm nhập phức tạp. Dự án mã nguồn mở này kết hợp các mô hình ngôn ngữ lớn để tự động hóa quy trình kiểm tra an ninh.",
+   "why_it_matters": "Cung cấp cái nhìn thực tế về các hệ thống agent tự động chuyên sâu để áp dụng vào việc kiểm thử bảo mật cho các ứng dụng của bạn."
+  },
+  {
+   "id": "18cd9a16bb86842f0422dbe63b0302c5cbce20d4",
+   "source": "github",
+   "title": "open-webui/open-webui: User-friendly AI Interface (Supports Ollama, OpenAI API, ...)",
+   "url": "https://github.com/open-webui/open-webui",
+   "discussion_url": null,
+   "score": 919,
+   "comments": 0,
+   "published_at": "2026-10-14T09:48:30.623444+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Giao diện web UI phổ biến hỗ trợ tích hợp Ollama và LLM APIs.",
+   "summary": "Open WebUI là một nền tảng AI self-hosted chạy hoàn toàn ngoại tuyến, hỗ trợ Ollama và các API tương thích với OpenAI. Nền tảng này cung cấp giao diện quản lý linh hoạt với RBAC chi tiết, hỗ trợ plugin qua MCP, tính năng Agentic Execution với Terminal tích hợp và tích hợp Local RAG.",
+   "why_it_matters": null
+  },
+  {
+   "id": "994797c2417fc3f8475b41fc55f2acdf7fe3697a",
+   "source": "hn",
+   "title": "We turned EmbeddingGemma 2 into a speech-to-text model",
+   "url": "https://eg2.haku.sh",
+   "discussion_url": "https://news.ycombinator.com/item?id=50069971",
+   "score": 404,
+   "comments": 86,
+   "published_at": "2026-10-13T11:27:14Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Kỹ thuật chuyển đổi embedding model thành mô hình speech-to-text.",
+   "summary": "Dự án này biến EmbeddingGemma 2 thành một mô hình speech-to-text bằng cách huấn luyện lại một phần đọc nhỏ để chuyển đổi lát cắt âm thanh sang không gian văn bản của mô hình. Hệ thống chạy hoàn toàn trên Apple Silicon Neural Engine, đạt tốc độ xử lý rất nhanh ngay trên thiết bị.",
+   "why_it_matters": null
+  },
+  {
+   "id": "01e478ba125afa0c8a152dffa4c867cb312e0121",
+   "source": "github",
+   "title": "mvanhorn/last30days-skill: AI agent skill that researches any topic across Reddit, X, YouTube, HN, Polymarket, and the web - then synthesizes a grounded summary",
+   "url": "https://github.com/mvanhorn/last30days-skill",
+   "discussion_url": null,
+   "score": 91,
+   "comments": 0,
+   "published_at": "2026-10-14T09:48:30.623444+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "AI agent skill nghiên cứu và tổng hợp thông tin từ nhiều nền tảng.",
+   "summary": "Công cụ này là một AI agent skill cho phép tìm kiếm và tổng hợp thông tin từ nhiều nền tảng khác nhau như Reddit, X, YouTube, HN và Polymarket. Nó sử dụng các agent để tìm kiếm song song và đánh giá dựa trên mức độ tương tác thực tế của cộng đồng.",
+   "why_it_matters": null
+  },
+  {
+   "id": "438f8f82161f19ed747b0ccca6f2f4064534b514",
+   "source": "hn",
+   "title": "A Dynamic and Distributed Virtual GPU Cloud Built on Idle Apple Silicon Devices",
+   "url": "https://machinelearning.apple.com/research/distributed-gpu-cloud",
+   "discussion_url": "https://news.ycombinator.com/item?id=50070593",
+   "score": 232,
+   "comments": 96,
+   "published_at": "2026-10-13T12:26:36Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Kiến trúc ảo hóa GPU phân tán xây dựng trên thiết bị Apple Silicon nhàn rỗi.",
+   "summary": "Bài viết giới thiệu Minions, một hệ thống đám mây GPU ảo phân tán tận dụng các thiết bị Apple Silicon nhàn rỗi để thực hiện tác vụ suy luận ML quy mô lớn. Hệ thống cung cấp khả năng thực thi linh hoạt và chịu lỗi để tối ưu hóa phần cứng sẵn có.",
+   "why_it_matters": null
+  },
+  {
+   "id": "1609f5d4ca7309cc4d2d3a5b373cc93c5c64c3d0",
+   "source": "hn",
+   "title": "Gemini 4 Argon for Robotics",
+   "url": "https://developers.googleblog.com/gemini-4-argon-for-robotics",
+   "discussion_url": "https://news.ycombinator.com/item?id=50074869",
+   "score": 203,
+   "comments": 46,
+   "published_at": "2026-10-13T16:55:47Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Ứng dụng mô hình AI mới của Google trong lĩnh vực robotics.",
+   "summary": "Gemini 4 Argon là mô hình lý luận vật lý mới dành cho robotics, đạt điểm số cao trên benchmark ERQA về giải quyết bài toán không gian 3D. Mô hình này hỗ trợ lập trình điều khiển robot thông qua code-as-policies và các thao tác closed-loop.",
+   "why_it_matters": null
+  }
+ ],
+ "stats": {
+  "fetched_hn": 100,
+  "fetched_github": 50,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 175,
+  "after_dedupe": 172,
+  "after_filter": 80,
+  "ai": "gemini",
+  "ai_tokens_in": 14116,
+  "ai_tokens_out": 4554,
+  "sent": 10,
+  "summarized": 10
+ }
+}
