@@ -1,0 +1,195 @@
+{
+ "date": "2026-10-15",
+ "items": [
+  {
+   "id": "4747a804fd4584863d91d5dbdd7a2f406fc624a7",
+   "source": "github",
+   "title": "stablyai/orca: Orca is the ADE for working with a fleet of parallel agents. Run any coding agent with your own subscription. Available on desktop, mobile and remote runtime.",
+   "url": "https://github.com/stablyai/orca",
+   "discussion_url": null,
+   "score": 919,
+   "comments": 0,
+   "published_at": "2026-10-15T09:27:31.546236+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ ADE quản lý agent coding song song, rất hữu ích cho developer.",
+   "summary": "Orca là một môi trường phát triển ứng dụng (ADE) cho phép chạy và quản lý một đội ngũ coding agent song song, mỗi agent hoạt động trong git worktree riêng biệt. Công cụ hỗ trợ theo dõi, điều khiển agent qua thiết bị di động, tích hợp terminal hiệu năng cao và chạy remote runtime đầy đủ tính năng.",
+   "why_it_matters": "Công cụ này giúp bạn tối ưu hóa quy trình làm việc với các coding agent đa nhiệm và giám sát CI/CD hay task trực tiếp từ xa một cách mượt mà."
+  },
+  {
+   "id": "adbef724cb274560f99367511b2ecdc73c31c6df",
+   "source": "github",
+   "title": "anomalyco/opencode: The open source coding agent.",
+   "url": "https://github.com/anomalyco/opencode",
+   "discussion_url": null,
+   "score": 320,
+   "comments": 0,
+   "published_at": "2026-10-15T09:27:31.546236+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Coding agent mã nguồn mở, phù hợp xu hướng phát triển AI tooling.",
+   "summary": "OpenCode là một AI coding agent mã nguồn mở hỗ trợ đa nền tảng với giao diện dòng lệnh (CLI) và ứng dụng desktop. Công cụ cung cấp sẵn các agent tích hợp như 'build' để viết mã toàn quyền và 'plan' ở chế độ chỉ đọc để khám phá mã nguồn.",
+   "why_it_matters": "Đây là một trợ lý AI mã nguồn mở tuyệt vời giúp tăng tốc quá trình viết mã và phân tích codebase trực tiếp trên môi trường local của bạn."
+  },
+  {
+   "id": "7db63d362d928ed7bf24240584b456744d4aa1af",
+   "source": "hn",
+   "title": "OpenCode 2.0",
+   "url": "https://anoma.ly/notes/opencode-2-0",
+   "discussion_url": "https://news.ycombinator.com/item?id=50094994",
+   "score": 336,
+   "comments": 138,
+   "published_at": "2026-10-14T20:48:24Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Bản cập nhật lớn của công cụ coding agent mã nguồn mở.",
+   "summary": "OpenCode 2.0 mang đến một bản đại tu lớn với kiến trúc client/server ngầm, API được thiết kế lại hoàn toàn và tính năng 'Code Mode' cho phép agent chạy các script JavaScript tối giản để tương tác với MCP servers. Bản cập nhật cũng bổ sung hệ thống tác vụ nền (background tasks) cho shell và subagent cùng kho plugin mạnh mẽ.",
+   "why_it_matters": "Cải tiến này nâng tầm khả năng tự động hóa của LLM tooling và MCP, giúp agent xử lý các tác vụ DevOps và full-stack phức tạp hiệu quả hơn."
+  },
+  {
+   "id": "1f9db072441be3e9b4e78f24d0669e8f0461b02b",
+   "source": "hn",
+   "title": "Better HTTP/1 connection reuse in Go 1.27",
+   "url": "https://go.dev/blog/http-connection-reuse",
+   "discussion_url": "https://news.ycombinator.com/item?id=50090369",
+   "score": 205,
+   "comments": 30,
+   "published_at": "2026-10-14T16:29:33Z",
+   "tags": [],
+   "also_on": [
+    "lobsters"
+   ],
+   "relevance": 9.0,
+   "reason": "Cải tiến kỹ thuật kết nối HTTP/1 trong bản phát hành Go mới.",
+   "summary": "Go 1.27 cải thiện đáng kể khả năng tái sử dụng kết nối HTTP/1 trong package net/http bằng cách tối ưu hóa cách xử lý response body chưa đọc. Nhờ đó, các request lặp lại có thể nhanh hơn tới 5 lần do giảm thiểu chi phí thiết lập bắt tay TCP và TLS.",
+   "why_it_matters": "Cập nhật này giúp tối ưu hóa hiệu năng mạng cho các microservices và ứng dụng Go của bạn mà không cần thay đổi logic code."
+  },
+  {
+   "id": "3de13b42e404c8302ffbab609e0c8670a25364c7",
+   "source": "github",
+   "title": "anthropics/claude-plugins-official: Official, Anthropic-managed directory of high quality Claude Code Plugins.",
+   "url": "https://github.com/anthropics/claude-plugins-official",
+   "discussion_url": null,
+   "score": 181,
+   "comments": 0,
+   "published_at": "2026-10-15T09:27:31.546236+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Danh mục plugin chính thức cho Claude Code từ Anthropic.",
+   "summary": "Anthropic ra mắt claude-plugins-official, thư mục chính thức quản lý các plugin chất lượng cao dành cho Claude Code. Kho lưu trữ cung cấp cấu trúc chuẩn hóa cho các plugin nội bộ và bên thứ ba, bao gồm tích hợp server MCP, slash commands và custom skills.",
+   "why_it_matters": "Thư mục này giúp bạn dễ dàng mở rộng khả năng của Claude Code với các công cụ và kỹ năng chuẩn hóa, làm cho quy trình phát triển hằng ngày nhanh hơn."
+  },
+  {
+   "id": "be362ab16722e13d698b655a7552f04cac4d56c9",
+   "source": "hn",
+   "title": "Pg_vectorsearch: An index that is faster than pgvector's IVFFlat and HNSW",
+   "url": "https://github.com/timescale/pg_vectorsearch",
+   "discussion_url": "https://news.ycombinator.com/item?id=50086165",
+   "score": 196,
+   "comments": 49,
+   "published_at": "2026-10-14T11:47:53Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Thuật toán index vector cho PostgreSQL nhanh hơn pgvector.",
+   "summary": "Pg_vectorsearch là một PostgreSQL extension mã nguồn mở cung cấp phương pháp index PRISM cho approximate nearest neighbor search. Extension này sử dụng kỹ thuật lượng tử hóa RaBitQ, tính toán khoảng cách tối ưu qua SIMD và tương thích ngược trực tiếp với các bảng pgvector hiện có để đạt hiệu năng vượt trội so với IVFFlat và HNSW.",
+   "why_it_matters": "Giúp tối ưu hóa các ứng dụng AI stack của bạn với hiệu năng vector search cao hơn đáng kể và tiết kiệm tài nguyên trên cơ sở dữ liệu PostgreSQL."
+  },
+  {
+   "id": "74439e72c54c38e5dfa5468e44661cd46751f821",
+   "source": "github",
+   "title": "python/cpython: The Python programming language",
+   "url": "https://github.com/python/cpython",
+   "discussion_url": null,
+   "score": 130,
+   "comments": 0,
+   "published_at": "2026-10-15T09:27:31.546236+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Kho lưu trữ ngôn ngữ lập trình Python cốt lõi.",
+   "summary": "Kho lưu trữ mã nguồn CPython cung cấp ngôn ngữ lập trình Python, bao gồm tài liệu, trình thông dịch và các hướng dẫn xây dựng chi tiết trên nhiều nền tảng khác nhau. Phiên bản này hỗ trợ các tối ưu hóa biên dịch nâng cao như Profile Guided Optimization (PGO) và Link Time Optimization (LTO) để cải thiện hiệu năng thực thi.",
+   "why_it_matters": "Cung cấp cái nhìn sâu sắc về các cải tiến cốt lõi trong CPython giúp bạn tối ưu hóa hiệu năng cho các dịch vụ back-end bằng Python của mình."
+  },
+  {
+   "id": "30905c3403f9ca5b835763620addea9619a728f3",
+   "source": "github",
+   "title": "wshobson/agents: Multi-harness agentic plugin marketplace for Claude Code, Codex, Cursor, OpenCode, GitHub Copilot, Google Antigravity, and Pi",
+   "url": "https://github.com/wshobson/agents",
+   "discussion_url": null,
+   "score": 118,
+   "comments": 0,
+   "published_at": "2026-10-15T09:27:31.546236+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Chợ plugin đa harness hỗ trợ nhiều AI coding assistant.",
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "100723b5206af42a260940ac0724800c08942ae2",
+   "source": "github",
+   "title": "MakazhanAlpamys/Soup: Fine-tune LLMs from one YAML. Layer streaming trains an 8B model on a 4 GB laptop GPU.",
+   "url": "https://github.com/MakazhanAlpamys/Soup",
+   "discussion_url": null,
+   "score": 247,
+   "comments": 0,
+   "published_at": "2026-10-15T09:27:31.546236+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Công cụ fine-tune LLM qua YAML, tiết kiệm tài nguyên GPU.",
+   "summary": "Soup-cli là một công cụ dòng lệnh cho phép fine-tune các mô hình LLM thông qua một file cấu hình YAML đơn giản duy nhất mà không cần thiết lập hạ tầng phức tạp. Tính năng layer streaming mới giúp huấn luyện các mô hình 8B ngay trên GPU laptop 4GB bằng cách xử lý các decoder layer một cách tuần tự.",
+   "why_it_matters": "Cho phép bạn thử nghiệm và fine-tune các mô hình LLM mới trực tiếp trên phần cứng cục bộ mà không cần phụ thuộc vào cụm GPU đắt đỏ trên cloud."
+  },
+  {
+   "id": "d8f89cac2cc10212301b00cb0bee908b28e92d76",
+   "source": "github",
+   "title": "agent-substrate/substrate: Agent Substrate: the core system",
+   "url": "https://github.com/agent-substrate/substrate",
+   "discussion_url": null,
+   "score": 113,
+   "comments": 0,
+   "published_at": "2026-10-15T09:27:31.546236+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Hệ thống lõi dành cho AI agent.",
+   "summary": "Agent Substrate là một runtime an toàn được thiết kế trên Kubernetes để chạy hàng triệu sandbox chứa AI agent với mật độ cao hơn 10 lần so với container thông thường. Hệ thống hỗ trợ tính năng tạm dừng và khôi phục trạng thái (suspend/resume) trong dưới 500ms cùng khả năng cô lập bảo mật bằng microVM hoặc gVisor.",
+   "why_it_matters": "Cung cấp hạ tầng DevOps tối ưu trên Kubernetes để triển khai và quản lý các hệ thống AI agent phức tạp, có trạng thái (stateful) ở quy mô lớn."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 100,
+  "fetched_github": 53,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 178,
+  "after_dedupe": 174,
+  "after_filter": 93,
+  "ai": "gemini",
+  "ai_tokens_in": 14268,
+  "ai_tokens_out": 3902,
+  "sent": 10,
+  "summarized": 9
+ }
+}
