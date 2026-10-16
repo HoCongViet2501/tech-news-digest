@@ -1,0 +1,199 @@
+{
+ "date": "2026-10-16",
+ "items": [
+  {
+   "id": "6096cc3a83ecce402b3936c5c56c1a09bfae4930",
+   "source": "github",
+   "title": "HKUDS/CLI-Anything: \"CLI-Anything: Making ALL Software Agent-Native\" -- CLI-Hub: https://clianything.cc/",
+   "url": "https://github.com/HKUDS/CLI-Anything",
+   "discussion_url": null,
+   "score": 716,
+   "comments": 0,
+   "published_at": "2026-10-16T09:21:27.477420+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Dự án mã nguồn mở biến mọi phần mềm thành AI agent-native, rất hữu ích.",
+   "summary": "CLI-Anything biến bất kỳ phần mềm nào thành dạng agent-native thông qua các CLI harness có thể cài đặt từ CLI-Hub bằng pip hoặc npx skills. Dự án liên tục cập nhật các harness và skill mới cho Obsidian, Joplin, Calibre cùng nhiều ứng dụng khác, đồng thời vá các lỗ hổng bảo mật liên quan đến xử lý input. Công cụ này cho phép các AI agent tương tác trực tiếp với các phần mềm phức tạp qua dòng lệnh một cách an toàn.",
+   "why_it_matters": "Giúp bạn dễ dàng tích hợp các AI coding agent như Claude Code hay Cursor với nhiều công cụ và phần mềm khác nhau thông qua giao diện CLI chuẩn hóa."
+  },
+  {
+   "id": "f81933d7eb8f832c428979f2a97b8d27f6d8a6df",
+   "source": "github",
+   "title": "ahujasid/mcp-for-blender: Community plugin to control Blender 3D with any LLM of your choice. Not affiliated with the official Blender Foundation.",
+   "url": "https://github.com/ahujasid/mcp-for-blender",
+   "discussion_url": null,
+   "score": 126,
+   "comments": 0,
+   "published_at": "2026-10-16T09:21:27.477420+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Plugin MCP tích hợp LLM để điều khiển Blender 3D.",
+   "summary": "MCP-for-Blender là plugin cộng đồng (đổi tên từ blender-mcp) tích hợp giao thức Model Context Protocol để điều khiển phần mềm 3D Blender bằng bất kỳ LLM nào. Nó cung cấp trình cài đặt một dòng lệnh tiện lợi để tự động cấu hình các MCP client như Claude Code hay Cursor và cài đặt addon vào Blender. Hệ thống cho phép AI thực thi mã Python trực tiếp, tạo và thao tác đối tượng 3D, cũng như kiểm tra trực quan kết quả render.",
+   "why_it_matters": "Mở rộng khả năng của các LLM và AI coding assistant vào các lĩnh vực chuyên sâu như đồ họa 3D thông qua kiến trúc MCP chuẩn hóa."
+  },
+  {
+   "id": "22094f39633a83796f270ca789a7796a6d612fbc",
+   "source": "github",
+   "title": "volcengine/OpenViking: Self-evolving Context Database for AI Agents. Unify Agent Memory, Knowledge RAG and Skills.",
+   "url": "https://github.com/volcengine/OpenViking",
+   "discussion_url": null,
+   "score": 105,
+   "comments": 0,
+   "published_at": "2026-10-16T09:21:27.477420+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Cơ sở dữ liệu ngữ cảnh tự phát triển cho AI agent và RAG.",
+   "summary": "OpenViking là cơ sở dữ liệu ngữ cảnh mã nguồn mở dành cho AI agent, tổ chức tri thức, bộ nhớ và kỹ năng dưới dạng một hệ thống tệp ảo theo cấu trúc URI `viking://`. Các agent có thể điều hướng, đọc, ghi và tìm kiếm ngữ cảnh giống như làm việc với các tệp tin thông thường, đồng thời tận dụng các lớp tóm tắt (L0-L2) để tối ưu hóa token. Kiến trúc này giúp cải thiện đáng kể độ chính xác của bộ nhớ dài hạn và giảm lượng token đầu vào so với các phương pháp RAG truyền thống.",
+   "why_it_matters": "Cung cấp một giải pháp quản lý bộ nhớ và tri thức rõ ràng, dễ kiểm tra bằng mắt cho các agent thay vì phải dựa vào các vector database hộp đen."
+  },
+  {
+   "id": "dd09a96a589906676fd75d8ce3c8eedef9d0f38d",
+   "source": "github",
+   "title": "google/ax: Google's open agentic orchestration runtime",
+   "url": "https://github.com/google/ax",
+   "discussion_url": null,
+   "score": 107,
+   "comments": 0,
+   "published_at": "2026-10-16T09:21:27.477420+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Runtime điều phối agentic mã nguồn mở chính thức từ Google.",
+   "summary": "Google AX là một orchestrator khai báo hiệu suất cao được thiết kế để chạy các workload agent tự trị ở quy mô lớn trên cụm Kubernetes. Sử dụng các tài nguyên tùy chỉnh như Workspace, Task và Model theo chuẩn `ax.io/v1alpha1`, AX cho phép đóng gói môi trường, quản lý giới hạn tài nguyên và chạy agent trong các sandbox tách biệt. Nó cung cấp các lệnh quen thuộc với DevOps như `ax apply`, `ax ssh`, `ax suspend` và `ax resume` để quản lý trọn vòng đời của agent.",
+   "why_it_matters": "Mang lại trải nghiệm quản lý hạ tầng quen thuộc của Kubernetes để triển khai, scale và cô lập các tác vụ AI agent phức tạp trong môi trường production."
+  },
+  {
+   "id": "71e1011ca0b2ecb908a2f3768512aa5f91f4a49e",
+   "source": "github",
+   "title": "ranxianglei/billion-context: A context-compression plugin for small context windows (a 100K context is enough), token savings (5x fewer tokens), and month-long single sessions (billions of tokens).上下文压缩插件，兼顾小窗口(100k上下文足矣)省token(省5倍token)和超长会话(数月级别几十亿token单会话)。billion-context is all you need",
+   "url": "https://github.com/ranxianglei/billion-context",
+   "discussion_url": null,
+   "score": 101,
+   "comments": 0,
+   "published_at": "2026-10-16T09:21:27.477420+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Plugin nén ngữ cảnh giúp tiết kiệm token đáng kể cho LLM.",
+   "summary": "Billion-context là một plugin nén ngữ cảnh dạng proxy đứng giữa AI agent và model API (Anthropic, OpenAI) để duy trì các phiên làm việc siêu dài kéo dài hàng tháng. Nó cho phép mô hình tự động nén các đoạn hội thoại cũ thành các tóm tắt phân cấp chất lượng cao, giúp tiết kiệm đáng kể số lượng token và duy trì tỷ lệ cache hit rate cao. Plugin này tương thích với nhiều client phổ biến như Claude Code, Cursor và Aider thông qua các công cụ nén, giải nén và tìm kiếm ngữ cảnh tích hợp sẵn.",
+   "why_it_matters": "Giải quyết bài toán tràn bộ nhớ ngữ cảnh và chi phí token đắt đỏ khi chạy các AI coding agent trong các phiên làm việc lập trình kéo dài."
+  },
+  {
+   "id": "4c719445a231471c27943ed559a9cef03e21d053",
+   "source": "github",
+   "title": "Gentleman-Programming/engram: Persistent memory system for AI coding agents. Agent-agnostic Go binary with SQLite + FTS5, MCP server, HTTP API, CLI, and TUI.",
+   "url": "https://github.com/Gentleman-Programming/engram",
+   "discussion_url": null,
+   "score": 38,
+   "comments": 0,
+   "published_at": "2026-10-16T09:21:27.477420+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Hệ thống bộ nhớ bền vững cho AI coding agent hỗ trợ MCP.",
+   "summary": "Engram là hệ thống bộ nhớ bền vững dành cho các AI coding agent dưới dạng một Go binary duy nhất kết hợp SQLite và FTS5. Nó hỗ trợ giao tiếp qua MCP server, HTTP API, CLI, và TUI, cho phép tích hợp với nhiều agent phổ biến như Claude Code, Cursor và VS Code.",
+   "why_it_matters": "Công cụ này giúp giải quyết tình trạng quên ngữ cảnh của AI agent giữa các phiên làm việc, tối ưu hóa quá trình phát triển bằng TypeScript/Python với các coding agent."
+  },
+  {
+   "id": "8a863f21206162eec03782f90c79256c89a45d61",
+   "source": "github",
+   "title": "tailscale/tailscale: The easiest, most secure way to use WireGuard and 2FA.",
+   "url": "https://github.com/tailscale/tailscale",
+   "discussion_url": null,
+   "score": 86,
+   "comments": 0,
+   "published_at": "2026-10-16T09:21:27.477420+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ mạng riêng ảo WireGuard và quản lý kết nối hàng đầu.",
+   "summary": "Kho lưu trữ mã nguồn mở của Tailscale chứa các thành phần cốt lõi như daemon `tailscaled` và công cụ CLI `tailscale`. Dự án yêu cầu Go 1.27 mới nhất và cung cấp các script đóng gói cho nhiều nền tảng và bản phân phối Linux khác nhau.",
+   "why_it_matters": "Cung cấp giải pháp mạng riêng ảo WireGuard đơn giản và bảo mật, cực kỳ hữu ích cho việc quản lý cơ sở hạ tầng cloud, Docker và Kubernetes."
+  },
+  {
+   "id": "907c9c06f41d5a56f1ae3695a2574a69a5feb72c",
+   "source": "github",
+   "title": "gastownhall/beads: Beads - A memory upgrade for your coding agent",
+   "url": "https://github.com/gastownhall/beads",
+   "discussion_url": null,
+   "score": 32,
+   "comments": 0,
+   "published_at": "2026-10-16T09:21:27.477420+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Hệ thống nâng cấp bộ nhớ cho coding agent.",
+   "summary": "Beads là một trình theo dõi sự cố đồ thị phân tán chạy trên nền tảng Dolt, được thiết kế làm bộ nhớ có cấu trúc cho AI agent. Công cụ này thay thế các kế hoạch Markdown truyền thống bằng đồ thị phụ thuộc, giúp agent xử lý các tác vụ dài hạn mà không bị mất ngữ cảnh.",
+   "why_it_matters": "Giúp các coding agent quản lý tác vụ và phụ thuộc hiệu quả hơn trong các dự án full-stack phức tạp mà không gặp xung đột hợp nhất."
+  },
+  {
+   "id": "2faa6375a507ee2cb23a7296418634c86bf8af3a",
+   "source": "github",
+   "title": "lightseekorg/tokenspeed: TokenSpeed is a speed-of-light LLM inference engine.",
+   "url": "https://github.com/lightseekorg/tokenspeed",
+   "discussion_url": null,
+   "score": 30,
+   "comments": 0,
+   "published_at": "2026-10-16T09:21:27.477420+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công موتور suy luận LLM tối ưu tốc độ cao.",
+   "summary": "TokenSpeed là một LLM inference engine mã nguồn mở thiết kế cho các tác vụ agentic, tách biệt hoàn toàn control plane bằng C++ và execution plane bằng Python. Động cơ này cung cấp hiệu suất cao với hệ thống kernel dạng mô-đun và hỗ trợ tối ưu trên phần cứng NVIDIA và AMD.",
+   "why_it_matters": "Mang lại tốc độ suy luận LLM cực nhanh cho các ứng dụng agentic và developer tools đòi hỏi độ trễ thấp."
+  },
+  {
+   "id": "6f83c4b98e8b1cbc97b0129ecd48ebe1d1ada31e",
+   "source": "github",
+   "title": "bojieli/ai-agent-book: 《深入理解 AI Agent：设计原理与工程实践》（李博杰 著）开源主仓库：全书正文、编译版 PDF 与按章配套代码",
+   "url": "https://github.com/bojieli/ai-agent-book",
+   "discussion_url": null,
+   "score": 204,
+   "comments": 0,
+   "published_at": "2026-10-16T09:21:27.477420+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Sách mã nguồn mở về thiết kế nguyên lý và thực hành AI Agent.",
+   "summary": "Cuốn sách mã nguồn mở '深入理解 AI Agent：设计原理与工程实践' ra mắt phiên bản 2.0 với 10 chương và 109 bài thực hành đi kèm. Nội dung bao gồm kiến trúc AI Agent, kỹ thuật ngữ cảnh, giao thức MCP, coding agent và các phương pháp đánh giá.",
+   "why_it_matters": "Tài liệu kỹ thuật thực chiến giúp bạn nắm vững kiến trúc hệ thống và cách xây dựng AI-powered developer tools một cách bài bản."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 100,
+  "fetched_github": 54,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 179,
+  "after_dedupe": 173,
+  "after_filter": 78,
+  "ai": "gemini",
+  "ai_tokens_in": 16291,
+  "ai_tokens_out": 4163,
+  "sent": 10,
+  "summarized": 10
+ }
+}
