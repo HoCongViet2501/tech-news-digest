@@ -1,0 +1,195 @@
+{
+ "date": "2026-10-17",
+ "items": [
+  {
+   "id": "7fd7e06ab2f4b840c01c364743d2c0e2fcb3de17",
+   "source": "hn",
+   "title": "How the Claude Code team does code review",
+   "url": "https://claude.dev/blog/solving-code-review-at-anthropic",
+   "discussion_url": "https://news.ycombinator.com/item?id=50122951",
+   "score": 245,
+   "comments": 231,
+   "published_at": "2026-10-16T19:04:47Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Quy trình code review thực tế của đội ngũ phát triển Claude Code.",
+   "summary": "Bài viết chia sẻ quy trình code review của team Claude Code khi số lượng PR do AI tạo ra tăng vọt. Thay vì đọc từng dòng code thủ công, họ chuyển sang cho máy móc kiểm tra, tự động hóa việc xác thực qua test/build và tối ưu thời gian chú ý của con người.",
+   "why_it_matters": null
+  },
+  {
+   "id": "563f8ee1c5bf6b5e0edc802dc0f30a4714ccf436",
+   "source": "github",
+   "title": "google/artemis: ARTEMIS turns natural-language instructions into reliable Android automation. It automates end-to-end workflows, captures logs, and integrates seamlessly with AI coding assistants such as Antigravity, Codex, and Claude Code. It also achieves 99%+ success rate on AndroidWorld Benchmark.",
+   "url": "https://github.com/google/artemis",
+   "discussion_url": null,
+   "score": 226,
+   "comments": 0,
+   "published_at": "2026-10-17T09:14:11.467470+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ tự động hóa Android bằng AI tích hợp với Claude Code và MCP.",
+   "summary": "ARTEMIS là công cụ tự động hóa Android dựa trên ngôn ngữ tự nhiên, tích hợp giao thức MCP (Model Context Protocol) để các AI coding assistant như Claude Code hay Windsurf có thể điều khiển thiết bị thật và thu thập log. Công cụ này đạt độ chính xác trên 99% trên benchmark AndroidWorld.",
+   "why_it_matters": null
+  },
+  {
+   "id": "3ffc776f8596e65fcb3d1200331d75d0fa563ff4",
+   "source": "github",
+   "title": "Imbad0202/academic-research-skills: Academic Research Skills for Claude Code: research → write → review → revise → finalize",
+   "url": "https://github.com/Imbad0202/academic-research-skills",
+   "discussion_url": null,
+   "score": 207,
+   "comments": 0,
+   "published_at": "2026-10-17T09:14:11.467470+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Skill hỗ trợ nghiên cứu học thuật tích hợp trực tiếp với Claude Code.",
+   "summary": "Academic Research Skills (ARS) là bộ kỹ năng dành cho Claude Code hỗ trợ toàn bộ quy trình nghiên cứu học thuật từ lập kế hoạch, viết lách đến kiểm tra tài liệu. Phiên bản mới bổ sung các tính năng kiểm tra tính xác thực của citation và chặn các lỗi tham khảo sai lệch.",
+   "why_it_matters": null
+  },
+  {
+   "id": "aab5296bb2be6d762ebd950ed874d1b39bb1f5a3",
+   "source": "github",
+   "title": "Fission-AI/OpenSpec: Spec-driven development (SDD) for AI coding assistants.",
+   "url": "https://github.com/Fission-AI/OpenSpec",
+   "discussion_url": null,
+   "score": 122,
+   "comments": 0,
+   "published_at": "2026-10-17T09:14:11.467470+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Phương pháp phát triển theo hướng đặc tả (SDD) cho các AI coding agent.",
+   "summary": "OpenSpec mang đến phương pháp phát triển hướng tài liệu (Spec-driven development) cho các trợ lý lập trình AI bằng các lệnh đơn giản như explore, propose và apply. Công cụ giúp quản lý các yêu cầu dưới dạng file Markdown thuần túy trước khi để AI tự động viết code.",
+   "why_it_matters": null
+  },
+  {
+   "id": "2271fc56a4b3a887565a50278be91cd65d666f2e",
+   "source": "github",
+   "title": "gitleaks/gitleaks: Find secrets with Gitleaks 🔑",
+   "url": "https://github.com/gitleaks/gitleaks",
+   "discussion_url": null,
+   "score": 54,
+   "comments": 0,
+   "published_at": "2026-10-17T09:14:11.467470+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ bảo mật phổ biến để quét tìm secret và API key.",
+   "summary": "Gitleaks là công cụ quét phát hiện các thông tin mật bị lộ (như mật khẩu, API key, token) trong kho lưu trữ Git và các file. Tác giả thông báo rằng Gitleaks hiện đã hoàn thiện tính năng và các bản phát hành trong tương lai sẽ chỉ tập trung vá bảo mật.",
+   "why_it_matters": null
+  },
+  {
+   "id": "52adf762d4075bfab29f2cf8673a9747c2f4005f",
+   "source": "github",
+   "title": "google-labs-code/stitch-skills: A library of Agent Skills designed to work with the Stitch MCP server. Each skill follows the Agent Skills open standard, for compatibility with coding agents such as Antigravity, Gemini CLI, Claude Code, Cursor.",
+   "url": "https://github.com/google-labs-code/stitch-skills",
+   "discussion_url": null,
+   "score": 4,
+   "comments": 0,
+   "published_at": "2026-10-17T09:14:11.467470+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Thư viện Agent Skills tương thích với MCP server và các coding agent.",
+   "summary": "Thư viện này cung cấp một tập hợp các Agent Skills và plugin cho Google Stitch, tuân theo tiêu chuẩn mở Agent Skills. Các skill này tương thích với các coding agent phổ biến như Claude Code, Cursor, Gemini CLI và Antigravity.",
+   "why_it_matters": null
+  },
+  {
+   "id": "b391bd4a868c464564033c68a1b663391e134549",
+   "source": "github",
+   "title": "krillinai/OpenCreator: Formerly KrillinAI, VideoTranslation and Dubbing Tool. Open-source AI workspace for creators, powered by Codex. Video downloading, video translation, create videos, images, voice, avatars, and edits with Agents in one place. Suitable for your Social Media like YouTube, TikTok, Instagram, etc.",
+   "url": "https://github.com/krillinai/OpenCreator",
+   "discussion_url": null,
+   "score": 239,
+   "comments": 0,
+   "published_at": "2026-10-17T09:14:11.467470+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Workspace AI mã nguồn mở tích hợp agent cho video và dịch thuật.",
+   "summary": "OpenCreator (trước đây là KrillinAI) là một workspace mã nguồn mở được hỗ trợ bởi Codex, kết hợp các cài đặt trực quan và các skill tái sử dụng cho việc tạo video, dịch thuật, âm thanh và hình ảnh. Công cụ này cung cấp cả giao diện web lẫn ứng dụng desktop chạy cục bộ, giữ an toàn dữ liệu và nhật ký trên máy.",
+   "why_it_matters": null
+  },
+  {
+   "id": "70d10452e1ce4ca4f9de5483b3d0f9b5bc75372c",
+   "source": "hn",
+   "title": "I never authorized an integration that scans my secrets",
+   "url": "https://github.com/home-assistant/home-assistant.io/issues/49314",
+   "discussion_url": "https://news.ycombinator.com/item?id=50124251",
+   "score": 195,
+   "comments": 147,
+   "published_at": "2026-10-16T20:33:41Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Vấn đề bảo mật liên quan đến quyền quét secrets trên GitHub.",
+   "summary": "Thảo luận về tính năng kiểm tra mật khẩu bị rò rỉ trong Home Assistant, trong đó hệ thống băm cục bộ các mật khẩu và chỉ gửi 5 ký tự đầu tiên để đối chiếu theo cơ chế k-anonymity. Mặc dù có tranh cãi về việc tính năng này được bật sẵn, nhà phát triển đã xác nhận có thể tắt nó bằng lệnh cấu hình.",
+   "why_it_matters": null
+  },
+  {
+   "id": "4609711d6398baad02acc1177bbc868fb4b777ad",
+   "source": "github",
+   "title": "BuilderIO/agent-native: A framework for building agentic apps",
+   "url": "https://github.com/BuilderIO/agent-native",
+   "discussion_url": null,
+   "score": 89,
+   "comments": 0,
+   "published_at": "2026-10-17T09:14:11.467470+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Framework mã nguồn mở hữu ích để xây dựng các ứng dụng agentic.",
+   "summary": "Agent-Native là một framework TypeScript mã nguồn mở giúp xây dựng các ứng dụng agent kết hợp giữa công việc tự động và giao diện người dùng chuyên dụng. Framework này định nghĩa các capability dưới dạng action dùng chung cho cả agent (dưới dạng tool) lẫn UI.",
+   "why_it_matters": null
+  },
+  {
+   "id": "ba4a6b46c580fe8d6ce96ed945a45877eb3ed63e",
+   "source": "github",
+   "title": "jasonxu114514/opencode2api: A Go-based OpenCode Zen / Zen Go API proxy with OpenAI & Anthropic API compatibility, key/proxy pooling, automatic routing, and WebUI.",
+   "url": "https://github.com/jasonxu114514/opencode2api",
+   "discussion_url": null,
+   "score": 185,
+   "comments": 0,
+   "published_at": "2026-10-17T09:14:11.467470+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Proxy API viết bằng Go hỗ trợ đa mô hình LLM và quản lý key.",
+   "summary": "opencode2api là một API proxy viết bằng Go hỗ trợ OpenCode Zen và Zen Go, tương thích với endpoint của OpenAI và Anthropic. Công cụ này cung cấp tính năng quản lý key pool, tự động định tuyến và tích hợp sẵn WebUI mà không cần runtime Node.js.",
+   "why_it_matters": null
+  }
+ ],
+ "stats": {
+  "fetched_hn": 100,
+  "fetched_github": 52,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 177,
+  "after_dedupe": 171,
+  "after_filter": 75,
+  "ai": "gemini",
+  "ai_tokens_in": 14963,
+  "ai_tokens_out": 4522,
+  "sent": 10,
+  "summarized": 10
+ }
+}
