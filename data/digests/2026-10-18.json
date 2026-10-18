@@ -1,0 +1,190 @@
+{
+ "date": "2026-10-18",
+ "items": [
+  {
+   "id": "49b49c1c440ebc796b6b099adc26ba6bc62e3540",
+   "source": "hn",
+   "title": "OpenCode Hacked: User credentials leaked",
+   "url": "https://twitter.com/opencode/status/2111516673953935833",
+   "discussion_url": "https://news.ycombinator.com/item?id=50133401",
+   "score": 782,
+   "comments": 143,
+   "published_at": "2026-10-17T18:01:41Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Lỗ hổng rò rỉ credential của OpenCode ảnh hưởng trực tiếp bảo mật hệ thống.",
+   "summary": "OpenCode Console đã hứng chịu một sự cố bảo mật qua một cuộc tấn công distillation quy mô lớn, ảnh hưởng đến 1.4% người dùng. Đội ngũ phát triển đã thông báo cho những người dùng bị ảnh hưởng qua email và đang phối hợp cùng Anthropic, OpenAI và Google để khắc phục sự cố.",
+   "why_it_matters": "Việc lộ thông tin xác thực từ các công cụ phát triển phần mềm là lời cảnh báo quan trọng về bảo mật chuỗi cung ứng và quản lý credential trong quy trình làm việc hàng ngày của bạn."
+  },
+  {
+   "id": "9b13d6a721a0c27049840c9b9a043dabdb98a309",
+   "source": "hn",
+   "title": "DeepSeek-v4.1-Flash-1017",
+   "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017",
+   "discussion_url": "https://news.ycombinator.com/item?id=50129045",
+   "score": 708,
+   "comments": 592,
+   "published_at": "2026-10-17T08:21:25Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Mô hình AI mới DeepSeek-v4.1-Flash-1017 rất đáng chú ý cho dev làm AI.",
+   "summary": "DeepSeek-V4.1-Flash-1017 là một bản cập nhật nhỏ của mô hình MoE DeepSeek-V4.1-Flash, mang lại cải tiến lớn về khả năng lập luận, lập trình và xử lý tác vụ agent. Mô hình này giảm thời gian thực thi và độ dài đầu ra, đồng thời hỗ trợ tích hợp sẵn qua Transformers, vLLM và SGLang.",
+   "why_it_matters": "Cung cấp một tùy chọn LLM nhanh hơn và tối ưu chi phí hơn cho các tác vụ code và agentic workflow mà bạn đang vận hành."
+  },
+  {
+   "id": "1230527240befd9b66ad905ee5acba7938d7df85",
+   "source": "github",
+   "title": "ScrapeCreators/social-media-research-skills: AI agent skills for social media research. Outlier posts, comment mining, competitor teardowns, ad libraries & trends across TikTok, Instagram, YouTube, Reddit, X, LinkedIn & more. Powered by ScrapeCreators. Works with Claude Code, Cursor, Codex, Gemini CLI.",
+   "url": "https://github.com/ScrapeCreators/social-media-research-skills",
+   "discussion_url": null,
+   "score": 103,
+   "comments": 0,
+   "published_at": "2026-10-18T09:13:59.540939+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "AI agent skills hỗ trợ nghiên cứu tích hợp hoàn hảo với Claude Code và Cursor.",
+   "summary": "ScrapeCreators cung cấp tập hợp các skill nghiên cứu mạng xã hội cho AI agent nhằm tự động hóa các quy trình như tìm bài viết nổi bật, phân tích bình luận và nghiên cứu đối thủ cạnh tranh. Các skill này tương thích với nhiều công cụ agent phổ biến như Claude Code, Cursor và Gemini CLI.",
+   "why_it_matters": "Giúp mở rộng khả năng tự động hóa của AI coding agent và các công cụ trợ lý lập trình với dữ liệu mạng xã hội theo thời gian thực."
+  },
+  {
+   "id": "1fd6dd971a81f8a50937488e90890c3b9d3450eb",
+   "source": "hn",
+   "title": "DeepSeek: DeepSeek v4.1 Flash 1017",
+   "url": "https://openrouter.ai/deepseek/deepseek-v4.1-flash-1017",
+   "discussion_url": "https://news.ycombinator.com/item?id=50129121",
+   "score": 511,
+   "comments": 5,
+   "published_at": "2026-10-17T08:37:46Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Phát hành DeepSeek v4.1 Flash trên OpenRouter rất quan trọng cho việc tích hợp LLM.",
+   "summary": "DeepSeek V4.1 Flash 1017 là mô hình sparse mixture-of-experts sử dụng kiến trúc Causal Encoder-Decoder mới với khả năng hiểu hình ảnh tích hợp sẵn. Mô hình này nổi bật với việc nén KV cache giúp giảm mạnh chi phí cho các tác vụ agentic dài hạn.",
+   "why_it_matters": "Giúp bạn tối ưu hóa chi phí và tăng tốc độ xử lý khi triển khai các agentic workflow phức tạp đòi hỏi ngữ cảnh dài."
+  },
+  {
+   "id": "4537a5e836ceb98a17d2c61a40510920c119b5b8",
+   "source": "github",
+   "title": "cline/cline: Autonomous coding agent as an SDK, IDE extension, or CLI assistant.",
+   "url": "https://github.com/cline/cline",
+   "discussion_url": null,
+   "score": 63,
+   "comments": 0,
+   "published_at": "2026-10-18T09:13:59.540939+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Coding agent tự động dạng SDK và CLI rất hữu ích cho developer.",
+   "summary": "Cline là một mã nguồn mở coding agent hỗ trợ hoạt động dưới dạng SDK, extension IDE (VS Code, JetBrains) hoặc CLI trong terminal. Công cụ này có khả năng tự động đọc cấu trúc dự án, thực thi lệnh trực tiếp, theo dõi lỗi biên dịch và hỗ trợ đa dạng các nhà cung cấp LLM.",
+   "why_it_matters": "Mang lại một trợ lý lập trình toàn diện, tích hợp sâu vào môi trường phát triển và CI/CD pipeline để tự động hóa việc viết code và sửa lỗi."
+  },
+  {
+   "id": "7dd1f1241d4d924580316910493ef856d92a6e9f",
+   "source": "github",
+   "title": "vshulcz/deja-vu: Coding agent memory for Claude Code, Codex, Cursor and 39 more, built from the session history already on your disk. Local search, MCP and hooks, no LLM, one Go binary.",
+   "url": "https://github.com/vshulcz/deja-vu",
+   "discussion_url": null,
+   "score": 7,
+   "comments": 0,
+   "published_at": "2026-10-18T09:13:59.540939+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ quản lý bộ nhớ coding agent viết bằng Go, hỗ trợ MCP và Claude Code.",
+   "summary": "Deja-vu là một binary viết bằng Go giúp lập chỉ mục và quản lý bộ nhớ cho hơn 40 coding agent từ lịch sử session có sẵn trên máy của bạn. Công cụ này hoạt động hoàn toàn cục bộ, không dùng LLM, hỗ trợ tìm kiếm dòng lệnh, MCP và các lệnh đồng bộ giữa các agent khác nhau.",
+   "why_it_matters": "Giúp bạn tái sử dụng ngữ cảnh và các đoạn code đã debug thành công giữa các coding agent như Cursor, Claude Code hoặc Codex một cách cục bộ và tiết kiệm token."
+  },
+  {
+   "id": "1557ed18b56735c6b8c5e8615009133e164a2ec5",
+   "source": "hn",
+   "title": "Show HN: Llmspeed – feel how fast a local LLM runs before you buy the hardware",
+   "url": "https://llmspeed.dev",
+   "discussion_url": "https://news.ycombinator.com/item?id=50127979",
+   "score": 255,
+   "comments": 77,
+   "published_at": "2026-10-17T04:36:53Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Công cụ đo tốc độ local LLM hữu ích cho dev chạy mô hình AI.",
+   "summary": "Llmspeed là một công cụ mã nguồn mở giúp ước tính tốc độ chạy của các local LLM trên một thiết bị cụ thể trước khi bạn quyết định đầu tư phần cứng. Các con số được tổng hợp từ benchmark cộng đồng và các thông số suy luận.",
+   "why_it_matters": "Hữu ích nếu bạn muốn tự host các mô hình AI hoặc LLM tooling trên hạ tầng phần cứng của mình mà không tốn kém chi phí thử nghiệm."
+  },
+  {
+   "id": "5cd2d03e71e90a96ea77cef23425eef38dd0d433",
+   "source": "github",
+   "title": "OpenBMB/PilotDeck: Task-oriented AI Agent productivity platform",
+   "url": "https://github.com/OpenBMB/PilotDeck",
+   "discussion_url": null,
+   "score": 77,
+   "comments": 0,
+   "published_at": "2026-10-18T09:13:59.540939+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Nền tảng AI Agent tập trung vào năng suất phát triển phần mềm.",
+   "summary": "PilotDeck 2.0 là nền tảng AI Agent năng suất mã nguồn mở xoay quanh khái niệm \"WorkSpace\" để cô lập file, memory và skill theo từng dự án. Phiên bản này bổ sung tính năng quản lý memory minh bạch, định tuyến mô hình thông minh để tiết kiệm token và khả năng chạy ngầm liên tục.",
+   "why_it_matters": "Cung cấp một giải pháp quản lý workflow cho AI agent chuyên nghiệp, giúp tối ưu chi phí token và tự động hóa các tác vụ lập trình dài hạn."
+  },
+  {
+   "id": "03317c4040fa930157a420751e0a1a48f3405768",
+   "source": "hn",
+   "title": "A skeptic's first contact with Kubernetes (2024)",
+   "url": "https://blog.davidv.dev/posts/first-contact-with-k8s",
+   "discussion_url": "https://news.ycombinator.com/item?id=50127572",
+   "score": 85,
+   "comments": 51,
+   "published_at": "2026-10-17T03:16:25Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Bài học thực tế khi tiếp cận Kubernetes từ góc nhìn DevOps.",
+   "summary": "Bài viết chia sẻ góc nhìn và kinh nghiệm thực tế của một kỹ sư hạ tầng kỳ cựu lần đầu tiếp cận Kubernetes sau thời gian dài né tránh. Tác giả phân tích cấu trúc của K8s dựa trên hai khái niệm cốt lõi là các vòng lặp điều khiển (control loops) và Service.",
+   "why_it_matters": "Cung cấp cái nhìn cốt lõi về cách K8s vận hành thông qua các controller và networking abstraction, rất hữu ích cho lập trình viên làm DevOps."
+  },
+  {
+   "id": "e083958888c9d24605ed92a68b2e3d113a6677eb",
+   "source": "lobsters",
+   "title": "Big Fish: Exploiting a 37-Year-Old Kernel Bug in OpenBSD",
+   "url": "https://calif.io/research/big-fish",
+   "discussion_url": "https://lobste.rs/s/cxlrc5/big_fish_exploiting_37_year_old_kernel_bug",
+   "score": 35,
+   "comments": 0,
+   "published_at": "2026-10-16T10:41:08.721000-05:00",
+   "tags": [
+    "openbsd",
+    "security"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Khai thác lỗi kernel OpenBSD lâu năm có chiều sâu kỹ thuật.",
+   "summary": "Nhóm nghiên cứu đã tìm ra và khai thác một lỗ hổng tràn số nguyên tồn tại 37 năm trong mã nguồn BSD gốc của OpenBSD, dẫn đến leo thang đặc quyền root. Lỗ hổng này kết hợp giữa việc thao túng bộ đếm chia sẻ bộ nhớ và lỗi ghi ngoài giới hạn trong kernel.",
+   "why_it_matters": "Minh họa chi tiết về kỹ thuật khai thác kernel và vượt qua các cơ chế bảo mật (như SMAP/SMEP), mang lại kiến thức chuyên sâu về bảo mật hệ thống cho các kỹ sư DevOps và hệ thống."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 78,
+  "fetched_github": 52,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 155,
+  "after_dedupe": 152,
+  "after_filter": 64,
+  "ai": "gemini",
+  "ai_tokens_in": 13338,
+  "ai_tokens_out": 3984,
+  "sent": 10,
+  "summarized": 10
+ }
+}
