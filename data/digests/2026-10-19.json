@@ -1,0 +1,193 @@
+{
+ "date": "2026-10-19",
+ "items": [
+  {
+   "id": "dd6a9d14a094d1594baeb964ac415610498cc4a0",
+   "source": "github",
+   "title": "Graphify-Labs/graphify: Turn any codebase, with its docs, SQL schemas, configs, and PDFs, into a queryable knowledge graph. A /graphify skill for Claude Code, Cursor, Codex, and Gemini CLI: local deterministic AST parsing, every edge explained, no vector store.",
+   "url": "https://github.com/Graphify-Labs/graphify",
+   "discussion_url": null,
+   "score": 626,
+   "comments": 0,
+   "published_at": "2026-10-19T09:29:44.720851+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Chuyển codebase thành knowledge graph hỗ trợ Claude Code và Cursor.",
+   "summary": "Graphify biến toàn bộ codebase, tài liệu và schema thành một knowledge graph dạng local bằng tree-sitter AST mà không cần dùng vector store. Công cụ này cung cấp các skill cho các AI coding assistant phổ biến như Claude Code hay Cursor để truy vấn code nhanh chóng.",
+   "why_it_matters": "Giúp bạn tiết kiệm token và tăng tốc độ tìm kiếm, hiểu codebase khi làm việc với các AI coding assistant."
+  },
+  {
+   "id": "d8aa36326d6572b5013531f6d0904cf9dd510d2f",
+   "source": "github",
+   "title": "hashicorp/terraform: Terraform enables you to safely and predictably create, change, and improve infrastructure. It is a source-available tool that codifies APIs into declarative configuration files that can be shared amongst team members, treated as code, edited, reviewed, and versioned.",
+   "url": "https://github.com/hashicorp/terraform",
+   "discussion_url": null,
+   "score": 30,
+   "comments": 0,
+   "published_at": "2026-10-19T09:29:44.720851+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ IaC Terraform quản lý cơ sở hạ tầng quen thuộc của DevOps.",
+   "summary": "Terraform là công cụ Infrastructure as Code cho phép định nghĩa cơ sở hạ tầng qua các file cấu hình declarative. Công cụ này quản lý resource graph và đưa ra các execution plan để triển khai tài nguyên một cách an toàn, hiệu quả.",
+   "why_it_matters": "Cung cấp nền tảng cốt lõi để bạn tự động hóa và quản lý cơ sở hạ tầng cloud một cách đáng tin cậy."
+  },
+  {
+   "id": "72942b4cf701347a4292785b7e6fe91b52bd3fd4",
+   "source": "github",
+   "title": "VersusControl/versus-incident: The self-hosted AI SRE agent. You don't have to monitor your systems alone. Versus Incident will keep track of your services, applications, and systems, detect new or unexpected problems, and provide your team with the evidence needed to investigate.",
+   "url": "https://github.com/VersusControl/versus-incident",
+   "discussion_url": null,
+   "score": 8,
+   "comments": 0,
+   "published_at": "2026-10-19T09:29:44.720851+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "AI SRE agent tự host để giám sát hệ thống và phát hiện sự cố.",
+   "summary": "Versus Incident là một AI SRE agent tự host giúp giám sát log, metrics, traces và Kubernetes để tự động phát hiện lỗi. Công cụ này hỗ trợ chế độ học tập (training/shadow) trước khi gửi cảnh báo qua webhook hoặc các kênh như Slack.",
+   "why_it_matters": "Tối ưu hóa quy trình DevOps và on-call bằng cách tự động hóa việc phát hiện sự cố trên hệ thống Kubernetes và microservices của bạn."
+  },
+  {
+   "id": "a5bb32320853f4db899f960fab78f0afa3dea1e6",
+   "source": "hn",
+   "title": "Hybrid Reasoning Agents: LLM agents that think in latent space, act through text",
+   "url": "https://arxiv.org/abs/2610.18861",
+   "discussion_url": "https://news.ycombinator.com/item?id=50145337",
+   "score": 229,
+   "comments": 138,
+   "published_at": "2026-10-18T20:48:14Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Mô hình LLM agent suy luận hybrid tiềm năng cho developer tools.",
+   "summary": "Hybrid Reasoning Agents giới thiệu kiến trúc agent mới cho phép chuyển đổi linh hoạt giữa suy luận trong không gian ẩn (latent space) và tương tác dạng text. Nghiên cứu này giúp giảm thiểu token, tăng tốc độ inference và tiết kiệm chi phí cho các agentic framework.",
+   "why_it_matters": "Mang lại cải tiến lớn về hiệu năng và chi phí cho các AI agent và LLM tooling mà bạn đang ứng dụng."
+  },
+  {
+   "id": "e8c644ca19ebe7e0480372fde4d4e68d9e6105f8",
+   "source": "github",
+   "title": "alvinunreal/lazyskills: mission control for agent skills",
+   "url": "https://github.com/alvinunreal/lazyskills",
+   "discussion_url": null,
+   "score": 138,
+   "comments": 0,
+   "published_at": "2026-10-19T09:29:44.720851+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Công cụ quản lý agent skills hữu ích cho AI developer.",
+   "summary": "LazySkills là một terminal UI (TUI) tốc độ cao giúp quản lý, kiểm tra khả năng hiển thị và trạng thái cài đặt của các agent skill. Công cụ này cho phép bạn quét lỗi cấu hình, xem trước lệnh và cài đặt skill mới từ registry một cách an toàn.",
+   "why_it_matters": "Giúp bạn quản lý và debug các AI coding agent skill trong terminal một cách nhanh chóng và gọn gàng."
+  },
+  {
+   "id": "26b52d229f3345260414109877146496bd603218",
+   "source": "github",
+   "title": "anthropics/claude-quickstarts: A collection of projects designed to help developers quickly get started with building deployable applications using the Claude API",
+   "url": "https://github.com/anthropics/claude-quickstarts",
+   "discussion_url": null,
+   "score": 370,
+   "comments": 0,
+   "published_at": "2026-10-19T09:29:44.720851+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Bộ công cụ khởi động nhanh ứng dụng Claude API cho developer.",
+   "summary": "Claude Quickstarts là một bộ sưu tập các dự án mẫu giúp lập trình viên nhanh chóng xây dựng các ứng dụng triển khai được bằng Claude API. Kho lưu trữ này bao gồm nhiều kịch bản thực tế như agent hỗ trợ khách hàng, phân tích dữ liệu tài chính, điều khiển máy tính, tự động hóa trình duyệt và agent lập trình tự trị.",
+   "why_it_matters": "Cung cấp các mẫu mã nguồn thực tế và pattern chuẩn để tích hợp LLM và coding agent vào quy trình phát triển full-stack của bạn."
+  },
+  {
+   "id": "40d691da45f32f89c3f374f8f5c07b285090ec36",
+   "source": "hn",
+   "title": "Show HN: Sphinx – A hook that quizzes you on your AI's code before shipping",
+   "url": "https://sphinx-six-theta.vercel.app",
+   "discussion_url": "https://news.ycombinator.com/item?id=50137950",
+   "score": 241,
+   "comments": 85,
+   "published_at": "2026-10-18T04:33:49Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Hook kiểm tra code của AI trước khi deploy, hữu ích cho AI coding.",
+   "summary": "Sphinx là một Git hook mã nguồn mở được thiết kế dành cho quá trình phát triển có sự hỗ trợ của AI agent. Trước khi cho phép push code do agent tạo ra, công cụ này sẽ yêu cầu bạn trả lời một câu hỏi ngắn về logic và xử lý ngoại lệ của đoạn code đó để đảm bảo bạn thực sự hiểu rõ những gì được ship.",
+   "why_it_matters": "Giúp bạn kiểm soát chất lượng code và nắm vững kiến trúc khi sử dụng các coding agent tự động trong các dự án hàng ngày."
+  },
+  {
+   "id": "f7736e543bd76703497f4ab0f8750d3d68c44c93",
+   "source": "github",
+   "title": "LibreChat-AI/LibreChat: Enhanced ChatGPT Clone: Features Agents, MCP, Skills, DeepSeek, Anthropic, AWS, OpenAI, Responses API, Azure, Groq, o1, GPT-5, Mistral, OpenRouter, Vertex AI, Gemini, Artifacts, AI model switching, message search, Code Interpreter, langchain, DALL-E-3, OpenAPI Actions, Functions, Secure Multi-User Auth, Presets, open-source for self-hosting. Active",
+   "url": "https://github.com/LibreChat-AI/LibreChat",
+   "discussion_url": null,
+   "score": 66,
+   "comments": 0,
+   "published_at": "2026-10-19T09:29:44.720851+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "ChatGPT clone mã nguồn mở tích hợp nhiều AI tools và MCP.",
+   "summary": "LibreChat là giao diện dòng lệnh và web mã nguồn mở mã nguồn mở đóng vai trò là bản sao ChatGPT nâng cao, hỗ trợ quản lý Agent, tích hợp MCP, Skills và nhiều mô hình AI khác nhau. Phiên bản v0.8.8 mang đến API quản lý Agent, workspace đính kèm cho code worker, kiểm soát quyền thực thi lệnh Bash và cải tiến toàn diện về khả năng quan sát (observability).",
+   "why_it_matters": "Mang lại một nền tảng self-hosted mạnh mẽ để quản lý các AI model, công cụ MCP và coding agent ngay trong hạ tầng của bạn."
+  },
+  {
+   "id": "2376e8b3d6259d90b531fc627683113125fcf95d",
+   "source": "github",
+   "title": "mozilla-ai/otari: Open-source, OpenAI-compatible LLM gateway you run yourself. One endpoint for 40+ providers, with virtual keys, budgets, and usage tracking.",
+   "url": "https://github.com/mozilla-ai/otari",
+   "discussion_url": null,
+   "score": 39,
+   "comments": 0,
+   "published_at": "2026-10-19T09:29:44.720851+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "LLM gateway mã nguồn mở tương thích OpenAI, tự host tốt cho DevOps.",
+   "summary": "Otari là một LLM gateway mã nguồn mở, tương thích với OpenAI, có thể tự chạy trên hạ tầng riêng với Docker hoặc Kubernetes. Công cụ này cung cấp một điểm cuối duy nhất để định tuyến tới hơn 40 nhà cung cấp mô hình, cấp phát virtual key, giới hạn ngân sách và theo dõi chi tiết mức sử dụng.",
+   "why_it_matters": "Cung cấp giải pháp DevOps tiện lợi để quản lý chi phí, bảo mật API key và điều hướng request giữa các LLM khác nhau cho ứng dụng của bạn."
+  },
+  {
+   "id": "6f2aca72a3fc44028770d46b0d493aca4fa94bdc",
+   "source": "hn",
+   "title": "Show HN: WhatsApp MCP running free on Cloudflare",
+   "url": "https://github.com/finereli/whatsapp-mcp",
+   "discussion_url": "https://news.ycombinator.com/item?id=50145715",
+   "score": 47,
+   "comments": 34,
+   "published_at": "2026-10-18T21:36:10Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Ứng dụng WhatsApp tích hợp MCP chạy trên Cloudflare.",
+   "summary": "WhatsApp MCP là một server mã nguồn mở chạy trên Cloudflare Workers, cho phép các AI agent tương thích với giao thức MCP đọc và tìm kiếm tin nhắn WhatsApp của bạn. Dự án kết nối như một thiết bị liên kết thông qua thư viện Baileys, lưu trữ lịch sử tin nhắn trong SQLite bên trong Cloudflare Durable Object mà không cần gửi dữ liệu đi đâu khác.",
+   "why_it_matters": "Cho phép các coding agent như Claude Code tích hợp trực tiếp với dữ liệu cá nhân của bạn để hỗ trợ tra cứu thông tin nhanh chóng qua MCP."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 75,
+  "fetched_github": 49,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 149,
+  "after_dedupe": 143,
+  "after_filter": 66,
+  "ai": "gemini",
+  "ai_tokens_in": 13864,
+  "ai_tokens_out": 4445,
+  "sent": 10,
+  "summarized": 10
+ }
+}
