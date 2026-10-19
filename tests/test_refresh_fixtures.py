@@ -62,3 +62,15 @@ def test_every_target_has_a_unique_filename() -> None:
 
     filenames = [t.filename for t in targets]
     assert len(filenames) == len(set(filenames))
+
+
+@respx.mock
+def test_target_with_json_body_is_posted(tmp_path: Path) -> None:
+    target = Target("osv", "https://osv.example/v1/querybatch", "sub/osv.json", {"queries": []})
+    route = respx.post(target.url).respond(200, content=b'{"results": []}')
+
+    with httpx.Client() as client:
+        assert refresh(client, [target], tmp_path) == []
+
+    assert route.calls.last.request.content == b'{"queries":[]}'
+    assert (tmp_path / "sub/osv.json").read_bytes() == b'{"results": []}'

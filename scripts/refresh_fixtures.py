@@ -18,6 +18,15 @@ USER_AGENT = "tech-news-digest/0.1 (fixture refresh)"
 
 # Radar fixtures mirror host/path, so the offline transport can serve them by URL.
 RADAR = "radar"
+# Ids the querybatch fixture returns for lodash@4.17.15; update both together.
+OSV_LODASH_IDS = (
+    "GHSA-29mw-wpgm-hmr9",
+    "GHSA-35jh-r3h4-6jhm",
+    "GHSA-f23m-r3pf-42rh",
+    "GHSA-p6mc-m468-83gw",
+    "GHSA-r5fr-rjxr-66jc",
+    "GHSA-xxjr-mmjv-4gpg",
+)
 
 log = logging.getLogger("refresh_fixtures")
 
@@ -27,6 +36,7 @@ class Target:
     name: str
     url: str
     filename: str
+    json_body: dict | None = None  # set -> POST this body instead of GET
 
 
 def build_targets(now: datetime) -> list[Target]:
@@ -84,6 +94,26 @@ def build_targets(now: datetime) -> list[Target]:
             "https://api.github.com/repos/encode/httpx/releases?per_page=5",
             f"{RADAR}/api.github.com/repos/encode/httpx/releases.json",
         ),
+        # Same queries, in the same order, as the offline radar run over the demo manifests.
+        Target(
+            "osv_querybatch",
+            "https://api.osv.dev/v1/querybatch",
+            f"{RADAR}/api.osv.dev/v1/querybatch.json",
+            json_body={
+                "queries": [
+                    {"package": {"name": "lodash", "ecosystem": "npm"}, "version": "4.17.15"},
+                    {"package": {"name": "httpx", "ecosystem": "PyPI"}, "version": "0.27.0"},
+                ]
+            },
+        ),
+        *(
+            Target(
+                f"osv_{vuln_id}",
+                f"https://api.osv.dev/v1/vulns/{vuln_id}",
+                f"{RADAR}/api.osv.dev/v1/vulns/{vuln_id}.json",
+            )
+            for vuln_id in OSV_LODASH_IDS
+        ),
     ]
 
 
@@ -93,7 +123,10 @@ def refresh(client: httpx.Client, targets: list[Target], out_dir: Path) -> list[
     failures: list[str] = []
     for target in targets:
         try:
-            response = client.get(target.url)
+            if target.json_body is None:
+                response = client.get(target.url)
+            else:
+                response = client.post(target.url, json=target.json_body)
             response.raise_for_status()
         except httpx.HTTPError as exc:
             log.warning("%s: failed (%s), keeping previous fixture", target.name, exc)
