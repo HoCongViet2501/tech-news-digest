@@ -36,7 +36,9 @@ async def fetch_releases(
         )
         data = response.json()
     except httpx.HTTPStatusError as exc:
-        log.warning("radar: releases for %s failed (HTTP %d)", repo, exc.response.status_code)
+        log.warning(
+            "radar: releases for %s failed (%s)", repo, github.describe_status(exc.response)
+        )
         return None
     except (httpx.HTTPError, ValueError) as exc:
         log.warning("radar: releases for %s failed (%s)", repo, type(exc).__name__)

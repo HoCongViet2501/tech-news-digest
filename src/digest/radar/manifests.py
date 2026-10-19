@@ -161,8 +161,9 @@ async def read_dependencies(
                 )
                 ecosystem, deps = parse_manifest(path, response.text, cfg.include_dev_dependencies)
             except httpx.HTTPStatusError as exc:
-                log.warning("radar: cannot read %s (HTTP %d)", where, exc.response.status_code)
-                warnings.append(f"{where}: HTTP {exc.response.status_code}")
+                status = github.describe_status(exc.response)
+                log.warning("radar: cannot read %s (%s)", where, status)
+                warnings.append(f"{where}: {status}")
                 continue
             except (httpx.HTTPError, ValueError) as exc:
                 log.warning("radar: cannot read %s (%s)", where, exc)

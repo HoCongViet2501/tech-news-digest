@@ -161,7 +161,9 @@ def test_read_dependencies_merges_projects_and_applies_ignore() -> None:
 @respx.mock
 def test_broken_manifest_is_skipped_with_warning(caplog: pytest.LogCaptureFixture) -> None:
     respx.get(CONTENTS.format(repo="me/a", path="package.json")).respond(404)
-    respx.get(CONTENTS.format(repo="me/a", path="go.mod")).respond(403)
+    respx.get(CONTENTS.format(repo="me/a", path="go.mod")).respond(
+        403, headers={"x-ratelimit-remaining": "0"}
+    )
     respx.get(CONTENTS.format(repo="me/a", path="pyproject.toml")).respond(200, text="[broken")
     respx.get(CONTENTS.format(repo="me/a", path="requirements.txt")).respond(
         200, text="httpx==0.27.0\n"
@@ -181,7 +183,7 @@ def test_broken_manifest_is_skipped_with_warning(caplog: pytest.LogCaptureFixtur
     assert [d.key for d in deps] == ["PyPI:httpx"]
     assert warnings == [
         "me/a:package.json: HTTP 404",
-        "me/a:go.mod: HTTP 403",
+        "me/a:go.mod: HTTP 403 (rate limited; set GH_READ_TOKEN or GITHUB_TOKEN)",
         "me/a:pyproject.toml: ValueError",
     ]
     assert "secret-token" not in caplog.text

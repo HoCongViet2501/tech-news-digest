@@ -2,6 +2,8 @@
 
 from collections.abc import Mapping, Sequence
 
+import httpx
+
 API = "https://api.github.com"
 
 
@@ -18,3 +20,11 @@ def headers(token: str | None, accept: str = "application/vnd.github+json") -> d
     if token:
         result["Authorization"] = f"Bearer {token}"
     return result
+
+
+def describe_status(response: httpx.Response) -> str:
+    """'HTTP 403', plus a hint when GitHub says the rate limit is used up."""
+    text = f"HTTP {response.status_code}"
+    if response.status_code in (403, 429) and response.headers.get("x-ratelimit-remaining") == "0":
+        text += " (rate limited; set GH_READ_TOKEN or GITHUB_TOKEN)"
+    return text
