@@ -12,8 +12,7 @@ class StateError(Exception):
     """Raised when a state file exists but cannot be read."""
 
 
-def load_seen(path: Path) -> dict[str, str]:
-    """Map of item id -> date (YYYY-MM-DD) it was sent. Missing file = nothing sent yet."""
+def _load_object(path: Path) -> dict:
     if not path.is_file():
         return {}
     try:
@@ -22,7 +21,21 @@ def load_seen(path: Path) -> dict[str, str]:
         raise StateError(f"Cannot read {path}: {exc}") from exc
     if not isinstance(data, dict):
         raise StateError(f"{path} must contain a JSON object")
-    return {str(k): str(v) for k, v in data.items()}
+    return data
+
+
+def load_seen(path: Path) -> dict[str, str]:
+    """Map of item id -> date (YYYY-MM-DD) it was sent. Missing file = nothing sent yet."""
+    return {str(k): str(v) for k, v in _load_object(path).items()}
+
+
+def load_radar_map(path: Path) -> dict[str, str | None]:
+    """Cache of dependency key ("npm:lodash") -> "owner/repo", or None if it has none."""
+    return {str(k): (str(v) if v else None) for k, v in _load_object(path).items()}
+
+
+def save_radar_map(path: Path, mapping: dict[str, str | None]) -> None:
+    _write_atomic(path, json.dumps(dict(sorted(mapping.items())), indent=1) + "\n")
 
 
 def _write_atomic(path: Path, text: str) -> None:

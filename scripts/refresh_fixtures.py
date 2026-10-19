@@ -16,6 +16,9 @@ import httpx
 FIXTURES_DIR = Path(__file__).resolve().parent.parent / "tests" / "fixtures"
 USER_AGENT = "tech-news-digest/0.1 (fixture refresh)"
 
+# Radar fixtures mirror host/path, so the offline transport can serve them by URL.
+RADAR = "radar"
+
 log = logging.getLogger("refresh_fixtures")
 
 
@@ -60,6 +63,17 @@ def build_targets(now: datetime) -> list[Target]:
         Target(
             "github_repo", "https://api.github.com/repos/vectorize-io/hindsight", "github_repo.json"
         ),
+        # Radar: package -> repo lookups for the hand-written manifests in radar/api.github.com
+        Target(
+            "npm_lodash",
+            "https://registry.npmjs.org/lodash/latest",
+            f"{RADAR}/registry.npmjs.org/lodash/latest.json",
+        ),
+        Target(
+            "pypi_httpx",
+            "https://pypi.org/pypi/httpx/json",
+            f"{RADAR}/pypi.org/pypi/httpx/json.json",
+        ),
     ]
 
 
@@ -75,7 +89,9 @@ def refresh(client: httpx.Client, targets: list[Target], out_dir: Path) -> list[
             log.warning("%s: failed (%s), keeping previous fixture", target.name, exc)
             failures.append(target.name)
             continue
-        (out_dir / target.filename).write_bytes(response.content)
+        path = out_dir / target.filename
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(response.content)
         log.info("%s: wrote %s (%d bytes)", target.name, target.filename, len(response.content))
     return failures
 
