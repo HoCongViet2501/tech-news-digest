@@ -1,0 +1,2 @@
+# Hand-written manifest for the offline radar run.
+httpx==0.27.0

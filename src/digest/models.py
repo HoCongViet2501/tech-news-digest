@@ -2,6 +2,7 @@
 
 import hashlib
 from datetime import date, datetime
+from typing import Literal
 
 from pydantic import BaseModel, Field
 
@@ -30,7 +31,42 @@ class ScoredItem(Item):
     why_it_matters: str | None = None
 
 
+Ecosystem = Literal["npm", "PyPI", "Go"]
+
+
+class Dependency(BaseModel):
+    """A direct dependency declared in one of the owner's manifests."""
+
+    ecosystem: Ecosystem
+    name: str
+    version: str | None  # declared version (lower bound of a range); None if unpinned
+    projects: list[str] = Field(default_factory=list)  # "owner/repo" declaring it
+
+    @property
+    def key(self) -> str:
+        return f"{self.ecosystem}:{self.name}"
+
+
+class RadarEntry(BaseModel):
+    key: str  # what "report once" is tracked by: vuln id, or "owner/repo@tag"
+    kind: Literal["vulnerability", "major", "release"]
+    ecosystem: Ecosystem
+    package: str
+    installed: str | None
+    title: str  # vulnerability summary or release name
+    url: str
+    projects: list[str] = Field(default_factory=list)
+    severity: str | None = None
+    fixed_in: str | None = None
+    version: str | None = None  # release version
+    aliases: list[str] = Field(default_factory=list)
+    notes: str | None = Field(default=None, exclude=True)  # raw release notes, AI input only
+    summary: str | None = None
+    action_required: bool | None = None
+
+
 class Digest(BaseModel):
     date: date
     items: list[ScoredItem]
     stats: dict[str, int | str] = Field(default_factory=dict)
+    radar: list[RadarEntry] = Field(default_factory=list)

@@ -92,6 +92,30 @@ class DeliveryConfig(_Strict):
     pages: PagesConfig = Field(default_factory=PagesConfig)
 
 
+class ManifestConfig(_Strict):
+    repo: str  # owner/name
+    paths: list[str] = Field(min_length=1)
+
+    @field_validator("repo")
+    @classmethod
+    def _owner_slash_name(cls, value: str) -> str:
+        if value.count("/") != 1 or not all(value.split("/")):
+            raise ValueError(f"expected owner/name, got {value!r}")
+        return value
+
+
+class RadarConfig(_Strict):
+    enabled: bool = False
+    manifests: list[ManifestConfig] = Field(default_factory=list)
+    include_dev_dependencies: bool = False
+    ignore: list[str] = Field(default_factory=list)  # package names, case-insensitive
+    max_entries: int = Field(default=10, gt=0)
+    releases_per_repo: int = Field(default=5, gt=0)
+    notes_max_chars: int = Field(default=3000, gt=0)  # release notes sent to the AI
+    # First env var that is set is used for GitHub API calls; never logged.
+    token_env: list[str] = Field(default_factory=lambda: ["GH_READ_TOKEN", "GITHUB_TOKEN"])
+
+
 class Config(_Strict):
     profile: str
     timezone: str = "Asia/Ho_Chi_Minh"
@@ -100,6 +124,7 @@ class Config(_Strict):
     filters: FiltersConfig = Field(default_factory=FiltersConfig)
     ai: AIConfig = Field(default_factory=AIConfig)
     delivery: DeliveryConfig = Field(default_factory=DeliveryConfig)
+    radar: RadarConfig = Field(default_factory=RadarConfig)
 
     @field_validator("timezone")
     @classmethod

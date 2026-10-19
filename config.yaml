@@ -41,3 +41,9 @@ ai:
 delivery:
   telegram: {enabled: true}
   pages: {enabled: true, base_url: "https://hocongviet2501.github.io/tech-news-digest/"}
+
+radar:
+  enabled: false            # TODO(owner): list the repos to watch, then set to true
+  manifests: []             # entries like {repo: owner/name, paths: [package.json, go.mod]}
+  include_dev_dependencies: false
+  ignore: [typescript, eslint]

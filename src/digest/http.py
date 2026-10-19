@@ -23,17 +23,24 @@ def make_client(transport: httpx.AsyncBaseTransport | None = None) -> httpx.Asyn
 
 async def get_with_retry(client: httpx.AsyncClient, url: str, **kwargs: Any) -> httpx.Response:
     """GET with up to RETRIES retries on 5xx or transport errors; 4xx raises immediately."""
+    return await request_with_retry(client, "GET", url, **kwargs)
+
+
+async def request_with_retry(
+    client: httpx.AsyncClient, method: str, url: str, **kwargs: Any
+) -> httpx.Response:
+    """Any method, same retry rules as get_with_retry."""
     for attempt in range(RETRIES + 1):
         last = attempt == RETRIES
         try:
-            response = await client.get(url, **kwargs)
+            response = await client.request(method, url, **kwargs)
         except httpx.TransportError as exc:
             if last:
                 raise
-            log.info("GET %s failed (%s), retrying", url, type(exc).__name__)
+            log.info("%s %s failed (%s), retrying", method, url, type(exc).__name__)
             continue
         if response.status_code >= 500 and not last:
-            log.info("GET %s returned %d, retrying", url, response.status_code)
+            log.info("%s %s returned %d, retrying", method, url, response.status_code)
             continue
         response.raise_for_status()
         return response
