@@ -6,6 +6,8 @@ from pathlib import Path
 import httpx
 
 FIXTURES_DIR = Path(__file__).resolve().parents[2] / "tests" / "fixtures"
+# Radar fixtures mirror the URL: radar/<host><path>, optionally with ".json" appended.
+MIRROR_DIR = FIXTURES_DIR / "radar"
 
 # (host, path prefix) -> fixture file
 ROUTES: list[tuple[str, str, str]] = [
@@ -25,6 +27,10 @@ def _handler(request: httpx.Request) -> httpx.Response:
     for host, prefix, filename in ROUTES:
         path = FIXTURES_DIR / filename
         if request.url.host == host and request.url.path.startswith(prefix) and path.is_file():
+            return httpx.Response(200, content=path.read_bytes())
+    mirrored = MIRROR_DIR / request.url.host / request.url.path.lstrip("/")
+    for path in (mirrored, mirrored.with_name(mirrored.name + ".json")):
+        if path.is_file() and MIRROR_DIR in path.resolve().parents:
             return httpx.Response(200, content=path.read_bytes())
     return httpx.Response(404)
 

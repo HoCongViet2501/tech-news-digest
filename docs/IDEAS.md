@@ -22,3 +22,15 @@ Not implemented. An `embed` dependency group with sentence-transformers
 to the profile when every LLM provider fails, instead of falling back to the
 heuristic. Fully local and keyless, but adds a large dependency and model download
 to every Actions run.
+
+## Radar extras (deferred from phase 3)
+
+- One-time "you are behind a major" report on the first run. Today the first sighting
+  of a repo is a silent baseline, so a major that already existed is never mentioned.
+- More manifest formats: Poetry (`[tool.poetry.dependencies]`), lock files
+  (`package-lock.json`, `uv.lock`, `go.sum`) for exact installed versions instead of
+  the lower bound of a range.
+- Monorepos publishing many packages from one repo (babel, DefinitelyTyped): match
+  release tags like `@scope/pkg@1.2.3` to the right package instead of reading every
+  release of the repo.
+- Radar entries in `feed.xml` (today only Telegram and the web pages show them).

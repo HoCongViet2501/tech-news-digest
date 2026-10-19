@@ -6,7 +6,7 @@ from pathlib import Path
 import feedparser
 import pytest
 
-from digest.models import Digest, ScoredItem
+from digest.models import Digest, RadarEntry, ScoredItem
 from digest.render import TELEGRAM_LIMIT, build_site, render_telegram
 from snapshot import assert_snapshot
 
@@ -218,3 +218,62 @@ def test_site_and_feed_show_summary_and_why(tmp_path: Path) -> None:
     shown = html.unescape(entry.description)
     assert "Postgres 19 thêm <async I/O> & nhiều cải tiến." in shown
     assert "Bạn dùng Postgres hằng ngày." in shown
+
+
+def radar_digest() -> Digest:
+    vuln = RadarEntry(
+        key="GHSA-p6mc-m468-83gw",
+        kind="vulnerability",
+        ecosystem="npm",
+        package="lodash",
+        installed="4.17.15",
+        title="Prototype <Pollution> & friends",
+        url="https://osv.dev/vulnerability/GHSA-p6mc-m468-83gw",
+        projects=["me/web-app"],
+        severity="HIGH",
+        fixed_in="4.17.19",
+    )
+    major = RadarEntry(
+        key="encode/httpx@0.28.0",
+        kind="major",
+        ecosystem="PyPI",
+        package="httpx",
+        installed="0.27.0",
+        title="Version 0.28.0",
+        url="https://github.com/encode/httpx/releases/tag/0.28.0",
+        projects=["me/api", "me/worker"],
+        version="0.28.0",
+        summary="Bỏ tham số `proxies` & `app`.",
+        action_required=True,
+    )
+    breaking = major.model_copy(
+        update={
+            "key": "o/r@v1.4.0",
+            "kind": "release",
+            "package": "r",
+            "version": "v1.4.0",
+            "summary": None,
+            "action_required": False,
+            "projects": [],
+        }
+    )
+    return sample_digest().model_copy(update={"radar": [vuln, major, breaking]})
+
+
+def test_telegram_radar_snapshot() -> None:
+    messages = render_telegram(radar_digest(), "vi")
+    assert len(messages) == 1
+    assert_snapshot("telegram_radar_vi.html", messages[0])
+
+
+def test_radar_section_is_omitted_when_empty() -> None:
+    assert "Radar" not in render_telegram(sample_digest(), "vi")[0]
+
+
+def test_site_shows_radar(tmp_path: Path) -> None:
+    build_site([radar_digest()], tmp_path, base_url=BASE, language="vi")
+
+    page = (tmp_path / "2026-09-27.html").read_text(encoding="utf-8")
+    assert "Prototype &lt;Pollution&gt; &amp; friends · đã sửa ở 4.17.19" in page
+    assert "❗ Cần sửa code khi nâng cấp" in page
+    assert "api, worker" in page

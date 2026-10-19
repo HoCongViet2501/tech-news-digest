@@ -37,6 +37,34 @@ Set `ai.enabled: true` in `config.yaml` and provide at least one provider key
 Providers are tried in order; with no working provider the digest is sent with the
 heuristic ranking and an "AI unavailable" note. Prompts live in `src/digest/ai/prompts/`.
 
+## Dependency radar
+
+Lists the owner's direct dependencies from manifests in their GitHub repos and adds a
+"Radar" section at the top of the digest, only on days with something new:
+vulnerabilities in the declared version (OSV.dev), the first release of a new major
+line, and releases whose notes mention breaking changes. Each entry is reported once.
+
+```yaml
+radar:
+  enabled: true
+  manifests:
+    - repo: <user>/web-app
+      paths: [package.json]
+    - repo: <user>/api-service
+      paths: [go.mod, requirements.txt, pyproject.toml]
+  include_dev_dependencies: false
+  ignore: [typescript, eslint]
+```
+
+- Version ranges are reduced to their lower bound (`^4.17.15` -> 4.17.15); unpinned
+  dependencies are only watched for breaking releases.
+- The first run records each repo's current releases as a baseline and reports none of
+  them; vulnerabilities are reported from day one.
+- GitHub calls use `GH_READ_TOKEN` (needed for private repos: fine-grained PAT,
+  Contents: read) or else the workflow's `GITHUB_TOKEN`.
+- State: `data/radar_state.json` (what was reported, known release tags) and
+  `data/radar_map.json` (package -> GitHub repo cache).
+
 ## Test and lint
 
 ```bash

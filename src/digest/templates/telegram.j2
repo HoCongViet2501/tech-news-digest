@@ -16,3 +16,24 @@
 💡 {{ it.why_it_matters }}
 {% endif %}
 {% endmacro %}
+
+{% macro radar(entries, t) %}
+<b>🛡 {{ t.radar }}</b>
+{% for e in entries %}
+{% if e.kind == "vulnerability" %}
+{{ severity_icon(e.severity) }} <b>{{ e.package }}</b> {{ e.installed }} · <a href="{{ e.url }}">{{ e.key }}</a>{% if e.severity %} · {{ e.severity }}{% endif %}{% if e.projects %} · <i>{{ e.projects | repo_names }}</i>{% endif +%}
+{{ e.title }}{% if e.fixed_in %} · {{ t.fixed_in }} {{ e.fixed_in }}{% endif +%}
+{% else %}
+{{ "⬆️" if e.kind == "major" else "⚠️" }} <b>{{ e.package }}</b> {{ e.installed or "?" }} → <a href="{{ e.url }}">{{ e.version }}</a> · {{ t.major if e.kind == "major" else t.breaking }}{% if e.projects %} · <i>{{ e.projects | repo_names }}</i>{% endif +%}
+{% if e.summary %}
+{{ e.summary }}
+{% endif %}
+{% if e.action_required is not none %}
+{{ "❗ " ~ t.action_required if e.action_required else "✅ " ~ t.no_action }}
+{% endif %}
+{% endif %}
+{% if not loop.last %}
+
+{% endif %}
+{% endfor %}
+{% endmacro %}

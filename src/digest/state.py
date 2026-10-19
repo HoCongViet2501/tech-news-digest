@@ -78,8 +78,10 @@ def save_digest(digests_dir: Path, digest: Digest) -> None:
         previous = Digest.model_validate_json(path.read_text(encoding="utf-8"))
         known = {i.id for i in previous.items}
         items = previous.items + [i for i in digest.items if i.id not in known]
+        known_radar = {r.key for r in previous.radar}
+        radar = previous.radar + [r for r in digest.radar if r.key not in known_radar]
         digest = digest.model_copy(
-            update={"items": items, "stats": {**digest.stats, "sent": len(items)}}
+            update={"items": items, "radar": radar, "stats": {**digest.stats, "sent": len(items)}}
         )
     _write_atomic(path, digest.model_dump_json(indent=1) + "\n")
 

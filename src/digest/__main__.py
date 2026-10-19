@@ -23,11 +23,22 @@ from digest.fetchers import fetch_all
 from digest.filter import apply_filters, rank
 from digest.http import make_client
 from digest.logs import setup_logging
-from digest.models import Digest, Item, ScoredItem
+from digest.models import Digest, Item, RadarState, ScoredItem
 from digest.normalize import normalize
 from digest.offline import is_offline, offline_transport
+from digest.radar.check import RadarResult, run_radar
+from digest.radar.notes import summarize_releases
 from digest.render import render_telegram, render_warning
-from digest.state import StateError, load_seen, save_digest, save_seen
+from digest.state import (
+    StateError,
+    load_radar_map,
+    load_radar_state,
+    load_seen,
+    save_digest,
+    save_radar_map,
+    save_radar_state,
+    save_seen,
+)
 
 SOURCE_NAMES = ("hn", "github", "lobsters", "reddit", "rss")
 TELEGRAM_ENV = ("TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID")
@@ -177,6 +188,33 @@ def add_summaries(
     return digest.model_copy(update={"items": items, "stats": stats})
 
 
+async def _radar(
+    cfg: Config, state: RadarState, repo_map: dict[str, str | None], run_date: date
+) -> RadarResult:
+    transport = offline_transport() if is_offline() else None
+    async with make_client(transport) as client:
+        return await run_radar(cfg, client, state, repo_map, run_date, os.environ)
+
+
+def add_radar(cfg: Config, digest: Digest, result: RadarResult, chain: LLMChain | None) -> Digest:
+    """Attach radar entries (with AI release summaries when possible) and their stats."""
+    if not cfg.radar.enabled:
+        return digest
+    entries = result.entries
+    stats = dict(digest.stats)
+    if chain is not None:
+        entries, completion = summarize_releases(chain, cfg, entries)
+        if completion is not None:
+            stats["ai_tokens_in"] = int(stats.get("ai_tokens_in", 0)) + completion.prompt_tokens
+            stats["ai_tokens_out"] = (
+                int(stats.get("ai_tokens_out", 0)) + completion.completion_tokens
+            )
+    stats["radar"] = len(entries)
+    if result.warnings:
+        stats["radar_warnings"] = "; ".join(result.warnings)
+    return digest.model_copy(update={"radar": entries, "stats": stats})
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
     setup_logging()
@@ -185,6 +223,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     try:
         cfg = load_config(args.config)
         seen = load_seen(args.data_dir / "seen.json")
+        radar_state = load_radar_state(args.data_dir / "radar_state.json")
+        radar_map = load_radar_map(args.data_dir / "radar_map.json")
         secrets = _telegram_secrets(cfg, args.dry_run)
     except (ConfigError, StateError) as exc:
         print(exc, file=sys.stderr)
@@ -205,6 +245,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     digest = build_digest(cfg, asyncio.run(_fetch(cfg, now, args.only)), seen, run_date, chain)
     if chain is not None:
         digest = add_summaries(cfg, digest, chain, offline_transport() if is_offline() else None)
+    radar = asyncio.run(_radar(cfg, radar_state, radar_map, run_date))
+    digest = add_radar(cfg, digest, radar, chain)
     log.info("stats %s", " ".join(f"{k}={v}" for k, v in digest.stats.items()))
 
     language = cfg.ai.output_language
@@ -236,6 +278,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         cfg.filters.seen_retention_days,
     )
     save_digest(args.data_dir / "digests", digest)
+    if cfg.radar.enabled:
+        save_radar_state(args.data_dir / "radar_state.json", radar.state)
+        save_radar_map(args.data_dir / "radar_map.json", radar.repo_map)
     if cfg.delivery.pages.enabled:
         build_pages(cfg, args.data_dir / "digests", args.site_dir)
     return 0

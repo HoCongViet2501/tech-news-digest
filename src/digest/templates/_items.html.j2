@@ -1,4 +1,30 @@
 {% macro items(digest, t) %}
+{% if digest and digest.radar %}
+<section class="radar">
+<h2>🛡 {{ t.radar }}</h2>
+<ul>
+{% for e in digest.radar %}
+  <li>
+{% if e.kind == "vulnerability" %}
+    {{ severity_icon(e.severity) }} <b>{{ e.package }}</b> {{ e.installed }} · <a href="{{ e.url }}">{{ e.key }}</a>{% if e.severity %} · {{ e.severity }}{% endif %}<br>
+    {{ e.title }}{% if e.fixed_in %} · {{ t.fixed_in }} {{ e.fixed_in }}{% endif +%}
+{% else %}
+    {{ "⬆️" if e.kind == "major" else "⚠️" }} <b>{{ e.package }}</b> {{ e.installed or "?" }} → <a href="{{ e.url }}">{{ e.version }}</a> · {{ t.major if e.kind == "major" else t.breaking }}
+{% if e.summary %}
+    <p class="summary">{{ e.summary }}</p>
+{% endif %}
+{% if e.action_required is not none %}
+    <p class="why">{{ "❗ " ~ t.action_required if e.action_required else "✅ " ~ t.no_action }}</p>
+{% endif %}
+{% endif %}
+{% if e.projects %}
+    <span class="meta">{{ e.projects | repo_names }}</span>
+{% endif %}
+  </li>
+{% endfor %}
+</ul>
+</section>
+{% endif %}
 {% if digest and digest.stats.get("ai") == "unavailable" %}
 <p class="note">{{ t.ai_unavailable }}</p>
 {% endif %}

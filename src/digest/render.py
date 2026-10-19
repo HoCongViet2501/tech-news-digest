@@ -23,6 +23,12 @@ LABELS = {
         "feed": "RSS",
         "all_failed": "Hôm nay không lấy được tin từ nguồn nào. Xem log GitHub Actions.",
         "ai_unavailable": "AI không khả dụng hôm nay, tin được xếp hạng theo heuristic.",
+        "radar": "Radar thư viện",
+        "fixed_in": "đã sửa ở",
+        "major": "major mới",
+        "breaking": "có breaking change",
+        "action_required": "Cần sửa code khi nâng cấp",
+        "no_action": "Nâng cấp không cần sửa code",
     },
     "en": {
         "title": "Tech digest",
@@ -33,6 +39,12 @@ LABELS = {
         "feed": "RSS",
         "all_failed": "No source could be fetched today. Check the GitHub Actions log.",
         "ai_unavailable": "AI unavailable today; items are ranked by heuristic.",
+        "radar": "Dependency radar",
+        "fixed_in": "fixed in",
+        "major": "new major",
+        "breaking": "breaking changes",
+        "action_required": "Upgrade needs code changes",
+        "no_action": "Drop-in upgrade",
     },
 }
 
@@ -57,6 +69,10 @@ _env.filters["rfc822"] = format_datetime
 _env.filters["score10"] = lambda value: f"{value:g}/10"
 # RSS <description> holds HTML: escape once for HTML (plain str), autoescape adds the XML layer.
 _env.filters["html_text"] = lambda value: str(escape(value))
+_env.filters["repo_names"] = lambda projects: ", ".join(p.split("/")[-1] for p in projects)
+_env.globals["severity_icon"] = lambda severity: {"CRITICAL": "🔴", "HIGH": "🔴"}.get(
+    (severity or "").upper(), "🟠"
+)
 
 
 def render_telegram(digest: Digest, language: str) -> list[str]:
@@ -67,6 +83,8 @@ def render_telegram(digest: Digest, language: str) -> list[str]:
     blocks = [str(macros.item(n, item, t)).strip() for n, item in enumerate(digest.items, 1)]
     if not blocks:
         blocks = [t["empty"]]
+    if digest.radar:
+        blocks.insert(0, str(macros.radar(digest.radar, t)).strip())
 
     messages: list[str] = []
     current = header
