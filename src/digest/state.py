@@ -5,7 +5,7 @@ from collections.abc import Iterable
 from datetime import date, timedelta
 from pathlib import Path
 
-from digest.models import Digest
+from digest.models import Digest, RadarState
 
 
 class StateError(Exception):
@@ -36,6 +36,17 @@ def load_radar_map(path: Path) -> dict[str, str | None]:
 
 def save_radar_map(path: Path, mapping: dict[str, str | None]) -> None:
     _write_atomic(path, json.dumps(dict(sorted(mapping.items())), indent=1) + "\n")
+
+
+def load_radar_state(path: Path) -> RadarState:
+    try:
+        return RadarState.model_validate(_load_object(path))
+    except ValueError as exc:
+        raise StateError(f"Invalid {path}: {exc}") from exc
+
+
+def save_radar_state(path: Path, state: RadarState) -> None:
+    _write_atomic(path, state.model_dump_json(indent=1) + "\n")
 
 
 def _write_atomic(path: Path, text: str) -> None:

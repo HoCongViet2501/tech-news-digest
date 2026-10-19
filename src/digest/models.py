@@ -65,6 +65,11 @@ class RadarEntry(BaseModel):
     action_required: bool | None = None
 
 
+class RadarState(BaseModel):
+    reported: dict[str, str] = Field(default_factory=dict)  # entry key -> date reported
+    releases: dict[str, list[str]] = Field(default_factory=dict)  # "owner/repo" -> known tags
+
+
 class Digest(BaseModel):
     date: date
     items: list[ScoredItem]

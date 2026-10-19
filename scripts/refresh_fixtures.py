@@ -74,6 +74,16 @@ def build_targets(now: datetime) -> list[Target]:
             "https://pypi.org/pypi/httpx/json",
             f"{RADAR}/pypi.org/pypi/httpx/json.json",
         ),
+        Target(
+            "releases_lodash",
+            "https://api.github.com/repos/lodash/lodash/releases?per_page=5",
+            f"{RADAR}/api.github.com/repos/lodash/lodash/releases.json",
+        ),
+        Target(
+            "releases_httpx",
+            "https://api.github.com/repos/encode/httpx/releases?per_page=5",
+            f"{RADAR}/api.github.com/repos/encode/httpx/releases.json",
+        ),
     ]
 
 
