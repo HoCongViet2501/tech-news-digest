@@ -1,0 +1,189 @@
+{
+ "date": "2026-10-21",
+ "items": [
+  {
+   "id": "909786c7698d64c2e66854943313662cac002467",
+   "source": "github",
+   "title": "sickn33/agentic-awesome-skills: AAS Core is the local, agent-first control plane for complete catalog discovery, agent-owned selection, stack validation, and planning, backed by 2,600+ agentic skills. Includes CLI, local MCP, catalog, plugins, and Workbench.",
+   "url": "https://github.com/sickn33/agentic-awesome-skills",
+   "discussion_url": null,
+   "score": 83,
+   "comments": 0,
+   "published_at": "2026-10-21T09:36:26.330515+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Control plane và công cụ quản lý agent-first với hàng nghìn skills và local MCP.",
+   "summary": "Agentic Awesome Skills (AAS Core) là một control plane cục bộ cung cấp hơn 2.600 SKILL.md playbooks cho các coding agent như Claude hoặc Codex. Công cụ này hỗ trợ tìm kiếm catalog cục bộ, lựa chọn kỹ năng do agent sở hữu, kiểm tra stack và xem trước kế hoạch trước khi thay đổi mã nguồn.",
+   "why_it_matters": "Cung cấp thêm một công cụ hỗ trợ LLM tooling và AI-powered developer tools giúp tối ưu hóa cách agent tương tác với codebase của bạn."
+  },
+  {
+   "id": "65e32dabe8c37cf04fa1a1771be5046c98b63b66",
+   "source": "github",
+   "title": "vllm-project/vllm: A high-throughput and memory-efficient inference and serving engine for LLMs",
+   "url": "https://github.com/vllm-project/vllm",
+   "discussion_url": null,
+   "score": 128,
+   "comments": 0,
+   "published_at": "2026-10-21T09:36:26.330515+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Framework inference và serving engine phổ biến, cốt lõi cho LLM DevOps.",
+   "summary": "vLLM là một thư viện mã nguồn mở hiệu suất cao dùng để suy luận và phục vụ các mô hình LLM với tốc độ vượt trội. Dự án tích hợp các công nghệ tối ưu hóa bộ nhớ PagedAttention, continuous batching, quantization và hỗ trợ đa dạng phần cứng cũng như mô hình.",
+   "why_it_matters": "Đây là công cụ hàng đầu trong việc triển khai và tối ưu hạ tầng phục vụ các AI model mới nhất một cách hiệu quả."
+  },
+  {
+   "id": "2d7a7fc4832c082461ab33e00b83fef3fee17c30",
+   "source": "hn",
+   "title": "Tell HN: 2x PHP RCE CVEs with CVSS 10.0 Incoming",
+   "url": "https://news.ycombinator.com/item?id=50167754",
+   "discussion_url": "https://news.ycombinator.com/item?id=50167754",
+   "score": 101,
+   "comments": 20,
+   "published_at": "2026-10-20T15:20:35Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Lỗ hổng bảo mật RCE nghiêm trọng sắp xuất hiện trong PHP.",
+   "summary": "Các nguồn tin và thảo luận trên Hacker News cảnh báo về hai lỗ hổng Remote Code Execution (RCE) nghiêm trọng trong nhân PHP liên quan đến trình xử lý `session.upload_progress`. Cộng đồng đang gấp rút chuẩn bị các bản vá và biện pháp giảm thiểu tạm thời như tắt cấu hình này trong `php.ini`.",
+   "why_it_matters": "Cảnh báo bảo mật quan trọng đối với hạ tầng production chạy PHP, đòi hỏi DevOps và developer phải theo dõi sát sao để cập nhật bản vá kịp thời."
+  },
+  {
+   "id": "428d542adc4907b5ad97740fca69a3842ab0b886",
+   "source": "hn",
+   "title": "Upcoming Critical PHP Security Release",
+   "url": "https://news-web.php.net/php.announce/509",
+   "discussion_url": "https://news.ycombinator.com/item?id=50172041",
+   "score": 85,
+   "comments": 16,
+   "published_at": "2026-10-20T20:15:50Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Thông báo bản vá bảo mật quan trọng sắp tới cho PHP.",
+   "summary": "Nhóm phát triển PHP thông báo chuẩn bị phát hành bản cập nhật bảo mật khẩn cấp nhằm khắc phục hai lỗ hổng nghiêm trọng được đánh giá điểm CVSS v4.0 9.2. Người dùng được khuyến cáo chuẩn bị sẵn sàng để nâng cấp ngay khi bản vá chính thức ra mắt.",
+   "why_it_matters": "Giúp đội ngũ vận hành hạ tầng chuẩn bị sẵn sàng kế hoạch cập nhật bản vá bảo mật nhằm bảo vệ các ứng dụng web trên production."
+  },
+  {
+   "id": "007f5c92bfea618e5769fb80131d5deba5306609",
+   "source": "hn",
+   "title": "Upcoming Critical PHP Security Release",
+   "url": "https://php.net/archive/2026.php",
+   "discussion_url": "https://news.ycombinator.com/item?id=50171528",
+   "score": 65,
+   "comments": 11,
+   "published_at": "2026-10-20T19:34:03Z",
+   "tags": [],
+   "also_on": [
+    "lobsters"
+   ],
+   "relevance": 9.0,
+   "reason": "Bản phát hành vá lỗi bảo mật nghiêm trọng cho PHP.",
+   "summary": "Nhóm phát triển PHP thông báo lịch phát hành các bản vá bảo mật khẩn cấp cho các phiên bản PHP hiện tại nhằm giải quyết hai lỗ hổng điểm CVSS 9.2. Đồng thời, họ cũng công bố các bản cập nhật bảo mật mới (như 8.4.26, 8.3.35) và bản RC của PHP 8.6.0.",
+   "why_it_matters": "Cung cấp thông tin trực tiếp về các bản release và vá lỗi bảo mật quan trọng để duy trì độ ổn định cũng như an toàn cho hệ thống backend."
+  },
+  {
+   "id": "79e072c528493212dadbe0626496c7bede00d5c2",
+   "source": "hn",
+   "title": "DeepInfer: High-performance inference framework for DeepSeek models",
+   "url": "https://github.com/deepseek-ai/DeepInfer",
+   "discussion_url": "https://news.ycombinator.com/item?id=50163277",
+   "score": 2145,
+   "comments": 838,
+   "published_at": "2026-10-20T09:08:54Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Framework inference hiệu năng cao cho DeepSeek models, rất hữu ích cho AI/ML.",
+   "summary": "DeepInfer là một framework inference hiệu năng cao mã nguồn mở cung cấp năng lực phục vụ các mô hình DeepSeek ở quy mô lớn. Bản phát hành này hỗ trợ offline inference, các kernel tối ưu hóa, pipeline xử lý bất đồng bộ và kiểm soát structured outputs dựa trên schema/regex.",
+   "why_it_matters": "Cung cấp cho bạn cái nhìn sâu sắc và công cụ tối ưu để chạy các LLM tiên tiến của DeepSeek với hiệu năng cao trong môi trường production."
+  },
+  {
+   "id": "117d2cb5f38ac92cd1847dee375ec1daf579a2ff",
+   "source": "github",
+   "title": "AgriciDaniel/claude-seo: Universal SEO skill for Claude Code. 26 sub-skills + 19 sub-agents covering technical SEO, E-E-A-T, schema, GEO/AEO, agent readiness (Lighthouse Agentic Browsing, WebMCP, llms.txt), backlinks, local SEO, e-commerce, international SEO, Google APIs, and PDF/Excel reporting. 9 optional extensions for live SEO data.",
+   "url": "https://github.com/AgriciDaniel/claude-seo",
+   "discussion_url": null,
+   "score": 191,
+   "comments": 0,
+   "published_at": "2026-10-21T09:36:26.330515+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Skill và agentic tools cho Claude Code tích hợp MCP và WebMCP.",
+   "summary": "Claude SEO là một plugin mã nguồn mở tích hợp vào Claude Code, sử dụng nhiều sub-agents chạy song song để thực hiện các bài kiểm tra SEO kỹ thuật, schema, GEO và agent readiness. Công cụ tự động hóa quy trình phân tích và đưa ra kế hoạch hành động tối ưu hóa dựa trên tài liệu chính thống.",
+   "why_it_matters": "Giúp bạn tận dụng trợ lý coding agent Claude Code để tự động hóa kiểm tra SEO và tính sẵn sàng của ứng dụng web ngay trong workflow phát triển."
+  },
+  {
+   "id": "5e241867830c6ea756cb5669edfdfc987329709d",
+   "source": "hn",
+   "title": "Tsrs: A Port of TypeScript to Rust",
+   "url": "https://blog.cloudflare.com/typescript-rust-port",
+   "discussion_url": "https://news.ycombinator.com/item?id=50165953",
+   "score": 350,
+   "comments": 173,
+   "published_at": "2026-10-20T13:18:07Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Port TypeScript sang Rust, thú vị cho người làm TypeScript và Rust.",
+   "summary": "Tsrs là một dự án port trình biên dịch TypeScript sang ngôn ngữ Rust, được phát triển bởi sự cộng tác giữa Cloudflare, VoidZero và cộng đồng Oxc. Dự án đạt tốc độ nhanh hơn tới 8x và tiết kiệm khoảng 70% bộ nhớ so với TypeScript 7.0.",
+   "why_it_matters": "Cải thiện đáng kể tốc độ type check và cho phép chạy môi trường TypeScript trực tiếp trong trình duyệt qua WebAssembly, giúp tối ưu hóa chuỗi CI/CD và công cụ dev."
+  },
+  {
+   "id": "2f990e26e9aeea90981c3313d605e88dfa8ebd72",
+   "source": "hn",
+   "title": "Google open-sources TorchTPU, a native PyTorch back end for TPUs",
+   "url": "https://github.com/google-pytorch/torch_tpu",
+   "discussion_url": "https://news.ycombinator.com/item?id=50169053",
+   "score": 271,
+   "comments": 64,
+   "published_at": "2026-10-20T16:40:24Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Google open-source PyTorch backend cho TPU, rất hữu ích cho AI/ML infra.",
+   "summary": "Google đã mã nguồn mở TorchTPU, một backend PyTorch gốc dành cho phần cứng Tensor Processing Units (TPUs). Dự án cung cấp các custom ATen kernels, cache biên dịch và hỗ trợ huấn luyện phân tán cùng torch.compile().",
+   "why_it_matters": "Mở ra khả năng chạy và huấn luyện các mô hình PyTorch trực tiếp trên hạ tầng TPU của Google với hiệu suất tối ưu cho các kỹ sư DevOps và AI."
+  },
+  {
+   "id": "3e166f225ab05ae313bb5efca3b80f4bfed861b2",
+   "source": "github",
+   "title": "mudler/LocalAI: LocalAI is the open-source AI engine. Run any model - LLMs, vision, voice, image, video - on any hardware. No GPU required.",
+   "url": "https://github.com/mudler/LocalAI",
+   "discussion_url": null,
+   "score": 126,
+   "comments": 0,
+   "published_at": "2026-10-21T09:36:26.330515+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Công cụ chạy LLM và AI models cục bộ đa nền tảng.",
+   "summary": "LocalAI là một engine AI mã nguồn mở cho phép chạy đa dạng các loại mô hình như LLM, vision, voice và image trên mọi loại phần cứng mà không bắt buộc phải có GPU riêng. Phiên bản mới cập nhật thêm các tính năng như audio scenes, Decisions API và khả năng tích hợp linh hoạt.",
+   "why_it_matters": "Mang lại giải pháp chạy LLM và các tác vụ AI cục bộ chuẩn OpenAI API trên cơ sở hạ tầng tự chủ mà không cần phụ thuộc vào cloud bên ngoài."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 100,
+  "fetched_github": 51,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 176,
+  "after_dedupe": 169,
+  "after_filter": 72,
+  "ai": "gemini",
+  "ai_tokens_in": 14546,
+  "ai_tokens_out": 3931,
+  "sent": 10,
+  "summarized": 10
+ }
+}
