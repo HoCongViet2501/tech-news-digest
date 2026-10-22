@@ -1,0 +1,189 @@
+{
+ "date": "2026-10-22",
+ "items": [
+  {
+   "id": "a0e7a23f62c47cb2f9eddbfbd1783756bf2c7da2",
+   "source": "hn",
+   "title": "Compromised LiteLLM 1.107.0 on PyPI Installs a Credential Stealer and Backdoor",
+   "url": "https://safedep.io/litellm-pypi-compromise-credential-stealer-backdoor",
+   "discussion_url": "https://news.ycombinator.com/item?id=50181114",
+   "score": 445,
+   "comments": 149,
+   "published_at": "2026-10-21T14:00:26Z",
+   "tags": [],
+   "also_on": [
+    "lobsters"
+   ],
+   "relevance": 9.0,
+   "reason": "Lỗ hổng bảo mật nghiêm trọng trong gói Python LiteLLM trên PyPI.",
+   "summary": "Phiên bản LiteLLM 1.107.0 trên PyPI đã bị xâm phạm và cài cắm mã độc credential stealer cùng cửa hậu (backdoor). Mã độc này tự động đánh cắp thông tin xác thực như khóa SSH, token của các công cụ AI và bí mật CI/CD ngay khi bất kỳ tiến trình Python nào khởi động.",
+   "why_it_matters": "Giúp bạn cảnh giác khi quản lý dependency trên PyPI và kiểm tra kỹ các gói phần mềm liên quan đến LLM trong hệ thống CI/CD."
+  },
+  {
+   "id": "9fc697bbc28f2cfe86e0e8d72e3b8c55b2093b61",
+   "source": "hn",
+   "title": "PHP web runtimes (CVE-2026-109618 and CVE-2026-109619)",
+   "url": "https://aws.amazon.com/security/security-bulletins/2026-143-aws",
+   "discussion_url": "https://news.ycombinator.com/item?id=50187708",
+   "score": 110,
+   "comments": 26,
+   "published_at": "2026-10-21T21:12:59Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Cảnh báo lỗ hổng bảo mật CVE mới trong PHP web runtimes.",
+   "summary": "Hai lỗ hổng nghiêm trọng (CVE-2026-109618 và CVE-2026-109619) trong các runtime web PHP cho phép kẻ tấn công chưa xác thực thực thi mã từ xa, đọc dữ liệu tiến trình hoặc gây ra từ chối dịch vụ (DoS). Các phiên bản PHP từ 8.2 đến 8.5 đều bị ảnh hưởng và đòi hỏi phải nâng cấp ngay lập tức.",
+   "why_it_matters": "Quan trọng đối với các nhà phát triển full-stack đang vận dụng hoặc quản lý ứng dụng web chạy trên các phiên bản PHP bị ảnh hưởng."
+  },
+  {
+   "id": "b10ff880275a6594f8cf89154fbd694446ec5345",
+   "source": "github",
+   "title": "Asymptote-Labs/agent-beacon: The cross-harness, self-improving memory layer for AI agents. Join our community: https://discord.com/invite/zdNChS2fBu",
+   "url": "https://github.com/Asymptote-Labs/agent-beacon",
+   "discussion_url": null,
+   "score": 443,
+   "comments": 0,
+   "published_at": "2026-10-22T09:33:59.751929+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Bộ nhớ tự cải thiện cho AI agents, phù hợp với lập trình viên AI tooling.",
+   "summary": "Agent Beacon là một tầng bộ nhớ mã nguồn mở, hoạt động cục bộ (local-first) giúp thu thập lịch sử phiên làm việc từ Claude Code, Cursor và hơn 20 công cụ lập trình AI khác. Nó chuyển đổi các quy trình làm việc, bản sửa lỗi và mẫu gỡ lỗi hữu ích thành tri thức tái sử dụng cho các tác vụ AI sau này thông qua MCP hoặc Agent Skills.",
+   "why_it_matters": "Giúp bạn tối ưu hóa các coding agent và đồng bộ hóa tri thức lập trình AI xuyên suốt các công cụ phát triển hàng ngày."
+  },
+  {
+   "id": "1bfd140f401fd0961eaeae9dd3ac61d07c51a10a",
+   "source": "hn",
+   "title": "PHP2Shell: AI uncovers critical RCE in PHP",
+   "url": "https://wiz.io/blog/php2shell-php-rce",
+   "discussion_url": "https://news.ycombinator.com/item?id=50180836",
+   "score": 438,
+   "comments": 172,
+   "published_at": "2026-10-21T13:43:19Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "AI phát hiện lỗi RCE cực kỳ nghiêm trọng trong PHP.",
+   "summary": "Wiz Research phát hiện các lỗ hổng thực thi mã từ xa (RCE) nghiêm trọng trong nhân PHP, ảnh hưởng đến hầu hết các phiên bản trong thập kỷ qua. Các mô hình AI thế hệ mới đã đóng vai trò quan trọng trong việc giúp các nhà nghiên cứu xâu chuỗi các lỗi bộ nhớ thành mã khai thác thành công.",
+   "why_it_matters": "Nhấn mạnh cách công nghệ AI tiên tiến đang thay đổi năng lực khai thác lỗ hổng bảo mật trong các thành phần cốt lõi của ứng dụng web."
+  },
+  {
+   "id": "619b3cfc3ac9ca9b0ea1b38e97c3ed27d1060ec0",
+   "source": "github",
+   "title": "luongnv89/claude-howto: A visual, example-driven guide to Claude Code — from basic concepts to advanced agents, with copy-paste templates that bring immediate value.",
+   "url": "https://github.com/luongnv89/claude-howto",
+   "discussion_url": null,
+   "score": 428,
+   "comments": 0,
+   "published_at": "2026-10-22T09:33:59.751929+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Hướng dẫn thực chiến và templates sử dụng Claude Code cho agents.",
+   "summary": "Đây là một hướng dẫn trực quan, dựa trên ví dụ thực tế về Claude Code, đưa người dùng từ các lệnh cơ bản đến việc điều phối agent, hook, kỹ năng và MCP server. Tài liệu cung cấp các cấu hình mẫu có thể sao chép trực tiếp cùng lộ trình học tập từ cấp độ cơ bản đến nâng cao.",
+   "why_it_matters": "Cung cấp cho bạn các mẫu và phương pháp thực tế để khai thác tối đa sức mạnh của Claude Code trong quy trình phát triển và tự động hóa hàng ngày."
+  },
+  {
+   "id": "d3f519557f32dd3d643c27d4c9f89095ff53a6df",
+   "source": "hn",
+   "title": "Patch the Planet: global response coordination as agents uncover vulnerabilities",
+   "url": "https://openai.com/index/coordinated-disclosure-of-critical-vulnerabilities",
+   "discussion_url": "https://news.ycombinator.com/item?id=50181175",
+   "score": 237,
+   "comments": 162,
+   "published_at": "2026-10-21T14:03:43Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Ứng dụng AI agents phối hợp toàn cầu để phát hiện lỗ hổng.",
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "76b89512b954335d1a67a5cc89c9c2d535fc71ab",
+   "source": "github",
+   "title": "zhoushoujianwork/easyeda-agent: 嘉立创EDA专业版(EasyEDA Pro)自动化：给 AI harness 装上画板的「手」—— 一套 typed 原理图/PCB 动作，CLI / Agent Skill / stdio MCP 三形态融合接入。承接嘉立创「不以卖板赚钱，以培养中国工程师为己任」 | EasyEDA Pro automation: the hands of your AI harness — typed schematic/PCB actions via CLI, Agent Skill and stdio MCP.",
+   "url": "https://github.com/zhoushoujianwork/easyeda-agent",
+   "discussion_url": null,
+   "score": 26,
+   "comments": 0,
+   "published_at": "2026-10-22T09:33:59.751929+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Tự động hóa EDA tích hợp MCP và Agent Skills cho AI.",
+   "summary": "easyeda-agent là lớp tự động hóa AI cho EasyEDA Pro, hỗ trợ đọc dữ liệu, thiết kế sơ đồ nguyên lý và layout PCB bằng ngôn ngữ tự nhiên. Công cụ tích hợp dưới ba hình thức gồm CLI, Agent Skill và stdio MCP để thao tác trực tiếp và kiểm tra DRC an toàn.",
+   "why_it_matters": "Cung cấp một MCP và Agent skill thiết thực để tích hợp AI vào quy trình phần cứng, giúp bạn tự động hóa việc thiết kế mạch và làm việc hiệu quả hơn."
+  },
+  {
+   "id": "1de8e62ff715d1f1b849a16afe7dfd3ed7898410",
+   "source": "hn",
+   "title": "Using thousands of AI agents to uncover new leads in biological data",
+   "url": "https://openai.com/index/scaling-ai-research-for-complex-biological-data",
+   "discussion_url": "https://news.ycombinator.com/item?id=50180752",
+   "score": 136,
+   "comments": 86,
+   "published_at": "2026-10-21T13:37:00Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Ứng dụng quy mô lớn của AI agents trong khai thác dữ liệu sinh học.",
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "cd661dd6c1cbb9b2b59e31788bdd7b969f4c1f9c",
+   "source": "github",
+   "title": "larksuite/cli: The official Lark/飞书 CLI tool, maintained by the larksuite team — built for humans and AI Agents. Covers core business domains including Messenger, Docs, Base, Sheets, Calendar, Mail, Tasks, Meetings, and more, with 200+ commands and 20+ AI Agent Skills.",
+   "url": "https://github.com/larksuite/cli",
+   "discussion_url": null,
+   "score": 21,
+   "comments": 0,
+   "published_at": "2026-10-22T09:33:59.751929+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "CLI chính thức hỗ trợ tích hợp lệnh cho AI Agents và con người.",
+   "summary": "larksuite/cli là công cụ dòng lệnh chính thức từ nhóm Lark/Feishu dành cho con người và AI Agent, tích hợp hơn 200 lệnh và 26 AI Agent Skills. Công cụ bao phủ các domain cốt lõi như Messenger, Docs, Base, Sheets và Calendar với kiến trúc ba lớp linh hoạt.",
+   "why_it_matters": "Hỗ trợ tuyệt vời để tự động hóa các tác vụ workflow hằng ngày và tích hợp trực tiếp vào các AI agent hoặc CLI toolchain của bạn."
+  },
+  {
+   "id": "dedbc374478f3e5026f41aa7f267b17a0b71d49e",
+   "source": "hn",
+   "title": "Cloudflare deploys protections against php2shell vulnerability",
+   "url": "https://blog.cloudflare.com/php-vulnerabilities-waf-protection",
+   "discussion_url": "https://news.ycombinator.com/item?id=50181326",
+   "score": 101,
+   "comments": 15,
+   "published_at": "2026-10-21T14:11:14Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Cloudflare cập nhật quy tắc phòng thủ chống lỗi php2shell.",
+   "summary": "Cloudflare đã triển khai các quy tắc WAF tự động để chống lại các lỗ hổng php2shell (CVE-2026-109618 và CVE-2026-109619) ảnh hưởng đến PHP 5.4 trở lên. Họ giới thiệu tính năng phát hiện toàn bộ giao dịch (full transaction detection) kết hợp tín hiệu từ cả request và response để ngăn chặn tấn công hiệu quả.",
+   "why_it_matters": "Giúp bạn nắm bắt thông tin bảo mật quan trọng về lỗ hổng PHP nghiêm trọng và cách WAF hiện đại xử lý phản hồi để bảo vệ hạ tầng web."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 100,
+  "fetched_github": 43,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 168,
+  "after_dedupe": 164,
+  "after_filter": 80,
+  "ai": "gemini",
+  "ai_tokens_in": 14726,
+  "ai_tokens_out": 4297,
+  "sent": 10,
+  "summarized": 8
+ }
+}
