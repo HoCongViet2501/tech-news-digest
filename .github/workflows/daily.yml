@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: daily-digest
+  group: digest-state # shared by every workflow that commits data/
   cancel-in-progress: false
 
 jobs:
@@ -35,6 +35,10 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          # Radar: built-in token lifts the GitHub API limit from 60 to 1,000 requests/hour;
+          # GH_READ_TOKEN (optional) is only needed for manifests in private repos.
+          GITHUB_TOKEN: ${{ github.token }}
+          GH_READ_TOKEN: ${{ secrets.GH_READ_TOKEN }}
 
       # The daily data/ commit also keeps scheduled workflows from being
       # disabled after 60 days without repository activity.

@@ -1,0 +1,22 @@
+{# Telegram parse_mode=HTML: only b, i, a, code tags are used. #}
+{% macro weekly(r, t) %}
+<b>📅 {{ t.weekly_title }} · {{ r.start.isoformat() }} → {{ r.end.isoformat() }}</b>
+<i>{{ r.items_sent }} {{ t.weekly_items }} · {{ r.votes }} {{ t.weekly_votes }}{% if r.like_ratio is not none %} · {{ (r.like_ratio * 100) | round | int }}% {{ t.weekly_liked }}{% endif %}{% if r.best_source %} · {{ t.weekly_best_source }}: {{ r.best_source }}{% endif %}</i>
+{% if r.top %}
+{% for it in r.top %}
+
+{{ loop.index }}. <a href="{{ it.url }}">{{ it.title | truncate_title }}</a>{% if it.vote == "up" %} 👍{% endif +%}
+<i>{{ it.source }}{% if it.reason is not none %} · {{ it.relevance | score10 }}{% endif %}</i>
+{% endfor %}
+{% else %}
+
+{{ t.weekly_empty }}
+{% endif %}
+{% if r.suggestions %}
+
+<b>💡 {{ t.weekly_suggestions }}</b>
+{% for s in r.suggestions %}
+• {{ s.change }} <i>({{ s.why }})</i>
+{% endfor %}
+{% endif %}
+{% endmacro %}

@@ -141,3 +141,71 @@ def test_add_summaries_skipped_when_ai_unavailable(cfg: Config) -> None:
 
     assert client.calls == []
     assert digest.items[0].summary is None
+
+
+def test_feedback_weights_reorder_heuristic_ranking(cfg: Config) -> None:
+    from digest.models import Vote
+
+    cfg.feedback.enabled = True
+    fetched = {"hn": [hn(n) for n in range(1, 11)], "github": [hn(n) for n in range(11, 21)]}
+    for item in fetched["github"]:
+        item.source = "github"
+    disliked_hn = [
+        Vote(
+            ts=datetime(2026, 9, 26, tzinfo=UTC),
+            update_id=n,
+            item_id=f"old{n}",
+            vote="down",
+            title=f"Old {n}",
+            source="hn",
+        )
+        for n in range(6)
+    ]
+
+    plain = build_digest(cfg, fetched, {}, DAY)
+    weighted = build_digest(cfg, fetched, {}, DAY, votes=disliked_hn)
+
+    assert {i.source for i in plain.items} == {"hn", "github"}
+    assert {i.source for i in weighted.items} == {"github"}
+    assert weighted.stats["feedback_votes"] == 6
+
+
+def test_votes_ignored_when_feedback_disabled(cfg: Config) -> None:
+    from digest.models import Vote
+
+    vote = Vote(
+        ts=datetime(2026, 9, 26, tzinfo=UTC),
+        update_id=1,
+        item_id="x",
+        vote="down",
+        title="t",
+        source="hn",
+    )
+
+    digest = build_digest(cfg, FETCHED, {}, DAY, votes=[vote])
+
+    assert "feedback_votes" not in digest.stats
+
+
+def test_ai_prompt_gets_liked_and_disliked_titles(cfg: Config) -> None:
+    from digest.models import Vote
+
+    cfg.ai.enabled = True
+    cfg.feedback.enabled = True
+    votes = [
+        Vote(
+            ts=datetime(2026, 9, 26, tzinfo=UTC),
+            update_id=n,
+            item_id=f"old{n}",
+            vote=kind,
+            title=title,
+            source="hn",
+        )
+        for n, (kind, title) in enumerate([("up", "Postgres 19"), ("down", "Crypto drama")])
+    ]
+    client = FakeClient(json.dumps({"items": []}))
+
+    build_digest(cfg, FETCHED, {}, DAY, LLMChain([Provider("groq", "m", client)]), votes)
+
+    prompt = client.calls[0]["messages"][-1]["content"]
+    assert "Liked:\n- Postgres 19\nDisliked:\n- Crypto drama" in prompt

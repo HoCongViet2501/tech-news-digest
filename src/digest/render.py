@@ -7,7 +7,8 @@ from pathlib import Path
 from jinja2 import Environment, PackageLoader
 from markupsafe import escape
 
-from digest.models import Digest
+from digest.feedback.weekly import WeeklyReport
+from digest.models import Digest, TelegramMessage
 
 TELEGRAM_LIMIT = 4096
 TITLE_MAX = 200
@@ -23,6 +24,21 @@ LABELS = {
         "feed": "RSS",
         "all_failed": "Hôm nay không lấy được tin từ nguồn nào. Xem log GitHub Actions.",
         "ai_unavailable": "AI không khả dụng hôm nay, tin được xếp hạng theo heuristic.",
+        "radar": "Radar thư viện",
+        "news": "Tin tức",
+        "installed": "đang dùng",
+        "fixed_in": "đã sửa ở",
+        "major": "bản major mới",
+        "breaking": "có breaking change",
+        "action_required": "Cần sửa code khi nâng cấp.",
+        "no_action": "Nâng cấp không cần sửa code.",
+        "weekly_title": "Tổng kết tuần",
+        "weekly_items": "tin",
+        "weekly_votes": "lượt bình chọn",
+        "weekly_liked": "thích",
+        "weekly_best_source": "nguồn hữu ích nhất",
+        "weekly_empty": "Tuần này chưa có bản tin nào.",
+        "weekly_suggestions": "Gợi ý chỉnh profile",
     },
     "en": {
         "title": "Tech digest",
@@ -33,6 +49,21 @@ LABELS = {
         "feed": "RSS",
         "all_failed": "No source could be fetched today. Check the GitHub Actions log.",
         "ai_unavailable": "AI unavailable today; items are ranked by heuristic.",
+        "radar": "Dependency radar",
+        "news": "News",
+        "installed": "installed",
+        "fixed_in": "fixed in",
+        "major": "new major",
+        "breaking": "breaking changes",
+        "action_required": "Upgrading needs code changes.",
+        "no_action": "Upgrading needs no code changes.",
+        "weekly_title": "Weekly recap",
+        "weekly_items": "items",
+        "weekly_votes": "votes",
+        "weekly_liked": "liked",
+        "weekly_best_source": "most useful source",
+        "weekly_empty": "No digest was sent this week.",
+        "weekly_suggestions": "Profile suggestions",
     },
 }
 
@@ -59,26 +90,54 @@ _env.filters["score10"] = lambda value: f"{value:g}/10"
 _env.filters["html_text"] = lambda value: str(escape(value))
 
 
-def render_telegram(digest: Digest, language: str) -> list[str]:
-    """One or more parse_mode=HTML messages, each <= 4096 chars; items are never split."""
+def telegram_messages(
+    digest: Digest, language: str, buttons: bool = False
+) -> list[TelegramMessage]:
+    """parse_mode=HTML messages, each <= 4096 chars; items are never split.
+
+    With buttons, each message lists the numbered items it contains so delivery can
+    attach one like/dislike row per item.
+    """
     macros = _env.get_template("telegram.j2").module
     t = labels(language)
     header = str(macros.header(digest, t)).strip()
-    blocks = [str(macros.item(n, item, t)).strip() for n, item in enumerate(digest.items, 1)]
+    # (text, (number, item id) or None)
+    blocks: list[tuple[str, tuple[int, str] | None]] = [
+        (str(macros.item(n, item, t)).strip(), (n, item.id))
+        for n, item in enumerate(digest.items, 1)
+    ]
     if not blocks:
-        blocks = [t["empty"]]
+        blocks = [(t["empty"], None)]
+    if digest.radar:
+        # Section headings ride on the first block of each section so they never end a message.
+        radar = [(str(macros.radar_entry(entry, t)).strip(), None) for entry in digest.radar]
+        radar[0] = (f"<b>📡 {escape(t['radar'])}</b>\n{radar[0][0]}", None)
+        blocks[0] = (f"<b>📰 {escape(t['news'])}</b>\n{blocks[0][0]}", blocks[0][1])
+        blocks = radar + blocks
 
-    messages: list[str] = []
-    current = header
-    for block in blocks:
-        candidate = f"{current}\n\n{block}" if current else block
-        if len(candidate) > TELEGRAM_LIMIT and current:
+    messages: list[TelegramMessage] = []
+    current = TelegramMessage(text=header)
+    for text, ref in blocks:
+        candidate = f"{current.text}\n\n{text}" if current.text else text
+        if len(candidate) > TELEGRAM_LIMIT and current.text:
             messages.append(current)
-            current = block
+            current = TelegramMessage(text=text)
         else:
-            current = candidate
+            current.text = candidate
+        if buttons and ref is not None:
+            current.buttons.append(ref)
     messages.append(current)
     return messages
+
+
+def render_telegram(digest: Digest, language: str) -> list[str]:
+    return [m.text for m in telegram_messages(digest, language)]
+
+
+def render_weekly(report: WeeklyReport, language: str) -> str:
+    """One message: 5 items and a few suggestions stay far below the 4096-char limit."""
+    macros = _env.get_template("weekly.j2").module
+    return str(macros.weekly(report, labels(language))).strip()
 
 
 def render_warning(run_date: date, language: str) -> str:

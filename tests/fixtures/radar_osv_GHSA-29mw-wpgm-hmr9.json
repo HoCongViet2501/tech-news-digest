@@ -1,0 +1,42 @@
+{
+ "id": "GHSA-29mw-wpgm-hmr9",
+ "summary": "Regular Expression Denial of Service (ReDoS) in lodash",
+ "aliases": [
+  "CVE-2020-28500"
+ ],
+ "modified": "2026-08-01T00:00:00Z",
+ "published": "2022-01-06T20:30:46Z",
+ "affected": [
+  {
+   "package": {
+    "name": "lodash",
+    "ecosystem": "npm",
+    "purl": "pkg:npm/lodash"
+   },
+   "ranges": [
+    {
+     "type": "SEMVER",
+     "events": [
+      {
+       "introduced": "4.0.0"
+      },
+      {
+       "fixed": "4.17.21"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "references": [
+  {
+   "type": "ADVISORY",
+   "url": "https://nvd.nist.gov/vuln/detail/CVE-2020-28500"
+  }
+ ],
+ "database_specific": {
+  "severity": "MODERATE",
+  "github_reviewed": true
+ },
+ "schema_version": "1.6.0"
+}

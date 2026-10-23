@@ -1,7 +1,9 @@
 {% extends "base.html.j2" %}
 {% from "_items.html.j2" import items %}
+{% from "_radar.html.j2" import radar %}
 {% block body %}
 <h1>{{ t.title }}{% if digest %} · {{ digest.date.isoformat() }}{% endif %}</h1>
+{{ radar(digest, t) }}
 {{ items(digest, t) }}
 {% if archive %}
 <h2>{{ t.archive }}</h2>

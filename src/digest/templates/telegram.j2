@@ -16,3 +16,18 @@
 💡 {{ it.why_it_matters }}
 {% endif %}
 {% endmacro %}
+
+{% macro radar_entry(e, t) %}
+{% if e.kind == "vulnerability" %}
+🛡 <a href="{{ e.url }}">{{ e.package }} {{ e.installed }}</a>{% if e.severity %} · <b>{{ e.severity }}</b>{% endif %}{% if e.version %} · {{ t.fixed_in }} {{ e.version }}{% endif +%}
+{{ e.title | truncate_title }}
+{% else %}
+{{ "🚀" if e.kind == "major" else "💥" }} <a href="{{ e.url }}">{{ e.package }} {{ e.version }}</a> · {{ t[e.kind] }}{% if e.installed %} · {{ t.installed }} {{ e.installed }}{% endif +%}
+{% if e.summary %}
+{{ e.summary }}
+{% endif %}
+{% if e.action_required is not none %}
+{{ ("⚠️ " ~ t.action_required) if e.action_required else ("✅ " ~ t.no_action) }}
+{% endif %}
+{% endif %}
+{% endmacro %}

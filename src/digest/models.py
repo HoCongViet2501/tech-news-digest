@@ -2,6 +2,7 @@
 
 import hashlib
 from datetime import date, datetime
+from typing import Literal
 
 from pydantic import BaseModel, Field
 
@@ -30,7 +31,55 @@ class ScoredItem(Item):
     why_it_matters: str | None = None
 
 
+Ecosystem = Literal["npm", "PyPI", "Go"]  # OSV ecosystem names
+
+
+class Dependency(BaseModel):
+    ecosystem: Ecosystem
+    name: str
+    version: str | None  # pinned or minimum version from the manifest; None if unknown
+    manifests: list[str] = Field(default_factory=list)  # "owner/repo:path" that declare it
+
+    @property
+    def key(self) -> str:
+        return f"{self.ecosystem}:{self.name}"
+
+
+RadarKind = Literal["vulnerability", "major", "breaking"]
+
+
+class RadarEntry(BaseModel):
+    id: str  # state key: "release:owner/repo@tag" or "vuln:<osv id>:<ecosystem>:<name>"
+    kind: RadarKind
+    ecosystem: Ecosystem
+    package: str
+    installed: str | None
+    version: str | None = None  # release tag, or the first fixed version of a vulnerability
+    title: str
+    url: str
+    severity: str | None = None
+    published_at: datetime | None = None
+    summary: str | None = None  # AI: release notes in 1-2 sentences
+    action_required: bool | None = None  # AI: does upgrading need changes on our side?
+    notes: str | None = Field(default=None, exclude=True)  # raw release notes, never saved
+
+
 class Digest(BaseModel):
     date: date
     items: list[ScoredItem]
+    radar: list[RadarEntry] = Field(default_factory=list)
     stats: dict[str, int | str] = Field(default_factory=dict)
+
+
+class TelegramMessage(BaseModel):
+    text: str  # parse_mode=HTML
+    buttons: list[tuple[int, str]] = Field(default_factory=list)  # (number shown, item id)
+
+
+class Vote(BaseModel):
+    ts: datetime  # when the vote was collected (Telegram does not timestamp button taps)
+    update_id: int  # Telegram update id; orders votes and prevents duplicates
+    item_id: str
+    vote: Literal["up", "down"]
+    title: str
+    source: str

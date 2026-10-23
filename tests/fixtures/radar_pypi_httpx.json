@@ -1,0 +1,93 @@
+{
+ "info": {
+  "author": null,
+  "author_email": "Tom Christie <tom@tomchristie.com>",
+  "bugtrack_url": null,
+  "classifiers": [
+   "Development Status :: 4 - Beta",
+   "Environment :: Web Environment",
+   "Framework :: AsyncIO",
+   "Framework :: Trio",
+   "Intended Audience :: Developers",
+   "License :: OSI Approved :: BSD License",
+   "Operating System :: OS Independent",
+   "Programming Language :: Python :: 3",
+   "Programming Language :: Python :: 3 :: Only",
+   "Programming Language :: Python :: 3.10",
+   "Programming Language :: Python :: 3.11",
+   "Programming Language :: Python :: 3.12",
+   "Programming Language :: Python :: 3.8",
+   "Programming Language :: Python :: 3.9",
+   "Topic :: Internet :: WWW/HTTP"
+  ],
+  "description_content_type": "text/markdown",
+  "docs_url": null,
+  "download_url": null,
+  "downloads": {
+   "last_day": -1,
+   "last_month": -1,
+   "last_week": -1
+  },
+  "dynamic": null,
+  "home_page": null,
+  "keywords": null,
+  "license": "BSD-3-Clause",
+  "license_expression": null,
+  "license_files": null,
+  "maintainer": null,
+  "maintainer_email": null,
+  "name": "httpx",
+  "package_url": "https://pypi.org/project/httpx/",
+  "platform": null,
+  "project_url": "https://pypi.org/project/httpx/",
+  "project_urls": {
+   "Changelog": "https://github.com/encode/httpx/blob/master/CHANGELOG.md",
+   "Documentation": "https://www.python-httpx.org",
+   "Homepage": "https://github.com/encode/httpx",
+   "Source": "https://github.com/encode/httpx"
+  },
+  "provides_extra": [
+   "brotli",
+   "cli",
+   "http2",
+   "socks",
+   "zstd"
+  ],
+  "release_url": "https://pypi.org/project/httpx/0.28.1/",
+  "requires_dist": [
+   "anyio",
+   "certifi",
+   "httpcore==1.*",
+   "idna",
+   "brotli; platform_python_implementation == \"CPython\" and extra == \"brotli\"",
+   "brotlicffi; platform_python_implementation != \"CPython\" and extra == \"brotli\"",
+   "click==8.*; extra == \"cli\"",
+   "pygments==2.*; extra == \"cli\"",
+   "rich<14,>=10; extra == \"cli\"",
+   "h2<5,>=3; extra == \"http2\"",
+   "socksio==1.*; extra == \"socks\"",
+   "zstandard>=0.18.0; extra == \"zstd\""
+  ],
+  "requires_python": ">=3.8",
+  "summary": "The next generation HTTP client.",
+  "version": "0.28.1",
+  "yanked": false,
+  "yanked_reason": null
+ },
+ "last_serial": 40585097,
+ "ownership": {
+  "organization": null,
+  "roles": [
+   {
+    "role": "Owner",
+    "user": "lovelydinosaur"
+   },
+   {
+    "role": "Maintainer",
+    "user": "cagil"
+   }
+  ]
+ },
+ "urls": [],
+ "vulnerabilities": []
+}

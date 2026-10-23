@@ -1,0 +1,172 @@
+{
+ "ok": true,
+ "result": [
+  {
+   "update_id": 500000001,
+   "callback_query": {
+    "id": "4382bfdwdsb3500000001",
+    "from": {
+     "id": 42,
+     "is_bot": false,
+     "first_name": "Owner",
+     "language_code": "vi"
+    },
+    "message": {
+     "message_id": 311,
+     "from": {
+      "id": 7000000001,
+      "is_bot": true,
+      "first_name": "Tech digest",
+      "username": "tech_digest_bot"
+     },
+     "chat": {
+      "id": 42,
+      "first_name": "Owner",
+      "type": "private"
+     },
+     "date": 1790557200,
+     "text": "Bản tin công nghệ · 2026-09-27"
+    },
+    "chat_instance": "-5383291817593061520",
+    "data": "fb:aaaaaaaa:up"
+   }
+  },
+  {
+   "update_id": 500000002,
+   "callback_query": {
+    "id": "4382bfdwdsb3500000002",
+    "from": {
+     "id": 42,
+     "is_bot": false,
+     "first_name": "Owner",
+     "language_code": "vi"
+    },
+    "message": {
+     "message_id": 311,
+     "from": {
+      "id": 7000000001,
+      "is_bot": true,
+      "first_name": "Tech digest",
+      "username": "tech_digest_bot"
+     },
+     "chat": {
+      "id": 42,
+      "first_name": "Owner",
+      "type": "private"
+     },
+     "date": 1790557200,
+     "text": "Bản tin công nghệ · 2026-09-27"
+    },
+    "chat_instance": "-5383291817593061520",
+    "data": "fb:bbbbbbbb:down"
+   }
+  },
+  {
+   "update_id": 500000003,
+   "message": {
+    "message_id": 312,
+    "from": {
+     "id": 42,
+     "is_bot": false,
+     "first_name": "Owner"
+    },
+    "chat": {
+     "id": 42,
+     "type": "private"
+    },
+    "date": 1790560000,
+    "text": "hello"
+   }
+  },
+  {
+   "update_id": 500000004,
+   "callback_query": {
+    "id": "4382bfdwdsb3500000004",
+    "from": {
+     "id": 42,
+     "is_bot": false,
+     "first_name": "Owner",
+     "language_code": "vi"
+    },
+    "message": {
+     "message_id": 311,
+     "from": {
+      "id": 7000000001,
+      "is_bot": true,
+      "first_name": "Tech digest",
+      "username": "tech_digest_bot"
+     },
+     "chat": {
+      "id": 42,
+      "first_name": "Owner",
+      "type": "private"
+     },
+     "date": 1790557200,
+     "text": "Bản tin công nghệ · 2026-09-27"
+    },
+    "chat_instance": "-5383291817593061520",
+    "data": "fb:aaaaaaaa:down"
+   }
+  },
+  {
+   "update_id": 500000005,
+   "callback_query": {
+    "id": "4382bfdwdsb3500000005",
+    "from": {
+     "id": 42,
+     "is_bot": false,
+     "first_name": "Owner",
+     "language_code": "vi"
+    },
+    "message": {
+     "message_id": 311,
+     "from": {
+      "id": 7000000001,
+      "is_bot": true,
+      "first_name": "Tech digest",
+      "username": "tech_digest_bot"
+     },
+     "chat": {
+      "id": 999,
+      "first_name": "Owner",
+      "type": "private"
+     },
+     "date": 1790557200,
+     "text": "Bản tin công nghệ · 2026-09-27"
+    },
+    "chat_instance": "-5383291817593061520",
+    "data": "fb:cccccccc:up"
+   }
+  },
+  {
+   "update_id": 500000006,
+   "callback_query": {
+    "id": "4382bfdwdsb3500000006",
+    "from": {
+     "id": 42,
+     "is_bot": false,
+     "first_name": "Owner",
+     "language_code": "vi"
+    },
+    "message": {
+     "message_id": 311,
+     "from": {
+      "id": 7000000001,
+      "is_bot": true,
+      "first_name": "Tech digest",
+      "username": "tech_digest_bot"
+     },
+     "chat": {
+      "id": 42,
+      "first_name": "Owner",
+      "type": "private"
+     },
+     "date": 1790557200,
+     "text": "Bản tin công nghệ · 2026-09-27"
+    },
+    "chat_instance": "-5383291817593061520",
+    "data": "fb:dddddddd:up"
+   }
+  }
+ ]
+}

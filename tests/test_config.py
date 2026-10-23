@@ -99,3 +99,24 @@ def test_unknown_timezone_is_rejected(tmp_path: Path) -> None:
 def test_repo_config_yaml_is_valid() -> None:
     cfg = load_config(Path(__file__).parent.parent / "config.yaml")
     assert cfg.max_items == 10
+
+
+def test_radar_is_disabled_by_default(tmp_path: Path) -> None:
+    cfg = load_config(write(tmp_path, MINIMAL))
+
+    assert cfg.radar.enabled is False
+    assert cfg.radar.manifests == []
+    assert cfg.radar.include_dev_dependencies is False
+
+
+def test_radar_manifests_parse(tmp_path: Path) -> None:
+    text = MINIMAL + (
+        "radar:\n  enabled: true\n  manifests:\n"
+        "    - {repo: me/web, paths: [package.json]}\n  ignore: [typescript]\n"
+    )
+
+    cfg = load_config(write(tmp_path, text))
+
+    assert cfg.radar.manifests[0].repo == "me/web"
+    assert cfg.radar.manifests[0].paths == ["package.json"]
+    assert cfg.radar.ignore == ["typescript"]

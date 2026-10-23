@@ -8,6 +8,8 @@ import logging
 
 import httpx
 
+from digest.models import TelegramMessage
+
 API = "https://api.telegram.org/bot{token}/sendMessage"
 
 log = logging.getLogger(__name__)
@@ -17,17 +19,32 @@ class DeliveryError(Exception):
     """Telegram rejected a message or could not be reached."""
 
 
+def feedback_keyboard(buttons: list[tuple[int, str]]) -> dict:
+    """One like/dislike row per item; callback_data `fb:<id8>:<up|down>` fits the 64-byte cap."""
+    return {
+        "inline_keyboard": [
+            [
+                {"text": f"👍 {n}", "callback_data": f"fb:{item_id[:8]}:up"},
+                {"text": f"👎 {n}", "callback_data": f"fb:{item_id[:8]}:down"},
+            ]
+            for n, item_id in buttons
+        ]
+    }
+
+
 async def send_messages(
-    client: httpx.AsyncClient, token: str, chat_id: str, messages: list[str]
+    client: httpx.AsyncClient, token: str, chat_id: str, messages: list[TelegramMessage]
 ) -> None:
     url = API.format(token=token)
-    for n, text in enumerate(messages, 1):
-        payload = {
+    for n, message in enumerate(messages, 1):
+        payload: dict = {
             "chat_id": chat_id,
-            "text": text,
+            "text": message.text,
             "parse_mode": "HTML",
             "link_preview_options": {"is_disabled": True},
         }
+        if message.buttons:
+            payload["reply_markup"] = feedback_keyboard(message.buttons)
         try:
             response = await client.post(url, json=payload)
         except httpx.HTTPError as exc:

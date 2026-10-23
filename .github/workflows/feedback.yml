@@ -1,0 +1,44 @@
+name: feedback
+
+# Collect like/dislike taps from the Telegram digest. Telegram keeps unfetched
+# updates for 24 hours only, so do not space runs further apart than that.
+on:
+  schedule:
+    - cron: "0 */3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: digest-state # shared by every workflow that commits data/
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+
+      - run: uv sync --locked
+
+      - name: Collect feedback
+        run: uv run python -m digest feedback
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+
+      - name: Commit state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -d data ]; then git add data/; fi
+          if git diff --cached --quiet; then
+            echo "No state changes to commit"
+            exit 0
+          fi
+          git commit -m "feedback: $(TZ=Asia/Ho_Chi_Minh date '+%F %H:%M')"
+          git pull --rebase
+          git push
