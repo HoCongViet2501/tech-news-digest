@@ -1,0 +1,189 @@
+{
+ "date": "2026-10-23",
+ "items": [
+  {
+   "id": "2a2c14787462d4d574c91cece27656ff7713c14d",
+   "source": "github",
+   "title": "supabase/supabase: The Postgres development platform. Supabase gives you a dedicated Postgres database to build your web, mobile, and AI applications.",
+   "url": "https://github.com/supabase/supabase",
+   "discussion_url": null,
+   "score": 693,
+   "comments": 0,
+   "published_at": "2026-10-23T09:38:28.831353+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Nền tảng Postgres phổ biến cho full-stack, tích hợp tốt với các ứng dụng AI.",
+   "summary": "Supabase là nền tảng phát triển Postgres mã nguồn mở cung cấp các tính năng tương tự Firebase như database, authentication, API tự động, functions, file storage và vector toolkit cho AI. Dự án hỗ trợ nhiều ngôn ngữ lập trình với các client libraries dạng mô-đun và cho phép cả triển khai hosted hoặc tự host.",
+   "why_it_matters": "Cung cấp cho bạn một giải pháp backend toàn diện, kết hợp giữa sức mạnh của PostgreSQL và trải nghiệm phát triển nhanh chóng tương tự Firebase cho các ứng dụng full-stack."
+  },
+  {
+   "id": "49452062182371c8c120f72cceb21a21de5d1860",
+   "source": "github",
+   "title": "genspark-ai/genoffice: Free, open-source AI Office suite: Docs, Sheets, Slides, PDF, Markdown and HTML editors with a built-in AI agent, plus a `genoffice` CLI and agent skill so Claude Code, Codex and Cursor can create and edit real .docx/.xlsx/.pptx files locally. Bring your own key. macOS, Windows & Linux.",
+   "url": "https://github.com/genspark-ai/genoffice",
+   "discussion_url": null,
+   "score": 193,
+   "comments": 0,
+   "published_at": "2026-10-23T09:38:28.831353+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "AI Office suite mã nguồn mở tích hợp CLI và skill cho Claude Code và Cursor.",
+   "summary": "GenOffice là bộ công cụ văn phòng mã nguồn mở tích hợp AI, hỗ trợ chỉnh sửa các định dạng tệp thực tế như .docx, .xlsx, .pptx, PDF và Markdown trực tiếp trên máy local. Công cụ này cung cấp giao diện dòng lệnh và extension tích hợp trực tiếp với các AI coding agent như Claude Code, Cursor và Codex để tự động thao tác với tệp văn phòng.",
+   "why_it_matters": "Giúp bạn tích hợp các AI coding agent vào luồng công việc xử lý tài liệu thực tế ngay trên máy local một cách an toàn và giữ nguyên định dạng tệp gốc."
+  },
+  {
+   "id": "4dcdb955782720745c63884f1e5a19f3e6e44932",
+   "source": "hn",
+   "title": "OpenShell – A safe, private runtime for fleets of autonomous AI agents",
+   "url": "https://github.com/NVIDIA/OpenShell",
+   "discussion_url": "https://news.ycombinator.com/item?id=50198675",
+   "score": 314,
+   "comments": 162,
+   "published_at": "2026-10-22T17:44:06Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Runtime an toàn và riêng tư cho việc chạy các AI agents tự động.",
+   "summary": "OpenShell cung cấp một runtime an toàn và riêng tư dành cho việc chạy các AI agent, giúp cô lập hệ thống thông qua các tính năng kiểm soát ở cấp độ kernel và kiểm chứng chính sách hình thức (formal verification). Công cụ này cho phép agent truy cập tệp, cài đặt gói và gọi API mà không làm lộ dữ liệu nhạy cảm hay thông tin xác thực.",
+   "why_it_matters": "Giúp bạn triển khai và quản lý các AI agent tự động một cách an toàn trong môi trường phát triển mà không sợ bị rò rỉ dữ liệu hoặc cấp quyền vượt mức."
+  },
+  {
+   "id": "0876c9c2b39765c74de5f7cb09e4d083d75c8946",
+   "source": "github",
+   "title": "CopilotKit/OpenBot: Open-source AI coworkers that each get a computer of their own: a browser, files and tools, with every action decided before it happens and recorded after. Bring any AG-UI agent.",
+   "url": "https://github.com/CopilotKit/OpenBot",
+   "discussion_url": null,
+   "score": 75,
+   "comments": 0,
+   "published_at": "2026-10-23T09:38:28.831353+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Đồng nghiệp AI mã nguồn mở có môi trường máy tính riêng, rất tiên tiến.",
+   "summary": "OpenBot là nền tảng mã nguồn mở cho phép chạy các AI coworker tự động trên chính hạ tầng của bạn bằng Docker và PostgreSQL. Mỗi agent sở hữu một môi trường làm việc riêng biệt bao gồm trình duyệt, tệp tin và các công cụ được quản lý qua giao thức mở AG-UI.",
+   "why_it_matters": "Cho phép bạn tự host và tùy biến các hệ thống AI agent phức tạp ngay trên hạ tầng của mình với khả năng kiểm soát toàn bộ quyền hạn của agent."
+  },
+  {
+   "id": "2d02eab26592aba7aa5b1ff661ffc10f94398611",
+   "source": "hn",
+   "title": "Show HN: agent-usage-guard – a Claude Code mod to protect your usage window",
+   "url": "https://github.com/rbartoli/agent-usage-guard",
+   "discussion_url": "https://news.ycombinator.com/item?id=50198936",
+   "score": 21,
+   "comments": 9,
+   "published_at": "2026-10-22T18:02:38Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ mod cho Claude Code giúp tối ưu và bảo vệ hạn mức sử dụng.",
+   "summary": "Agent-usage-guard là một bản mod dành cho Claude Code giúp ngăn chặn tình trạng cạn kiệt hạn mức sử dụng do các vòng lặp retry, ngữ cảnh quá lớn hoặc việc sinh ra quá nhiều subagent. Công cụ này giám sát mức sử dụng theo thời gian thực và yêu cầu xác nhận cục bộ trước khi cho phép các tác vụ ngốn token tiếp tục chạy.",
+   "why_it_matters": "Bảo vệ hạn mức API và thời gian sử dụng Claude Code của bạn khỏi các tác vụ chạy lan man của coding agent."
+  },
+  {
+   "id": "f650f6051b6f57b8dd1ff1799e22d50e455b118d",
+   "source": "github",
+   "title": "bowenliang123/dsh-context: The best DeepSeek Harness plugin for context insight and management, with context dashboard / browser / sidebar and context command, for context statistics, composition, breakdown, evolution details, agent teams, understanding how the context is made of, and how it evolves. 一站式 DeepSeek Harness 上下文可视化插件，Context 面板、浏览器、侧栏、命令，透视上下文组成、演进、压缩、多 Agent等。",
+   "url": "https://github.com/bowenliang123/dsh-context",
+   "discussion_url": null,
+   "score": 296,
+   "comments": 0,
+   "published_at": "2026-10-23T09:38:28.831353+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Plugin trực quan hóa context cho DeepSeek, hữu ích cho LLM tooling.",
+   "summary": "Công cụ này là một plugin DeepSeek Harness chuyên dụng giúp quản lý và trực quan hóa ngữ cảnh (context) của AI agent. Nó cung cấp giao diện bảng điều khiển, trình duyệt, thanh bên và câu lệnh để theo dõi thống kê token, chi phí, vòng đời và mạng lưới các agent.",
+   "why_it_matters": "Hữu ích để tối ưu hóa và kiểm soát chi phí cũng như hiệu suất khi xây dựng ứng dụng với AI agents."
+  },
+  {
+   "id": "b532d00ad0fc16e67ec271b013a222430a13dcda",
+   "source": "hn",
+   "title": "CVE-2026-111943: Compromised Intermediate Certificate Authority",
+   "url": "https://nvd.nist.gov/vuln/detail/cve-2026-111943",
+   "discussion_url": "https://news.ycombinator.com/item?id=50192900",
+   "score": 332,
+   "comments": 119,
+   "published_at": "2026-10-22T08:51:31Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Lỗ hổng bảo mật nghiêm trọng liên quan đến Certificate Authority.",
+   "summary": "Cảnh báo bảo mật yêu cầu người dùng Gentoo Linux cập nhật gói ca-certificates do sự cố liên quan đến Certificate Authority bị xâm phạm. Ngôn ngữ Go cũng có cơ chế chủ động chặn các chứng chỉ này mặc dù kho lưu trữ tin cậy của hệ thống chưa được cập nhật.",
+   "why_it_matters": "Giúp bạn chủ động kiểm tra cấu hình chứng chỉ SSL/TLS và cập nhật hệ thống trong các môi trường CI/CD hoặc cloud."
+  },
+  {
+   "id": "2c7b3111701b0646ddb76e13c56e478dfb7d8c16",
+   "source": "github",
+   "title": "firecrawl/firecrawl: Supercharge your AI agents with data from the web and beyond. Building the library for superintelligence. 🔥",
+   "url": "https://github.com/firecrawl/firecrawl",
+   "discussion_url": null,
+   "score": 424,
+   "comments": 0,
+   "published_at": "2026-10-23T09:38:28.831353+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Thư viện cào dữ liệu web tối ưu hóa cho AI agents.",
+   "summary": "Firecrawl là một API mã nguồn mở hỗ trợ tìm kiếm, cào dữ liệu web và tương tác trực tiếp với các trang web ở quy mô lớn. Công cụ chuyển đổi nội dung web phức tạp thành dữ liệu Markdown hoặc JSON sạch, sẵn sàng cho các LLM và AI agent.",
+   "why_it_matters": "Cung cấp giải pháp xử lý dữ liệu web tự động và tích hợp mượt mà cho các ứng dụng AI và công cụ lập trình bạn đang phát triển."
+  },
+  {
+   "id": "b3cb6b9ecffc7ba345942c83f8d44d5c7776f961",
+   "source": "hn",
+   "title": "OpenAI CLI",
+   "url": "https://github.com/openai/openai-cli",
+   "discussion_url": "https://news.ycombinator.com/item?id=50191507",
+   "score": 232,
+   "comments": 109,
+   "published_at": "2026-10-22T05:23:11Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Công cụ dòng lệnh chính thức từ OpenAI, rất hữu ích cho dev.",
+   "summary": "OpenAI CLI là một công cụ dòng lệnh bằng ngôn ngữ Go cho phép gọi trực tiếp OpenAI REST API từ terminal hoặc script. Công cụ hỗ trợ tạo ảnh, quản lý tệp, xử lý batch và truy vấn các điểm cuối quản trị mà không cần viết ứng dụng riêng.",
+   "why_it_matters": "Giúp tích hợp các thao tác với mô hình AI vào các tập lệnh tự động hóa, quy trình CI/CD và công việc DevOps hàng ngày một cách nhanh chóng."
+  },
+  {
+   "id": "4e9bfd07ae02849d8691fa6c59ed092354abcaf9",
+   "source": "hn",
+   "title": "LLMs are making formal software verification feasible at a much larger scale",
+   "url": "https://anthropic.com/research/formal-verification",
+   "discussion_url": "https://news.ycombinator.com/item?id=50202217",
+   "score": 138,
+   "comments": 69,
+   "published_at": "2026-10-22T22:54:43Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Nghiên cứu của Anthropic về việc dùng LLM cho formal verification phần mềm.",
+   "summary": "Bài viết thảo luận về việc ứng dụng LLM (như Claude) để tự động hóa việc tạo ra các chứng thực hình thức (formal verification) ở cấp độ hợp ngữ RISC-V cho các thư viện mã nguồn mở. Quá trình này giúp chứng minh các thuộc tính bảo mật và phát hiện các lỗi ẩn sâu mà kiểm thử truyền thống chưa tìm ra.",
+   "why_it_matters": "Mở ra hướng đi mới trong việc ứng dụng AI để nâng cao tính an toàn và bảo mật cho các hệ thống phần mềm phức tạp."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 93,
+  "fetched_github": 45,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 163,
+  "after_dedupe": 160,
+  "after_filter": 73,
+  "ai": "gemini",
+  "ai_tokens_in": 14501,
+  "ai_tokens_out": 4689,
+  "sent": 10,
+  "summarized": 10
+ }
+}
