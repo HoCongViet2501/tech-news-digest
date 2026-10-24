@@ -1,0 +1,193 @@
+{
+ "date": "2026-10-24",
+ "items": [
+  {
+   "id": "a44248e361e3ad99252484caca7d6026c23d62e7",
+   "source": "github",
+   "title": "OpenHands/OpenHands: 🙌 OpenHands: AI-Driven Development",
+   "url": "https://github.com/OpenHands/OpenHands",
+   "discussion_url": null,
+   "score": 97,
+   "comments": 0,
+   "published_at": "2026-10-24T09:36:32.053331+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Framework phát triển phần mềm tự động hóa bằng AI rất đáng chú ý.",
+   "summary": "OpenHands Agent Canvas là trung tâm điều khiển mã nguồn mở tự host cho các tác nhân AI và tự động hóa. Công cụ này cho phép chạy các agent như OpenHands, Claude Code, hoặc Gemini qua Docker, máy ảo hoặc đám mây, đồng thời tích hợp với Slack, GitHub và Linear.",
+   "why_it_matters": "Cung cấp một giải pháp self-hosted linh hoạt để tự động hóa các tác vụ CI/CD và DevOps trực tiếp trên cơ sở hạ tầng riêng của bạn."
+  },
+  {
+   "id": "0ac194e7dd2196c5d276c7952729eda37585b931",
+   "source": "hn",
+   "title": "Evolving Threat: http2shell is an RCE in node, Python, and more",
+   "url": "https://nitter.click/AikidoSecurity/status/2113759110625906950?__galadriel=lPmlGl9id4oAd5UeBwMhlYKArHyr6lR2IDGujPwB5HV2kQ1aLoPWFd5A9sGuzNcmrp8fUso8qygmHcKTDZ8MNHWqQ3bDJcycV87xp_0VypzQLYj6O_RRHlZuQqj33oASGY2YLSoAiMjeOZN40h7Stf8AG7DPrGZbAPVKUXy36HoMudRbvwF3_r2uYNmfJMhpKzywQDM6Ab8",
+   "discussion_url": "https://news.ycombinator.com/item?id=50216791",
+   "score": 96,
+   "comments": 43,
+   "published_at": "2026-10-23T23:30:17Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Lỗ hổng RCE nghiêm trọng http2shell trong Node.js và Python.",
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "653084f2277b9892a579676c1e8453e900b5e4f2",
+   "source": "hn",
+   "title": "OpenSSL 4.1.0",
+   "url": "https://github.com/openssl/openssl/releases/tag/openssl-4.1.0",
+   "discussion_url": "https://news.ycombinator.com/item?id=50208099",
+   "score": 180,
+   "comments": 62,
+   "published_at": "2026-10-23T12:42:44Z",
+   "tags": [],
+   "also_on": [
+    "lobsters"
+   ],
+   "relevance": 8.0,
+   "reason": "OpenSSL phát hành phiên bản mới, quan trọng cho bảo mật và DevOps.",
+   "summary": "OpenSSL 4.1.0 là một bản phát hành tính năng lớn, bổ sung hỗ trợ giao thức DTLS 1.3 và cơ chế GREASE. Bản phát hành này cũng cải thiện hiệu suất thuật toán mã hóa (ML-DSA, ML-KEM) trên các kiến trúc x86_64 và ppc64le, đồng thời loại bỏ một số mục tiêu build cũ.",
+   "why_it_matters": "Giúp bạn cập nhật các tiêu chuẩn bảo mật mạng mới nhất và tối ưu hóa hiệu năng mã hóa trong các ứng dụng cloud và backend."
+  },
+  {
+   "id": "983f23e99302862c6c2d096dc494f5ab1b1a97e4",
+   "source": "github",
+   "title": "SnailSploit/Claude-Red: claude-red is a curated library of offensive security skills designed for the Claude skills system. Each skill is a structured SKILL.md file that primes Claude with expert-level methodology for a specific attack surface — from SQLi to shellcode, EDR evasion to exploit development.",
+   "url": "https://github.com/SnailSploit/Claude-Red",
+   "discussion_url": null,
+   "score": 226,
+   "comments": 0,
+   "published_at": "2026-10-24T09:36:32.053331+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Thư viện kỹ năng bảo mật cho Claude, rất hợp xu hướng AI tool.",
+   "summary": "Claude-red là một thư viện mã nguồn mở chứa các kỹ năng bảo mật tấn công (offensive security) dạng file SKILL.md dành riêng cho hệ thống Claude. Các kỹ năng này bao gồm từ kiểm thử ứng dụng web, Active Directory đến khai thác Kubernetes, được Claude tự động tải theo ngữ cảnh khi cần.",
+   "why_it_matters": "Hỗ trợ bạn kiểm tra và củng cố bảo mật cho hệ thống cloud, container và pipeline CI/CD ngay trong môi trường AI quen thuộc."
+  },
+  {
+   "id": "a58fde932d86c8ed61851a10ff7a6fca542a9443",
+   "source": "github",
+   "title": "virgiliojr94/book-to-skill: Turn any technical book PDF into a Claude Code skill — ready to study, reference, and use while you work.",
+   "url": "https://github.com/virgiliojr94/book-to-skill",
+   "discussion_url": null,
+   "score": 143,
+   "comments": 0,
+   "published_at": "2026-10-24T09:36:32.053331+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Công cụ chuyển sách kỹ thuật thành skill cho Claude Code.",
+   "summary": "Công cụ book-to-skill cho phép chuyển đổi các tệp PDF sách kỹ thuật hoặc thư mục tài liệu thành các skill tiêu chuẩn cho các AI agent như Claude Code, Copilot CLI hoặc OpenCode. Nó cô đọng nội dung thành các tệp theo chương được agent tải theo nhu cầu với lượng token tiết kiệm hơn nhiều so với việc ném toàn bộ sách vào ngữ cảnh.",
+   "why_it_matters": "Biến tài liệu kiến trúc, runbook hoặc tài liệu kỹ thuật nội bộ thành trợ lý AI chính xác giúp tăng tốc công việc lập trình hằng ngày."
+  },
+  {
+   "id": "629e52348c94311ca0a38b80f5d2a06d74034006",
+   "source": "github",
+   "title": "Anil-matcha/open-duet: Open-source, self-hosted alternative to Claude Duet: AI coworkers (named agents) with instructions, memory, routines, their own isolated computer, and your approval before they act. Also an alternative to OpenAI Dots, Meta Muse, Grok Bot, Manus Cue and ChatGPT agent.",
+   "url": "https://github.com/Anil-matcha/open-duet",
+   "discussion_url": null,
+   "score": 68,
+   "comments": 0,
+   "published_at": "2026-10-24T09:36:32.053331+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Agent AI tự quản lý độc lập, thay thế Claude Duet.",
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "0071c869a67b8f3014a57dd884cf97dfe63c2443",
+   "source": "hn",
+   "title": "CVE Tracker",
+   "url": "https://cve.0xosprey.com",
+   "discussion_url": "https://news.ycombinator.com/item?id=50215530",
+   "score": 113,
+   "comments": 42,
+   "published_at": "2026-10-23T21:21:47Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Công cụ theo dõi lỗ hổng bảo mật CVE, cực kỳ thiết yếu cho DevOps.",
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "48e2274fdf2ba9fe48db533ddecc410e5cc41b05",
+   "source": "hn",
+   "title": "Securing our frontier model training environment",
+   "url": "https://openai.com/index/securing-our-frontier-model-training-environment",
+   "discussion_url": "https://news.ycombinator.com/item?id=50214416",
+   "score": 78,
+   "comments": 94,
+   "published_at": "2026-10-23T19:50:56Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Kỹ thuật bảo mật hạ tầng huấn luyện mô hình AI lớn của OpenAI.",
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "46a214f2714183630b8e6d6447bce6f7b3e10c27",
+   "source": "lobsters",
+   "title": "Docker is weird",
+   "url": "https://codeandcake.dev/posts/2026-10-22-docker-is-weird",
+   "discussion_url": "https://lobste.rs/s/xsz9sc/docker_is_weird",
+   "score": 95,
+   "comments": 43,
+   "published_at": "2026-10-22T15:09:22.732000-05:00",
+   "tags": [
+    "programming"
+   ],
+   "also_on": [],
+   "relevance": 7.0,
+   "reason": "Bài viết kỹ thuật về Docker, hữu ích cho lập trình viên DevOps.",
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "8d1ba7d5d9bb230e6cdde88b568ec7a2c2e80e85",
+   "source": "github",
+   "title": "liguobao/ds-harness-remote: 一个基于 DeepSeek Harness 插件机制构建的多端远程访问方案，通过安全、低延迟、端到端加密的 P2P 优先网络，支持从 PC、Android 和 Web 随时访问并操作远程 Harness 和 CodeX。 (A multi-device remote access solution built on the DeepSeek Harness plugin system, enabling PC, Android, and Web clients to securely access and operate remote Harness and CodeX over a low-latency, end-to-end encrypted, P2P-first network.)",
+   "url": "https://github.com/liguobao/ds-harness-remote",
+   "discussion_url": null,
+   "score": 331,
+   "comments": 0,
+   "published_at": "2026-10-24T09:36:32.053331+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 7.0,
+   "reason": "Giải pháp truy cập từ xa P2P tích hợp DeepSeek Harness, rất hợp DevOps.",
+   "summary": null,
+   "why_it_matters": null
+  }
+ ],
+ "stats": {
+  "fetched_hn": 97,
+  "fetched_github": 45,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 167,
+  "after_dedupe": 160,
+  "after_filter": 72,
+  "ai": "gemini",
+  "ai_tokens_in": 8341,
+  "ai_tokens_out": 3653,
+  "sent": 10,
+  "summarized": 4
+ }
+}
