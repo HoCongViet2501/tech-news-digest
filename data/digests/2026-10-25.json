@@ -1,0 +1,198 @@
+{
+ "date": "2026-10-25",
+ "items": [
+  {
+   "id": "8cd0995ef5c1bec94bd72e3e12cbe59b8bef3e31",
+   "source": "github",
+   "title": "anthropics/sandbox-runtime: A lightweight sandboxing tool for enforcing filesystem and network restrictions on arbitrary processes at the OS level, without requiring a container.",
+   "url": "https://github.com/anthropics/sandbox-runtime",
+   "discussion_url": null,
+   "score": 650,
+   "comments": 0,
+   "published_at": "2026-10-25T09:24:41.132667+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ sandbox OS-level cực kỳ hữu ích cho DevOps và bảo mật.",
+   "summary": "Anthropics giới thiệu sandbox-runtime (srt), một công cụ sandbox nhẹ ở cấp độ OS sử dụng các nguyên mẫu gốc như sandbox-exec và bubblewrap để giới hạn quyền truy cập hệ thống tập tin và mạng. Công cụ này hoạt động độc lập không cần container, hỗ trợ cả dạng CLI lẫn thư viện để bảo vệ các hệ thống như AI agents hoặc local MCP servers.",
+   "why_it_matters": "Giúp bạn dễ dàng bảo mật và cô lập các local MCP servers hoặc AI coding agents trực tiếp ở cấp độ OS mà không cần thiết lập container phức tạp."
+  },
+  {
+   "id": "eba09e01c63ed656731ee56f02e6a34b4771ae4b",
+   "source": "hn",
+   "title": "Node2Shell evolves to HTTP2Shell, blast radius affects many HTTP libs and apps",
+   "url": "https://aikido.dev/blog/python-packages-vulnerable-node2shell-brotli-cve-2026-111497",
+   "discussion_url": "https://news.ycombinator.com/item?id=50219177",
+   "score": 281,
+   "comments": 140,
+   "published_at": "2026-10-24T08:06:39Z",
+   "tags": [],
+   "also_on": [
+    "lobsters"
+   ],
+   "relevance": 9.0,
+   "reason": "Lỗ hổng bảo mật ảnh hưởng trực tiếp đến các thư viện và ứng dụng HTTP.",
+   "summary": "Lỗ hổng bảo mật nghiêm trọng CVE-2026-111497 (được gọi là HTTP2Shell) xuất phát từ thư viện nén Brotli của Google, cho phép kẻ tấn công thực thi mã từ xa hoặc làm rò rỉ bộ nhớ qua dữ liệu giải nén. Lỗ hổng này ảnh hưởng đến nhiều ngôn ngữ và môi trường như Node.js, Python, C++, và Envoy, yêu cầu các nhà phát triển phải nâng cấp khẩn cấp phiên bản thư viện hoặc runtime.",
+   "why_it_matters": "Bạn cần ngay lập tức kiểm tra và nâng cấp các dependency Brotli trong stack TypeScript, Python hoặc Go của mình để tránh rủi ro bảo mật nghiêm trọng."
+  },
+  {
+   "id": "2070e27530de88b67c2e69465ccd9d28d8f4f495",
+   "source": "github",
+   "title": "Gaurav-Gosain/tuios: A terminal window manager that knows what your agents are doing. Tiling panes, workspaces, sessions that survive restarts, and one Inbox for every coding agent. Official only at tuios.dev and this repo. tuios has no X/Twitter account.",
+   "url": "https://github.com/Gaurav-Gosain/tuios",
+   "discussion_url": null,
+   "score": 131,
+   "comments": 0,
+   "published_at": "2026-10-25T09:24:41.132667+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Terminal window manager quản lý coding agent xuất sắc cho dev.",
+   "summary": "TUIOS là một trình quản lý cửa sổ và terminal multiplexer hiện đại viết bằng Go, cung cấp giao diện modal kiểu Vim, chia khung BSP tiling và một daemon giúp duy trì các phiên làm việc sau khi khởi động lại. Công cụ này tích hợp khả năng quản lý trạng thái và giao tiếp cho các coding agent đang chạy trong các khung terminal của bạn.",
+   "why_it_matters": "Cung cấp một môi trường terminal hiệu quả bằng Go giúp bạn quản lý đồng thời nhiều coding agent và các phiên làm việc một cách mượt mà."
+  },
+  {
+   "id": "9ff119dc67f8961a43e79f83e269fb94a329f7e9",
+   "source": "github",
+   "title": "langfuse/langfuse: 🪢 Open source agent evals & observability: Trace, evaluate, and improve LLM applications with one open platform.",
+   "url": "https://github.com/langfuse/langfuse",
+   "discussion_url": null,
+   "score": 81,
+   "comments": 0,
+   "published_at": "2026-10-25T09:24:41.132667+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Nền tảng mã nguồn mở xuất sắc để theo dõi và đánh giá LLM app.",
+   "summary": "Langfuse là một nền tảng kỹ thuật LLM mã nguồn mở được xây dựng trên ClickHouse, giúp các nhóm theo dõi, đánh giá và gỡ lỗi các ứng dụng AI. Nền tảng này hỗ trợ quan sát LLM, quản lý prompt, đánh giá tự động và có thể tự triển khai dễ dàng thông qua Docker Compose hoặc Kubernetes.",
+   "why_it_matters": "Cung cấp một giải pháp self-hosted toàn diện để trace, evaluate và tối ưu hóa các ứng dụng LLM và AI agent trong hạ tầng riêng của bạn."
+  },
+  {
+   "id": "9ad5ce51a9979f8cdcea79c971a00e192bd7d3de",
+   "source": "github",
+   "title": "google-gemini/gemini-cli: An open-source AI agent that brings the power of Gemini directly into your terminal.",
+   "url": "https://github.com/google-gemini/gemini-cli",
+   "discussion_url": null,
+   "score": 44,
+   "comments": 0,
+   "published_at": "2026-10-25T09:24:41.132667+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "CLI công cụ AI agent tích hợp Gemini trực tiếp vào terminal.",
+   "summary": "Gemini CLI là một AI agent mã nguồn mở đưa sức mạnh của Gemini trực tiếp vào terminal của bạn, hỗ trợ truy vấn codebase lớn, tạo ứng dụng và chạy tự động. Tuy nhiên, tài liệu lưu ý rằng công cụ này đã được thay thế bởi Antigravity CLI cho các mô hình mới hơn.",
+   "why_it_matters": "Cung cấp một phương thức tương tác dòng lệnh trực tiếp với LLM để hỗ trợ các tác vụ phát triển hàng ngày và tự động hóa CI/CD."
+  },
+  {
+   "id": "af2a47ae858fe7c35af70f98af96e714aae9c446",
+   "source": "github",
+   "title": "Gentleman-Programming/gentle-ai: Gentle-AI configures the AI coding agents you already use: Claude Code, Cursor, OpenCode, Codex, Pi, and more. Choose persistent memory, Organic-Driven Development, curated skills, MCP servers, personas, and optional bounded review. Open source, no agent lock-in.",
+   "url": "https://github.com/Gentleman-Programming/gentle-ai",
+   "discussion_url": null,
+   "score": 30,
+   "comments": 0,
+   "published_at": "2026-10-25T09:24:41.132667+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ tuyệt vời cấu hình các AI coding agent và MCP servers.",
+   "summary": "Gentle-AI cung cấp một môi trường kỹ thuật tất định cho các AI coding agent phổ biến như Claude Code, Cursor và OpenCode bằng cách bổ sung bộ nhớ bền vững, quy trình làm việc và bằng chứng thực thi. Nó giúp tích lũy ngữ cảnh giữa các phiên làm việc và định tuyến nhiệm vụ thông minh để tránh lãng phí token.",
+   "why_it_matters": "Công cụ này giúp tối ưu hóa hiệu suất và giảm chi phí API khi bạn sử dụng các AI coding agent trong quy trình phát triển hàng ngày."
+  },
+  {
+   "id": "96bb6a372bc8127295563c7b54ba9dd64ac9016d",
+   "source": "github",
+   "title": "aws/agent-toolkit-for-aws: Official, AWS-supported MCP servers, skills, and plugins to help AI agents build on AWS",
+   "url": "https://github.com/aws/agent-toolkit-for-aws",
+   "discussion_url": null,
+   "score": 13,
+   "comments": 0,
+   "published_at": "2026-10-25T09:24:41.132667+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "MCP servers và toolkit chính thức từ AWS hỗ trợ AI agent.",
+   "summary": "Agent Toolkit for AWS cung cấp các MCP server, kỹ năng và plugin chính thức từ AWS giúp các AI coding agent xây dựng, triển khai và quản lý ứng dụng trên đám mây. Các plugin này hỗ trợ nhiều dịch vụ cốt lõi, công cụ phân tích dữ liệu và quy trình SecOps trực tiếp thông qua các công cụ như Claude Code hay Cursor.",
+   "why_it_matters": "Nó giúp tích hợp sâu khả năng tự động hóa cơ sở hạ tầng đám mây vào các AI agent mà bạn đang dùng trong công việc DevOps hằng ngày."
+  },
+  {
+   "id": "7c213e5a7519af560aa7fa0eff7a3034a28a07a6",
+   "source": "github",
+   "title": "makecindy/cindy: Consider it done. The open-source AI agent that works out of the box · 想到，就能做到。开源、开箱即用的 AI Agent。",
+   "url": "https://github.com/makecindy/cindy",
+   "discussion_url": null,
+   "score": 477,
+   "comments": 0,
+   "published_at": "2026-10-25T09:24:41.132667+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Công cụ AI agent mã nguồn mở hữu ích cho lập trình viên.",
+   "summary": "Cindy là một open-source AI agent chạy cục bộ, tích hợp nhiều mô hình và công cụ để thực hiện các tác vụ lập trình và tự động hóa thực tế trên máy tính của bạn. Dự án sử dụng cấu trúc pnpm monorepo và cho phép kết nối linh hoạt với các coding plan có sẵn như Claude Code hoặc Codex mà không tốn phí trùng lặp.",
+   "why_it_matters": "Mang lại một giao diện desktop và mobile mã nguồn mở để quản lý các AI coding agent cục bộ một cách liền mạch với các công cụ lập trình hiện tại của bạn."
+  },
+  {
+   "id": "8acda1e9f09f44481907bcbab7330308abce9b0b",
+   "source": "hn",
+   "title": "GPU-unlock: FP/BF16 instruction issue rate on Nvidia 3000's cards",
+   "url": "https://github.com/Zagitta/gpu-unlock",
+   "discussion_url": "https://news.ycombinator.com/item?id=50219700",
+   "score": 195,
+   "comments": 61,
+   "published_at": "2026-10-24T09:58:27Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Tài liệu kỹ thuật phần cứng GPU Nvidia tối ưu hóa hiệu năng.",
+   "summary": "GPU-unlock là một Linux kernel module mới giúp mở khóa tốc độ xử lý lệnh FP/BF16 trên các dòng card Nvidia RTX 3000 đạt mức tương đương dòng chuyên nghiệp. Module này chạy trước khi driver Nvidia khởi động, giúp tăng đáng kể hiệu năng tính toán ma trận cho các tác vụ như LLM prefill và FlashAttention.",
+   "why_it_matters": "Cho phép bạn tận dụng tối đa phần cứng GPU dòng tiêu dùng sẵn có để tăng tốc các thử nghiệm mô hình AI cục bộ."
+  },
+  {
+   "id": "22741e130b67c7210ff7f9402ab5fc06aa3a07ef",
+   "source": "github",
+   "title": "agentskills/agentskills: Specification and documentation for Agent Skills",
+   "url": "https://github.com/agentskills/agentskills",
+   "discussion_url": null,
+   "score": 53,
+   "comments": 0,
+   "published_at": "2026-10-25T09:24:41.132667+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Đặc tả kỹ thuật và tài liệu chuẩn cho Agent Skills.",
+   "summary": "Agent Skills là một chuẩn định dạng mở, nhẹ nhàng để mở rộng khả năng của AI agent thông qua các thư mục chứa file SKILL.md, tập lệnh và tài liệu tham khảo. Chuẩn này sử dụng cơ chế nạp ngữ cảnh tiến triển (progressive disclosure) để agent chỉ tải thông tin chi tiết khi thực sự cần thiết.",
+   "why_it_matters": "Giúp bạn đóng gói và tái sử dụng kiến thức chuyên môn, quy trình làm việc cho các AI agent trên nhiều công cụ phát triển khác nhau."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 74,
+  "fetched_github": 48,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 147,
+  "after_dedupe": 141,
+  "after_filter": 62,
+  "ai": "gemini",
+  "ai_tokens_in": 15161,
+  "ai_tokens_out": 3965,
+  "sent": 10,
+  "summarized": 10
+ },
+ "radar": []
+}
