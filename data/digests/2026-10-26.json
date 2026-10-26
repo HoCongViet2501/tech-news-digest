@@ -1,0 +1,192 @@
+{
+ "date": "2026-10-26",
+ "items": [
+  {
+   "id": "4341922ec9bb436c9ae33bc4c062ff0557b0bc6b",
+   "source": "github",
+   "title": "nightly-labs/openbot: A local-first desktop workspace for persistent AI teammates. Run Codex, Claude, and Grok with dedicated workspaces, task queues, file sharing, browser control, and agent-to-agent collaboration.",
+   "url": "https://github.com/nightly-labs/openbot",
+   "discussion_url": null,
+   "score": 86,
+   "comments": 0,
+   "published_at": "2026-10-26T09:24:35.415719+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Workspace local-first cho AI teammates, hỗ trợ Claude, Codex.",
+   "summary": "OpenBot là một workspace desktop local-first dành cho các AI teammate persistent, hỗ trợ các công cụ như Claude Code, Codex, và Grok. Nó cung cấp các workspace riêng biệt, hàng đợi task, chuyển file cục bộ, trình duyệt nhúng và khả năng giao tiếp agent-to-agent.",
+   "why_it_matters": "Cung cấp một môi trường desktop tích hợp mạnh mẽ để quản lý các AI coding agent và tooling ngay trên máy local của bạn."
+  },
+  {
+   "id": "ac945c3c8745af6d9144e602ed1fbb153936aaa3",
+   "source": "github",
+   "title": "browser-use/video-use: Edit videos with coding agents",
+   "url": "https://github.com/browser-use/video-use",
+   "discussion_url": null,
+   "score": 97,
+   "comments": 0,
+   "published_at": "2026-10-26T09:24:35.415719+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ coding agent kết hợp thao tác video.",
+   "summary": "Video-use là một công cụ mã nguồn mở cho phép chỉnh sửa video bằng các coding agent như Claude Code. Nó tự động hóa việc cắt bỏ khoảng lặng, thêm phụ đề, cân chỉnh màu sắc và tạo hiệu ứng thông qua việc phân tích transcript âm thanh và hình ảnh theo yêu cầu.",
+   "why_it_matters": "Kết hợp AI agent CLI với các tác vụ đa phương tiện thực tế, giúp tự động hóa quy trình xử lý video bằng câu lệnh."
+  },
+  {
+   "id": "1739a2341816bb7a6628a1455e6456db5d96f38f",
+   "source": "github",
+   "title": "AstrBotDevs/AstrBot: AI Agent Assistant & development framework that integrates lots of IM platforms, LLMs, plugins and AI feature, and can be your openclaw alternative. ✨",
+   "url": "https://github.com/AstrBotDevs/AstrBot",
+   "discussion_url": null,
+   "score": 208,
+   "comments": 0,
+   "published_at": "2026-10-26T09:24:35.415719+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "AI Agent assistant framework tích hợp đa nền tảng, phù hợp lập trình viên.",
+   "summary": "AstrBot là một nền tảng chatbot AI mã nguồn mở dạng all-in-one tích hợp với nhiều ứng dụng nhắn tin lớn như Telegram, Slack và Discord. Nó cung cấp cơ sở hạ tầng AI hội thoại hỗ trợ LLM, MCP, plugin, sandbox cho agent và khả năng nén ngữ cảnh tự động.",
+   "why_it_matters": "Giúp bạn dễ dàng xây dựng, tích hợp và triển khai các AI agent cùng công cụ MCP vào các nền tảng chat workflows hàng ngày."
+  },
+  {
+   "id": "9356a17d359413878a90148cff817d0bc8a0913c",
+   "source": "github",
+   "title": "basketikun/infinite-canvas: 面向 AI 创作的开源无限画布工作台，集成 AI 生图、参考图编辑、视频生成、Agent 智能助手、画布编排、对话创作、提示词库与素材管理等能力，支持可视化创作流程与多 Agent 协同工作。兼容 OpenAI 接口生态，支持 chatgpt2api、grok2api、flow2api、newapi 等渠道接入。",
+   "url": "https://github.com/basketikun/infinite-canvas",
+   "discussion_url": null,
+   "score": 153,
+   "comments": 0,
+   "published_at": "2026-10-26T09:24:35.415719+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Canvas không giới hạn cho AI agent và creator, hỗ trợ tích hợp LLM.",
+   "summary": "Infinite Canvas là một workspace vô hạn mã nguồn mở phục vụ cho sáng tạo nội dung AI, tích hợp sinh ảnh, video, chatbot trợ lý và giao diện kéo thả node. Nó hỗ trợ kết nối với các mô hình qua giao thức tương thích OpenAI và cho phép tích hợp các local Canvas Agent thông qua MCP.",
+   "why_it_matters": "Mang đến một giao diện trực quan, dễ mở rộng bằng TypeScript để kết hợp các mô hình AI đa modal và coding agent vào chung một workflow."
+  },
+  {
+   "id": "fcf30257bb76178fc4ccb6ee673223cee09f3ae3",
+   "source": "hn",
+   "title": "The State of Context Engineering",
+   "url": "https://dbreunig.com/2026/10/24/the-state-of-context-engineering.html",
+   "discussion_url": "https://news.ycombinator.com/item?id=50235780",
+   "score": 86,
+   "comments": 25,
+   "published_at": "2026-10-25T20:32:31Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Phân tích kỹ thuật chuyên sâu về context engineering cho LLM.",
+   "summary": "Bài viết thảo luận về sự phát triển của 'Context Engineering' từ thời kỳ kỳ vọng đưa mọi thứ vào cửa sổ ngữ cảnh lớn đến các thách thức thực tế hiện nay. Tác giả phân tích bốn dạng lỗi ngữ cảnh chính gồm poisoning, distraction, confusion và clash khi xây dựng các ứng dụng LLM.",
+   "why_it_matters": "Cung cấp những bài học thực chiến và kiến trúc quan trọng để tối ưu hóa context window khi xây dựng các hệ thống AI và agent phức tạp."
+  },
+  {
+   "id": "d7598384e630ba6fbee456c25bc641b19bddfd33",
+   "source": "hn",
+   "title": "All you need is Wide Events, not \"Metrics, Logs and Traces\"",
+   "url": "https://isburmistrov.substack.com/p/all-you-need-is-wide-events-not-metrics",
+   "discussion_url": "https://news.ycombinator.com/item?id=50234329",
+   "score": 83,
+   "comments": 37,
+   "published_at": "2026-10-25T18:11:38Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Bài viết kỹ thuật DevOps về monitoring và Wide Events.",
+   "summary": "Bài viết bàn về việc sử dụng 'wide events' thô thay cho metrics, logs và traces truyền thống để debug hiệu quả hơn. Thảo luận tập trung vào thách thức về chi phí lưu trữ và truy vấn ở quy mô lớn khi không gom cụm trước dữ liệu.",
+   "why_it_matters": "Giúp bạn cân nhắc các phương pháp observability và tối ưu chi phí hạ tầng khi xây dựng hệ thống cloud-native quy mô lớn."
+  },
+  {
+   "id": "c45c68dc9fe27319a2fa5d0add6b78dd9d68ee22",
+   "source": "hn",
+   "title": "OpenAI and Anthropic cut their LLM prices by up to 80% within a few months. Why?",
+   "url": "https://minimaxir.com/2026/10/cheap-llms",
+   "discussion_url": "https://news.ycombinator.com/item?id=50236102",
+   "score": 161,
+   "comments": 188,
+   "published_at": "2026-10-25T21:11:31Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 7.0,
+   "reason": "Phân tích xu hướng giảm giá API LLM của OpenAI và Anthropic.",
+   "summary": "OpenAI và Anthropic liên tục giảm giá mạnh các dòng LLM chủ lực (như GPT và Claude) lên tới 80% trong vòng vài tháng. Việc tối ưu chi phí đọc cache (cache read cost) đóng vai trò cốt lõi trong việc giảm tổng chi phí vận hành các agentic coding workflows.",
+   "why_it_matters": "Việc giảm giá sâu và tối ưu token cache giúp các công cụ developer dựa trên LLM và coding agent trở nên kinh tế hơn rất nhiều cho công việc phát triển hằng ngày."
+  },
+  {
+   "id": "935936a124b2a8a7b8bc0898a76aa6bfdabf4aad",
+   "source": "lobsters",
+   "title": "Bringing uv and ty together",
+   "url": "https://astral.sh/blog/uv-ty-integration",
+   "discussion_url": "https://lobste.rs/s/dfieqa/bringing_uv_ty_together",
+   "score": 54,
+   "comments": 0,
+   "published_at": "2026-10-24T10:27:34.811000-05:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 7.0,
+   "reason": "Cập nhật tích hợp công cụ Python uv và ty.",
+   "summary": "Astral công bố tích hợp thử nghiệm giữa uv và ty, kết hợp trình quản lý gói với trình kiểm tra kiểu (type checker) để hỗ trợ script Python chuẩn PEP 723. Bản cập nhật này cũng giới thiệu lệnh `uv check` nhằm hợp nhất các tác vụ kiểm tra môi trường và code vào một giao diện duy nhất.",
+   "why_it_matters": "Cải thiện đáng kể luồng công việc Python của bạn bằng một công cụ dòng lệnh tốc độ cao, giúp tự động hóa việc quản lý môi trường và kiểm tra kiểu code mượt mà hơn."
+  },
+  {
+   "id": "f9173bb79a9aefe76fd9781bc78573a9f35efe5b",
+   "source": "github",
+   "title": "HKUDS/DeepTutor: DeepTutor: Lifelong Personalized Tutoring. https://deeptutor.info/ .",
+   "url": "https://github.com/HKUDS/DeepTutor",
+   "discussion_url": null,
+   "score": 176,
+   "comments": 0,
+   "published_at": "2026-10-26T09:24:35.415719+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 7.0,
+   "reason": "Framework AI tutoring cá nhân hóa dựa trên LLM.",
+   "summary": "DeepTutor là một nền tảng mã nguồn mở chuyên về trợ giúp học tập cá nhân hóa với nhiều bản cập nhật liên tục hỗ trợ tích hợp LLM, xử lý tài liệu đa định dạng và quản lý kiến thức. Dự án cung cấp hệ thống quản lý workspace, khả năng tích hợp công cụ và tương thích với nhiều nhà cung cấp AI khác nhau.",
+   "why_it_matters": "Đây là một dự án nguồn mở thú vị để tham khảo cách xây dựng các ứng dụng RAG nâng cao và agentic workflow tích hợp nhiều LLM providers."
+  },
+  {
+   "id": "1dc75a32fc6a65d3604d6f07708a6a4cf8951ef5",
+   "source": "hn",
+   "title": "A 10-year-old CNN outperforms frontier LLMs for skin cancer diagnosis",
+   "url": "https://lynchlab.net/llm-skin-cancer",
+   "discussion_url": "https://news.ycombinator.com/item?id=50233779",
+   "score": 449,
+   "comments": 214,
+   "published_at": "2026-10-25T17:15:38Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 6.0,
+   "reason": "So sánh hiệu năng CNN và LLM trong y tế, có chiều sâu.",
+   "summary": "Một thử nghiệm thực tế cho thấy mạng neural tích chập (CNN) Inception v3 tinh chỉnh từ 10 năm trước có độ chính xác cao hơn các LLM tối tân như GPT-6 Astra và Claude Fable 5.1 trong việc chẩn đoán ung thư da qua hình ảnh. Mô hình CNN này đủ nhỏ để chạy trực tiếp trên trình duyệt di động sử dụng WebGPU.",
+   "why_it_matters": "Bài học thực tế về việc các mô hình học máy chuyên biệt, gọn nhẹ đôi khi vượt trội hơn các LLM tổng quát đắt đỏ cho các bài toán phân loại hình ảnh cụ thể."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 64,
+  "fetched_github": 48,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 137,
+  "after_dedupe": 135,
+  "after_filter": 70,
+  "ai": "gemini",
+  "ai_tokens_in": 15242,
+  "ai_tokens_out": 3781,
+  "sent": 10,
+  "summarized": 10
+ },
+ "radar": []
+}
