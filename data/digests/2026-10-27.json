@@ -1,0 +1,192 @@
+{
+ "date": "2026-10-27",
+ "items": [
+  {
+   "id": "6080fb8b34b08ea36cc627b2c2f60a2f60cd08c9",
+   "source": "github",
+   "title": "JetBrains/thinkrail: Vibe code with pi in a lightweight, real IDE that customises itself around the way you work — The Vibe You Need",
+   "url": "https://github.com/JetBrains/thinkrail",
+   "discussion_url": null,
+   "score": 1173,
+   "comments": 0,
+   "published_at": "2026-10-27T09:59:40.470625+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "IDE mới tích hợp AI vibe coding, rất hợp xu hướng developer tool.",
+   "summary": "ThinkRail là một IDE tích hợp agentic được thiết kế xung quanh coding agent 'pi', cung cấp các workspace độc lập bằng git worktree và duy trì kiến thức dự án thông qua hệ thống SPEC.md. Công cụ này hỗ trợ chạy nhiều phiên chat song song, tích hợp MCP servers và cho phép tùy chỉnh giao diện/công cụ theo luồng công việc thực tế.",
+   "why_it_matters": "Cung cấp một môi trường phát triển tích hợp sâu với AI agent và MCP, giúp tối ưu hóa quy trình lập trình đa nhiệm và quản lý ngữ cảnh dự án."
+  },
+  {
+   "id": "974d536836f241e85fe320cfc7d527d99bb2bf79",
+   "source": "github",
+   "title": "microsoft/skill-recorder: Desktop app that records your on-screen work session and uses the GitHub Copilot SDK to reconstruct it as an intent + ordered steps, then builds a reusable Skill or Automation for Microsoft Autopilots like Scout, Microsoft Copilot Cowork, or Copilot Studio.",
+   "url": "https://github.com/microsoft/skill-recorder",
+   "discussion_url": null,
+   "score": 203,
+   "comments": 0,
+   "published_at": "2026-10-27T09:59:40.470625+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ desktop ghi lại thao tác màn hình, tích hợp GitHub Copilot SDK tạo automation skill.",
+   "summary": "Microsoft/skill-recorder là ứng dụng desktop ghi lại các thao tác màn hình, terminal và hành vi làm việc của bạn, sau đó sử dụng GitHub Copilot SDK để phân tích và tái tạo thành một chuỗi các bước có chủ ý. Công cụ này giúp tự động chuyển đổi các thao tác thủ công thành các Skill tái sử dụng hoặc lịch chạy Automation cho các AI agent.",
+   "why_it_matters": "Giúp tự động hóa việc tạo các custom skills và workflows cho AI coding assistant ngay từ những thao tác thực tế hàng ngày của bạn."
+  },
+  {
+   "id": "d5008547bc0cef4155b1c49d8b409d718db5921e",
+   "source": "github",
+   "title": "HarnessRouter/harnessrouter: HarnessRouter Community Edition: the self-hosted, Apache-2.0 edition of the unified interface for agent harnesses. Run Codex, Claude Code, Hermes, PI, DSH, and more through one API, with sessions, streaming, files, cancellation, and failure handling. Implements the Unified Harness Protocol (UHP), an open standard. Your keys, your infrastructure.",
+   "url": "https://github.com/HarnessRouter/harnessrouter",
+   "discussion_url": null,
+   "score": 77,
+   "comments": 0,
+   "published_at": "2026-10-27T09:59:40.470625+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Unified interface cho agent harnesses, hỗ trợ nhiều coding agents và chuẩn UHP.",
+   "summary": "HarnessRouter Community Edition là tầng cơ sở hạ tầng self-hosted (mã nguồn mở Apache-2.0) giúp thống nhất các AI agent harness phổ biến như Codex, Claude Code hay Pi thông qua một API duy nhất tương thích với OpenAI. Nền tảng này hỗ trợ quản lý các phiên làm việc bền vững, streaming, xử lý tệp tin và lỗi thông qua Unified Harness Protocol (UHP).",
+   "why_it_matters": "Cho phép bạn dễ dàng tích hợp và chuyển đổi giữa nhiều coding agent và LLM backends khác nhau trong hệ thống CI/CD hoặc môi trường tự host."
+  },
+  {
+   "id": "a47d4e82f3ab9dbcc1f92e65a8d60d9161023ccc",
+   "source": "hn",
+   "title": "Fixing Tool-Call Accuracy in vLLM",
+   "url": "https://ubicloud.com/blog/fixing-tool-call-accuracy-in-vllm",
+   "discussion_url": "https://news.ycombinator.com/item?id=50242870",
+   "score": 151,
+   "comments": 65,
+   "published_at": "2026-10-26T12:59:48Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Kỹ thuật tối ưu Tool-Call Accuracy trong vLLM, rất quan trọng cho LLM serving.",
+   "summary": "Bài viết phân tích tầm quan trọng của độ chính xác khi model gọi tool (tool-call accuracy) trong các tác vụ agentic đa lượt và giới thiệu giải pháp constrained decoding mới được thêm vào vLLM 0.31. Tính năng này giúp các inference server đảm bảo tuân thủ tuyệt đối schema của JSON khi phục vụ các open-weight model như Kimi hay DeepSeek.",
+   "why_it_matters": "Giúp bạn khắc phục triệt để lỗi gọi tool sai schema khi tự host các mô hình AI mã nguồn mở cho các coding agent và LLM tooling."
+  },
+  {
+   "id": "81f33d0f3f662b4162ad71b7782fa74bd32d1806",
+   "source": "github",
+   "title": "homeassistant-ai/ha-mcp: The Unofficial and Awesome Home Assistant MCP Server",
+   "url": "https://github.com/homeassistant-ai/ha-mcp",
+   "discussion_url": null,
+   "score": 36,
+   "comments": 0,
+   "published_at": "2026-10-27T09:59:40.470625+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Home Assistant MCP Server, cực kỳ hợp với xu hướng MCP tooling.",
+   "summary": "Ha-mcp là một Model Context Protocol (MCP) server không chính thức dưới dạng Custom Component dành cho Home Assistant, cho phép các trợ lý AI tương tác trực tiếp với hệ sinh thái nhà thông minh qua ngôn ngữ tự nhiên. Phiên bản mới cung cấp khả năng cài đặt trực tiếp in-process thông qua HACS trên mọi loại cấu hình Home Assistant và hỗ trợ xác thực linh hoạt.",
+   "why_it_matters": "Mở rộng khả năng tích hợp của MCP server vào hệ thống tự động hóa nhà thông minh chạy self-hosted của bạn."
+  },
+  {
+   "id": "2cc0598e6cc3473d207fa4a454c4cb38586341a7",
+   "source": "hn",
+   "title": "The Git Forge for Agent-Human Collaboration",
+   "url": "https://entire.com/blog/the-git-forge-for-agent-human-collaboration",
+   "discussion_url": "https://news.ycombinator.com/item?id=50247453",
+   "score": 54,
+   "comments": 35,
+   "published_at": "2026-10-26T17:23:11Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Git Forge thiết kế riêng cho mô hình cộng tác Agent-Human.",
+   "summary": "Entire là một Git forge mới được xây dựng dành riêng cho việc cộng tác giữa AI agent và con người, tích hợp các nguyên lý như Trails thay cho PR truyền thống, hosting Git phân tán siêu tốc, và hệ thống Continuous Memory. Công cụ này cung cấp giao diện đánh giá code tự động thông qua các agent độc lập chạy trong sandbox đám mây trước khi cho phép merge.",
+   "why_it_matters": null
+  },
+  {
+   "id": "b81d93d9055144467fcd24eecd9aa58892aaa9fc",
+   "source": "github",
+   "title": "CodebuffAI/freebuff: The free coding agent",
+   "url": "https://github.com/CodebuffAI/freebuff",
+   "discussion_url": null,
+   "score": 29,
+   "comments": 0,
+   "published_at": "2026-10-27T09:59:40.470625+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Coding agent mã nguồn mở miễn phí, đúng tâm điểm quan tâm.",
+   "summary": "Freebuff là một coding agent mã nguồn mở miễn phí, hoạt động trên đa nền tảng từ CLI, desktop, web cho đến cloud mà không cần subscription hay API key riêng. Công cụ này cung cấp danh mục các mô hình AI mạnh mẽ bao gồm cả các model chuyên biệt cho việc tìm kiếm file, lập kế hoạch và lập trình song song.",
+   "why_it_matters": null
+  },
+  {
+   "id": "8cfee209e93b7c87bce3a6e95fa3e7022cf73087",
+   "source": "hn",
+   "title": "Show HN: Hob - Open-source, on device alternative to Claude Cowork and ChatGPT",
+   "url": "https://github.com/FrigadeHQ/hob",
+   "discussion_url": "https://news.ycombinator.com/item?id=50246238",
+   "score": 124,
+   "comments": 30,
+   "published_at": "2026-10-26T16:12:29Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Alternative mã nguồn mở chạy local thay thế Claude Cowork và ChatGPT.",
+   "summary": "Hob là một giải pháp mã nguồn mở chạy hoàn toàn cục bộ trên máy tính cá nhân (Mac, Windows, Linux) như một lựa chọn thay thế cho Claude Cowork và ChatGPT. Công cụ này cho phép chạy các open-weight model như Gemma hay gpt-oss một cách bảo mật và hoàn toàn ngoại tuyến.",
+   "why_it_matters": null
+  },
+  {
+   "id": "95d5916fd6281c36fd630aa1b5d1165f56c19b02",
+   "source": "hn",
+   "title": "Cross-request KV cache exposure in the GLM-5.3 Workers AI model (155 responses)",
+   "url": "https://blog.cloudflare.com/kv-cache-exposure-remediation",
+   "discussion_url": "https://news.ycombinator.com/item?id=50252159",
+   "score": 88,
+   "comments": 24,
+   "published_at": "2026-10-26T22:41:48Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Lỗ hổng bảo mật rò rỉ KV cache chéo request trong mô hình AI, cực kỳ nghiêm trọng.",
+   "summary": "Cloudflare đã công bố báo cáo về sự cố rò rỉ KV cache chéo giữa các request của model GLM-5.3 trên Workers AI, nguyên nhân do sự kết hợp giữa cấu hình thiếu hụt dung lượng pool và lỗi xử lý prompt quá dài của engine SGLang. Đội ngũ đã nhanh chóng vô hiệu hóa model, vá cấu hình phần cứng và cập nhật engine inference để khắc phục triệt để.",
+   "why_it_matters": null
+  },
+  {
+   "id": "1606cfe2c2a91a41cc45f731859c6869e9340b81",
+   "source": "github",
+   "title": "TauricResearch/TradingAgents: TradingAgents: Multi-Agents LLM Financial Trading Framework",
+   "url": "https://github.com/TauricResearch/TradingAgents",
+   "discussion_url": null,
+   "score": 1395,
+   "comments": 0,
+   "published_at": "2026-10-27T09:59:40.470625+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Framework multi-agent LLM tài chính trên GitHub, rất phù hợp cho developer thích AI tool.",
+   "summary": "TradingAgents là một framework giao dịch tài chính đa agent sử dụng LLM, vừa phát hành phiên bản v0.7.0 với khả năng chạy trên tài khoản ChatGPT Plus/Pro và cải tiến tính năng backtest. Khung làm việc này mô phỏng hoạt động của một công ty giao dịch thực tế thông qua các agent chuyên trách về phân tích kỹ thuật, cơ bản và quản lý rủi ro.",
+   "why_it_matters": null
+  }
+ ],
+ "stats": {
+  "fetched_hn": 100,
+  "fetched_github": 49,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 174,
+  "after_dedupe": 167,
+  "after_filter": 70,
+  "ai": "gemini",
+  "ai_tokens_in": 13901,
+  "ai_tokens_out": 4645,
+  "sent": 10,
+  "summarized": 10
+ },
+ "radar": []
+}
