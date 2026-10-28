@@ -1,0 +1,190 @@
+{
+ "date": "2026-10-28",
+ "items": [
+  {
+   "id": "8ac198972094b1b5917753df1abe71739aab233e",
+   "source": "github",
+   "title": "NVIDIA/auto-ontology: Auto Ontology is a Python framework for building semantic, graph-based reasoning layers over data. It enables deterministic query generation, better context retrieval, and more explainable AI for LLM and agent workflows.",
+   "url": "https://github.com/NVIDIA/auto-ontology",
+   "discussion_url": null,
+   "score": 80,
+   "comments": 0,
+   "published_at": "2026-10-28T10:10:38.532236+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Python framework cho semantic reasoning layers và LLM agent workflows.",
+   "summary": "Nvidia auto-ontology là một framework Python mã nguồn mở dùng để xây dựng các tầng ngữ cảnh, đồ thị tri thức và quản lý metadata cho các tác vụ AI. Công cụ này hỗ trợ truy vấn text-to-SQL chính xác nhờ kết nối với các mô hình NVIDIA NIM và tích hợp trực tiếp qua MCP, CLI lẫn API.",
+   "why_it_matters": "Cung cấp một giải pháp thực tế để ground LLM agents vào dữ liệu doanh nghiệp một cách đáng tin cậy thông qua giao thức MCP."
+  },
+  {
+   "id": "4f18326ae4df5e5e1215683a8e53b053538a5828",
+   "source": "github",
+   "title": "grafana/mcp-grafana: MCP server for Grafana",
+   "url": "https://github.com/grafana/mcp-grafana",
+   "discussion_url": null,
+   "score": 9,
+   "comments": 0,
+   "published_at": "2026-10-28T10:10:38.532236+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "MCP server cho Grafana, tích hợp trực tiếp vào AI tooling và DevOps.",
+   "summary": "Grafana phát hành một Model Context Protocol (MCP) server cho phép các LLM client như Claude Desktop hoặc Cursor kết nối trực tiếp với hệ thống Grafana. Công cụ này hỗ trợ tìm kiếm, truy vấn dữ liệu từ Prometheus, Loki, ClickHouse và quản lý dashboard thông qua các lệnh gọi chuyên dụng.",
+   "why_it_matters": "Giúp bạn tích hợp hệ thống observability và metrics trực tiếp vào AI coding workflow của mình thông qua MCP."
+  },
+  {
+   "id": "5ef94984dce414f6cd0dec7eb033a3aff5071eaa",
+   "source": "hn",
+   "title": "Genie 4",
+   "url": "https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation",
+   "discussion_url": "https://news.ycombinator.com/item?id=50261319",
+   "score": 768,
+   "comments": 464,
+   "published_at": "2026-10-27T16:06:01Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Genie 4 mô hình AI mới từ DeepMind, đúng chủ đề quan tâm.",
+   "summary": "Google công bố Genie 4, một mô hình thế giới đa phương thức thế hệ mới hỗ trợ giả lập tương tác thời gian thực với độ chân thực cao về vật lý. Mô hình này tích hợp các khả năng của gia đình Gemini để tạo âm thanh nguyên bản, đối thoại tương tác và điều khiển cảnh qua văn bản hoặc bàn phím.",
+   "why_it_matters": "Đánh dấu bước tiến mới của công nghệ AI đa phương thức và mô hình giả lập thế giới, hữu ích cho việc xây dựng môi trường huấn luyện agent."
+  },
+  {
+   "id": "2fb0f351f38405364daa1e0520141fa488c415a6",
+   "source": "hn",
+   "title": "Tailscale SSH: Investigation and remediation update",
+   "url": "https://tailscale.com/ssh-investigation-update",
+   "discussion_url": "https://news.ycombinator.com/item?id=50264857",
+   "score": 213,
+   "comments": 114,
+   "published_at": "2026-10-27T19:55:21Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Tailscale SSH cập nhật bảo mật và khắc phục sự cố network.",
+   "summary": "Tailscale đang điều tra và chuẩn bị phát hành bản vá cho các lỗ hổng bảo mật liên quan đến Tailscale SSH, chủ yếu là các vấn đề leo thang đặc quyền. Đội ngũ phát triển khuyến nghị người dùng vô hiệu hóa chuyển tiếp SSH nếu không cần thiết bằng biến môi trường trong khi chờ bản cập nhật.",
+   "why_it_matters": "Cực kỳ quan trọng đối với các hệ thống DevOps sử dụng Tailscale SSH để quản lý hạ tầng từ xa, cần kiểm tra lại chính sách truy cập ngay."
+  },
+  {
+   "id": "74413cd4c511290d7b3da8309d5ad98da0ff36e2",
+   "source": "github",
+   "title": "video-db/call.md: Turn meetings into live agent loops. Record, transcribe, and analyze meetings with real-time AI intelligence — before, during, and after calls.",
+   "url": "https://github.com/video-db/call.md",
+   "discussion_url": null,
+   "score": 73,
+   "comments": 0,
+   "published_at": "2026-10-28T10:10:38.532236+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Agentic tool biến meeting thành real-time AI agent loops.",
+   "summary": "Call.md là một ứng dụng desktop mã nguồn mở cho phép ghi âm, chuyển đổi giọng nói thành văn bản hai kênh và phân tích cuộc họp theo thời gian thực. Công cụ này hỗ trợ tích hợp MCP để tự động kích hoạt các công cụ ngoài dựa trên nội dung hội thoại và lưu trữ dữ liệu cục bộ bằng SQLite.",
+   "why_it_matters": "Là một ứng dụng local-first tích hợp MCP rất thú vị cho các lập trình viên muốn tự động hóa quy trình làm việc từ các cuộc họp."
+  },
+  {
+   "id": "f118579760115efa518da42027f0fdc2306b0fdf",
+   "source": "hn",
+   "title": "PHP2Shell: Exploitation attempts and remediation trends",
+   "url": "https://wiz.io/blog/php2shell-exploitation-so-far",
+   "discussion_url": "https://news.ycombinator.com/item?id=50259343",
+   "score": 185,
+   "comments": 59,
+   "published_at": "2026-10-27T13:52:12Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Báo cáo phân tích khai thác lỗ hổng bảo mật và remediation.",
+   "summary": "Wiz research đang theo dõi sát sao các nỗ lực khai thác lỗ hổng PHP2Shell (CVE-2026-109618, CVE-2026-109618) trong thực tế và qua honeypot. Họ ghi nhận số lượng máy chủ kết nối internet bị phơi nhiễm lỗ hổng này đã giảm khoảng 67% kể từ khi công bố, nhờ các nỗ lực vá lỗi và nâng cấp phiên bản.",
+   "why_it_matters": "Việc theo dõi các xu hướng khai thác và lỗ hổng bảo mật nghiêm trọng như PHP2Shell giúp bạn đánh giá lại mức độ an toàn của hạ tầng web mà mình đang quản lý."
+  },
+  {
+   "id": "6dac137a56a1e59d5affcc0026720b988e0e831f",
+   "source": "hn",
+   "title": "Introducing LFM3: Every Modality for Specialized Intelligence",
+   "url": "https://liquid.ai/blog/lfm3",
+   "discussion_url": "https://news.ycombinator.com/item?id=50262229",
+   "score": 125,
+   "comments": 51,
+   "published_at": "2026-10-27T17:04:50Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Liquid AI ra mắt LFM3 mô hình đa phương thức chuyên biệt.",
+   "summary": "Liquid AI vừa giới thiệu LFM3, dòng mô hình nền tảng đa phương thức (multimodal) mã nguồn mở với dung lượng khoảng 2B tham số. Mô hình áp dụng kiến trúc kết hợp mới giữa convolution ngắn, sliding-window attention và global attention, được huấn luyện trước trên 22 nghìn tỷ token nhằm tối ưu hóa hiệu suất chạy cục bộ trên mọi thiết bị.",
+   "why_it_matters": "Một mô hình AI nhỏ gọn, hiệu suất cao, hỗ trợ context window lớn và có thể fine-tune local là công cụ đắc lực để tích hợp vào các AI coding agent và workflow phát triển của bạn."
+  },
+  {
+   "id": "a6176e0bd2a2186825d842fa19b1d4524d870fd5",
+   "source": "hn",
+   "title": "JetBrains IDEs are now powered by libghostty",
+   "url": "https://blog.jetbrains.com/platform/2026/10/jetbrains-terminal-now-uses-ghostty",
+   "discussion_url": "https://news.ycombinator.com/item?id=50260714",
+   "score": 66,
+   "comments": 10,
+   "published_at": "2026-10-27T15:22:13Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "JetBrains IDE tích hợp libghostty cải thiện hiệu suất terminal.",
+   "summary": "Bắt đầu từ phiên bản 2026.3, terminal tích hợp sẵn trong các IDE của JetBrains đã chuyển sang sử dụng libghostty, thư viện giả lập terminal đằng sau Ghostty. Thay đổi này giúp cải thiện khả năng hỗ trợ các giao thức hiện đại như Kitty keyboard protocol, tự động đồng bộ theme tối/sáng với IDE và hiển thị chính xác các control sequence phức tạp.",
+   "why_it_matters": "Nâng cấp này giúp các terminal-based tool và AI coding agent chạy trực tiếp trong JetBrains IDE hoạt động mượt mà, đồng bộ phím tắt và hiển thị giao diện chuẩn xác hơn."
+  },
+  {
+   "id": "bcb3b2eb32ae8f57dbe0181e3a9c22ed2cac6088",
+   "source": "github",
+   "title": "glanceapp/glance: A self-hosted dashboard that puts all your feeds in one place",
+   "url": "https://github.com/glanceapp/glance",
+   "discussion_url": null,
+   "score": 62,
+   "comments": 0,
+   "published_at": "2026-10-28T10:10:38.532236+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Dashboard self-hosted gom tất cả feeds tiện lợi cho DevOps.",
+   "summary": "Glance là một dashboard tự host (self-hosted) nhẹ, cấu hình qua file YAML, cho phép tổng hợp nhiều loại feed như RSS, mạng xã hội, thời tiết, trạng thái container Docker và số liệu thống kê server. Công cụ này đóng gói thành một file binary duy nhất dưới 20MB hoặc container Docker với mức tiêu thụ tài nguyên tối thiểu.",
+   "why_it_matters": "Đây là một công cụ DevOps tự host tiện lợi, giúp bạn gom tất cả RSS feed, trạng thái Docker container và monitoring dashboard vào một giao diện gọn nhẹ."
+  },
+  {
+   "id": "07a76f240bbe8813d7af01cf4266a97fe4369bb5",
+   "source": "github",
+   "title": "gitroomhq/postiz-app: 📨 The ultimate agentic social media scheduling tool 🤖",
+   "url": "https://github.com/gitroomhq/postiz-app",
+   "discussion_url": null,
+   "score": 951,
+   "comments": 0,
+   "published_at": "2026-10-28T10:10:38.532236+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 7.0,
+   "reason": "Agentic social media scheduling tool, liên quan đến LLM tooling.",
+   "summary": "Postiz-app là một công cụ lên lịch mạng xã hội mang tính agentic được xây dựng bằng công nghệ NextJS, NestJS, Prisma và Temporal, hỗ trợ triển khai mã nguồn mở trên hạ tầng tự host qua Docker. Dự án cung cấp đầy đủ các tính năng tự động hóa, API công khai và tích hợp sẵn các surface cho AI agent như MCP hay CLI.",
+   "why_it_matters": "Cung cấp một nền tảng tự động hóa mạng xã hội mã nguồn mở tích hợp sẵn AI agent và MCP, phù hợp để tự host trên hạ tầng cloud của bạn."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 96,
+  "fetched_github": 53,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 174,
+  "after_dedupe": 170,
+  "after_filter": 72,
+  "ai": "gemini",
+  "ai_tokens_in": 13879,
+  "ai_tokens_out": 4629,
+  "sent": 10,
+  "summarized": 10
+ },
+ "radar": []
+}
