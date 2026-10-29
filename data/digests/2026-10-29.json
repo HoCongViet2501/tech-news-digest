@@ -1,0 +1,196 @@
+{
+ "date": "2026-10-29",
+ "items": [
+  {
+   "id": "1a01afe6b15e252e51cafbc5b74a8c1016d07957",
+   "source": "github",
+   "title": "KeygraphHQ/shannon: Shannon is an AI pentester for web applications and APIs. It analyzes your source code, identifies attack vectors, and executes real exploits to prove vulnerabilities before they reach production.",
+   "url": "https://github.com/KeygraphHQ/shannon",
+   "discussion_url": null,
+   "score": 476,
+   "comments": 0,
+   "published_at": "2026-10-29T10:35:57.118028+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 10.0,
+   "reason": "AI pentester mã nguồn mở cực kỳ phù hợp với công cụ dev thông minh.",
+   "summary": "Shannon là một pentester AI mã nguồn mở giúp tự động phân tích source code của ứng dụng web và API để tìm kiếm lỗ hổng bảo mật. Công cụ này thực hiện khai thác thực tế (real exploits) để tạo ra các bằng chứng xác thực (proof-of-concept) trước khi mã nguồn được đưa lên production.",
+   "why_it_matters": "Giúp bạn tích hợp kiểm thử bảo mật tự động vào quy trình CI/CD để phát hiện lỗ hổng sớm trong giai đoạn phát triển."
+  },
+  {
+   "id": "f40066880a48ed2fcf883298a5e864110a4502b0",
+   "source": "hn",
+   "title": "The Agent SDK",
+   "url": "https://cursor.com/blog/agent-sdk",
+   "discussion_url": "https://news.ycombinator.com/item?id=50273731",
+   "score": 104,
+   "comments": 115,
+   "published_at": "2026-10-28T14:02:20Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 10.0,
+   "reason": "Agent SDK từ Cursor phục vụ trực tiếp cho AI coding agent.",
+   "summary": "Agent SDK là một framework cho phép lập trình viên định nghĩa các agent AI bằng code TypeScript và quản lý chúng như những dự án phần mềm thông thường. SDK này hỗ trợ tích hợp với các sự kiện từ Git, chạy đánh giá (evals), và triển khai trực tiếp lên hạ tầng của Cursor hoặc dưới dạng container Node.js độc lập.",
+   "why_it_matters": "Cung cấp công cụ mạnh mẽ để tự động hóa các tác vụ DevOps và quy trình code review bằng các agent tùy chỉnh theo luồng làm việc của bạn."
+  },
+  {
+   "id": "8d3f1a7de3a204ab06fa7dbbdc5e6786ad14cf88",
+   "source": "github",
+   "title": "ParadevAI/Paradev: Paradev (formerly Superset) is an agentic IDE to orchestrate 100+ coding agents in parallel. Run any agent with your own subscription.",
+   "url": "https://github.com/ParadevAI/Paradev",
+   "discussion_url": null,
+   "score": 48,
+   "comments": 0,
+   "published_at": "2026-10-29T10:35:57.118028+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 10.0,
+   "reason": "IDE điều phối hàng loạt coding agent song song.",
+   "summary": "Paradev là một IDE agentic mã nguồn mở cho phép điều phối hàng loạt coding agent chạy song song trong các Git worktree độc lập. Ứng dụng desktop này tích hợp sẵn terminal, tính năng review code, và trình duyệt xem trước để quản lý các tác vụ phức tạp.",
+   "why_it_matters": "Tối ưu hóa năng suất lập trình và kiểm thử khi cần chạy song song nhiều tác vụ AI trên các nhánh code khác nhau."
+  },
+  {
+   "id": "ca89d9ff00985dc4fc22ac262328f213b8777af0",
+   "source": "github",
+   "title": "Yeachan-Heo/oh-my-claudecode: Teams-first Multi-agent orchestration for Claude Code",
+   "url": "https://github.com/Yeachan-Heo/oh-my-claudecode",
+   "discussion_url": null,
+   "score": 40,
+   "comments": 0,
+   "published_at": "2026-10-29T10:35:57.118028+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 10.0,
+   "reason": "Công cụ đa tác nhân phối hợp cho Claude Code.",
+   "summary": "Oh-my-claudecode là một công cụ điều phối multi-agent dành riêng cho Claude Code, giúp tự động hóa quy trình phát triển qua các giai đoạn như lập kế hoạch, thực thi và QA. Công cụ này cung cấp các lệnh slash tiện lợi và hỗ trợ các chuỗi công việc (workflows) cấu hình sẵn.",
+   "why_it_matters": "Giúp tối ưu hóa trải nghiệm sử dụng Claude Code cho các tác vụ lập trình phức tạp đòi hỏi nhiều bước phối hợp tự động."
+  },
+  {
+   "id": "f3975b5b23ff6b54c1cac96116f0cecbbec6e2f9",
+   "source": "github",
+   "title": "plandex-ai/plandex: Open source AI coding agent. Designed for large projects and real world tasks.",
+   "url": "https://github.com/plandex-ai/plandex",
+   "discussion_url": null,
+   "score": 13,
+   "comments": 0,
+   "published_at": "2026-10-29T10:35:57.118028+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 10.0,
+   "reason": "AI coding agent mã nguồn mở dành cho dự án lớn.",
+   "summary": "Plandex là một công cụ AI chạy trên terminal được thiết kế để xử lý các tác vụ lập trình lớn, phức tạp và trải dài trên nhiều file. Công cụ này hỗ trợ cửa sổ ngữ cảnh lớn, lập bản đồ dự án bằng tree-sitter, và cung cấp một sandbox để xem xét các thay đổi trước khi áp dụng.",
+   "why_it_matters": "Hỗ trợ đắc lực cho việc phát triển các tính năng lớn trên các codebase phức tạp mà không làm rối cấu trúc dự án hiện tại."
+  },
+  {
+   "id": "9d02bbba005f11f74e57ae8f8590c55b3e366cdd",
+   "source": "lobsters",
+   "title": "Code-execution flaw in UEFI firmware affects most servers on planet Earth",
+   "url": "https://arstechnica.com/security/2026/10/code-execution-flaw-in-uefi-firmware-threatens-most-servers-on-planet-earth",
+   "discussion_url": "https://lobste.rs/s/0gomue/code_execution_flaw_uefi_firmware",
+   "score": 27,
+   "comments": 13,
+   "published_at": "2026-10-28T04:18:31.981000-05:00",
+   "tags": [
+    "security"
+   ],
+   "also_on": [],
+   "relevance": 10.0,
+   "reason": "Lỗ hổng thực thi mã nguồn UEFI ảnh hưởng toàn cầu hạ tầng server.",
+   "summary": "Lỗi lỗ hổng thực thi mã nguồn nghiêm trọng (CVE-2026-97631) đã được phát hiện trong TianoCore EDK II, mã nguồn mở làm nền tảng cho firmware UEFI của hầu hết các nhà sản xuất máy chủ và trung tâm dữ liệu trên thế giới. Lỗi tràn bộ đệm trong trình điều khiển PXE-Base Code cho phép kẻ tấn công cục bộ hoặc qua mạng gửi gói tin ICMP đặc biệt để chiếm quyền điều khiển quá trình khởi động hệ thống trước khi các cơ chế bảo mật như Secure Boot hoạt động.",
+   "why_it_matters": "Quan trọng đối với DevOps quản lý hạ tầng cloud và máy chủ vật lý, vì các lỗ hổng cấp thấp ở tầng firmware đòi hỏi quy trình cập nhật BIOS/UEFI cực kỳ phức tạp để đảm bảo an toàn chuỗi cung ứng."
+  },
+  {
+   "id": "c1abda2ec708e7902beb16f2d1f8a660c19fa248",
+   "source": "hn",
+   "title": "Apple's git still trusts the compromised eMudhra certificates",
+   "url": "https://emudhra.we-have-a-problem.com/apple.html",
+   "discussion_url": "https://news.ycombinator.com/item?id=50271640",
+   "score": 1066,
+   "comments": 381,
+   "published_at": "2026-10-28T11:03:40Z",
+   "tags": [],
+   "also_on": [
+    "lobsters"
+   ],
+   "relevance": 9.0,
+   "reason": "Lỗi bảo mật chứng chỉ số ảnh hưởng trực tiếp đến hệ thống phát triển.",
+   "summary": "Các công cụ dòng lệnh được Apple tích hợp sẵn trong macOS như git và curl vẫn tiếp tục tin tưởng các chứng chỉ eMudhra trung gian đã bị xâm phạm. Lỗi này khiến các kết nối HTTPS qua git và curl có nguy cơ bị tấn công man-in-the-middle, cho phép kẻ xấu chặn hoặc giả mạo mã nguồn và đánh cắp thông tin xác thực.",
+   "why_it_matters": "Liên quan trực tiếp đến môi trường làm việc của developer trên macOS và các runner CI dùng để build ứng dụng, đòi hỏi phải có biện pháp kiểm tra hoặc gỡ bỏ thủ công các root CA bị ảnh hưởng."
+  },
+  {
+   "id": "f791d596ac0483f5b78b5630d0a9928b8c71597a",
+   "source": "github",
+   "title": "n8n-io/n8n: Fair-code workflow automation platform with native AI capabilities. Combine visual building with custom code, self-host or cloud, 400+ integrations.",
+   "url": "https://github.com/n8n-io/n8n",
+   "discussion_url": null,
+   "score": 156,
+   "comments": 0,
+   "published_at": "2026-10-29T10:35:57.118028+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Nền tảng automation tích hợp AI và self-host, rất hợp DevOps.",
+   "summary": "N8n là một nền tảng tự động hóa mã nguồn mở (fair-code) tích hợp sẵn các tính năng AI, cho phép xây dựng quy trình làm việc đa bước và các tác nhân AI (AI agents). Công cụ này kết hợp giao diện trực quan với khả năng tùy chỉnh bằng JavaScript, Python và các gói npm, hỗ trợ triển khai tự lưu trữ (self-hosted) qua Docker.",
+   "why_it_matters": "Cung cấp cho full-stack developer một giải pháp tự-lưu-trữ linh hoạt để xây dựng các AI agent và quy trình tự động hóa phức tạp bằng code quen thuộc."
+  },
+  {
+   "id": "efc9440cd0fad93dbfd11935c85c72744bdb2071",
+   "source": "hn",
+   "title": "About the compromised eMudhra intermediate CAs",
+   "url": "https://support.apple.com/en-us/149555",
+   "discussion_url": "https://news.ycombinator.com/item?id=50271685",
+   "score": 155,
+   "comments": 75,
+   "published_at": "2026-10-28T11:08:49Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Thông tin chi tiết về sự cố chứng chỉ CA của Apple.",
+   "summary": "Apple đang tự động chặn các chứng chỉ CA eMudhra bị xâm phạm trên Safari và các ứng dụng dùng framework mạng của hãng. Tuy nhiên, các công cụ dòng lệnh như curl và git trên macOS sử dụng file `/etc/ssl/cert.pem` riêng nên vẫn chấp nhận các chứng chỉ này cho đến khi có bản cập nhật hệ thống hoặc người dùng tự xóa thủ công.",
+   "why_it_matters": "Giúp dev và kỹ sư DevOps chạy macOS nhận biết rủi ro bảo mật tiềm ẩn trong các công cụ dòng lệnh và CI runner cục bộ để chủ động áp dụng biện pháp khắc phục."
+  },
+  {
+   "id": "c6d25904346f640c5150eb407be1c2c1d3ab1c3f",
+   "source": "hn",
+   "title": "GitLab Security Incident: Attempted Exploitation of CVE-2026-97229",
+   "url": "https://alpinelinux.org/posts/GitLab-security-incident-CVE-2026-97229.html",
+   "discussion_url": "https://news.ycombinator.com/item?id=50282544",
+   "score": 108,
+   "comments": 41,
+   "published_at": "2026-10-28T23:45:46Z",
+   "tags": [],
+   "also_on": [
+    "lobsters"
+   ],
+   "relevance": 9.0,
+   "reason": "Sự cố bảo mật và lỗ hổng khai thác trên GitLab.",
+   "summary": "Alpine Linux vừa công bố chi tiết về sự cố bảo mật khi kẻ tấn công cố gắng khai thác lỗ hổng nghiêm trọng CVE-2026-97229 liên quan đến cách GitLab đánh giá biểu thức chính quy trong cấu hình CI. Lỗ hổng thực chất nằm trong thư viện Onigmo (Ruby regex engine) mà GitLab tích hợp, khiến việc nâng cấp phiên bản GitLab tiêu chuẩn là không đủ nếu không vá đúng gói Ruby bên dưới.",
+   "why_it_matters": "Là bài học quan trọng về quản lý chuỗi cung ứng và CI/CD, nhắc nhở DevOps kiểm tra kỹ lưỡng các bản vá phụ thuộc bên dưới (như Ruby runtime) thay vì chỉ cập nhật phần mềm ứng dụng."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 90,
+  "fetched_github": 42,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 157,
+  "after_dedupe": 150,
+  "after_filter": 72,
+  "ai": "gemini",
+  "ai_tokens_in": 13873,
+  "ai_tokens_out": 3996,
+  "sent": 10,
+  "summarized": 10
+ },
+ "radar": []
+}
