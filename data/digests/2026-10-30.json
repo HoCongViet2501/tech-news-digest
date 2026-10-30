@@ -1,0 +1,194 @@
+{
+ "date": "2026-10-30",
+ "items": [
+  {
+   "id": "d374e5dcfaabd93943b01830f5edac52bc02c51a",
+   "source": "github",
+   "title": "beenuar/AiSOC: Open-source AI Security Operations Center: alert fusion, LLM-agent triage, MITRE ATT&CK investigation, and a replayable decision ledger for every agent step. Self-hostable, runs with no API keys, MIT licensed. Ships an MCP server for Claude, Cursor and Continue.",
+   "url": "https://github.com/beenuar/AiSOC",
+   "discussion_url": null,
+   "score": 320,
+   "comments": 0,
+   "published_at": "2026-10-30T10:38:56.779439+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ AI Security Operations Center mã nguồn mở tuyệt vời hỗ trợ MCP cho Claude và Cursor.",
+   "summary": "AiSOC là một trung tâm điều hành an ninh mạng tích hợp AI nguồn mở, có khả năng tự động hóa việc gom cảnh báo, phân loại bằng LLM và điều tra theo chuẩn MITRE ATT&CK. Dự án có thể tự host hoàn toàn mà không cần API key và hỗ trợ tích hợp sẵn MCP server cho Claude, Cursor và Continue.",
+   "why_it_matters": "Cung cấp một công cụ DevOps và bảo mật chạy local mạnh mẽ, tích hợp trực tiếp vào quy trình làm việc AI agent của bạn thông qua MCP."
+  },
+  {
+   "id": "248f98dc827e8dfcd78664092081da7765bb811e",
+   "source": "github",
+   "title": "rlaope/oh-my-hermes: ⚚ The coding harness with Hermes Agent wired into IDE.",
+   "url": "https://github.com/rlaope/oh-my-hermes",
+   "discussion_url": null,
+   "score": 267,
+   "comments": 0,
+   "published_at": "2026-10-30T10:38:56.779439+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Coding harness tích hợp Hermes Agent trực tiếp vào IDE, rất hữu ích cho developer.",
+   "summary": "Oh-my-hermes là một lớp vận hành mã nguồn mở giúp tích hợp Hermes Agent trực tiếp vào môi trường IDE với các luồng công việc chạy song song. Công cụ này chia nhỏ mục tiêu thành các node xử lý độc lập, tích hợp LSP để phân tích mã nguồn và cung cấp bộ nhớ dài hạn có cấu trúc.",
+   "why_it_matters": "Nâng cấp trải nghiệm lập trình với AI agent trong môi trường development bằng cách tự động hóa quy trình chia nhỏ task và tận dụng LSP để code chính xác hơn."
+  },
+  {
+   "id": "8ccea7e89b7030862a9f53eb527a17d29d33f0d5",
+   "source": "hn",
+   "title": "We're releasing the weights of Mistral Large 4",
+   "url": "https://mistral.ai/news/mistral-large-4-oss",
+   "discussion_url": "https://news.ycombinator.com/item?id=50289418",
+   "score": 1253,
+   "comments": 350,
+   "published_at": "2026-10-29T14:13:21Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Mô hình AI Mistral Large 4 ra mắt trọng lượng mở, rất đáng quan tâm.",
+   "summary": "Mistral đã phát hành trọng số của Mistral Large 4 (Le Chonk), một mô hình đa phương thức quy mô 1 tỷ tham số được tối ưu hóa cho lập trình và bảo mật phòng thủ. Mô hình này dẫn đầu các benchmark mã nguồn mở về coding agent và hỗ trợ ba chế độ suy luận để cân bằng chi phí-hiệu năng.",
+   "why_it_matters": "Mang lại một mô hình open-weight mạnh mẽ hàng đầu cho các tác vụ viết code tự động và agentic workflows với khả năng tự host linh hoạt."
+  },
+  {
+   "id": "a525c413ff0565adb408c6d4b0b45d4352b993ab",
+   "source": "hn",
+   "title": "Grace Blackwell needs a new scheduler: 27% more usable GPUs from the same racks",
+   "url": "https://skypilot.ai/blog/grace-blackwell-needs-a-new-scheduler",
+   "discussion_url": "https://news.ycombinator.com/item?id=50290912",
+   "score": 132,
+   "comments": 21,
+   "published_at": "2026-10-29T15:45:05Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Tối ưu hóa scheduler cho GPU Blackwell giúp tăng hiệu suất hạ tầng cloud.",
+   "summary": "Bài viết phân tích tầm quan trọng của cấu trúc kết nối NVLink trong các hệ thống phần cứng NVIDIA NVL72 đối với hiệu năng huấn luyện mô hình phân tán. Các giải pháp như SkyPilot Platform giúp tối ưu hóa vị trí đặt workload để giảm nghẽn cổ chai giao tiếp so với việc sử dụng InfiniBand truyền thống.",
+   "why_it_matters": "Giúp các kỹ sư DevOps hiểu sâu hơn về kiến trúc hạ tầng phần cứng AI quy mô lớn và cách tối ưu hóa phân bổ GPU cho các cụm huấn luyện."
+  },
+  {
+   "id": "c5bbc35a1910e6a6cdadbdbb1f3bef6689b04405",
+   "source": "github",
+   "title": "openobserve/openobserve: Open source observability platform for logs, metrics, traces, RUM (web, android, ios), Session replay, pipelines, SLO and LLM observability. A sophisticated, simple and highly performant alternative to Datadog, Splunk, and Elasticsearch with 140x lower storage costs and single binary deployment.",
+   "url": "https://github.com/openobserve/openobserve",
+   "discussion_url": null,
+   "score": 34,
+   "comments": 0,
+   "published_at": "2026-10-30T10:38:56.779439+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Nền tảng observability mã nguồn mở cho logs, metrics, traces và LLM observability với chi phí tối ưu.",
+   "summary": "OpenObserve là một nền tảng giám sát (observability) mã nguồn mở viết bằng Rust, hỗ trợ logs, metrics, traces và LLM observability. Nền tảng này sử dụng kiến trúc lưu trữ cột Parquet trên S3 để giảm chi phí lưu trữ đáng kể so với Elasticsearch và triển khai dễ dàng dưới dạng một binary duy nhất.",
+   "why_it_matters": "Cung cấp một giải pháp observability thay thế Datadog hiệu suất cao, nhẹ và tiết kiệm chi phí cho các hệ thống full-stack."
+  },
+  {
+   "id": "4d766eb799a55a6279b16e2acce2704c609bbf12",
+   "source": "github",
+   "title": "github/spec-kit: 💫 Toolkit to help you get started with SDD or any other process!",
+   "url": "https://github.com/github/spec-kit",
+   "discussion_url": null,
+   "score": 335,
+   "comments": 0,
+   "published_at": "2026-10-30T10:38:56.779439+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Toolkit hỗ trợ phương pháp phát triển phần mềm hướng AI (SDD).",
+   "summary": "Spec Kit là một mã nguồn mở cung cấp cho các AI coding agent các quy trình có cấu trúc, template tái sử dụng và kết quả được tài liệu hóa cho quá trình phát triển phần mềm dựa trên thông số kỹ thuật (SDD). Công cụ này hỗ trợ các điểm khởi đầu độc lập như xây dựng tính năng, sửa lỗi và đánh giá ý tưởng, tích hợp với các agent phổ biến.",
+   "why_it_matters": "Giúp bạn chuẩn hóa quy trình làm việc với AI coding agents, tăng độ chính xác khi xây dựng các tính năng full-stack mới."
+  },
+  {
+   "id": "00bd9b477b9dab7de08b0357071fbbb620411b72",
+   "source": "github",
+   "title": "PurpleDoubleD/locally-uncensored: The all-in-one local AI studio for your desktop: chat, image and video generation and a coding agent in one free, open source app. Windows and Linux. No Docker, no terminal, no cloud required.",
+   "url": "https://github.com/PurpleDoubleD/locally-uncensored",
+   "discussion_url": null,
+   "score": 111,
+   "comments": 0,
+   "published_at": "2026-10-30T10:38:56.779439+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Studio AI cục bộ mã nguồn mở tích hợp coding agent chạy trực tiếp trên desktop.",
+   "summary": "Locally.Uncensored là một ứng dụng desktop mã nguồn mở quản lý AI cục bộ, tích hợp chat, tạo ảnh/video và coding agent mà không cần Docker hay cấu hình terminal phức tạp. Phiên bản v3.0.8 cải thiện tìm kiếm web không cần API key, tối ưu hóa đa GPU và bổ sung các tính năng quản lý mô hình linh hoạt.",
+   "why_it_matters": "Cung cấp một môi trường chạy LLM và coding agent hoàn toàn cục bộ, tiết kiệm tài nguyên cloud cho các tác vụ phát triển hàng ngày."
+  },
+  {
+   "id": "2a59fbf9b4297926fd6ce8aae1346741d560a0cf",
+   "source": "github",
+   "title": "JCodesMore/ai-website-cloner-template: Clone any website with one command using AI coding agents",
+   "url": "https://github.com/JCodesMore/ai-website-cloner-template",
+   "discussion_url": null,
+   "score": 156,
+   "comments": 0,
+   "published_at": "2026-10-30T10:38:56.779439+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Template sử dụng AI coding agents để clone website tự động.",
+   "summary": "AI Website Cloner Template cho phép các AI coding agent như Claude Code hoặc Cursor sao chép bất kỳ trang web nào thành một ứng dụng Next.js sạch sẽ chỉ bằng một câu lệnh. Công cụ này tự động thực hiện các bước ánh xạ, quan sát, xây dựng và so sánh trực quan để tạo ra mã nguồn hiện đại.",
+   "why_it_matters": "Hỗ trợ dựng nhanh cấu trúc UI bằng Next.js và TypeScript từ các trang web mẫu, giúp tăng tốc quá trình phát triển frontend."
+  },
+  {
+   "id": "11ef932bb8b9a008b41117b2ab8dbef0bf1c5309",
+   "source": "hn",
+   "title": "Claude Duet is the first personal-assistant-type harness that feels useful",
+   "url": "https://fig.blue/posts/duet-is-the-future",
+   "discussion_url": "https://news.ycombinator.com/item?id=50292727",
+   "score": 110,
+   "comments": 98,
+   "published_at": "2026-10-29T17:24:25Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Đánh giá về personal assistant harness hỗ trợ workflow của lập trình viên.",
+   "summary": "Claude Duet là một giao diện cá nhân hóa dạng chatbot mới, nổi bật với tốc độ phản hồi nhanh, hệ thống quản lý kênh (channels) tự động và chính sách phân quyền truy cập GitHub repo rõ ràng. Ứng dụng này giúp tổ chức các phiên làm việc với LLM hiệu quả hơn mà không yêu cầu lưu trữ các thông tin xác thực nhạy cảm.",
+   "why_it_matters": "Giải quyết bài toán quản lý ngữ cảnh và phân tách dự án khi làm việc song song với nhiều kho lưu trữ mã nguồn."
+  },
+  {
+   "id": "e31f44bf7ab69158171387d83c5f32dc3f62e2ba",
+   "source": "github",
+   "title": "prisma/orm: The Prisma ORM: write your application in TypeScript with human-readable queries instead of SQL. Host your database on Prisma Postgres and your app on Prisma Compute.",
+   "url": "https://github.com/prisma/orm",
+   "discussion_url": null,
+   "score": 5,
+   "comments": 0,
+   "published_at": "2026-10-30T10:38:56.779439+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Cập nhật ORM phổ biến trong hệ sinh thái TypeScript cho phát triển full-stack.",
+   "summary": "Prisma 8 là bản viết lại bằng TypeScript của Prisma ORM, được thiết kế để có thể mở rộng, mô-đun hóa và thân thiện với AI agent mặc định. Phiên bản này đi kèm với các kỹ năng tích hợp cho editor/agent, kiến trúc lõi tối giản và hỗ trợ mở rộng qua public SPI như pgvector hay postgis.",
+   "why_it_matters": "Tối ưu hóa việc tương tác cơ sở dữ liệu bằng TypeScript và hỗ trợ các AI agent tự động viết truy vấn một cách chính xác."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 100,
+  "fetched_github": 47,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 172,
+  "after_dedupe": 168,
+  "after_filter": 74,
+  "ai": "gemini",
+  "ai_tokens_in": 14621,
+  "ai_tokens_out": 4099,
+  "sent": 10,
+  "summarized": 10
+ },
+ "radar": []
+}
