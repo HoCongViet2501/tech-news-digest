@@ -1,0 +1,189 @@
+{
+ "date": "2026-10-31",
+ "items": [
+  {
+   "id": "10ba719313a0c83566e4fb1db426c34c44e8815e",
+   "source": "github",
+   "title": "anthropics/skills: Public repository for Agent Skills",
+   "url": "https://github.com/anthropics/skills",
+   "discussion_url": null,
+   "score": 295,
+   "comments": 0,
+   "published_at": "2026-10-31T10:23:49.647133+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 11.0769,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "7e2aaf184ac3d7d5f70a28b85f9230db26cfda8a",
+   "source": "hn",
+   "title": "Backdoors in official Claude Code extensions",
+   "url": "https://cyberplace.social/@GossiTheDog/117528831681803563",
+   "discussion_url": "https://news.ycombinator.com/item?id=50302334",
+   "score": 652,
+   "comments": 17,
+   "published_at": "2026-10-30T11:05:53Z",
+   "tags": [],
+   "also_on": [
+    "lobsters"
+   ],
+   "relevance": 10.898,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "7d2228b2ec48c234577943226307e5f73b5a15a5",
+   "source": "hn",
+   "title": "US Reps Lead Democratic Resolution Opposing A.I. Bubble Bailout for Big Tech",
+   "url": "https://progressives.house.gov/2026/10/reps-casar-waters-lead-democratic-resolution-opposing-a-i-bubble-bailout-for-big-tech-commit-to-protecting-american-people-instead",
+   "discussion_url": "https://news.ycombinator.com/item?id=50302814",
+   "score": 627,
+   "comments": 479,
+   "published_at": "2026-10-30T12:08:00Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.6939,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "b8da6e0cd23afc2cd1506839ed6d0b61e2394c09",
+   "source": "lobsters",
+   "title": "Do At-Proto Users Know This Is Public?",
+   "url": "https://melaniekat.com/blog/public-on-pds",
+   "discussion_url": "https://lobste.rs/s/htgcuc/do_at_proto_users_know_this_is_public",
+   "score": 80,
+   "comments": 24,
+   "published_at": "2026-10-30T06:22:43.498000-05:00",
+   "tags": [
+    "privacy"
+   ],
+   "also_on": [],
+   "relevance": 9.6875,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "ffc069be509e635e3cbb8f9113a6f31e968fbdb8",
+   "source": "github",
+   "title": "Renhuai123/ziwei-doushu: 紫微斗数开源排盘引擎 — 基于倪海厦《天纪》体系，含完整排盘算法、四化系统、格局知识库、古籍原文数据",
+   "url": "https://github.com/Renhuai123/ziwei-doushu",
+   "discussion_url": null,
+   "score": 1126,
+   "comments": 0,
+   "published_at": "2026-10-31T10:23:49.647133+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.6154,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "0f5e0d0f60af5b73bee64695b3a90896aea8b509",
+   "source": "github",
+   "title": "ethanplusai/harvey: Autonomous AI sales agent powered by Claude Code or Codex. Finds prospects, writes cold emails, sends campaigns, handles replies, books meetings. No API keys needed — runs on your Claude or Codex subscriptions.",
+   "url": "https://github.com/ethanplusai/harvey",
+   "discussion_url": null,
+   "score": 244,
+   "comments": 0,
+   "published_at": "2026-10-31T10:23:49.647133+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.5385,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "363f2bcb93fdb1c2099ee6b45e1aafb97030f63c",
+   "source": "hn",
+   "title": "elect.horse",
+   "url": "https://elect.horse",
+   "discussion_url": "https://news.ycombinator.com/item?id=50301462",
+   "score": 535,
+   "comments": 150,
+   "published_at": "2026-10-30T09:14:34Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.4898,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "9e37c40a85b31b2ef31105642896b8e8fe0bb453",
+   "source": "hn",
+   "title": "AI isn't replacing SREs, it's deskilling them",
+   "url": "https://newsletter.signoz.io/p/ai-isnt-replacing-sres-its-deskilling",
+   "discussion_url": "https://news.ycombinator.com/item?id=50305693",
+   "score": 527,
+   "comments": 397,
+   "published_at": "2026-10-30T15:52:18Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.2857,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "a510883f6a1bc89524fb982d8e996a33001be3cc",
+   "source": "hn",
+   "title": "Claude Code VS Code extension with backdoor released on Cursor marketplace",
+   "url": "https://doublepulsar.com/anthropic-hacked-to-deliver-remote-access-trojan-to-claude-developer-laptops-worldwide-1148a92baae2",
+   "discussion_url": "https://news.ycombinator.com/item?id=50301983",
+   "score": 399,
+   "comments": 1,
+   "published_at": "2026-10-30T10:22:51Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0816,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "f7f694378fafcbdda9072fb134611b684bc1c70c",
+   "source": "lobsters",
+   "title": "If you love a website, back it up",
+   "url": "http://blog.mistys-internet.website/post/2026/10/29/if-you-love-a-website-back-it-up",
+   "discussion_url": "https://lobste.rs/s/6ole9g/if_you_love_website_back_it_up",
+   "score": 75,
+   "comments": 21,
+   "published_at": "2026-10-29T20:29:00.653000-05:00",
+   "tags": [
+    "web"
+   ],
+   "also_on": [],
+   "relevance": 9.0625,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  }
+ ],
+ "stats": {
+  "fetched_hn": 100,
+  "fetched_github": 47,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 172,
+  "after_dedupe": 169,
+  "after_filter": 78,
+  "ai": "unavailable",
+  "sent": 10
+ },
+ "radar": []
+}
