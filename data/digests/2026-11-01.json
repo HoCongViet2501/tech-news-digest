@@ -1,0 +1,192 @@
+{
+ "date": "2026-11-01",
+ "items": [
+  {
+   "id": "6bd209feefbeab17a3f5fb389d25b5a774e46e10",
+   "source": "hn",
+   "title": "TCP Use-After-Free: CVE-2026-98432 / CVSS 9.8",
+   "url": "https://atlasum.net/blog/cve-2026-98432-linux-ipv4-tcp-uaf",
+   "discussion_url": "https://news.ycombinator.com/item?id=50319143",
+   "score": 377,
+   "comments": 180,
+   "published_at": "2026-10-31T19:16:30Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 10.0,
+   "reason": "Lỗ hổng bảo mật TCP cực kỳ nghiêm trọng cần lưu ý.",
+   "summary": "Linux kernel đã vá lỗ hổng nghiêm trọng CVE-2026-98432 liên quan đến use-after-free trong quá trình bắt tay TCP IPv4. Anthropic báo cáo rằng mô hình Claude của họ đã tạo ra proof-of-concept khai thác quyền root từ xa trên các server có bật multipath TCP listener.",
+   "why_it_matters": "Đây là lỗ hổng kernel cấp độ Critical ảnh hưởng trực tiếp đến hạ tầng DevOps và các server Go/Linux bạn đang quản lý trước khi bản vá được phân phối đầy đủ."
+  },
+  {
+   "id": "c876376d0cd8157e5d58c511fc67c0ee3c2ccc8e",
+   "source": "github",
+   "title": "k3s-io/k3s: Lightweight Kubernetes",
+   "url": "https://github.com/k3s-io/k3s",
+   "discussion_url": null,
+   "score": 13,
+   "comments": 0,
+   "published_at": "2026-11-01T10:24:00.559489+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Phân phối Kubernetes siêu nhẹ (K3s) cực kỳ quen thuộc với DevOps.",
+   "summary": "K3s là một bản phân phối Kubernetes siêu nhẹ, production-ready, được đóng gói trong một file binary duy nhất dưới 100MB với footprint bộ nhớ cực nhỏ. Nó hỗ trợ SQLite làm backend mặc định và gom nhiều thành phần cốt lõi vào một tiến trình duy nhất.",
+   "why_it_matters": "Cung cấp một giải pháp Kubernetes gọn nhẹ, hoàn hảo cho môi trường CI/CD, edge, hoặc chạy cụm K8s local một cách nhanh chóng."
+  },
+  {
+   "id": "6790a6c53c6649e4dd0f49771edfd7ec1242ff17",
+   "source": "github",
+   "title": "bregman-arie/devops-exercises: Linux, Jenkins, AWS, SRE, Prometheus, Docker, Python, Ansible, Git, Kubernetes, Terraform, OpenStack, SQL, NoSQL, Azure, GCP, DNS, Elastic, Network, Virtualization. DevOps Interview Questions",
+   "url": "https://github.com/bregman-arie/devops-exercises",
+   "discussion_url": null,
+   "score": 342,
+   "comments": 0,
+   "published_at": "2026-11-01T10:24:00.559489+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Tổng hợp tài liệu DevOps và SRE hữu ích cho công việc thực tế.",
+   "summary": "Repository này tổng hợp hơn 2.600 câu hỏi và bài tập phỏng vấn thực tế bao gồm Linux, Docker, Kubernetes, AWS, SRE và mạng máy tính. Nó cung cấp các kiến thức nền tảng như TCP/IP, Ethernet, subnet mask và cơ chế định tuyến IP.",
+   "why_it_matters": "Tài liệu ôn tập hữu ích giúp củng cố kiến thức cốt lõi về mạng và hạ tầng DevOps trong công việc hàng ngày."
+  },
+  {
+   "id": "dbc443423eb814c8c75a152e7c186fa61b2dc024",
+   "source": "github",
+   "title": "The-PR-Agent/pr-agent: 🚀 PR Agent: The Original Open-Source PR Reviewer. This project is not the Qodo free tier.",
+   "url": "https://github.com/The-PR-Agent/pr-agent",
+   "discussion_url": null,
+   "score": 122,
+   "comments": 0,
+   "published_at": "2026-11-01T10:24:00.559489+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Công cụ AI mã nguồn mở hỗ trợ review Pull Request cho developer.",
+   "summary": "PR-Agent là một open-source code review agent hỗ trợ tự động review pull request thông qua GitHub Actions, CLI hoặc Docker. Công cụ này sử dụng một lệnh gọi LLM đơn giản để thực hiện các tác vụ như review, improve và trả lời câu hỏi về mã nguồn.",
+   "why_it_matters": "Tích hợp AI trực tiếp vào CI/CD pipeline giúp tự động hóa quá trình code review và tăng tốc độ phát triển phần mềm."
+  },
+  {
+   "id": "c58cd229056d61a4d51ef6eb2083cb2397c050de",
+   "source": "hn",
+   "title": "It's the memory latency, stupid",
+   "url": "https://pivotlake.io/blog/its-the-memory-latency-stupid",
+   "discussion_url": "https://news.ycombinator.com/item?id=50318720",
+   "score": 142,
+   "comments": 43,
+   "published_at": "2026-10-31T18:38:16Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Phân tích chuyên sâu về độ trễ bộ nhớ phần cứng.",
+   "summary": "Bài viết phân tích nguyên nhân hiệu năng database giảm do độ trễ bộ nhớ (memory latency) thay vì việc CPU đạt 100%. Tác giả giải thích cách tối ưu hóa cache line và xử lý các câu lệnh GROUP BY hiệu quả hơn để tránh các truy cập RAM tốn kém.",
+   "why_it_matters": "Giúp bạn hiểu sâu hơn về phần cứng và kỹ thuật tối ưu hóa mã nguồn full-stack/database để đạt hiệu suất thực thi cao nhất."
+  },
+  {
+   "id": "f9b8a9efbf26f92e2babf22b014f92b24059ae7c",
+   "source": "hn",
+   "title": "Memdoor: A team of 5 Qwen3.8-27B models beats Fable 5 on LiveCodeBench Hard",
+   "url": "https://github.com/guregodevo/memdoor/tree/main/examples/workflows/team-solve",
+   "discussion_url": "https://news.ycombinator.com/item?id=50320995",
+   "score": 111,
+   "comments": 57,
+   "published_at": "2026-10-31T22:46:12Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Đánh giá hiệu năng benchmark code khó của multi-agent AI.",
+   "summary": "Memdoor là một workflow đa agent gồm năm vai trò phối hợp qua các file trên đĩa để giải quyết các bài toán lập trình. Cấu hình này sử dụng các model Qwen3.8-27B để vượt qua điểm số của Fable 5 trên bộ benchmark LiveCodeBench Hard.",
+   "why_it_matters": "Cung cấp một góc nhìn thực tế về cách thiết lập các coding agent và LLM tooling đa agent để tự động hóa các tác vụ lập trình phức tạp."
+  },
+  {
+   "id": "c13d59556493b564acaf57a5c1b7d9d9518d41dd",
+   "source": "github",
+   "title": "melgarafael/DeskcommCRM: Open-source AI sales OS — self-hosted CRM with native AI agents + WhatsApp (WAHA). Open alternative to Kommo, Octadesk & Intercom for any business that sells by chat. MCP-ready, multi-tenant, LGPD.",
+   "url": "https://github.com/melgarafael/DeskcommCRM",
+   "discussion_url": null,
+   "score": 40,
+   "comments": 0,
+   "published_at": "2026-11-01T10:24:00.559489+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "CRM open-source hỗ trợ MCP và tích hợp AI agents thực tế.",
+   "summary": "DeskcommCRM là một hệ thống CRM mã nguồn mở hỗ trợ đa tenant và tích hợp sẵn các AI agent cùng WhatsApp thông qua WAHA. Dự án cung cấp script cài đặt tự động toàn bộ stack gồm ứng dụng, cơ sở dữ liệu Supabase và Docker lên VPS chỉ với một lệnh duy nhất.",
+   "why_it_matters": "Là một công cụ full-stack và DevOps-ready thiết thực giúp bạn dễ dàng tự host một giải pháp tích hợp AI và chat mà không phụ thuộc vào các bên thứ ba."
+  },
+  {
+   "id": "cbb061126f43a75d477d54defe8daee4fa8b72e7",
+   "source": "github",
+   "title": "paperless-ngx/paperless-ngx: A community-supported supercharged document management system: scan, index and archive all your documents",
+   "url": "https://github.com/paperless-ngx/paperless-ngx",
+   "discussion_url": null,
+   "score": 80,
+   "comments": 0,
+   "published_at": "2026-11-01T10:24:00.559489+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Hệ thống quản lý tài liệu self-hosted cực hữu ích cho Homelab.",
+   "summary": "Paperless-ngx là một hệ thống quản lý tài liệu mã nguồn mở giúp quét, lập chỉ mục và lưu trữ tài liệu dưới dạng kho lưu trữ trực tuyến có thể tìm kiếm. Dự án hỗ trợ triển khai nhanh chóng và đơn giản bằng Docker Compose thông qua script cài đặt tích hợp sẵn.",
+   "why_it_matters": "Cung cấp một giải pháp tự host tiện lợi, dễ dàng dựng lên bằng Docker để quản lý tài liệu cá nhân hoặc đội ngũ."
+  },
+  {
+   "id": "ca98f6e1f776841b129eecab2d877192d9ff09d9",
+   "source": "github",
+   "title": "henrygd/beszel: Lightweight server monitoring with historical data, docker stats, and alerts.",
+   "url": "https://github.com/henrygd/beszel",
+   "discussion_url": null,
+   "score": 28,
+   "comments": 0,
+   "published_at": "2026-11-01T10:24:00.559489+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Công cụ giám sát server nhẹ tích hợp Docker stats tối ưu cho DevOps.",
+   "summary": "Beszel là một nền tảng giám sát máy chủ nhẹ, cung cấp dữ liệu lịch sử, theo dõi thống kê Docker và hệ thống cảnh báo cấu hình linh hoạt. Nền tảng này gồm một Hub quản lý dựa trên PocketBase và các Agent chạy trực tiếp trên các hệ thống cần giám sát.",
+   "why_it_matters": "Là một công cụ DevOps gọn nhẹ, dễ triển khai để theo dõi tài nguyên của các container Docker và các node cloud một cách trực quan."
+  },
+  {
+   "id": "f9b76a950f0a3145844850cf8689f0ade671dc02",
+   "source": "hn",
+   "title": "Show HN: NES Contra (1987) port (ASM –> C and then C –> WebAssembly)",
+   "url": "https://epoyraz.github.io/nes-contra-us",
+   "discussion_url": "https://news.ycombinator.com/item?id=50319169",
+   "score": 62,
+   "comments": 37,
+   "published_at": "2026-10-31T19:18:48Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Port game NES cổ sang WebAssembly qua C và Assembly rất thú vị.",
+   "summary": "Đây là một dự án port tựa game NES Contra (1987) nguyên bản bằng cách dịch ngược mã nguồn từ ASM sang C và sau đó biên dịch sang WebAssembly để chạy trực tiếp trên trình duyệt web.",
+   "why_it_matters": "Thể hiện một kỹ thuật dịch ngược và biên dịch mã nguồn thú vị sang WebAssembly để chạy các ứng dụng hiệu năng cao ngay trên browser."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 82,
+  "fetched_github": 46,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 153,
+  "after_dedupe": 149,
+  "after_filter": 62,
+  "ai": "gemini",
+  "ai_tokens_in": 14371,
+  "ai_tokens_out": 3829,
+  "sent": 10,
+  "summarized": 10
+ },
+ "radar": []
+}
