@@ -1,0 +1,199 @@
+{
+ "date": "2026-11-02",
+ "items": [
+  {
+   "id": "f4071c3ee0aa39e20d168658ff8e86fa93fc461b",
+   "source": "github",
+   "title": "eneskirca/nodeterm: Node-based terminal manager for AI coding agents — tmux-backed terminals and parallel agent sessions as draggable nodes on an infinite pan/zoom canvas. macOS, Linux, and a browser Server Edition.",
+   "url": "https://github.com/eneskirca/nodeterm",
+   "discussion_url": null,
+   "score": 48,
+   "comments": 0,
+   "published_at": "2026-11-02T10:32:16.701439+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Quản lý terminal dựa trên tmux cho AI coding agents, rất hợp gu DevOps/AI.",
+   "summary": "Nodeterm là một trình quản lý terminal dựa trên node trên một canvas vô hạn hỗ trợ pan/zoom, chạy qua tmux để duy trì các phiên làm việc liên tục. Công cụ này tích hợp giao diện Kanban, hỗ trợ nhiều AI coding agent và cung cấp các phiên bản cho macOS, Linux cùng bản Server Edition chạy trên trình duyệt.",
+   "why_it_matters": "Công cụ này giúp bạn trực quan hóa và tổ chức các phiên làm việc song song của AI coding agent trên một không gian duy nhất thay vì quản lý qua nhiều tab rối rắm."
+  },
+  {
+   "id": "87faa78ea224c3c21fa0127e4a339f9bca99c461",
+   "source": "github",
+   "title": "oraios/serena: A powerful MCP toolkit for coding, providing semantic retrieval and editing capabilities - the IDE for your agent",
+   "url": "https://github.com/oraios/serena",
+   "discussion_url": null,
+   "score": 42,
+   "comments": 0,
+   "published_at": "2026-11-02T10:32:16.701439+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Toolkit MCP hỗ trợ tìm kiếm ngữ nghĩa cho AI coding agents.",
+   "summary": "Serena là một MCP toolkit cung cấp khả năng truy xuất, chỉnh sửa và refactor mã nguồn dựa trên ngữ nghĩa ở mức độ symbol. Phiên bản v2 vừa ra mắt mang đến giao diện agent dựa trên REPL, giúp các LLM hiểu rõ cấu trúc mã nguồn như một IDE thực thụ.",
+   "why_it_matters": "Toolkit này tích hợp trực tiếp qua Model Context Protocol (MCP), giúp các AI coding agent thực hiện các thao tác refactor phức tạp trên codebase lớn một cách chính xác và hiệu quả hơn."
+  },
+  {
+   "id": "239feae36314418f09e706d27c928595835f46d1",
+   "source": "github",
+   "title": "milind-soni/OpenMausBot: Open-source Grok Bot alternative with a virtual machine that bots can use",
+   "url": "https://github.com/milind-soni/OpenMausBot",
+   "discussion_url": null,
+   "score": 922,
+   "comments": 0,
+   "published_at": "2026-11-02T10:32:16.701439+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Mã nguồn mở bot AI tích hợp máy ảo, thú vị cho dev.",
+   "summary": "OpenMausBot là một giải pháp mã nguồn mở thay thế cho Grok Bot, cho phép chạy một nhóm các AI agent cục bộ trong giao diện nhắn tin. Dự án hỗ trợ tích hợp các CLI như Claude và Codex, kết hợp máy ảo cục bộ và hàng trăm ứng dụng khác.",
+   "why_it_matters": "Công cụ này mang lại trải nghiệm quản lý đa agent local-first mà không phụ thuộc vào các dịch vụ đám mây đóng kín, phù hợp với các developer thích tự host môi trường AI."
+  },
+  {
+   "id": "89307f734cfd37f6db27a93f7aa07748a0213eeb",
+   "source": "hn",
+   "title": "Show HN: OmniDiff – Opensource, super fast, content aware Git difftool, in Rust",
+   "url": "https://github.com/ivankovic/omnidiff",
+   "discussion_url": "https://news.ycombinator.com/item?id=50325253",
+   "score": 179,
+   "comments": 44,
+   "published_at": "2026-11-01T13:02:30Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Công cụ git diff viết bằng Rust, tối ưu cho dev.",
+   "summary": "OmniDiff là một Git difftool mã nguồn mở viết bằng Rust, hỗ trợ so sánh nội dung một cách thông minh và nhanh chóng dưới 100ms. Công cụ này cung cấp giao diện TUI với màu 24-bit, tích hợp tốt với VS Code và Neovim.",
+   "why_it_matters": "Công cụ hiệu năng cao này tăng tốc độ review code trực tiếp từ terminal hoặc editor với khả năng phân tích nội dung chính xác cho nhiều định dạng tệp khác nhau."
+  },
+  {
+   "id": "1f03c87007f1d3e2880957eaaab6e870f2da04c9",
+   "source": "github",
+   "title": "scenario-labs/skills: Get production-ready images, video, audio, and 3D from any AI agent: skills that pick the right model, price before spending, and keep characters and brands consistent through the Scenario MCP, plus expert teams that drive Blender, Maya, ZBrush, Unreal, and Unity.",
+   "url": "https://github.com/scenario-labs/skills",
+   "discussion_url": null,
+   "score": 82,
+   "comments": 0,
+   "published_at": "2026-11-02T10:32:16.701439+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Tác nhân AI tích hợp MCP hỗ trợ tạo đa phương tiện.",
+   "summary": "Scenario Skills là một tập hợp các agent skill tích hợp qua Scenario MCP, cho phép các AI coding agent tạo ra tài nguyên đồ họa như hình ảnh, video, âm thanh và mô hình 3D. Ngoài ra, bộ công cụ còn bao gồm các gói chuyên gia để điều khiển các phần mềm DCC và game engine như Blender, Unreal Engine và Unity.",
+   "why_it_matters": "Nó mở rộng khả năng của các AI coding agent để tự động hóa việc tạo tài nguyên media và tương tác trực tiếp với các công cụ dựng hình phức tạp."
+  },
+  {
+   "id": "594f16c83552f41800589b5be97cbb7bc77c853d",
+   "source": "github",
+   "title": "netbirdio/netbird: NetBird securely connects people, machines and AI agents across any network with one identity-based Zero Trust platform. Powered by peer-to-peer WireGuard®",
+   "url": "https://github.com/netbirdio/netbird",
+   "discussion_url": null,
+   "score": 124,
+   "comments": 0,
+   "published_at": "2026-11-02T10:32:16.701439+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Nền tảng Zero Trust kết nối thiết bị và AI agent qua WireGuard.",
+   "summary": "NetBird là một nền tảng Zero Trust dựa trên WireGuard, giúp tạo mạng riêng ảo p2p một cách tự động mà không cần cấu hình phức tạp. Phiên bản này bổ sung khả năng kiểm soát truy cập định danh cho AI agents, cung cấp quyền truy cập an toàn, không cần key đến các LLM API và tài nguyên nội bộ.",
+   "why_it_matters": null
+  },
+  {
+   "id": "31b74dbe5dad3019e29f657cf82fcd29fcf24d8d",
+   "source": "github",
+   "title": "MHSanaei/3x-ui: Supporting multi-protocol multi-user(Vmess, Vless, Trojan, ShadowSocks, Wireguard, Hysteria, Tunnel, Mixed, HTTP, Tun, MTProto، AmneziaWG)",
+   "url": "https://github.com/MHSanaei/3x-ui",
+   "discussion_url": null,
+   "score": 86,
+   "comments": 0,
+   "published_at": "2026-11-02T10:32:16.701439+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Công cụ mạng đa giao thức hỗ trợ Wireguard và proxy.",
+   "summary": "3X-UI là bảng điều khiển web mã nguồn mở nâng cao để quản lý các máy chủ Xray-core, hỗ trợ đa giao thức như VLESS, VMess, WireGuard, và Hysteria2. Công cụ này cung cấp giao diện quản lý client chi tiết, thống kê lưu lượng, hỗ trợ đa node và tích hợp sẵn tính năng chống kiểm duyệt.",
+   "why_it_matters": null
+  },
+  {
+   "id": "810faf01d51623255c20e09086023c983545c151",
+   "source": "lobsters",
+   "title": "Jepsen: ParticleDB 1.1.4",
+   "url": "https://jepsen.io/analyses/particledb-1.1.4",
+   "discussion_url": "https://lobste.rs/s/drwd4j/jepsen_particledb_1_1_4",
+   "score": 143,
+   "comments": 39,
+   "published_at": "2026-10-31T08:39:52.161000-05:00",
+   "tags": [
+    "databases",
+    "testing"
+   ],
+   "also_on": [],
+   "relevance": 7.0,
+   "reason": "Kiểm thử phân tán cơ sở dữ liệu với Jepsen.",
+   "summary": "ParticleDB 1.1.4 là một engine cơ sở dữ liệu viết bằng Rust, được thiết kế để hợp nhất SQL giao dịch, key-value store, vector search và live analytics đặc biệt cho các ứng dụng AI. Phiên bản này mang đến bản đại tu lớn với giao thức mạng tùy chỉnh, các kiểu dữ liệu mới và bổ sung các truy vấn OLAP.",
+   "why_it_matters": null
+  },
+  {
+   "id": "db1126994486cafd11a20d8f83d95c0fd2f25804",
+   "source": "github",
+   "title": "D4Vinci/Scrapling: 🕷️ The BEST Web Scraping framework that handles everything from a single request to a full-scale crawl! Don't be shy, join here: https://discord.gg/EMgGbDceNQ and follow here for daily tips and tricks: https://x.com/Scrapling_dev",
+   "url": "https://github.com/D4Vinci/Scrapling",
+   "discussion_url": null,
+   "score": 892,
+   "comments": 0,
+   "published_at": "2026-11-02T10:32:16.701439+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 7.0,
+   "reason": "Framework web scraping mạnh mẽ bằng Python.",
+   "summary": "Scrapling là một framework web scraping bằng Python kết hợp HTTP requests tốc độ cao, trình duyệt ẩn danh (stealth browser) và khả năng trích xuất dữ liệu mạnh mẽ. Phiên bản này tích hợp sẵn MCP server và Agent Skill, cho phép các AI agents tương tác trực tiếp để duyệt web và thu thập dữ liệu.",
+   "why_it_matters": null
+  },
+  {
+   "id": "de2a117c79f913c74daeac71e105372024b69166",
+   "source": "github",
+   "title": "public-apis/public-apis: A collective list of free APIs",
+   "url": "https://github.com/public-apis/public-apis",
+   "discussion_url": null,
+   "score": 324,
+   "comments": 0,
+   "published_at": "2026-11-02T10:32:16.701439+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 7.0,
+   "reason": "Danh sách API miễn phí hữu ích cho lập trình viên full-stack.",
+   "summary": "public-apis là một danh sách tổng hợp mã nguồn mở tập hợp các API miễn phí phục vụ cho việc phát triển phần mềm và nghiên cứu. Kho lưu trữ này giúp lập trình viên dễ dàng tra cứu các nguồn dữ liệu công khai theo nhiều chủ đề khác nhau.",
+   "why_it_matters": null
+  }
+ ],
+ "stats": {
+  "fetched_hn": 72,
+  "fetched_github": 54,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 151,
+  "after_dedupe": 147,
+  "after_filter": 61,
+  "ai": "gemini",
+  "ai_tokens_in": 15277,
+  "ai_tokens_out": 3874,
+  "sent": 10,
+  "summarized": 10
+ },
+ "radar": []
+}
