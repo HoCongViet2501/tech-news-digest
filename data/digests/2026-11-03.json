@@ -1,0 +1,192 @@
+{
+ "date": "2026-11-03",
+ "items": [
+  {
+   "id": "38c41eb0ed980884ec9af5f714f53f6096d7af32",
+   "source": "hn",
+   "title": "Astra can read and write weights to improve Qwen",
+   "url": "https://rikiyat.github.io/blog/weight-space-programming",
+   "discussion_url": "https://news.ycombinator.com/item?id=50341174",
+   "score": 2182,
+   "comments": 707,
+   "published_at": "2026-11-02T18:21:28Z",
+   "tags": [],
+   "also_on": [
+    "lobsters"
+   ],
+   "relevance": 9.0,
+   "reason": "Cải thiện trọng số Qwen, rất phù hợp với lập trình viên AI.",
+   "summary": "Bài viết thảo luận về Weight-Space Programming, một phương pháp mới trong đó các LLM frontier đọc và chỉnh sửa trực tiếp trọng số mạng neural bằng ngôn ngữ tự nhiên mà không cần dùng hàm tối ưu hóa truyền thống hay gradient descent. Thử nghiệm cho thấy kỹ thuật này giúp phát hiện lỗi suy luận và sửa đổi một phần nhỏ trọng số của Qwen để tăng mạnh hiệu năng toán học.",
+   "why_it_matters": "Cung cấp cái nhìn tiên tiến về cách LLM can thiệp sâu vào kiến trúc model, hữu ích cho việc tối ưu hóa và hiểu rõ hơn về AI models mà bạn đang ứng dụng."
+  },
+  {
+   "id": "e80c92601a0b0417f1fc9b8e1970c7cb314e7f42",
+   "source": "github",
+   "title": "cheaper-inference/OmniRoute: Never stop coding. Free MIT AI gateway: one endpoint, 375 providers (150+ free), 1,400+ models Kimi, Claude, GPT, Gemini, GLM, DeepSeek, MiniMax. Works with Claude Code, Codex, Cursor, OpenCode, Cline & Copilot. Quota-aware auto-fallback, RTK+Caveman compression saves 15-95% tokens, MCP/A2A, Desktop/PWA. Built by 900+ contributors",
+   "url": "https://github.com/cheaper-inference/OmniRoute",
+   "discussion_url": null,
+   "score": 402,
+   "comments": 0,
+   "published_at": "2026-11-03T11:40:09.607055+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "AI gateway miễn phí, hỗ trợ nhiều mô hình và công cụ coding.",
+   "summary": "OmniRoute là một AI gateway mã nguồn mở hỗ trợ kết nối hàng trăm nhà cung cấp và hàng nghìn mô hình AI khác nhau thông qua một endpoint duy nhất. Công cụ này tích hợp tính năng tự động chuyển đổi theo hạn mức, nén token và tương thích hoàn toàn với các coding CLI phổ biến như Claude Code và Cursor.",
+   "why_it_matters": "Giúp bạn tối ưu hóa chi phí gọi API và tích hợp linh hoạt nhiều LLM khác nhau vào quy trình phát triển và các coding agent hằng ngày."
+  },
+  {
+   "id": "cacdd6cefbfef72bc89340706aeb6388ba534c38",
+   "source": "github",
+   "title": "FlashML-org/FreeToken: FreeToken brings datacenter-scale model serving to your desktop. Run massive models locally, fast and efficiently.",
+   "url": "https://github.com/FlashML-org/FreeToken",
+   "discussion_url": null,
+   "score": 653,
+   "comments": 0,
+   "published_at": "2026-11-03T11:40:09.607055+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Chạy mô hình lớn cục bộ, rất hữu ích cho dev AI.",
+   "summary": "FreeToken là một engine phục vụ mô hình Mixture-of-Experts (MoE) chạy trực tiếp trên phần cứng cá nhân, cho phép vận hành các mô hình lớn như DeepSeek hay Qwen một cách hiệu quả. Nó hỗ trợ quản lý bộ nhớ VRAM động giữa các expert cache và KV memory, cùng với API tương thích hoàn hảo với các công cụ lập trình AI.",
+   "why_it_matters": "Cho phép bạn tự chạy các mô hình AI lớn mạnh ngay trên máy tính cá nhân để phục vụ cho việc phát triển và thử nghiệm agent mà không phụ thuộc hoàn toàn vào cloud."
+  },
+  {
+   "id": "0d7890576a84033a1d0c4d03a09da9b4ea142b49",
+   "source": "hn",
+   "title": "Ubuntu still has not released patch for Linux 0day RCE in almost 3 weeks",
+   "url": "https://freenode.net/article/ubuntu-lts-kernels-still-unfixed-for-critical-cve-2026-98432",
+   "discussion_url": "https://news.ycombinator.com/item?id=50341462",
+   "score": 389,
+   "comments": 109,
+   "published_at": "2026-11-02T18:39:38Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Lỗ hổng Linux 0day chưa vá, cực kỳ quan trọng cho DevOps.",
+   "summary": "Ubuntu vẫn chưa phát hành bản vá bảo mật cho lỗ hổng RCE nghiêm trọng mã hiệu CVE-2026-98432 trên các phiên bản kernel LTS suốt gần 3 tuần qua dù đạt điểm CVSS 9.8. Điều này để lộ rủi ro lớn cho các hệ thống self-hosted và multi-tenant sử dụng Ubuntu làm môi trường cách ly.",
+   "why_it_matters": "Cảnh báo quan trọng cho công việc DevOps của bạn khi quản lý các cụm server và container chạy trên Ubuntu LTS cần kiểm tra và áp dụng giải pháp thay thế."
+  },
+  {
+   "id": "154fbef78131eecfc3a43c713cde33a89a07433f",
+   "source": "github",
+   "title": "p-e-w/heretic: Training-free language model modification: Remove censorship, suppress slop, reduce sycophancy, and more",
+   "url": "https://github.com/p-e-w/heretic",
+   "discussion_url": null,
+   "score": 420,
+   "comments": 0,
+   "published_at": "2026-11-03T11:40:09.607055+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ sửa đổi LLM không cần train, rất hữu ích cho AI dev.",
+   "summary": "Heretic là một công cụ mã nguồn mở cho phép chỉnh sửa trọng số của các LLM chạy trên phần cứng cá nhân mà không cần huấn luyện lại từ đầu. Công cụ này sử dụng các kỹ thuật toán học để định hướng hành vi mô hình như loại bỏ sự kiểm duyệt, giảm hiện tượng lặp từ hoặc điều chỉnh độ trung thực.",
+   "why_it_matters": "Giúp bạn chủ động tinh chỉnh các open-source model chạy local cho phù hợp với nhu cầu và quy trình lập trình của mình mà không tốn kém chi phí train lại."
+  },
+  {
+   "id": "0a490515f796920d9db2ec074b1afb0992ba764d",
+   "source": "hn",
+   "title": "We halved DNS build delay and cut memory use by 85%",
+   "url": "https://blog.cloudflare.com/dns-targeted-zone-builds",
+   "discussion_url": "https://news.ycombinator.com/item?id=50337558",
+   "score": 168,
+   "comments": 65,
+   "published_at": "2026-11-02T14:47:28Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Tối ưu hóa hiệu năng build DNS và giảm RAM, cực kỳ thực tế cho DevOps.",
+   "summary": "Cloudflare đã tối ưu hóa pipeline DNS Zone Builder để giải quyết lượng sự kiện tăng gấp ba lần. Họ đã xây dựng một bộ lập lịch và lập kế hoạch build mục tiêu để tránh việc rebuild toàn bộ các zone lớn, giúp giảm 85% bộ nhớ đỉnh và giảm một nửa độ trễ lan truyền DNS.",
+   "why_it_matters": "Cung cấp mộtCase study thực tế tuyệt vời về việc tối ưu hóa hiệu năng hệ thống phân tán và quản lý tài nguyên quy mô lớn cho các kỹ sư DevOps."
+  },
+  {
+   "id": "6823c8dc98778b960fab9204bb1e060f1e5fd4dc",
+   "source": "github",
+   "title": "kgoedecke/doop: The open-source alternative to Paper.design. A multiplayer design canvas where humans and AI agents design together, live. MCP built in.",
+   "url": "https://github.com/kgoedecke/doop",
+   "discussion_url": null,
+   "score": 125,
+   "comments": 0,
+   "published_at": "2026-11-03T11:40:09.607055+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Canvas thiết kế hỗ trợ AI và tích hợp MCP, đúng xu hướng quan tâm.",
+   "summary": "Doop là một nền tảng thiết kế multiplayer mã nguồn mở tích hợp sẵn Model Context Protocol (MCP). Công cụ này cho phép con người và các AI agent cùng tương tác, chỉnh sửa canvas, khung HTML sandbox và chạy thử nghiệm trực tiếp.",
+   "why_it_matters": "Là một công cụ tích hợp AI và MCP thực tế, giúp mở rộng cách thức tương tác giữa các coding agent và giao diện trực quan trong chu trình làm việc full-stack."
+  },
+  {
+   "id": "68450ca1af75826ccbb07b0c781149055709cf30",
+   "source": "hn",
+   "title": "Launch HN: Momentic (YC W24) – Agents that catch bugs by using your app",
+   "url": "https://momentic.ai",
+   "discussion_url": "https://news.ycombinator.com/item?id=50339913",
+   "score": 134,
+   "comments": 89,
+   "published_at": "2026-11-02T17:05:25Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "AI agent kiểm thử ứng dụng tự động, đúng công cụ dev đang cần.",
+   "summary": "Momentic là một tác nhân AI (AI QA engineer) được thiết kế để tự động kiểm thử ứng dụng end-to-end thông qua các kịch bản YAML và câu lệnh bằng ngôn ngữ tự nhiên. Công cụ này tích hợp vào CI/CD để phát hiện lỗi, chụp ảnh màn hình và tự động đề xuất sửa lỗi khi UI thay đổi.",
+   "why_it_matters": "Giúp tự động hóa quy trình kiểm thử end-to-end và tích hợp AI vào pipeline CI/CD, tiết kiệm thời gian vận hành cho các nhà phát triển full-stack."
+  },
+  {
+   "id": "de4cf53f9db96311cdf47867a4e06ac73ec122a0",
+   "source": "hn",
+   "title": "Scaling Git at OpenAI",
+   "url": "https://openai.com/index/scaling-git-at-openai",
+   "discussion_url": "https://news.ycombinator.com/item?id=50345924",
+   "score": 102,
+   "comments": 36,
+   "published_at": "2026-11-02T23:47:56Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Kinh nghiệm scale Git ở quy mô lớn tại OpenAI, cực kỳ chất lượng cho DevOps.",
+   "summary": "Bài viết thảo luận chi tiết về các kỹ thuật và thách thức trong việc mở rộng quy mô hệ thống Git tại OpenAI với khối lượng dữ liệu khổng lồ. Nội dung tập trung vào dữ liệu, biểu đồ và góc nhìn kỹ thuật thực tế từ các kỹ sư mà không dùng các thuật ngữ marketing.",
+   "why_it_matters": "Mang lại các bài học giá trị về kỹ thuật hệ thống và quản lý cơ sở hạ tầng ở quy mô cực lớn cho các DevOps engineer."
+  },
+  {
+   "id": "4df6ae2fbdfdb7a5b48be15a5d11fc96aba4c775",
+   "source": "github",
+   "title": "kornia/kornia: 🐍 Geometric Computer Vision Library for Spatial AI",
+   "url": "https://github.com/kornia/kornia",
+   "discussion_url": null,
+   "score": 412,
+   "comments": 0,
+   "published_at": "2026-11-03T11:40:09.607055+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Thư viện Computer Vision cho không gian AI, hữu ích cho full-stack.",
+   "summary": "Kornia là một thư viện thị giác máy tính khả vi (differentiable computer vision) xây dựng trên PyTorch, hỗ trợ xử lý ảnh hàng loạt và tăng tốc GPU. Phiên bản mới tối ưu hóa các toán tử chạy trực tiếp trên thiết bị mà không cần đồng bộ hóa host, đồng thời hỗ trợ torch.compile.",
+   "why_it_matters": "Cung cấp công cụ tối ưu hóa xử lý ảnh và thị giác máy tính tận dụng sức mạnh GPU, phù hợp cho các ứng dụng AI hiện đại."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 100,
+  "fetched_github": 47,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 172,
+  "after_dedupe": 170,
+  "after_filter": 83,
+  "ai": "gemini",
+  "ai_tokens_in": 13020,
+  "ai_tokens_out": 3978,
+  "sent": 10,
+  "summarized": 10
+ },
+ "radar": []
+}
