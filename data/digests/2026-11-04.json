@@ -1,0 +1,199 @@
+{
+ "date": "2026-11-04",
+ "items": [
+  {
+   "id": "7bebf91dd3ee3b4f375da48d3222023ce87a2c1d",
+   "source": "github",
+   "title": "keploy/keploy: Open-source platform for creating safe, isolated production sandboxes for API, integration, and E2E testing.",
+   "url": "https://github.com/keploy/keploy",
+   "discussion_url": null,
+   "score": 221,
+   "comments": 0,
+   "published_at": "2026-11-04T10:59:47.014496+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ open-source tuyệt vời cho API testing và sandbox DevOps.",
+   "summary": "Keploy là một công cụ kiểm thử API và integration testing mã nguồn mở, tự động tạo test case và data-mock mà không cần viết code hay sửa đổi SDK. Nhờ sử dụng eBPF ở tầng network để ghi lại các luồng API và cơ sở dữ liệu thực tế, công cụ này giúp chạy test một cách deterministic trong CI/CD pipeline.",
+   "why_it_matters": "Giúp bạn tự động hóa việc tạo test và mock cho các ứng dụng full-stack và microservices một cách nhanh chóng mà không tốn công sức cấu hình thủ công."
+  },
+  {
+   "id": "da9a5824109ffaf4d36b11b44e51a59070ea60b1",
+   "source": "hn",
+   "title": "Postman silently auto-installs AI plugins and attempts to share all API data",
+   "url": "https://github.com/postmanlabs/postman-app-support/issues/14370",
+   "discussion_url": "https://news.ycombinator.com/item?id=50354960",
+   "score": 1098,
+   "comments": 362,
+   "published_at": "2026-11-03T17:22:37Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Công cụ dev phổ biến dính vấn đề bảo mật dữ liệu API.",
+   "summary": "Nhiều người dùng phát hiện Postman tự động cài đặt các plugin AI và cấu hình hook cho các coding agent như Claude Code và Codex mà không có sự đồng thuận rõ ràng. Các thay đổi này tự động định tuyến các tác vụ kỹ thuật API thông qua các skill và kết nối MCP của Postman.",
+   "why_it_matters": "Cảnh báo quan trọng về các công cụ phát triển tự ý can thiệp vào cấu hình agent và quyền riêng tư dữ liệu của lập trình viên."
+  },
+  {
+   "id": "221b3f216a71272dff35581a4da17e4a9d81a3a6",
+   "source": "github",
+   "title": "karpathy/nanochat: The best ChatGPT that $100 can buy.",
+   "url": "https://github.com/karpathy/nanochat",
+   "discussion_url": null,
+   "score": 479,
+   "comments": 0,
+   "published_at": "2026-11-04T10:59:47.014496+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Mã nguồn mở LLM implementation hữu ích cho dev quan tâm AI.",
+   "summary": "Nanochat là một bộ khung đơn giản để huấn luyện LLM trên một node GPU duy nhất, bao phủ toàn bộ các giai đoạn từ tokenization, pretraining, finetuning đến inference. Dự án cho phép huấn luyện mô hình đạt chuẩn GPT-2 với chi phí rất thấp và quản lý dependencies bằng uv.",
+   "why_it_matters": "Mang lại trải nghiệm thực tế, chi phí thấp để tự tay huấn luyện vàfine-tune mô hình LLM ngay trên hạ tầng cloud của bạn."
+  },
+  {
+   "id": "139176b6fc7658c23c91efe5a18a187c8081444b",
+   "source": "lobsters",
+   "title": "The Ubuntu 26.04 Rust sudo is not compatible with standard sudo",
+   "url": "https://utcc.utoronto.ca/~cks/space/blog/linux/Ubuntu2604RustSudoNotCompatible",
+   "discussion_url": "https://lobste.rs/s/e201eb/ubuntu_26_04_rust_sudo_is_not_compatible",
+   "score": 52,
+   "comments": 29,
+   "published_at": "2026-11-03T09:23:21.757000-06:00",
+   "tags": [
+    "linux",
+    "rust"
+   ],
+   "also_on": [
+    "hn"
+   ],
+   "relevance": 8.0,
+   "reason": "Thay đổibreaking change quan trọng về sudo viết bằng Rust trên Ubuntu.",
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "719c3d9d4da650ce8f7a3880c229f687037161f8",
+   "source": "hn",
+   "title": "The Internals of PostgreSQL",
+   "url": "https://interdb.jp/pg/index.html",
+   "discussion_url": "https://news.ycombinator.com/item?id=50358702",
+   "score": 172,
+   "comments": 10,
+   "published_at": "2026-11-03T21:51:06Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Tài liệu sâu sắc về kiến trúc và nội bộ PostgreSQL.",
+   "summary": "Tài liệu kỹ thuật 'The Internals of PostgreSQL' đã bổ sung các phần mới về Asynchronous I/O và phiên bản Beta của Logical Replication. Tài liệu này cung cấp cái nhìn chi tiết về kiến trúc bên trong của PostgreSQL như buffer manager, WAL và query processing.",
+   "why_it_matters": "Cung cấp kiến thức chuyên sâu về tầng internals của cơ sở dữ liệu để tối ưu hóa hiệu năng và xây dựng hệ thống backend vững chắc."
+  },
+  {
+   "id": "d7e9d48e24067f391c753be686e452a7733b0ed3",
+   "source": "github",
+   "title": "immich-app/immich: High performance self-hosted photo and video management solution.",
+   "url": "https://github.com/immich-app/immich",
+   "discussion_url": null,
+   "score": 104,
+   "comments": 0,
+   "published_at": "2026-11-04T10:59:47.014496+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Giải pháp self-hosted quản lý media rất phổ biến cho DevOps.",
+   "summary": "Immich là giải pháp quản lý ảnh và video tự host hiệu suất cao với các tính năng như backup tự động, nhận diện khuôn mặt và tìm kiếm bằng CLIP. Dự án hỗ trợ đa nền tảng từ ứng dụng di động đến giao diện web với khả năng phân quyền và chia sẻ phong phú.",
+   "why_it_matters": "Một ứng dụng self-hosted tuyệt vời để tự dựng trên homelab hoặc cloud cá nhân, sử dụng các công nghệ hiện đại như AI/CLIP cho việc tìm kiếm media."
+  },
+  {
+   "id": "8d6edd0c89456a5363543437e7571727a1610a89",
+   "source": "github",
+   "title": "shy3130/tick-stock-panel: TSP自托管、零运维的 A 股「自建策略 + 监控 + 回测」量化工作台 | LLM能力驱使策略定制+个股分析+复盘 | 自由接入第三方数据源与个性化扩展数据 | 个人开源",
+   "url": "https://github.com/shy3130/tick-stock-panel",
+   "discussion_url": null,
+   "score": 92,
+   "comments": 0,
+   "published_at": "2026-11-04T10:59:47.014496+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Hệ thống quant tự host kết hợp LLM và tự động hóa tuyệt vời.",
+   "summary": "Mã nguồn mở tick-stock-panel là một công cụ định lượng chứng khoán A-share tự hosting, không cần bảo trì, kết hợp giữa Python, TypeScript và React. Hệ thống cung cấp khả năng quét chiến lược thời gian thực, quản lý dữ liệu qua Parquet và DuckDB, cùng tích hợp MCP và trợ lý AI thông qua kiến trúc dạng plugin.",
+   "why_it_matters": "Cung cấp một giải pháp tự host gọn nhẹ với kiến trúc micro-plugin và MCP, giúp bạn dễ dàng thử nghiệm các công cụ AI và tự động hóa quy trình phân tích dữ liệu ngay tại local."
+  },
+  {
+   "id": "81341c8308ebf89685e8772200cd6567403fd8f7",
+   "source": "github",
+   "title": "agent0ai/agent-zero: Agent Zero AI framework",
+   "url": "https://github.com/agent0ai/agent-zero",
+   "discussion_url": null,
+   "score": 44,
+   "comments": 0,
+   "published_at": "2026-11-04T10:59:47.014496+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Framework AI Agent mã nguồn mở đáng thử nghiệm.",
+   "summary": "Agent Zero là một AI agent mã nguồn mở chạy trong một môi trường Linux sandbox riêng biệt, có khả năng tự nghiên cứu, viết code và xử lý tài liệu thông qua terminal hoặc trình duyệt. Công cụ hỗ trợ cài đặt nhanh qua Docker trên cả desktop (A0 Launcher) lẫn server (A0 Install) với không gian làm việc bền vững.",
+   "why_it_matters": "Mang đến một coding agent tự trị chạy trong môi trường Docker có sandbox an toàn, rất phù hợp để thử nghiệm các tác vụ DevOps và lập trình tự động."
+  },
+  {
+   "id": "734b186ea6e163a766e45d65e0ec3d6cb3ecb4a2",
+   "source": "github",
+   "title": "jordan-gibbs/hyperresearch: Convert Claude Code or Codex into the most intelligent Deep Research Agent. Collect, search, and synthesize web research into a persistent, searchable wiki that builds on itself. Hosted API + MCP: hyperresearch.ai",
+   "url": "https://github.com/jordan-gibbs/hyperresearch",
+   "discussion_url": null,
+   "score": 23,
+   "comments": 0,
+   "published_at": "2026-11-04T10:59:47.014496+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Tool tích hợp Claude Code với MCP tạo Deep Research Agent.",
+   "summary": "Hyperresearch là một công cụ biến Claude Code hoặc OpenAI Codex thành một agent nghiên cứu chuyên sâu, sử dụng pipeline 16 bước thích ứng để tổng hợp báo cáo từ hàng trăm nguồn tài liệu. Dự án tự động kiểm chứng các trích dẫn, xử lý tài liệu bị paywall và lưu trữ toàn bộ dữ liệu vào một kho dữ liệu Markdown kết hợp SQLite có thể tìm kiếm.",
+   "why_it_matters": "Tích hợp trực tiếp vào các AI coding assistant quen thuộc của bạn, giúp tự động hóa việc nghiên cứu tài liệu kỹ thuật và thu thập thông tin mã nguồn với độ chính xác cao."
+  },
+  {
+   "id": "29fc9a19e60fa1cc388095f675a16980690e8559",
+   "source": "lobsters",
+   "title": "Postgres 19 REPACK: Built-In Online Table Bloat Cleanup",
+   "url": "https://snowflake.com/en/blog/engineering/postgres-19-repack-table-bloat",
+   "discussion_url": "https://lobste.rs/s/uutnr5/postgres_19_repack_built_online_table",
+   "score": 3,
+   "comments": 0,
+   "published_at": "2026-11-03T16:44:48.698000-06:00",
+   "tags": [
+    "databases"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Tính năng tối ưu hóa bảng mới trong PostgreSQL 19.",
+   "summary": "Postgres 19 giới thiệu tính năng REPACK CONCURRENTLY, cho phép dọn dẹp dung lượng bảng bị phình to (table bloat) một cách trực tuyến mà không cần cài đặt thêm extension bên ngoài. Bảng vẫn duy trì khả năng đọc ghi bình thường trong suốt quá trình xử lý và chỉ khóa ngắn ở bước hoàn tất cuối cùng.",
+   "why_it_matters": "Giải quyết triệt để nỗi đau lâu năm về bloat và vacuum trong quản trị cơ sở dữ liệu production, giúp tối ưu hóa hiệu năng PostgreSQL mà không gây downtime."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 100,
+  "fetched_github": 47,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 172,
+  "after_dedupe": 167,
+  "after_filter": 82,
+  "ai": "gemini",
+  "ai_tokens_in": 15292,
+  "ai_tokens_out": 3806,
+  "sent": 10,
+  "summarized": 9
+ },
+ "radar": []
+}
