@@ -1,0 +1,192 @@
+{
+ "date": "2026-11-05",
+ "items": [
+  {
+   "id": "aed4d9c60c01ceb3818ed5a1d0c9c94a9cab6edf",
+   "source": "hn",
+   "title": "A new Go API for JSON",
+   "url": "https://go.dev/blog/jsonv2",
+   "discussion_url": "https://news.ycombinator.com/item?id=50369106",
+   "score": 252,
+   "comments": 117,
+   "published_at": "2026-11-04T17:52:11Z",
+   "tags": [],
+   "also_on": [
+    "lobsters"
+   ],
+   "relevance": 10.0,
+   "reason": "Go API mới cho JSON, cực kỳ hữu ích cho lập trình viên Go.",
+   "summary": "Go đã phát hành các gói encoding/json/v2 và encoding/json/jsontext ổn định trong Go 1.27, giải quyết nhiều vấn đề tồn đọng từ phiên bản cũ. Các gói mới khắc phục các lỗi về cú pháp, xử lý an toàn hơn với UTF-8, ngăn chặn lỗi trùng lặp tên trường, và cải thiện API tổng thể.",
+   "why_it_matters": "Giúp bạn viết các ứng dụng Go xử lý JSON an toàn, hiệu quả hơn và tránh được các lỗi ngầm liên quan đến dữ liệu không hợp lệ."
+  },
+  {
+   "id": "5ad23f0e2e10f315deed8d07ecf2597dbe05536c",
+   "source": "github",
+   "title": "QwenLM/qwen-code: An open-source AI coding agent that lives in your terminal.",
+   "url": "https://github.com/QwenLM/qwen-code",
+   "discussion_url": null,
+   "score": 54,
+   "comments": 0,
+   "published_at": "2026-11-05T11:21:46.843425+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 10.0,
+   "reason": "AI coding agent chạy trực tiếp trong terminal.",
+   "summary": "Qwen Code là một mã nguồn mở AI coding agent chạy trực tiếp trong terminal, hỗ trợ đa nền tảng như IDE, web, và desktop. Công cụ này tích hợp sẵn MCP, tự động quản lý bộ nhớ, hỗ trợ đa mô hình (như OpenAI, Anthropic, Qwen) và cung cấp chế độ daemon chạy ngầm.",
+   "why_it_matters": "Cung cấp một giải pháp agentic AI mã nguồn mở linh hoạt để tự động hóa các tác vụ lập trình ngay trong terminal và quy trình CI/CD của bạn."
+  },
+  {
+   "id": "1847a4bc56a0f66fc701cd8d8c51b3de4ac58244",
+   "source": "github",
+   "title": "github/copilot-cli: GitHub Copilot CLI brings the power of Copilot coding agent directly to your terminal.",
+   "url": "https://github.com/github/copilot-cli",
+   "discussion_url": null,
+   "score": 14,
+   "comments": 0,
+   "published_at": "2026-11-05T11:21:46.843425+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 10.0,
+   "reason": "GitHub Copilot CLI tích hợp AI agent trực tiếp vào terminal.",
+   "summary": "GitHub Copilot CLI mang trợ lý AI của Copilot trực tiếp vào dòng lệnh, cho phép bạn tương tác bằng ngôn ngữ tự nhiên để xây dựng và gỡ lỗi mã. Công cụ này hỗ trợ các tính năng agentic, tích hợp sẵn MCP server của GitHub và cho phép kiểm soát mọi hành động trước khi thực thi.",
+   "why_it_matters": "Giúp bạn tận dụng trợ lý coding agent ngay trong terminal mà không cần chuyển đổi ngữ cảnh khỏi luồng làm việc DevOps."
+  },
+  {
+   "id": "96eddcc208ed19b891b612d4f6565f6beb25fecf",
+   "source": "hn",
+   "title": "Ripple-65B Preview: U.S. Open-Weight SOTA on Agentic Coding",
+   "url": "https://ricursive.com/ripple",
+   "discussion_url": "https://news.ycombinator.com/item?id=50369925",
+   "score": 249,
+   "comments": 89,
+   "published_at": "2026-11-04T18:53:29Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Model open-weight chuyên cho agentic coding.",
+   "summary": "Ripple-65B Preview là mô hình open-weight mới được đào tạo từ đầu với 12 nghìn tỷ token, đạt kết quả cao trên bảng xếp hạng TerminalBench về lập trình agent. Mô hình sử dụng kiến trúc dense Transformer tối ưu cho phần cứng NVIDIA, giúp đạt hiệu năng cao với chi phí đào tạo thấp.",
+   "why_it_matters": "Cung cấp một lựa chọn mô hình open-weight mạnh mẽ cho các tác vụ agentic coding và chạy inference hiệu quả trên hạ tầng phần cứng của bạn."
+  },
+  {
+   "id": "cf8ac839f9a2f09101324ce0825c9f04ea38651a",
+   "source": "github",
+   "title": "mcpjungle/MCPJungle: One place to manage & connect to all your MCP servers",
+   "url": "https://github.com/mcpjungle/MCPJungle",
+   "discussion_url": null,
+   "score": 51,
+   "comments": 0,
+   "published_at": "2026-11-05T11:21:46.843425+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ quản lý và kết nối MCP servers.",
+   "summary": "MCPJungle là một self-hosted MCP gateway giúp gom nhiều MCP servers về chung một điểm cuối duy nhất. Công cụ này giúp đơn giản hóa cấu hình cho các AI client, cung cấp cơ chế phân quyền, kiểm soát truy cập và quản lý tập trung.",
+   "why_it_matters": "Giúp bạn dễ dàng quản lý và chia sẻ cấu hình MCP cho cả cá nhân lẫn team mà không bị rối rắm với hàng loạt client configurations rời rạc."
+  },
+  {
+   "id": "793baf0e54548beab99537f6123537f5cbfbb07f",
+   "source": "hn",
+   "title": "Ask HN: What's your current AI agentic setup?",
+   "url": "https://news.ycombinator.com/item?id=50366117",
+   "discussion_url": "https://news.ycombinator.com/item?id=50366117",
+   "score": 179,
+   "comments": 197,
+   "published_at": "2026-11-04T14:37:22Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Thảo luận thực tế về setup AI agent.",
+   "summary": "Bài viết trên Hacker News thảo luận về cách các lập trình viên đang xây dựng quy trình làm việc với AI hàng ngày. Nội dung bao gồm việc lựa chọn subscription, mô hình pay-as-you-go, các coding harness và công cụ orchestration tự chế.",
+   "why_it_matters": null
+  },
+  {
+   "id": "58ee32e1464e54810fc56265c6c9730eeae23da3",
+   "source": "hn",
+   "title": "Debian apt security update (man-in-the-middle)",
+   "url": "https://lists.debian.org/debian-security-announce/2026/msg00526.html?pow_referer=",
+   "discussion_url": "https://news.ycombinator.com/item?id=50366575",
+   "score": 137,
+   "comments": 30,
+   "published_at": "2026-11-04T15:04:14Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Cập nhật bảo mật nghiêm trọng cho Debian apt.",
+   "summary": "Debian phát hành bản cập nhật bảo mật cho trình quản lý gói APT nhằm khắc phục lỗi CVE-2026-109518. Lỗi này cho phép kẻ tấn công man-in-the-middle thay thế gói tải xuống qua HTTP redirect, dẫn đến việc thực thi mã độc quyền root.",
+   "why_it_matters": null
+  },
+  {
+   "id": "a7a9c63910c053fe9eebb6b9365e587c4371cccb",
+   "source": "hn",
+   "title": "Debian apt security update: man-in-the-middle arbitrary code execution",
+   "url": "https://lists.debian.org/debian-security-announce/2026/msg00526.html",
+   "discussion_url": "https://news.ycombinator.com/item?id=50364814",
+   "score": 98,
+   "comments": 77,
+   "published_at": "2026-11-04T12:46:58Z",
+   "tags": [],
+   "also_on": [
+    "lobsters"
+   ],
+   "relevance": 9.0,
+   "reason": "Cảnh báo lỗ hổng thực thi mã tùy ý trên Debian apt.",
+   "summary": "Bản tin bảo mật Debian thông báo về lỗ hổng nghiêm trọng trong APT (CVE-2026-109518) liên quan đến việc xử lý tệp khi tải lại HTTP download. Kẻ tấn công trung gian có thể lợi dụng điều này để thay đổi gói cài đặt và thực thi mã độc với quyền root.",
+   "why_it_matters": null
+  },
+  {
+   "id": "68d13328cd49171144cf373d086cd86315693f70",
+   "source": "github",
+   "title": "ccfos/nightingale: Open-source, self-hosted alerting for metrics, logs, and databases. Includes a built-in AI agent and MCP server.",
+   "url": "https://github.com/ccfos/nightingale",
+   "discussion_url": null,
+   "score": 3,
+   "comments": 0,
+   "published_at": "2026-11-05T11:21:46.843425+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Hệ thống monitoring tự host tích hợp AI agent và MCP server.",
+   "summary": "Nightingale là một công cụ open-source tự host giúp quản lý cảnh báo cho metrics, logs và cơ sở dữ liệu tích hợp sẵn AI agent và MCP server. Dự án hỗ trợ kết nối với Prometheus, VictoriaMetrics và định tuyến sự kiện qua nhiều kênh khác nhau.",
+   "why_it_matters": null
+  },
+  {
+   "id": "7838c87736f9082fb144453a5a532f0d0cfd974f",
+   "source": "hn",
+   "title": "Kimi K3.1 Pro model weights are out",
+   "url": "https://huggingface.co/moonshotai/Kimi-K3.1-Pro",
+   "discussion_url": "https://news.ycombinator.com/item?id=50366999",
+   "score": 422,
+   "comments": 123,
+   "published_at": "2026-11-04T15:30:30Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Model weights mới ra mắt cho LLM.",
+   "summary": "Moonshot AI phát hành trọng số cho Kimi K3.1 Pro, một mô hình multimodal agentic thuộc class 3T với 1 triệu token context window. Mô hình hỗ trợ tích hợp qua vLLM, SGLang, Transformers và Docker với hiệu năng cải thiện đáng kể về coding.",
+   "why_it_matters": null
+  }
+ ],
+ "stats": {
+  "fetched_hn": 100,
+  "fetched_github": 51,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 176,
+  "after_dedupe": 171,
+  "after_filter": 74,
+  "ai": "gemini",
+  "ai_tokens_in": 15507,
+  "ai_tokens_out": 4286,
+  "sent": 10,
+  "summarized": 10
+ },
+ "radar": []
+}
