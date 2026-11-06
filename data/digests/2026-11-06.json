@@ -1,0 +1,194 @@
+{
+ "date": "2026-11-06",
+ "items": [
+  {
+   "id": "e3dbdc4dd3bd4cdb9c8e45a2f9dbd190c56cde35",
+   "source": "hn",
+   "title": "Alpine Linux Security Advisory: OpenSSH-server password authentication bypass",
+   "url": "https://alpinelinux.org/posts/2026-11-05-openssh-password-authentication-bypass",
+   "discussion_url": "https://news.ycombinator.com/item?id=50379704",
+   "score": 615,
+   "comments": 2,
+   "published_at": "2026-11-05T14:44:20Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Lỗ hổng bảo mật critical trong OpenSSH trên Alpine Linux.",
+   "summary": "Bản tin cảnh báo bảo mật về lỗ hổng bypass password authentication trong openssh-server trên Alpine Linux, cho phép kẻ tấn công đăng nhập trái phép mà không cần mật khẩu. Lỗ hổng ảnh hưởng đến nhiều phiên bản Alpine khi `PasswordAuthentication` bật và có tài khoản không mật khẩu kết hợp với hash mật khẩu `$5$` hoặc `$6$`. Cách khắc phục là nâng cấp gói openssh hoặc vô hiệu hóa xác thực mật khẩu qua cấu hình.",
+   "why_it_matters": "Giúp bạn nhanh chóng vá lỗi hoặc cấu hình lại các container/máy chủ chạy Alpine Linux nhằm đảm bảo an toàn cho hệ thống infrastructure và môi trường production của mình."
+  },
+  {
+   "id": "ff3e6629620c391f4e910f73567ea8408318b42b",
+   "source": "github",
+   "title": "KenKaiii/gg-framework: The coding agent that gets more out of your AI subscription. Fastest and leanest of 20 agents tested, with unlimited local search of real open-source code.",
+   "url": "https://github.com/KenKaiii/gg-framework",
+   "discussion_url": null,
+   "score": 25,
+   "comments": 0,
+   "published_at": "2026-11-06T11:19:21.960343+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Coding agent mã nguồn mở tối ưu cho tìm kiếm code.",
+   "summary": "GG Coder là một coding agent chạy trên desktop hỗ trợ tối ưu hóa việc sử dụng các gói thuê bao AI sẵn có với tốc độ và hiệu suất vượt trội so với các agent khác. Công cụ tích hợp tìm kiếm mã nguồn mở cục bộ, tự động kiểm tra xác thực mã và cung cấp các gói thư viện Node.js như @kenkaiiii/gg-agent để tích hợp tùy chỉnh.",
+   "why_it_matters": "Cung cấp một giải pháp agent AI tối ưu token và thời gian thực thi, hỗ trợ đắc lực cho công việc lập trình full-stack hằng ngày."
+  },
+  {
+   "id": "80e5d468b8ea71d5d2598fa6208117bc44a02549",
+   "source": "github",
+   "title": "zzet/gortex: High-performance code-intelligence engine for AI agents and IDE, supports 257 languages, multi repositories, based on graph, with access via CLI, MCP Server, and API. AI coding agents teammate - expose only needed information, cutting token usage up to 50x. 100% local. Discord: https://discord.gg/39MFHu3J5d",
+   "url": "https://github.com/zzet/gortex",
+   "discussion_url": null,
+   "score": 24,
+   "comments": 0,
+   "published_at": "2026-11-06T11:19:21.960343+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Engine code-intelligence tối ưu token cho AI coding agent qua MCP.",
+   "summary": "Gortex là một high-performance code-intelligence engine dựa trên đồ thị (graph-native), hỗ trợ phân tích AST qua tree-sitter cho 257 ngôn ngữ lập trình. Công cụ này cung cấp giao diện qua CLI, MCP Server và API giúp các AI coding agent truy vấn thông tin chính xác, cắt giảm tới 50 lần lượng token sử dụng.",
+   "why_it_matters": "Là một công cụ MCP tuyệt vời giúp cải thiện hiệu suất và tiết kiệm chi phí token khi tích hợp các LLM coding assistant vào workflow phát triển TypeScript, Python và Go."
+  },
+  {
+   "id": "7c72ef3696766993e5a47451d3aacd888fa90e59",
+   "source": "hn",
+   "title": "OpenSSH 10.6p2 has been released with a workaround for a critical vulnerability",
+   "url": "https://hachyderm.io/@damienmiller/117563026759098135",
+   "discussion_url": "https://news.ycombinator.com/item?id=50377221",
+   "score": 176,
+   "comments": 220,
+   "published_at": "2026-11-05T09:46:17Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Bản phát hành OpenSSH vá lỗ hổng bảo mật critical.",
+   "summary": "OpenSSH đã phát hành phiên bản 10.6p2 kèm theo bản vá và giải pháp tạm thời cho lỗ hổng bảo mật nghiêm trọng trong quá trình xác thực.",
+   "why_it_matters": "Cung cấp thông tin bản cập nhật quan trọng để bạn kịp thời áp dụng các bản vá bảo mật cho các hệ thống SSH server mình đang quản lý."
+  },
+  {
+   "id": "797532700d6bbde477abb3f110200ce061ae35b4",
+   "source": "github",
+   "title": "siderolabs/talos: Talos Linux is a modern Linux distribution built for Kubernetes.",
+   "url": "https://github.com/siderolabs/talos",
+   "discussion_url": null,
+   "score": 10,
+   "comments": 0,
+   "published_at": "2026-11-06T11:19:21.960343+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Bản phân phối Linux tối ưu chạy Kubernetes.",
+   "summary": "Talos Linux là một hệ điều hành hiện đại, tối giản, bất biến (immutable) được thiết kế chuyên biệt để chạy Kubernetes mà không có shell hay console tương tác truyền thống. Mọi hoạt động quản lý hệ thống đều được thực hiện thông qua API bảo mật bằng xác thực mTLS.",
+   "why_it_matters": "Mang lại một giải pháp vận hành Kubernetes hạ tầng cloud-native có tính bảo mật cao, loại bỏ hiện tượng cấu hình lệch (configuration drift) trong các dự án DevOps."
+  },
+  {
+   "id": "b95f6aa29001e5a7c2d835487a1f161969aa5b29",
+   "source": "hn",
+   "title": "Nvidia Kubernetes Engine (NVKE)",
+   "url": "https://github.com/dsx-ai-factory/nvke",
+   "discussion_url": "https://news.ycombinator.com/item?id=50387738",
+   "score": 21,
+   "comments": 3,
+   "published_at": "2026-11-06T03:16:26Z",
+   "tags": [],
+   "also_on": [
+    "github"
+   ],
+   "relevance": 9.0,
+   "reason": "Giải pháp Kubernetes chuyên dụng tích hợp từ Nvidia.",
+   "summary": "Nvidia Kubernetes Engine (NVKE) là một managed Kubernetes service cho phép platform team tự dựng và vận hành các cluster Kubernetes trên hạ tầng GPU NVIDIA của riêng họ. Bản preview này cung cấp một management plane độc lập để tạo, nâng cấp và quản lý vòng đời của các workload cluster thông qua API và nvkectl.",
+   "why_it_matters": null
+  },
+  {
+   "id": "876f4401e17e3a1112895d8a67b25d11a43c510f",
+   "source": "github",
+   "title": "google/skills: Agent Skills for Google products and technologies",
+   "url": "https://github.com/google/skills",
+   "discussion_url": null,
+   "score": 211,
+   "comments": 0,
+   "published_at": "2026-11-06T11:19:21.960343+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Bộ công cụ Agent Skills hữu ích cho lập trình viên phát triển AI.",
+   "summary": "Repository này cung cấp các Agent Skills và các plugin (kết hợp Skills và MCP servers) dành riêng cho các sản phẩm và công nghệ của Google, bao gồm cả Google Cloud. Bạn có thể dễ dàng cài đặt và cập nhật các kỹ năng này thông qua các công cụ dòng lệnh như npx hoặc tích hợp trực tiếp vào các agent harness phổ biến.",
+   "why_it_matters": null
+  },
+  {
+   "id": "4cd95ba687288759e09274dcbb49529ae6587250",
+   "source": "hn",
+   "title": "MCP Explained",
+   "url": "https://mcp-explained.com",
+   "discussion_url": "https://news.ycombinator.com/item?id=50379249",
+   "score": 265,
+   "comments": 116,
+   "published_at": "2026-11-05T14:08:35Z",
+   "tags": [],
+   "also_on": [
+    "lobsters"
+   ],
+   "relevance": 8.0,
+   "reason": "Giải thích chi tiết về Model Context Protocol (MCP) cho LLM.",
+   "summary": "Model Context Protocol (MCP) là một open standard định nghĩa cách kết nối các ứng dụng AI (host) với các công cụ và nguồn dữ liệu (server) thông qua giao thức JSON-RPC. Tiêu chuẩn này quy định cơ chế đàm phán tính năng, cách truyền thông điệp qua stdin/stdout hoặc HTTP endpoint mà không yêu cầu model phải giao tiếp trực tiếp với server.",
+   "why_it_matters": null
+  },
+  {
+   "id": "f64f1ba40e2ae2bff446cec7305cb50f4ca633d3",
+   "source": "hn",
+   "title": "MS Paint Remote Code Execution Vulnerability",
+   "url": "https://cve.org/CVERecord?id=CVE-2026-83844",
+   "discussion_url": "https://news.ycombinator.com/item?id=50384233",
+   "score": 381,
+   "comments": 141,
+   "published_at": "2026-11-05T20:43:42Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Lỗ hổng RCE nghiêm trọng trong phần mềm hệ thống.",
+   "summary": "Trang thông tin chi tiết về lỗ hổng Remote Code Execution trong MS Paint thuộc hệ thống CVE. Nội dung hiện tại yêu cầu JavaScript phải được bật trên trình duyệt để hiển thị đầy đủ thông tin.",
+   "why_it_matters": null
+  },
+  {
+   "id": "9126754c25c5191e9969e9f15f2b31682be365b3",
+   "source": "github",
+   "title": "openchoreo/openchoreo: OpenChoreo is an internal developer platform for Kubernetes",
+   "url": "https://github.com/openchoreo/openchoreo",
+   "discussion_url": null,
+   "score": 36,
+   "comments": 0,
+   "published_at": "2026-11-06T11:19:21.960343+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Nền tảng Internal Developer Platform (IDP) mã nguồn mở cho Kubernetes.",
+   "summary": "OpenChoreo là một internal developer platform mã nguồn mở dành cho Kubernetes, được tổ chức theo kiến trúc multi-plane gồm Experience, Control, Data, Observability và CI plane. Dự án này tích hợp cổng thông tin Backstage, CI/CD, GitOps và các abstractions cấp cao để dịch ý định của developer thành các resource Kubernetes thực tế.",
+   "why_it_matters": null
+  }
+ ],
+ "stats": {
+  "fetched_hn": 100,
+  "fetched_github": 47,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 172,
+  "after_dedupe": 166,
+  "after_filter": 81,
+  "ai": "gemini",
+  "ai_tokens_in": 11431,
+  "ai_tokens_out": 4520,
+  "sent": 10,
+  "summarized": 10
+ },
+ "radar": []
+}
