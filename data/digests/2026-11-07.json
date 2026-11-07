@@ -1,0 +1,196 @@
+{
+ "date": "2026-11-07",
+ "items": [
+  {
+   "id": "19fc1912b674425677803624f4ef6844a85edc52",
+   "source": "github",
+   "title": "microsoft/TypeScript: TypeScript is a superset of JavaScript that compiles to clean JavaScript output.",
+   "url": "https://github.com/microsoft/TypeScript",
+   "discussion_url": null,
+   "score": 129,
+   "comments": 0,
+   "published_at": "2026-11-07T10:49:07.853400+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 10.0,
+   "reason": "TypeScript là ngôn ngữ chính trong stack của lập trình viên.",
+   "summary": "TypeScript là ngôn ngữ lập trình bổ sung hệ thống type tùy chọn vào JavaScript, giúp xây dựng các ứng dụng quy mô lớn. Dự án cung cấp trình biên dịch sang mã JavaScript tiêu chuẩn, cùng với các bản build ổn định và nightly qua npm.",
+   "why_it_matters": "Đây là công cụ cốt lõi cho ngăn xếp phát triển TypeScript hàng ngày của bạn, giúp cải thiện độ an toàn kiểu dữ liệu trong cả ứng dụng full-stack."
+  },
+  {
+   "id": "f441801c064cce85972f578b6c32c3afb1af080c",
+   "source": "hn",
+   "title": "Firecracker VM Escape: PwnEscape Part 2",
+   "url": "https://pwn.ai/blog/firecracker-escape",
+   "discussion_url": "https://news.ycombinator.com/item?id=50397219",
+   "score": 186,
+   "comments": 86,
+   "published_at": "2026-11-06T19:33:38Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Phân tích lỗ hổng thoát khỏi Firecracker VM cực kỳ chuyên sâu DevOps.",
+   "summary": "Bài viết mô tả chi tiết cách khai thác lỗ hổng thoát khỏi microVM của Firecracker bằng cách tìm kiếm địa chỉ bộ nhớ vật lý của tiến trình trên host thông qua EPT. Kỹ thuật này cho phép chiếm quyền điều khiển luồng vCPU khi nó thoát khỏi lệnh gọi hệ thống KVM_RUN.",
+   "why_it_matters": "Cung cấp cho bạn cái nhìn sâu sắc về bảo mật ảo hóa và cách thức hoạt động của microVM, rất hữu ích khi bạn quản lý hạ tầng cloud và container bảo mật cao."
+  },
+  {
+   "id": "32800af6ef829daf1988e3d7d3bdb25c5d22627d",
+   "source": "github",
+   "title": "vitejs/vite: Next generation frontend tooling. It's fast!",
+   "url": "https://github.com/vitejs/vite",
+   "discussion_url": null,
+   "score": 160,
+   "comments": 0,
+   "published_at": "2026-11-07T10:49:07.853400+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ frontend tooling cực kỳ quan trọng cho full-stack.",
+   "summary": "Vite là công cụ build frontend thế hệ mới cung cấp tính năng khởi động server tức thì và Hot Module Replacement (HMR) cực nhanh dựa trên ES modules gốc. Nó sử dụng Rolldown cho lệnh build để tạo ra các tài nguyên tĩnh được tối ưu hóa cao cho môi trường production.",
+   "why_it_matters": "Giúp tăng tốc độ phát triển frontend hàng ngày của bạn với vòng đời feedback gần như tức thời khi viết mã giao diện."
+  },
+  {
+   "id": "817a11c3933ae3cf87328648256e6e037e57771c",
+   "source": "github",
+   "title": "prometheus/prometheus: The Prometheus monitoring system and time series database.",
+   "url": "https://github.com/prometheus/prometheus",
+   "discussion_url": null,
+   "score": 148,
+   "comments": 0,
+   "published_at": "2026-11-07T10:49:07.853400+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Hệ thống monitoring và TSDB thiết yếu cho DevOps.",
+   "summary": "Prometheus là hệ thống giám sát hệ thống và cơ sở dữ liệu chuỗi thời gian (time-series database) mã nguồn mở thu thập các metrics qua mô hình HTTP pull. Nó hỗ trợ ngôn ngữ truy vấn PromQL mạnh mẽ, cơ chế phát hiện dịch vụ (service discovery) tích hợp và khả năng tùy chỉnh build bằng các tag trong Go.",
+   "why_it_matters": "Là giải pháp tiêu chuẩn để giám sát hạ tầng và ứng dụng trong không gian DevOps và Kubernetes mà bạn vận hành."
+  },
+  {
+   "id": "1841e1e6b645f9bbba2d6b3234a62a0311c92131",
+   "source": "github",
+   "title": "pipeshub-ai/pipeshub-ai: The open-source context layer for AI agents. PipesHub turns your company's knowledge (Slack, Drive, Jira, GitHub, Microsoft 365 and 50+ connectors) into a permission-aware workspace that agents can search, grep, navigate and cite. MCP, SDKs and built-in agents. Self-hosted.",
+   "url": "https://github.com/pipeshub-ai/pipeshub-ai",
+   "discussion_url": null,
+   "score": 64,
+   "comments": 0,
+   "published_at": "2026-11-07T10:49:07.853400+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Lớp ngữ cảnh mã nguồn mở hỗ trợ MCP cho AI agents.",
+   "summary": "PipesHub là tầng ngữ cảnh mã nguồn mở dành cho AI agents, kết nối hơn 50 nguồn dữ liệu doanh nghiệp như Slack, Jira và GitHub thành một workspace có nhận thức về quyền hạn. Nó sử dụng vòng lặp agent kết hợp tìm kiếm hybrid, grep và điều hướng biểu đồ tri thức để cung cấp câu trả lời có trích dẫn thông qua MCP.",
+   "why_it_matters": "Cung cấp một giải pháp tự host mạnh mẽ để tích hợp tri thức nội bộ vào các AI-powered developer tools và coding agents của bạn."
+  },
+  {
+   "id": "43af7aef67dc1c37d7980be139e1f455035f8bb1",
+   "source": "github",
+   "title": "etcd-io/etcd: Distributed reliable key-value store for the most critical data of a distributed system",
+   "url": "https://github.com/etcd-io/etcd",
+   "discussion_url": null,
+   "score": 128,
+   "comments": 0,
+   "published_at": "2026-11-07T10:49:07.853400+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Hệ thống phân tán etcd cốt lõi trong hạ tầng Kubernetes.",
+   "summary": "Etcd là một distributed reliable key-value store được viết bằng Go, sử dụng thuật toán đồng thuận Raft để quản lý các log nhân bản có tính sẵn sàng cao. Tài liệu cung cấp hướng dẫn cài đặt, thiết lập cụm đơn/nhiều thành viên, cấu hình gRPC API và các lệnh quản lý cơ bản qua etcdctl.",
+   "why_it_matters": "Đây là kho lưu trữ cốt lõi đóng vai trò làm backend lưu trữ trạng thái cho Kubernetes, rất quan trọng đối với công việc DevOps và quản lý hạ tầng phân tán của bạn."
+  },
+  {
+   "id": "db36110839f5442b8dd53b3dc3a7b682858ed4f8",
+   "source": "github",
+   "title": "elder-plinius/T3MP3ST: autonomous red teaming platform; multi-agent offensive-security meta-harness",
+   "url": "https://github.com/elder-plinius/T3MP3ST",
+   "discussion_url": null,
+   "score": 242,
+   "comments": 0,
+   "published_at": "2026-11-07T10:49:07.853400+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Công cụ autonomous red teaming platform hỗ trợ testing bảo mật tự động rất hữu ích.",
+   "summary": "T3MP3ST là một mã nguồn mở multi-agent offensive-security framework, biến các AI coding agent thành công cụ săn lỗi tự động (recon, exploit, report). Nó hoạt động cục bộ hoặc qua CLI với các agent sẵn có như Claude Code hay Ollama, không yêu cầu API key bên ngoài hay hóa đơn cloud.",
+   "why_it_matters": "Công cụ này kết hợp trực tiếp LLM tooling và AI coding agents vào quy trình kiểm tra bảo mật, phù hợp với sự quan tâm của bạn về các tác vụ tự động hóa hỗ trợ bởi AI."
+  },
+  {
+   "id": "b9901cf076934a21a9f14121fccba9e41d61044a",
+   "source": "github",
+   "title": "microsoft/VibeVoice: Open-Source Frontier Voice AI",
+   "url": "https://github.com/microsoft/VibeVoice",
+   "discussion_url": null,
+   "score": 1004,
+   "comments": 0,
+   "published_at": "2026-11-07T10:49:07.853400+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Mô hình Voice AI mã nguồn mở mới, phù hợp xu hướng AI.",
+   "summary": "VibeVoice là một bộ mô hình voice AI mã nguồn mở gồm cả Text-to-Speech và Automatic Speech Recognition (ASR) với khả năng xử lý audio dài. Bản cập nhật mới mang đến các tính năng streaming ASR, công cụ chạy trên CPU qua lượng tử hóa BitNet, và tích hợp sâu với Hugging Face Transformers.",
+   "why_it_matters": "Việc hỗ trợ chạy mô hình voice AI trực tiếp trên CPU thông qua lượng tử hóa giúp bạn dễ dàng tích hợp các công cụ AI đa phương tiện vào môi trường dev cục bộ mà không tốn tài nguyên GPU."
+  },
+  {
+   "id": "ef2a83f7f3a44d746cc2451560fee6a857699074",
+   "source": "hn",
+   "title": "A Jev that can ask Opus for help gives Opus accuracy at 4x lower cost",
+   "url": "https://hightouch.com/blog/llm-judges-identity-resolution",
+   "discussion_url": "https://news.ycombinator.com/item?id=50397429",
+   "score": 370,
+   "comments": 84,
+   "published_at": "2026-11-06T19:48:51Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Kỹ thuật tối ưu chi phí và tăng độ chính xác cho LLM.",
+   "summary": "Bài viết thử nghiệm giải quyết bài toán phân giải danh tính (identity resolution) bằng cách kết hợp các decision model nhỏ hơn (như Jev) với mô hình lớn (Opus). Kết quả cho thấy mô hình hybrid này đạt độ chính xác tương đương mô hình lớn nhưng với chi phí thấp hơn đáng kể nhờ khả năng tận dụng độ tự tin của Jev để gọi Opus khi cần thiết.",
+   "why_it_matters": "Kỹ thuật kết hợp mô hình hybrid giúp tối ưu hóa chi phí và hiệu suất khi xây dựng các ứng dụng LLM thực tế, phù hợp với xu hướng phát triển công cụ AI hiệu quả."
+  },
+  {
+   "id": "1c1a19b7e800d5dedd7bff03c6fee2cd31507dc4",
+   "source": "github",
+   "title": "microsoft/vscode: Visual Studio Code",
+   "url": "https://github.com/microsoft/vscode",
+   "discussion_url": null,
+   "score": 301,
+   "comments": 0,
+   "published_at": "2026-11-07T10:49:07.853400+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Kho lưu trữ mã nguồn VS Code quen thuộc với lập trình viên.",
+   "summary": null,
+   "why_it_matters": null
+  }
+ ],
+ "stats": {
+  "fetched_hn": 100,
+  "fetched_github": 62,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 187,
+  "after_dedupe": 184,
+  "after_filter": 91,
+  "ai": "gemini",
+  "ai_tokens_in": 13382,
+  "ai_tokens_out": 3826,
+  "sent": 10,
+  "summarized": 9
+ },
+ "radar": []
+}
