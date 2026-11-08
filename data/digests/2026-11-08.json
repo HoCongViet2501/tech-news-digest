@@ -1,0 +1,191 @@
+{
+ "date": "2026-11-08",
+ "items": [
+  {
+   "id": "273bbe1e419702dfc391cf508a95fefa2cae14d8",
+   "source": "hn",
+   "title": "Need for Speed Underground 2 online in the browser",
+   "url": "https://nfsu2.xyz",
+   "discussion_url": "https://news.ycombinator.com/item?id=50403052",
+   "score": 843,
+   "comments": 231,
+   "published_at": "2026-11-07T09:36:36Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.8,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "eb8e266816bcb9cd038720702f241a6a4e457c2a",
+   "source": "github",
+   "title": "sherlock-project/sherlock: Hunt down social media accounts by username across social networks",
+   "url": "https://github.com/sherlock-project/sherlock",
+   "discussion_url": null,
+   "score": 1766,
+   "comments": 0,
+   "published_at": "2026-11-08T10:30:09.403503+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.75,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "68be897c8b54bcd75a9c92a21f06821a33e74f45",
+   "source": "lobsters",
+   "title": "Libghostty 1.0",
+   "url": "https://mitchellh.com/writing/libghostty-1-0",
+   "discussion_url": "https://lobste.rs/s/0ouxwf/libghostty_1_0",
+   "score": 156,
+   "comments": 7,
+   "published_at": "2026-11-06T17:48:03.089000-06:00",
+   "tags": [
+    "c",
+    "release",
+    "zig"
+   ],
+   "also_on": [],
+   "relevance": 9.6429,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "5ec03af4da1d836d9dad8f0be411db409e6bd298",
+   "source": "hn",
+   "title": "Every Mac comes with an (undocumented) family member classifier",
+   "url": "https://8rank.ai/game/apple-intelligence-personal-knowledge-graph",
+   "discussion_url": "https://news.ycombinator.com/item?id=50403097",
+   "score": 627,
+   "comments": 351,
+   "published_at": "2026-11-07T09:46:03Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.4,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "c04b1b26ea96ff46a8a29229cabfd571309e6616",
+   "source": "github",
+   "title": "jamiepine/voicebox: The open-source AI voice studio. Clone, dictate, create.",
+   "url": "https://github.com/jamiepine/voicebox",
+   "discussion_url": null,
+   "score": 378,
+   "comments": 0,
+   "published_at": "2026-11-08T10:30:09.403503+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.25,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "9f1ff32d0cab0ed125719a86b5873325afcb05be",
+   "source": "hn",
+   "title": "The end of Microsoft Research's AI Frontiers group",
+   "url": "https://hunch.net?p=13764006",
+   "discussion_url": "https://news.ycombinator.com/item?id=50406563",
+   "score": 417,
+   "comments": 244,
+   "published_at": "2026-11-07T18:02:17Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "663bac8bb796e6f7b90243a8c7052ba2ef8fcdd3",
+   "source": "lobsters",
+   "title": "Making musl and proprietary NVIDIA drivers work together",
+   "url": "https://chimera-linux.org/news/2026/11/musl-nvidia.html",
+   "discussion_url": "https://lobste.rs/s/hvxjbb/making_musl_proprietary_nvidia_drivers",
+   "score": 63,
+   "comments": 9,
+   "published_at": "2026-11-06T07:23:14.985000-06:00",
+   "tags": [
+    "linux"
+   ],
+   "also_on": [],
+   "relevance": 8.9286,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "fe4697100c8e8c62b9b9ba2a8d5a4ba18b2a7d75",
+   "source": "hn",
+   "title": "Asahi Linux Progress Linux 7.3",
+   "url": "https://asahilinux.org/2026/11/progress-report-7-3",
+   "discussion_url": "https://news.ycombinator.com/item?id=50401867",
+   "score": 333,
+   "comments": 269,
+   "published_at": "2026-11-07T05:20:18Z",
+   "tags": [],
+   "also_on": [
+    "lobsters"
+   ],
+   "relevance": 8.8,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "99c58b0dd06fcfd95864b63a564d85547a9dbb36",
+   "source": "github",
+   "title": "angular/angular: Deliver web apps with confidence 🚀",
+   "url": "https://github.com/angular/angular",
+   "discussion_url": null,
+   "score": 305,
+   "comments": 0,
+   "published_at": "2026-11-08T10:30:09.403503+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.75,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "9924ea333680dee7876b3afdc1e4c81a2031004e",
+   "source": "hn",
+   "title": "Apple’s grey list: Words and phrases your iPhone won’t help you spell",
+   "url": "https://theguardian.com/technology/2026/nov/06/struggling-to-spell-male-chauvinist-pig-apple-grey-list-means-your-iphone-wont-help-you",
+   "discussion_url": "https://news.ycombinator.com/item?id=50406111",
+   "score": 391,
+   "comments": 258,
+   "published_at": "2026-11-07T17:06:36Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.6,
+   "reason": null,
+   "summary": null,
+   "why_it_matters": null
+  }
+ ],
+ "stats": {
+  "fetched_hn": 62,
+  "fetched_github": 53,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 140,
+  "after_dedupe": 135,
+  "after_filter": 59,
+  "ai": "unavailable",
+  "sent": 10
+ },
+ "radar": []
+}
