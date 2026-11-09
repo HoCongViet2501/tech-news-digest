@@ -1,0 +1,192 @@
+{
+ "date": "2026-11-09",
+ "items": [
+  {
+   "id": "5e9d3fd0e59ccb776c0fc24529575136232b3097",
+   "source": "hn",
+   "title": "Llama-modchip: 284B DeepSeek on 64GB RAM, no GPU",
+   "url": "https://github.com/synchopate/llama-modchip",
+   "discussion_url": "https://news.ycombinator.com/item?id=50411961",
+   "score": 385,
+   "comments": 170,
+   "published_at": "2026-11-08T10:22:04Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Chạy mô hình lớn DeepSeek trên RAM thông thường mà không cần GPU.",
+   "summary": "Llama-modchip cung cấp các bản vá kernel ggml/llama.cpp, công cụ chuyển đổi lượng hóa và runtime giúp chạy các mô hình MoE lớn như DeepSeek-V4-Flash (284B) hoàn toàn trên RAM hệ thống. Giải pháp này tối ưu hóa việc phân bổ Tensor và bộ nhớ đệm SIMD/cache, cho phép chạy mô hình tốc độ cao mà không cần GPU.",
+   "why_it_matters": "Giúp bạn chạy các mô hình LLM lớn cục bộ trên phần cứng không có GPU mạnh, tiết kiệm tài nguyên khi thử nghiệm AI."
+  },
+  {
+   "id": "1876b9abaa20b9f0f92f52a9ec652f4f4325d6dc",
+   "source": "github",
+   "title": "SWE-agent/mini-swe-agent: The 100 line AI agent that solves GitHub issues or helps you in your command line. Radically simple, no huge configs, no giant monorepo—but scores >74% on SWE-bench verified!",
+   "url": "https://github.com/SWE-agent/mini-swe-agent",
+   "discussion_url": null,
+   "score": 86,
+   "comments": 0,
+   "published_at": "2026-11-09T10:46:18.558787+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "AI agent siêu nhỏ gọn giải quyết GitHub issues cực tốt.",
+   "summary": "Mini-swe-agent là một coding agent siêu tối giản chỉ khoảng 100 dòng mã Python, đạt điểm số cao trên benchmark SWE-bench verified. Công cụ này sử dụng hoàn toàn giao diện bash tiêu chuẩn, lịch sử tương tác tuyến tính và chạy các hành động độc lập qua subprocess.run.",
+   "why_it_matters": "Cung cấp một AI coding agent mã nguồn mở nhẹ nhàng, dễ debug và tích hợp mượt mà vào terminal hoặc quy trình DevOps của bạn."
+  },
+  {
+   "id": "66d41b8aa3e54926247b18110ee4e9281f322def",
+   "source": "github",
+   "title": "humanlayer/12-factor-agents: What are the principles we can use to build LLM-powered software that is actually good enough to put in the hands of production customers?",
+   "url": "https://github.com/humanlayer/12-factor-agents",
+   "discussion_url": null,
+   "score": 19,
+   "comments": 0,
+   "published_at": "2026-11-09T10:46:18.558787+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Nguyên tắc kiến trúc 12-factor thực tế để xây dựng ứng dụng LLM.",
+   "summary": "Dự án khám phá các nguyên tắc thiết kế ứng dụng tích hợp LLM nhằm đưa các AI agent đạt độ tin cậy vào môi trường production. Tác giả phân tích cách kết hợp giữa mã nguồn phần mềm deterministic và các bước gọi LLM để tối ưu hóa hiệu suất.",
+   "why_it_matters": "Giúp bạn áp dụng các kiến trúc thực tế và đáng tin cậy khi xây dựng hệ thống phần mềm có tích hợp AI."
+  },
+  {
+   "id": "8d682625501f63fb4d1061bdb1fbeac07426a06c",
+   "source": "hn",
+   "title": "We deleted almost all our agent code, and other lessons from 100k PRs",
+   "url": "https://lovable.dev/blog/how-we-built-lovable-and-why-we-keep-rebuilding-it",
+   "discussion_url": "https://news.ycombinator.com/item?id=50414445",
+   "score": 13,
+   "comments": 2,
+   "published_at": "2026-11-08T16:09:37Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Bài học thực tế từ việc tối ưu hóa code agent sau 100k PR.",
+   "summary": "Nhóm phát triển Lovable chia sẻ kinh nghiệm thực tế sau khi xử lý hơn 100.000 PR và quyết định lược bỏ phần lớn mã agent phức tạp. Họ chuyển từ các vòng lặp agent tự trị rườm rà sang mô hình công cụ đơn giản kết hợp kiểm soát môi trường chặt chẽ để tăng tính ổn định.",
+   "why_it_matters": "Cung cấp bài học thực tế về việc ưu tiên sự ổn định và kiểm soát thay vì lạm dụng agent tự trị quá phức tạp trong sản phẩm."
+  },
+  {
+   "id": "326d2dcd2a181b98d496757dca71a2662e936d53",
+   "source": "github",
+   "title": "poco-ai/Agentero: Unified research workspace for humans & agents — PDF Q&A with citations, Vault, writing. 为人与 Agent 协作的科研工作台；补齐 Zotero 时代的人机上下文断点。",
+   "url": "https://github.com/poco-ai/Agentero",
+   "discussion_url": null,
+   "score": 145,
+   "comments": 0,
+   "published_at": "2026-11-09T10:46:18.558787+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Workspace nghiên cứu tích hợp AI agent và PDF Q&A rất thiết thực.",
+   "summary": "Agentero là một workspace nghiên cứu tích hợp sẵn giao thức MCP và ACP, giúp kết nối con người và các AI agent xử lý tài liệu PDF. Công cụ tự động trích xuất công thức, bảng biểu thành Markdown/LaTeX và đồng bộ ghi chú cục bộ dưới dạng tệp phẳng.",
+   "why_it_matters": "Tích hợp Model Context Protocol (MCP) giúp bạn dễ dàng kết nối thư viện tài liệu cục bộ với các AI client như Claude Desktop."
+  },
+  {
+   "id": "e4d02fd5d90b0b91578d5aee1a1e14ee89a6a456",
+   "source": "hn",
+   "title": "Agent memory needs its OpenTelemetry moment",
+   "url": "https://lorekit.io/blog/open-agent-memory-format",
+   "discussion_url": "https://news.ycombinator.com/item?id=50411467",
+   "score": 176,
+   "comments": 103,
+   "published_at": "2026-11-08T08:40:23Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Bàn về tiêu chuẩn OpenTelemetry cho memory của AI agent.",
+   "summary": "Bài viết bàn về sự phân mảnh trong hệ thống lưu trữ bộ nhớ của các AI agent, khi mỗi công cụ tự định nghĩa một kiểu dữ liệu riêng biệt. Tác giả đề xuất cần có một chuẩn chung giống như OpenTelemetry từng làm cho lĩnh vực observability.",
+   "why_it_matters": "Việc chuẩn hóa định dạng bộ nhớ và tích hợp MCP sẽ giúp bạn dễ dàng quản lý các coding agent và công cụ AI trong quy trình làm việc hàng ngày."
+  },
+  {
+   "id": "a6d2899675db312adecc4539b0b8a6f58fa6eee5",
+   "source": "github",
+   "title": "vercel-labs/json-render: The Generative UI framework",
+   "url": "https://github.com/vercel-labs/json-render",
+   "discussion_url": null,
+   "score": 149,
+   "comments": 0,
+   "published_at": "2026-11-09T10:46:18.558787+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Generative UI framework hữu ích cho lập trình viên frontend.",
+   "summary": "Vercel-labs/json-render là một framework Generative UI cho phép tạo giao diện người dùng động từ các câu lệnh tự nhiên một cách an toàn và có kiểm soát. Framework này cung cấp các gói thư viện hỗ trợ đa nền tảng như React, Vue, Svelte, SolidJS và React Native dựa trên các component được định nghĩa trước.",
+   "why_it_matters": "Công cụ này giúp bạn tích hợp AI để tạo UI đa nền tảng một cách đáng tin cậy bằng các component sẵn có như shadcn/ui."
+  },
+  {
+   "id": "ec6779b05ebb24a90fced8bee83eb63c45b6ac78",
+   "source": "hn",
+   "title": "Outlook.com Is Quietly Rejecting Email from Domains Without DMARC",
+   "url": "https://mailroute.net/blog/outlook-rejecting-email-without-dmarc",
+   "discussion_url": "https://news.ycombinator.com/item?id=50416158",
+   "score": 285,
+   "comments": 204,
+   "published_at": "2026-11-08T19:20:32Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Cảnh báo kỹ thuật quan trọng về cấu hình email và DMARC.",
+   "summary": "Dịch vụ email người dùng của Microsoft (Outlook, Hotmail, v.v.) đang âm thầm từ chối một phần email từ các tên miền thiếu bản ghi DMARC. Lỗi này gây ra hiện tượng email bị trả về ngẫu nhiên mà không có thông báo chính thức nào từ phía Microsoft.",
+   "why_it_matters": "Bạn cần nhanh chóng kiểm tra và cấu hình bản ghi DMARC cho các tên miền hệ thống của mình để tránh việc email thông báo từ ứng dụng bị từ chối ngầm."
+  },
+  {
+   "id": "513ac6687d4e3c63fabbf1319ec013548e4f8bd3",
+   "source": "github",
+   "title": "TwiN/gatus: Automated developer-oriented status page with alerting and incident support",
+   "url": "https://github.com/TwiN/gatus",
+   "discussion_url": null,
+   "score": 100,
+   "comments": 0,
+   "published_at": "2026-11-09T10:46:18.558787+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Công cụ status page tự động kèm cảnh báo rất hợp cho DevOps.",
+   "summary": "TwiN/gatus là một trang trạng thái (status page) tự động hướng đến lập trình viên, tích hợp tính năng cảnh báo và quản lý sự cố. Dự án mã nguồn mở này hỗ trợ cấu hình linh hoạt bằng Go và Docker để theo dõi sức khỏe hệ thống.",
+   "why_it_matters": "Đây là một công cụ DevOps tự host thiết thực giúp bạn giám sát uptime và nhận cảnh báo nhanh chóng cho hạ tầng của mình."
+  },
+  {
+   "id": "78619289f98b5965294b08bfc37bf14482062bb2",
+   "source": "github",
+   "title": "lobehub/lobehub: 🤯 LobeHub - Super-Agents on Your Team. Add super-agents to the chats your team already uses.They take on work by themselves and get better every week.",
+   "url": "https://github.com/lobehub/lobehub",
+   "discussion_url": null,
+   "score": 95,
+   "comments": 0,
+   "published_at": "2026-11-09T10:46:18.558787+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Hệ thống multi-agent tích hợp vào chat team thực tế.",
+   "summary": "LobeHub là một nền tảng mã nguồn mở cho phép tích hợp các AI agent vào các kênh chat của nhóm để tự động hóa công việc. Nền tảng này hỗ trợ kết nối với nhiều mô hình LLM, máy chủ MCP và chia sẻ kỹ năng qua định dạng SKILL.md.",
+   "why_it_matters": "Nền tảng này mang đến các công cụ AI agent và MCP tích hợp sẵn giúp tối ưu hóa quy trình làm việc và phát triển phần mềm của bạn."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 68,
+  "fetched_github": 45,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 138,
+  "after_dedupe": 135,
+  "after_filter": 69,
+  "ai": "gemini",
+  "ai_tokens_in": 16775,
+  "ai_tokens_out": 3823,
+  "sent": 10,
+  "summarized": 10
+ },
+ "radar": []
+}
