@@ -1,0 +1,196 @@
+{
+ "date": "2026-11-10",
+ "items": [
+  {
+   "id": "9ea4ef4cb5d0dd4e0aa479009e18b94b041005e7",
+   "source": "lobsters",
+   "title": "Terminal2Shell: Critical flaw grants instant shell access on every major OS",
+   "url": "https://terminal2shell.com",
+   "discussion_url": "https://lobste.rs/s/vghqe8/terminal2shell_critical_flaw_grants",
+   "score": 87,
+   "comments": 23,
+   "published_at": "2026-11-09T09:41:50.359000-06:00",
+   "tags": [
+    "satire",
+    "security"
+   ],
+   "also_on": [
+    "hn"
+   ],
+   "relevance": 9.0,
+   "reason": "Lỗ hổng critical ảnh hưởng lớn đến hệ điều hành và bảo mật.",
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "852158c740b8a7c38e418861a9a08b3d28a21dcf",
+   "source": "github",
+   "title": "neuml/txtai: 💡 All-in-one AI framework for semantic search, LLM orchestration and language model workflows",
+   "url": "https://github.com/neuml/txtai",
+   "discussion_url": null,
+   "score": 70,
+   "comments": 0,
+   "published_at": "2026-11-10T12:20:09.016971+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Framework AI toàn diện cho semantic search và LLM orchestration.",
+   "summary": "txtai là một AI framework tất cả trong một dành cho tìm kiếm ngữ nghĩa, điều phối LLM và các luồng công việc của mô hình ngôn ngữ. Cốt lõi của nó là cơ sở dữ liệu embedding kết hợp vector index, đồ thị và cơ sở dữ liệu quan hệ, hỗ trợ xây dựng RAG, autonomous agents và cung cấp MCP API.",
+   "why_it_matters": "Công cụ này giúp bạn tích hợp semantic search và LLM orchestration vào các ứng dụng Python của mình một cách nhanh chóng và dễ dàng."
+  },
+  {
+   "id": "3bb5b3b2d995dfa03de7afc110b207783d170a8a",
+   "source": "github",
+   "title": "opensandbox-group/OpenSandbox: Secure, Fast, and Extensible Sandbox runtime for AI agents.",
+   "url": "https://github.com/opensandbox-group/OpenSandbox",
+   "discussion_url": null,
+   "score": 168,
+   "comments": 0,
+   "published_at": "2026-11-10T12:20:09.016971+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Runtime sandbox bảo mật dành riêng cho AI agents.",
+   "summary": "OpenSandbox cung cấp môi trường sandbox cô lập, bảo mật và hiệu suất cao để chạy các AI agent thực thi mã lệnh, quản lý tệp và trình duyệt. Nó hỗ trợ khởi chạy cục bộ qua Docker và mở rộng trên Kubernetes với API thống nhất tích hợp sẵn MCP.",
+   "why_it_matters": "Cung cấp cho bạn một giải pháp DevOps và containerization vững chắc để triển khai các coding agent một cách an toàn trên hạ tầng của riêng mình."
+  },
+  {
+   "id": "d24581da697389c944765562e684d9a36cdc86f4",
+   "source": "github",
+   "title": "snarktank/ralph: Ralph is an autonomous AI agent loop that runs repeatedly until all PRD items are complete.",
+   "url": "https://github.com/snarktank/ralph",
+   "discussion_url": null,
+   "score": 32,
+   "comments": 0,
+   "published_at": "2026-11-10T12:20:09.016971+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "AI agent tự động chạy lặp qua các PRD, đúng công cụ lập trình AI.",
+   "summary": "Ralph là một vòng lặp AI agent tự động chạy lặp đi lặp lại các công cụ lập trình như Amp hoặc Claude Code cho đến khi tất cả các mục trong PRD hoàn thành. Mỗi lần lặp sẽ khởi tạo ngữ cảnh mới, với bộ nhớ được duy trì thông qua lịch sử git và các tệp cấu trúc JSON.",
+   "why_it_matters": "Giúp tự động hóa các tác vụ phát triển tính năng phức tạp trong CI/CD và quy trình làm việc hàng ngày của một full-stack developer."
+  },
+  {
+   "id": "ffe8a09e969fa29a7c7881cf94d2af2b6afa6488",
+   "source": "hn",
+   "title": "Claude Fable 5.2 and Mythos 5.2",
+   "url": "https://anthropic.com/claude-fable-and-mythos-5-2",
+   "discussion_url": "https://news.ycombinator.com/item?id=50429906",
+   "score": 968,
+   "comments": 6,
+   "published_at": "2026-11-09T18:56:29Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Mô hình AI mới từ Anthropic, quan trọng cho người dùng LLM.",
+   "summary": "Anthropic đã nâng cấp các mô hình Claude Fable 5.2 và Mythos 5.2, tập trung cải thiện khả năng lập trình, lập luận, tầm nhìn và hiệu suất tạo token nhanh hơn. Các phiên bản này đạt kết quả vượt trội trên nhiều benchmark về agentic coding và nghiên cứu khoa học.",
+   "why_it_matters": "Cung cấp một trợ lý AI mạnh mẽ hơn đáng kể cho các công việc lập trình phức tạp và di chuyển hệ thống đòi hỏi kỹ thuật cao."
+  },
+  {
+   "id": "8ceada5f95028093457b40d36fbc581d82bb28a5",
+   "source": "hn",
+   "title": "ChatGPT Desktop forwards your SSH agent to remote machines",
+   "url": "https://news.ycombinator.com/item?id=50422628",
+   "discussion_url": "https://news.ycombinator.com/item?id=50422628",
+   "score": 207,
+   "comments": 72,
+   "published_at": "2026-11-09T08:17:49Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "ChatGPT Desktop forward SSH agent, liên quan trực tiếp đến DevOps và bảo mật.",
+   "summary": "Bài thảo luận trên Hacker News phân tích về việc ứng dụng ChatGPT Desktop tự động chuyển tiếp SSH agent đến các máy chủ từ xa. Điều này tạo ra rủi ro bảo mật khi các tác vụ từ xa có thể lạm dụng thông tin xác thực SSH cục bộ.",
+   "why_it_matters": "Cảnh báo bạn về các rủi ro bảo mật tiềm ẩn khi tích hợp các công cụ AI vào môi trường phát triển và hệ thống hạ tầng nhạy cảm."
+  },
+  {
+   "id": "2aac2a1cf3bd74672b4c37495df148703bf0f38d",
+   "source": "github",
+   "title": "superplanehq/superplane: Open source factory for one-shot engineering",
+   "url": "https://github.com/superplanehq/superplane",
+   "discussion_url": null,
+   "score": 228,
+   "comments": 0,
+   "published_at": "2026-11-10T12:20:09.016971+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Công cụ open source cho engineering tự động hóa một bước.",
+   "summary": "SuperPlane là một công cụ mã nguồn mở giúp tự động hóa quy trình phát triển phần mềm bằng cách phối hợp các AI coding agent, hệ thống quản lý mã nguồn và CI. Công cụ này phân tích các issue trong backlog, tạo pull request đã được kiểm thử và gửi các lỗi về cho agent xử lý lại trước khi con người duyệt. Hệ thống có thể tự host thông qua Docker Compose hoặc Kubernetes trên các nền tảng đám mây lớn.",
+   "why_it_matters": "Giúp bạn tích hợp các tác vụ AI coding agent vào chuỗi CI/CD và quản lý hạ tầng self-host dễ dàng qua Docker/Kubernetes."
+  },
+  {
+   "id": "feb2ba2115590aafaa5bb7048f59684d671aadd6",
+   "source": "hn",
+   "title": "Muse Ember: Our smallest, most efficient model",
+   "url": "https://research.meta.ai/blog/muse-ember",
+   "discussion_url": "https://news.ycombinator.com/item?id=50429024",
+   "score": 271,
+   "comments": 112,
+   "published_at": "2026-11-09T17:58:46Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Mô hình AI nhỏ và hiệu quả mới từ Meta.",
+   "summary": "Meta giới thiệu Muse Ember, mô hình nhỏ gọn và hiệu quả cao được thiết kế chuyên biệt cho việc thực thi lý luận phức tạp, gọi công cụ, xử lý tác vụ code phụ và phân tích tài liệu dài. Mô hình này đạt hiệu suất vượt trội trên các bảng đánh giá AI coding agent và agentic terminal với mức chi phí thấp hơn đáng kể so với các đối thủ. Muse Ember hiện đã khả dụng trên Meta Model API với cửa sổ ngữ cảnh lên tới 1 triệu token.",
+   "why_it_matters": "Cung cấp cho bạn một lựa chọn mô hình LLM chi phí thấp nhưng mạnh mẽ để tối ưu hóa các tác vụ AI coding agent và gọi công cụ trong hệ thống."
+  },
+  {
+   "id": "5aa2811f45ceef64b3b701c1355651977a9f2394",
+   "source": "hn",
+   "title": "6 Hours of YouTube and 85 handtyped pages of notes on LLM Inference – Start here",
+   "url": "https://github.com/samir-sarwar/samir-vllm",
+   "discussion_url": "https://news.ycombinator.com/item?id=50424199",
+   "score": 77,
+   "comments": 12,
+   "published_at": "2026-11-09T11:36:55Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Tài liệu học tập chi tiết và sâu sắc về LLM Inference.",
+   "summary": "Dự án này xây dựng một engine suy luận LLM thu nhỏ bằng C++17 và CUDA từ những nguyên lý đầu tiên để giảng dạy cách hoạt động của LLM inference. Tài liệu đi kèm bao gồm mã nguồn tải trọng tệp safetensors trực tiếp lên GPU, các CUDA kernel cho việc xử lý token, embedding, RMSNorm và cơ chế quản lý bộ nhớ KV Cache theo trang (paged decode attention). Engine hỗ trợ quá trình prefill, giải mã hàng loạt tĩnh và lập lịch liên tục cho mô hình Llama 3.2 1B.",
+   "why_it_matters": "Cho phép bạn hiểu sâu về mặt kỹ thuật cách thức hoạt động bên dưới của LLM inference, CUDA kernel và quản lý bộ nhớ GPU."
+  },
+  {
+   "id": "60f67578b845ae524f3ca154d24de8df6b2b57c2",
+   "source": "lobsters",
+   "title": "Unattended reboots with encrypted disks",
+   "url": "https://jmmv.dev/2026/11/zkeys-intro.html",
+   "discussion_url": "https://lobste.rs/s/urg4yu/unattended_reboots_with_encrypted_disks",
+   "score": 32,
+   "comments": 25,
+   "published_at": "2026-11-08T10:58:03.605000-06:00",
+   "tags": [
+    "freebsd",
+    "security"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Cấu hình khởi động lại hệ thống với ổ đĩa mã hóa cho Linux/DevOps.",
+   "summary": "ZKeys là một dịch vụ quản lý giúp giải quyết bài toán khởi động lại máy chủ từ xa mà vẫn đảm bảo mã hóa ổ đĩa an toàn bằng cách lưu trữ một nửa cụm mật khẩu ngoài trang web. Máy chủ khách phải gửi thông điệp keepalive định kỳ để giữ cho khóa được mở khóa, và hệ thống sẽ tự động khóa lại nếu mất kết nối trong thời gian dài. Thiết kế zero-knowledge của ZKeys sử dụng phương pháp chia khóa và mã hóa khi lưu trữ để bảo vệ dữ liệu ngay cả khi máy chủ lưu trữ bị xâm phạm.",
+   "why_it_matters": "Cung cấp một giải pháp DevOps thực tế để tự động hóa việc reboot máy chủ lưu trữ mã hóa mà vẫn duy trì tính bảo mật cho hạ tầng."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 100,
+  "fetched_github": 47,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 172,
+  "after_dedupe": 166,
+  "after_filter": 79,
+  "ai": "gemini",
+  "ai_tokens_in": 13728,
+  "ai_tokens_out": 3929,
+  "sent": 10,
+  "summarized": 9
+ },
+ "radar": []
+}
