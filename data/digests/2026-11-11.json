@@ -1,0 +1,190 @@
+{
+ "date": "2026-11-11",
+ "items": [
+  {
+   "id": "8edd1a020853220de98f5fad60359bc6692a5ce3",
+   "source": "github",
+   "title": "dsx-ai-factory/run-ai: Run:ai is the AI workload orchestration platform for Kubernetes. This monorepo contains the control plane services, in-cluster Kubernetes operator/controllers, shared libraries and clients, the installer, and the local dev environment.",
+   "url": "https://github.com/dsx-ai-factory/run-ai",
+   "discussion_url": null,
+   "score": 12,
+   "comments": 0,
+   "published_at": "2026-11-11T10:51:30.662915+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Kubernetes orchestration platform chuyên dụng cho AI workloads.",
+   "summary": "NVIDIA Run:ai là một nền tảng mã nguồn mở chuyên quản lý khối lượng công việc AI và điều phối GPU trên Kubernetes. Dự án này cung cấp khả năng lập lịch GPU thông minh, phân bổ tài nguyên linh hoạt, quản lý hạn mức và hỗ trợ quản trị đa cluster cho môi trường hybrid.",
+   "why_it_matters": "Giúp bạn tối ưu hóa việc phân chia và quản lý tài nguyên GPU trên cụm Kubernetes khi chạy các workload AI phức tạp."
+  },
+  {
+   "id": "e24fa4f8daa3012cf78488fc51627183da582a39",
+   "source": "github",
+   "title": "k0sproject/k0s: k0s - The Zero Friction Kubernetes",
+   "url": "https://github.com/k0sproject/k0s",
+   "discussion_url": null,
+   "score": 6,
+   "comments": 0,
+   "published_at": "2026-11-11T10:51:30.662915+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Phân phối Kubernetes nhẹ, phù hợp cho DevOps.",
+   "summary": "k0s là một bản phân phối Kubernetes toàn diện, được đóng gói dưới dạng một binary duy nhất với cấu hình tối giản và không phụ thuộc vào hệ điều hành ngoài kernel. Công cụ này hỗ trợ nhiều phương thức cài đặt từ single-node, multi-node cho đến airgap, giúp đơn giản hóa việc khởi tạo và quản lý cluster.",
+   "why_it_matters": "Cung cấp giải pháp triển khai Kubernetes nhanh chóng, nhẹ nhàng và ít tốn công sức bảo trì cho các môi trường từ cloud, bare-metal đến edge."
+  },
+  {
+   "id": "1602c375ed37e3a6785ba26edbfbbed06382480a",
+   "source": "github",
+   "title": "opencode-ai/opencode: A powerful AI coding agent. Built for the terminal.",
+   "url": "https://github.com/opencode-ai/opencode",
+   "discussion_url": null,
+   "score": 3,
+   "comments": 0,
+   "published_at": "2026-11-11T10:51:30.662915+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "AI coding agent mới chạy trực tiếp trên terminal.",
+   "summary": "OpenCode là một trợ lý lập trình AI chạy trên terminal được xây dựng bằng Go, tích hợp giao diện TUI dựa trên Bubble Tea. Dự án hỗ trợ nhiều nhà cung cấp AI lớn, quản lý phiên làm việc bằng SQLite và cho phép AI tương tác trực tiếp với hệ thống lệnh cũng như mã nguồn.",
+   "why_it_matters": "Mang lại một công cụ coding agent chạy trực tiếp trong terminal với hiệu năng cao bằng Go, giúp tối ưu hóa quy trình debug và phát triển."
+  },
+  {
+   "id": "5175b6a2b765750a6d5cc37ad8b4945c20190f28",
+   "source": "hn",
+   "title": "Show HN: Get your coding agent off ~2019 JavaScript, onto modern web primitives",
+   "url": "https://github.com/GoogleChrome/modern-web-guidance",
+   "discussion_url": "https://news.ycombinator.com/item?id=50443812",
+   "score": 292,
+   "comments": 88,
+   "published_at": "2026-11-10T18:01:15Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Giúp nâng cấp coding agent sử dụng modern web primitives.",
+   "summary": "Modern Web Guidance là tập hợp các kỹ năng và câu lệnh CLI tích hợp kiến thức nền tảng web hiện đại vào các coding agent. Công cụ này giúp hướng dẫn agent tránh các mẫu JavaScript lỗi thời từ năm 2019 và chuyển sang sử dụng các API gốc hiệu suất cao của trình duyệt.",
+   "why_it_matters": "Giúp các coding agent của bạn viết mã frontend sạch hơn, tận dụng tối đa các tính năng native của web platform thay vì dùng polyfill hay legacy code nặng nề."
+  },
+  {
+   "id": "a525fa830b85f10664765d6934b94949c59dc3e6",
+   "source": "hn",
+   "title": "Gemini 4 Carbon is now available",
+   "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-carbon-now-available",
+   "discussion_url": "https://news.ycombinator.com/item?id=50442303",
+   "score": 281,
+   "comments": 150,
+   "published_at": "2026-11-10T16:07:15Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Mô hình AI Gemini mới ra mắt.",
+   "summary": "Gemini 4 Carbon là mô hình mới nhất của Google với khả năng vượt trội trong lĩnh vực bảo mật mạng, quy trình agentic đa bước và kỹ thuật phần mềm phức tạp. Mô hình này hỗ trợ các vòng lặp kiểm tra mở rộng, đạt thứ hạng cao trên nhiều benchmark lập trình và tích hợp tính năng /swarm để điều phối nhóm agent.",
+   "why_it_matters": "Cung cấp một mô hình AI mạnh mẽ cho các tác vụ lập trình full-stack phức tạp, di cư đa package và tự động hóa các workflow kỹ thuật."
+  },
+  {
+   "id": "52fb6312db3acf9e8637149390aa157637112fd3",
+   "source": "hn",
+   "title": "What's new in the .NET 11 runtime",
+   "url": "https://learn.microsoft.com/en-us/dotnet/core/whats-new/dotnet-11/runtime",
+   "discussion_url": "https://news.ycombinator.com/item?id=50439284",
+   "score": 249,
+   "comments": 178,
+   "published_at": "2026-11-10T12:20:07Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Cập nhật tính năng mới trong .NET 11 runtime.",
+   "summary": "Bài viết mô tả các tính năng mới trong .NET 11 runtime bản release candidate 2 (RC 2). Bản phát hành này cập nhật yêu cầu phần cứng tối thiểu, nâng baseline instruction sets cho cả x86/x64 và Arm64 để giảm độ phức tạp của codebase và tối ưu hiệu suất.",
+   "why_it_matters": "Giúp bạn nắm bắt các yêu cầu phần cứng mới và thay đổi biên dịch AOT/ReadyToRun khi nâng cấp ứng dụng .NET lên phiên bản 11."
+  },
+  {
+   "id": "7737e173e31a598869bdd5fd48b466d0bd6a67de",
+   "source": "hn",
+   "title": "Claude Whiteboards, Claude Sheets, and Claude Data",
+   "url": "https://claude.com/resources/articles/sheets-whiteboards-data",
+   "discussion_url": "https://news.ycombinator.com/item?id=50443716",
+   "score": 164,
+   "comments": 137,
+   "published_at": "2026-11-10T17:55:07Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Tính năng công cụ AI mới từ Claude.",
+   "summary": "Anthropic ra mắt Claude Whiteboards và Claude Sheets ở bản beta, cùng với Claude Data (đổi tên từ Claude Dashboards). Các tính năng này cho phép team cộng tác trực tiếp với Claude trên bảng trắng, bảng tính và phân tích dữ liệu trực tiếp trong giao diện.",
+   "why_it_matters": "Cung cấp thêm các công cụ tích hợp LLM mạnh mẽ giúp tối ưu hóa quy trình làm việc và phân tích dữ liệu hàng ngày của bạn."
+  },
+  {
+   "id": "f300c3f951ae07d9e689ff7bf30d0e203bbf6d49",
+   "source": "github",
+   "title": "fosrl/pangolin: Modern networking and security platform providing secure access and connectivity to apps, infrastructure, and AI workloads. Connect and protect your users.",
+   "url": "https://github.com/fosrl/pangolin",
+   "discussion_url": null,
+   "score": 108,
+   "comments": 0,
+   "published_at": "2026-11-11T10:51:30.662915+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Platform networking và security hiện đại cho ứng dụng và AI workloads.",
+   "summary": "Pangolin là một nền tảng SASE mã nguồn mở được xây dựng trên WireGuard, kết hợp VPN zero-trust, reverse proxy và AI gateway vào một hệ thống quản lý danh tính duy nhất. Dự án cung cấp giải pháp kết nối và bảo mật nhẹ nhàng, dễ tự host cho các ứng dụng và hạ tầng.",
+   "why_it_matters": "Đây là một công cụ DevOps và Networking mã nguồn mở thiết thực giúp bạn dễ dàng thiết lập zero-trust access và bảo mật hạ tầng mà không phụ thuộc vào các đám mây đóng."
+  },
+  {
+   "id": "5427c369cf5d121465a15be345d8e66a4703777d",
+   "source": "hn",
+   "title": "Fireworks AI security breach impacts Notion and their customers",
+   "url": "https://notion.com/help/security-incident-involving-a-third-party-ai-vendor",
+   "discussion_url": "https://news.ycombinator.com/item?id=50437106",
+   "score": 160,
+   "comments": 61,
+   "published_at": "2026-11-10T07:19:38Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Sự cố bảo mật ảnh hưởng trực tiếp đến chuỗi cung ứng dịch vụ.",
+   "summary": "Notion thông báo về một sự cố bảo mật từ nhà cung cấp bên thứ ba Fireworks AI, ảnh hưởng đến dưới 1% workspace. Notion đã ngắt kết nối hệ thống khỏi Fireworks, xóa toàn bộ dữ liệu liên quan và cung cấp các tệp CSV phân tích để workspace owner rà soát nội dung bị lộ.",
+   "why_it_matters": "Nhắc nhở bạn cần cẩn trọng khi tương tác với các AI provider và kiểm tra lại lịch sử prompt nếu có sử dụng các dịch vụ liên quan."
+  },
+  {
+   "id": "06d0e11a13d24b0e484554fb3a2439e651accc68",
+   "source": "github",
+   "title": "trufflesecurity/trufflehog: Find, verify, and analyze leaked credentials",
+   "url": "https://github.com/trufflesecurity/trufflehog",
+   "discussion_url": null,
+   "score": 96,
+   "comments": 0,
+   "published_at": "2026-11-11T10:51:30.662915+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Công cụ DevOps/Security phát hiện credential leak.",
+   "summary": "TruffleHog là một công cụ mạnh mẽ dùng để tìm kiếm, phân loại, xác thực và phân tích các credential bị rò rỉ trong kho mã nguồn, chat, wiki và các nền tảng khác. Công cụ này hỗ trợ hơn 800 loại secret và có khả năng tự động kiểm tra xem các credential đó còn sống hay không.",
+   "why_it_matters": "Là một công cụ CI/CD và bảo mật không thể thiếu để quét và ngăn chặn tình trạng lộ API key hay database password trước khi đưa mã nguồn lên production."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 89,
+  "fetched_github": 42,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 156,
+  "after_dedupe": 150,
+  "after_filter": 78,
+  "ai": "gemini",
+  "ai_tokens_in": 14073,
+  "ai_tokens_out": 4421,
+  "sent": 10,
+  "summarized": 10
+ },
+ "radar": []
+}
