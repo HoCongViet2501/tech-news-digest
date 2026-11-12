@@ -1,0 +1,196 @@
+{
+ "date": "2026-11-12",
+ "items": [
+  {
+   "id": "6a36938791d1414032b664a2072bc8d6d8996c6c",
+   "source": "github",
+   "title": "Tencent/LoopForge: Self-hosted workflows for coding-agent delivery. Orchestrate CodeBuddy, Codex and Claude Code with scripts and human approval gates. Includes Local workflows for coding assistants.",
+   "url": "https://github.com/Tencent/LoopForge",
+   "discussion_url": null,
+   "score": 94,
+   "comments": 0,
+   "published_at": "2026-11-12T11:58:58.747335+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Workflow tự host để điều phối coding agent với cổng phê duyệt.",
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "2f1463e50ee923f07f1b5a0f948fe37dcd477c5a",
+   "source": "hn",
+   "title": "Lock Your GitHub Actions",
+   "url": "https://hugovk.dev/blog/2026/lock-github-actions",
+   "discussion_url": "https://news.ycombinator.com/item?id=50459485",
+   "score": 180,
+   "comments": 33,
+   "published_at": "2026-11-11T22:16:41Z",
+   "tags": [],
+   "also_on": [
+    "lobsters"
+   ],
+   "relevance": 9.0,
+   "reason": "Bảo mật CI/CD cực kỳ quan trọng cho GitHub Actions.",
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "44f0426e6105e13918b72ca4b0ce3aa0d8872c83",
+   "source": "github",
+   "title": "browser-use/browser-use: Open-source Python library for AI browser agents, plus Browser Use Cloud: stealth browsers and a hosted agent API.",
+   "url": "https://github.com/browser-use/browser-use",
+   "discussion_url": null,
+   "score": 172,
+   "comments": 0,
+   "published_at": "2026-11-12T11:58:58.747335+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Thư viện Python mã nguồn mở cho AI browser agents và hosted API.",
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "70a69d3bb58228021bc9cc8347babadc9bc0bc9b",
+   "source": "hn",
+   "title": "AWS emulator",
+   "url": "https://github.com/aws/aws-emulator",
+   "discussion_url": "https://news.ycombinator.com/item?id=50456631",
+   "score": 756,
+   "comments": 228,
+   "published_at": "2026-11-11T18:21:38Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Công cụ giả lập AWS hữu ích cho developer và DevOps.",
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "e82f105c45bc3b2d82d03cd5caadff75d485d2e4",
+   "source": "hn",
+   "title": "Using voltage glitching to unleash the A100 in my mining card",
+   "url": "https://blog.kate.land/posts/using-voltage-glitching-to-unlock-the-a100",
+   "discussion_url": "https://news.ycombinator.com/item?id=50451903",
+   "score": 279,
+   "comments": 114,
+   "published_at": "2026-11-11T10:48:40Z",
+   "tags": [],
+   "also_on": [
+    "lobsters"
+   ],
+   "relevance": 8.0,
+   "reason": "Kỹ thuật phần cứng chuyên sâu về voltage glitching trên GPU Nvidia.",
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "745aaeebc839ac55f0b1c8986481b92df1c34bd6",
+   "source": "github",
+   "title": "devaccuracy/ledgerforge: The ledger for AI-native money movement. An open-source double-entry ledger for wallets, payouts, marketplaces and billing, with exact integer money, a verifiable audit chain, server-enforced spending limits and approvals for AI agents, and an MCP server. Apache 2.0.",
+   "url": "https://github.com/devaccuracy/ledgerforge",
+   "discussion_url": null,
+   "score": 34,
+   "comments": 0,
+   "published_at": "2026-11-12T11:58:58.747335+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Sổ cái tài chính mã nguồn mở cho AI agents hỗ trợ MCP server.",
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "71cb7085c61894272af7b2e1a066035dff9fb4ba",
+   "source": "hn",
+   "title": "Launch HN: Pomerado (YC F26) – Turn any website into an MCP for agents",
+   "url": "https://news.ycombinator.com/item?id=50455811",
+   "discussion_url": "https://news.ycombinator.com/item?id=50455811",
+   "score": 51,
+   "comments": 40,
+   "published_at": "2026-11-11T17:11:56Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Công cụ chuyển đổi website thành MCP server cho AI agents.",
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "8eacae9504da13a16d726547ab44a65b995ef3b9",
+   "source": "lobsters",
+   "title": "Announcing .NET 11",
+   "url": "https://devblogs.microsoft.com/dotnet/announcing-dotnet-11",
+   "discussion_url": "https://lobste.rs/s/zingk1/announcing_net_11",
+   "score": 34,
+   "comments": 6,
+   "published_at": "2026-11-10T10:03:21.955000-06:00",
+   "tags": [
+    "dotnet",
+    "release"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Thông báo phát hành phiên bản .NET 11 mới.",
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "f3e91f75ed135df54c08166966caab49a982606c",
+   "source": "hn",
+   "title": "Atuin Threads: All your agent sessions on every machine",
+   "url": "https://blog.atuin.sh/threads-agent-sessions",
+   "discussion_url": "https://news.ycombinator.com/item?id=50453637",
+   "score": 201,
+   "comments": 77,
+   "published_at": "2026-11-11T14:10:46Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 7.0,
+   "reason": "Công cụ quản lý session của AI agent đồng bộ qua các máy.",
+   "summary": null,
+   "why_it_matters": null
+  },
+  {
+   "id": "e958d89b3a2666d110bf9a591b841b3634cfabe6",
+   "source": "lobsters",
+   "title": "How do you actually self-host securely?",
+   "url": "https://lobste.rs/s/m43bas/how_do_you_actually_self_host_securely",
+   "discussion_url": "https://lobste.rs/s/m43bas/how_do_you_actually_self_host_securely",
+   "score": 97,
+   "comments": 57,
+   "published_at": "2026-11-11T06:01:19.024000-06:00",
+   "tags": [
+    "ask",
+    "devops"
+   ],
+   "also_on": [],
+   "relevance": 7.0,
+   "reason": "Thảo luận kỹ thuật thực tế về cách self-host an toàn.",
+   "summary": null,
+   "why_it_matters": null
+  }
+ ],
+ "stats": {
+  "fetched_hn": 100,
+  "fetched_github": 49,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 174,
+  "after_dedupe": 169,
+  "after_filter": 87,
+  "ai": "gemini",
+  "ai_tokens_in": 3719,
+  "ai_tokens_out": 2274,
+  "sent": 10,
+  "summarized": 0
+ },
+ "radar": []
+}
