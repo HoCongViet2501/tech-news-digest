@@ -1,0 +1,194 @@
+{
+ "date": "2026-11-13",
+ "items": [
+  {
+   "id": "eb69d2f199eb410e545cd3e2d240ace50b5af897",
+   "source": "github",
+   "title": "davila7/claude-code-templates: Open-source registry and CLI for Claude Code components: agents, commands, skills, hooks, MCPs, settings and mods",
+   "url": "https://github.com/davila7/claude-code-templates",
+   "discussion_url": null,
+   "score": 102,
+   "comments": 0,
+   "published_at": "2026-11-13T11:13:51.047937+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 10.0,
+   "reason": "Registry và CLI cho Claude Code, MCP components cực kỳ hữu ích.",
+   "summary": "Công cụ này cung cấp một danh mục mã nguồn mở và CLI (chạy qua npx) để quản lý hàng nghìn thành phần của Claude Code như agents, commands, skills, hooks và MCP servers. Người dùng có thể tìm kiếm, xem trước nội dung tệp và cài đặt từng thành phần lẻ hoặc cả một stack cấu hình một cách nhanh chóng.",
+   "why_it_matters": "Giúp bạn dễ dàng tích hợp các MCP servers và tùy chỉnh coding agents để tối ưu hóa quy trình làm việc hằng ngày."
+  },
+  {
+   "id": "5e43bafddf4ea2957c54a60b8a0fcf3b734126c7",
+   "source": "hn",
+   "title": "PostgreSQL 18.7, 17.12, 16.16, 15.20, 14.25, and 19 RC 2 Released",
+   "url": "https://postgresql.org/about/news/postgresql-187-1712-1616-1520-1425-and-19-rc-2-released-3442",
+   "discussion_url": "https://news.ycombinator.com/item?id=50467763",
+   "score": 102,
+   "comments": 14,
+   "published_at": "2026-11-12T14:25:23Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 10.0,
+   "reason": "Bản phát hành vá lỗi quan trọng cho nhiều phiên bản PostgreSQL.",
+   "summary": "Nhóm phát triển PostgreSQL đã tung ra các bản cập nhật vá lỗi cho toàn bộ các phiên bản đang được hỗ trợ, đồng thời phát hành release candidate thứ hai cho PostgreSQL 19. Các bản cập nhật này khắc phục tổng cộng 52 lỗ hổng bảo mật nghiêm trọng (bao gồm các lỗi RCE qua kiểu dữ liệu và hàm cast) cùng hơn 140 lỗi khác.",
+   "why_it_matters": "Việc nâng cấp là cực kỳ quan trọng để vá các lỗ hổng bảo mật RCE nghiêm trọng trong cơ sở hạ tầng database của bạn."
+  },
+  {
+   "id": "95c23a9afeb3554e12cc55844f1fe7422b8726ba",
+   "source": "github",
+   "title": "GoogleChrome/modern-web-guidance-src: Keep your coding agent up to date with the latest web best practices",
+   "url": "https://github.com/GoogleChrome/modern-web-guidance-src",
+   "discussion_url": null,
+   "score": 739,
+   "comments": 0,
+   "published_at": "2026-11-13T11:13:51.047937+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Cập nhật tài liệu web cho coding agent, rất hữu ích cho developer.",
+   "summary": "Kho lưu trữ này cung cấp tập hợp các hướng dẫn và kỹ năng chuẩn hóa về nền tảng web hiện đại nhằm tích hợp trực tiếp vào các coding agents. Công cụ đi kèm CLI hỗ trợ tìm kiếm tài liệu, xem trước hướng dẫn và quét mã nguồn để phát hiện các mẫu code cũ, giúp AI tránh tạo ra mã lệnh lỗi thời.",
+   "why_it_matters": "Nâng cao chất lượng code frontend khi làm việc với AI agents, đảm bảo chúng tận dụng các API hiện đại và chuẩn tối ưu của trình duyệt."
+  },
+  {
+   "id": "5b3e85fd4334d620f71399560b4fa929fe296e36",
+   "source": "hn",
+   "title": "Turning a 22-year-old Postgres type-confusion primitive into RCE",
+   "url": "https://mehmetince.net/part-3-6-how-i-ended-up-turning-a-22-year-old-postgresql-type-confusion-primitive-into-rce-cve-2026-6460",
+   "discussion_url": "https://news.ycombinator.com/item?id=50471761",
+   "score": 155,
+   "comments": 25,
+   "published_at": "2026-11-12T18:22:22Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Lỗ hổng RCE sâu trong Postgres, rất quan trọng cho DevOps và backend.",
+   "summary": "Bài viết chia sẻ câu chuyện chi tiết về quá trình một lập trình viên phối hợp cùng AI agent để nghiên cứu mã nguồn nội bộ PostgreSQL và phát hiện một lỗ hổng zero-day dạng type-confusion tồn tại suốt 22 năm. Lỗ hổng này cho phép chuyển đổi kiểu dữ liệu composite không hợp lệ thành một primitive dẫn đến khả năng thực thi mã từ xa (RCE).",
+   "why_it_matters": "Cung cấp góc nhìn sâu sắc về cách khai thác lỗ hổng cơ sở dữ liệu ở tầng thấp và minh họa cách sử dụng AI agent làm trợ lý nghiên cứu mã nguồn."
+  },
+  {
+   "id": "3781448153b0315f0191ae6ec316f2a44eb1f887",
+   "source": "github",
+   "title": "NVIDIA/SkillEvaluator: Multi-tier framework for evaluating AI agent skills with quality gates, semantic overlap detection, synthetic evaluation dataset generation, and live agent evaluation that measures how skills affect agent behavior.",
+   "url": "https://github.com/NVIDIA/SkillEvaluator",
+   "discussion_url": null,
+   "score": 108,
+   "comments": 0,
+   "published_at": "2026-11-13T11:13:51.047937+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Framework đánh giá kỹ năng AI agent, đúng xu hướng LLM tooling.",
+   "summary": "SkillEvaluator là một framework mã nguồn mở đa tầng từ NVIDIA giúp kiểm tra, quét bảo mật và đánh giá hiệu quả của các kỹ năng (skills) đối với AI agents. Công cụ hỗ trợ kiểm tra chất lượng tĩnh không cần LLM, chấm điểm rubric thông qua API, và đánh giá tác động thực tế của skill trong các môi trường chạy thử nghiệm.",
+   "why_it_matters": "Cung cấp một giải pháp CI/CD thiết thực để kiểm tra và đảm bảo chất lượng cho các prompt/skill tùy chỉnh trước khi đưa vào môi trường phát triển."
+  },
+  {
+   "id": "65f8a2e3eddbdfe5bc4ab37ea341a7f2eff1e26c",
+   "source": "github",
+   "title": "openai/codex-security: OpenAI's Codex Security CLI and TypeScript SDK for finding, validating, and fixing security vulnerabilities. npm: https://www.npmjs.com/package/@openai/codex-security",
+   "url": "https://github.com/openai/codex-security",
+   "discussion_url": null,
+   "score": 643,
+   "comments": 0,
+   "published_at": "2026-11-13T11:13:51.047937+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "CLI và TypeScript SDK từ OpenAI giúp tìm và vá lỗ hổng bảo mật.",
+   "summary": "OpenAI ra mắt Codex Security CLI và TypeScript SDK giúp tìm kiếm, điều tra và sửa các lỗ hổng bảo mật trong mã nguồn. Công cụ này hỗ trợ quét kho lưu trữ, tạo bản vá (patch) và tự động hóa quy trình bảo mật thông qua CI hoặc container.",
+   "why_it_matters": "Cung cấp cho bạn một công cụ tích hợp trực tiếp vào quy trình CI/CD và TypeScript stack để tự động hóa việc kiểm tra bảo mật."
+  },
+  {
+   "id": "256005002a9621166a4b1a9aefeb72d51d5c793b",
+   "source": "github",
+   "title": "tailscale/tailcat: like netcat, but over Tailscale's data plane, without Tailscale's control plane",
+   "url": "https://github.com/tailscale/tailcat",
+   "discussion_url": null,
+   "score": 173,
+   "comments": 0,
+   "published_at": "2026-11-13T11:13:51.047937+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ mạng kết nối qua Tailscale data plane, rất hữu ích cho DevOps.",
+   "summary": "Tailcat là một công cụ mã nguồn mở kết hợp các thành phần của Tailscale để tạo ra các đường hầm mã hóa WireGuard point-to-point mà không cần control plane của Tailscale. Nó hoạt động như một công cụ kiểu netcat, hỗ trợ proxy cổng TCP và truyền tải dữ liệu qua userspace.",
+   "why_it_matters": "Giúp bạn dễ dàng thiết lập các kết nối mạng an toàn, gỡ lỗi và chuyển tiếp cổng (port forwarding) giữa các máy chủ mà không cần cấu hình mạng phức tạp."
+  },
+  {
+   "id": "9b8780536da60d0895c8537ce27152b29632a5dd",
+   "source": "github",
+   "title": "figma/mcp-server-guide: A guide on how to use the Figma MCP server",
+   "url": "https://github.com/figma/mcp-server-guide",
+   "discussion_url": null,
+   "score": 4,
+   "comments": 0,
+   "published_at": "2026-11-13T11:13:51.047937+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Hướng dẫn tích hợp và sử dụng Figma MCP server.",
+   "summary": "Hướng dẫn sử dụng Figma MCP server để kết nối trực tiếp thiết kế Figma với các AI coding agent. Công cụ này cung cấp ngữ cảnh thiết kế, biến, thành phần và hỗ trợ tạo mã từ các khung Figma được chọn.",
+   "why_it_matters": "Giúp tối ưu hóa quy trình làm việc full-stack khi cho phép các AI agent đọc trực tiếp thông tin thiết kế từ Figma để sinh mã chính xác hơn."
+  },
+  {
+   "id": "ca1478ab4f6d6b17d0931be6a7cf752f6b2087b9",
+   "source": "hn",
+   "title": "Show HN: AgentRun – open-source, Self-improving Managed Agents",
+   "url": "https://github.com/Parcha-ai/agentrun/blob/main/README.md",
+   "discussion_url": "https://news.ycombinator.com/item?id=50471650",
+   "score": 86,
+   "comments": 21,
+   "published_at": "2026-11-12T18:15:48Z",
+   "tags": [],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Agent mã nguồn mở tự cải tiến, đúng mảng LLM tooling.",
+   "summary": "AgentRun là một nền tảng mã nguồn mở giúp quản lý, bổ sung khả năng tự cải thiện, thực thi bền vững và bảng điều khiển cho các AI agent. Nền tảng này giúp các agent ghi nhớ kỹ năng qua mỗi lần chạy để tiết kiệm token và tăng độ tin cậy.",
+   "why_it_matters": "Cung cấp cơ sở hạ tầng thực thi đáng tin cậy để tối ưu hóa chi phí và hiệu suất khi chạy các tác vụ AI agent phức tạp."
+  },
+  {
+   "id": "0d415288aaf69d6e289ec27d7b231fc97e513b9a",
+   "source": "github",
+   "title": "meta/astryx: An open source design system that's fully customizable and agent ready",
+   "url": "https://github.com/meta/astryx",
+   "discussion_url": null,
+   "score": 1830,
+   "comments": 0,
+   "published_at": "2026-11-13T11:13:51.047937+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Thiết kế hệ thống mở, hỗ trợ agent, phù hợp với developer full-stack.",
+   "summary": "Astryx là một thiết kế hệ thống mã nguồn mở từ Meta, xây dựng trên React 19 và StyleX, hỗ trợ cả lập trình viên lẫn AI agent. Nó cung cấp hơn 150 thành phần có sẵn, khả năng tùy biến linh hoạt và đi kèm CLI riêng.",
+   "why_it_matters": "Mang lại một hệ thống thành phần UI hiện đại, dễ dàng tích hợp vào các dự án React và tối ưu hóa cho quy trình làm việc cùng AI agent."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 100,
+  "fetched_github": 50,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 175,
+  "after_dedupe": 168,
+  "after_filter": 70,
+  "ai": "gemini",
+  "ai_tokens_in": 15290,
+  "ai_tokens_out": 3972,
+  "sent": 10,
+  "summarized": 10
+ },
+ "radar": []
+}
