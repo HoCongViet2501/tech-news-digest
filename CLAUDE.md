@@ -8,6 +8,11 @@ Part 1 (phases 1–3) is done; current work is Part 2, the web app (phases W0–
 - Test: `uv run pytest`
 - Lint: `uv run ruff check . && uv run ruff format --check .`
 - Offline end-to-end run: `DIGEST_OFFLINE=1 uv run python -m digest run --dry-run`
+- Web (run in `web/`; Node from `web/.nvmrc`, pnpm from `packageManager`): `pnpm install`, `pnpm dev`, `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`
+- Web e2e (first time: `pnpm exec playwright install chromium`): `pnpm e2e`
+- Local DB (Docker, run in `web/`): `pnpm db:start`, `pnpm db:stop`, `pnpm db:reset`
+- New migration (in `web/`): `pnpm exec supabase migration new <name>` (writes to `supabase/migrations/`)
+- Regenerate DB types after a migration (local DB running): `pnpm db:types`, then commit `web/src/lib/database.types.ts`
 
 ## Conventions
 - Python 3.12, full type hints, pydantic for all data crossing module boundaries.

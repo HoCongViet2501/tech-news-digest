@@ -10,3 +10,23 @@ build/
 .env
 .DS_Store
 site/
+
+# Node / Next.js (web/)
+node_modules/
+.next/
+web/out/
+next-env.d.ts
+*.tsbuildinfo
+.pnpm-debug.log*
+.vercel/
+.env*.local
+coverage/
+
+# Playwright
+playwright-report/
+test-results/
+blob-report/
+playwright/.cache/
+
+# Supabase CLI (supabase/.gitignore covers .temp and .branches)
+.supabase/

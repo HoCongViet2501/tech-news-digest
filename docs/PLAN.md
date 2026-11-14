@@ -503,18 +503,18 @@ Out of scope, recorded in `IDEAS.md`: comments, squads, public profiles, reputat
 | Ingestion | Python, existing code | Fetchers, LLM chain and tests already exist |
 | Schedule | Actions cron `0 */3 * * *` | Free for public repos |
 | DB | Supabase Postgres + `pgvector` (free: 500 MB) | Auth + RLS included; ranking is one SQL query |
-| Web | Next.js + TypeScript + Tailwind on Vercel Hobby. Public pages use ISR. Personalized data (My Feed, bookmarks, events) is fetched **from the browser straight to Supabase RPC** with the user's JWT, never through Vercel functions. | Matches the owner's stack; keeps Vercel function usage near zero and keeps a later move to a static export (e.g. Cloudflare Pages) easy |
+| Web | Next.js + TypeScript + Tailwind on Vercel Hobby. Public pages are cached (`"use cache"` + `cacheLife`). Personalized data (My Feed, bookmarks, events) is fetched **from the browser straight to Supabase RPC** with the user's JWT, never through Vercel functions. | Matches the owner's stack; keeps Vercel function usage near zero and keeps a later move to a static export (e.g. Cloudflare Pages) easy |
 | Auth | Supabase Auth, GitHub OAuth; allowlist enforced by a "before user created" Auth Hook in the DB | No password storage; the allowlist cannot be bypassed by calling Auth directly |
 | Embeddings | `fastembed` + `paraphrase-multilingual-MiniLM-L12-v2`, model cached with `actions/cache` | Local, keyless, handles Vietnamese |
 | LLM | Existing provider chain | Free tiers with fallback |
 
-Repo layout becomes a monorepo: `src/digest/` (pipeline), `web/` (Next.js), `db/migrations/` (SQL, Supabase CLI).
+Repo layout becomes a monorepo: `src/digest/` (pipeline), `web/` (Next.js), `supabase/` (Supabase CLI: `config.toml`, `migrations/`; the CLI cannot move migrations elsewhere).
 
 ### Deployment
 
 | Part | How it deploys | Secrets / env |
 | --- | --- | --- |
-| Database | SQL in `db/migrations/`. `db.yml` runs `supabase db push` on merges to `main` that touch that folder, before any other job. | `SUPABASE_ACCESS_TOKEN`, `SUPABASE_DB_PASSWORD` (Actions only) |
+| Database | SQL in `supabase/migrations/`. `db.yml` runs `supabase db push` on merges to `main` that touch that folder, before any other job. | `SUPABASE_ACCESS_TOKEN`, `SUPABASE_DB_PASSWORD`, `SUPABASE_PROJECT_REF` (Actions only) |
 | Pipeline | `ingest.yml` every 3 h. `daily.yml` at 07:00 handles Telegram, user vectors and cleanup. Both share one `concurrency` group so runs never overlap. Writes go through psycopg via the Supavisor pooler (IPv4; the direct host is IPv6-only and Actions runners have no IPv6). Session mode on port 5432. | `SUPABASE_DB_URL`, LLM keys, `TELEGRAM_*` |
 | Web | Vercel Git integration, root `web/`. `main` deploys production; PRs get preview deploys. An "Ignored Build Step" skips builds when `web/` did not change, so daily `digest:` commits cost no builds. | `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`. The service-role key never goes to Vercel; the web always runs as the user (JWT + RLS). |
 | CI | `ci.yml`: pytest + ruff, `pnpm lint/test/build`. SQL and RLS tests run against a Postgres service container on the runner. | – |
@@ -644,7 +644,7 @@ Every phase ends in a runnable state. All Part 1 conventions in `CLAUDE.md` stil
    - Note in `IDEAS.md` that commit `823a006` has the last version.
 3. Monorepo skeleton:
    - `web/`: Next.js + TypeScript + Tailwind, pnpm.
-   - `db/migrations/` and the `db.yml` workflow.
+   - `supabase/` (via `supabase init`) and the `db.yml` workflow.
    - CI runs `pytest`, ruff, plus `pnpm lint`, `pnpm test` and `pnpm build`.
    - Document the Vercel "Ignored Build Step" command (§13 Deployment).
    - TypeScript DB types generated with `supabase gen types typescript`; CI fails when the committed types differ from the migrations.
@@ -682,7 +682,7 @@ Every phase ends in a runnable state. All Part 1 conventions in `CLAUDE.md` stil
    - Virtualized infinite-scroll list; the next page is prefetched.
    - Images: no `next/image` optimization (Hobby quota). Thumbnails go through the free wsrv.nl resize proxy, with `loading="lazy"` and a fixed aspect ratio. A broken image falls back to the source favicon on a gradient.
 2. TL;DR generated in the pipeline for the popular pool.
-3. ISR (revalidate 15 min) for public pages to save DB and Vercel quota.
+3. Cached public pages (15 min) to save DB and Vercel quota. Next 16 runs with `cacheComponents: true`, so this is `"use cache"` + `cacheLife`, not the `revalidate` segment config.
 4. GitHub Pages becomes a redirect to the web app.
 5. **Acceptance:** Lighthouse mobile ≥ 90; tag pages show only matching items; searching "kien truc" finds "kiến trúc"; Playwright covers browsing Popular, a tag page and search; snapshot tests for cards with `& < >` and emoji; **owner reviews the UI manually**.
 
@@ -711,7 +711,7 @@ Every phase ends in a runnable state. All Part 1 conventions in `CLAUDE.md` stil
 | Supabase free project pauses after 7 days without activity | Ingest every 3 h keeps it active; warn when ingest has failed for > 24 h |
 | DB exceeds 500 MB | Retention, weekly cleanup, size in `stats`; shorten retention before anything else |
 | Actions schedules are disabled after 60 days without repo activity | Daily digest commits keep the repo active; keep that commit step |
-| Vercel Hobby limits (non-commercial, bandwidth, function time, image optimization) | Personal, non-commercial, invite-only use; ISR for public pages; personalized data goes browser → Supabase; no `next/image` optimization; never upgrade. Fallback: static export to Cloudflare Pages |
+| Vercel Hobby limits (non-commercial, bandwidth, function time, image optimization) | Personal, non-commercial, invite-only use; cached public pages; personalized data goes browser → Supabase; no `next/image` optimization; never upgrade. Fallback: static export to Cloudflare Pages |
 | GitHub Search spam repos | Filter by account age, fork/star ratio, missing description; low source weight |
 | RSS sources lack popularity signals | Per-source `base_weight`, LLM quality, cross-source cluster bonus |
 | LLM free tier tightened | Provider chain; tagging works without LLM; TL;DR optional |
@@ -720,7 +720,7 @@ Every phase ends in a runnable state. All Part 1 conventions in `CLAUDE.md` stil
 
 ## 18. Human-only setup (Part 2)
 
-- [ ] Create a Supabase project (free), enable `pgvector`. Get `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` (Actions only) and the anon key (web).
+- [ ] Create a Supabase project (free), enable `pgvector`. Get `SUPABASE_PROJECT_REF`, `SUPABASE_ACCESS_TOKEN`, `SUPABASE_DB_PASSWORD`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` (Actions only) and the anon key (web).
 - [ ] Create a GitHub OAuth App for Supabase Auth.
 - [ ] Create a Vercel Hobby project for `web/`; add env vars.
 - [ ] Add the new secrets to GitHub Actions.

@@ -1,0 +1,70 @@
+name: db
+
+# Applies new migrations to the production Supabase project.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "supabase/migrations/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: db-push
+  cancel-in-progress: false
+
+env:
+  SUPABASE_TELEMETRY_DISABLED: "1"
+
+jobs:
+  # Secrets cannot be read in a job-level `if`, so this job only reports
+  # whether they are all set. Until the owner adds them (human-only setup),
+  # the push job is skipped instead of failing.
+  check-secrets:
+    runs-on: ubuntu-latest
+    outputs:
+      configured: ${{ steps.check.outputs.configured }}
+    steps:
+      - id: check
+        env:
+          HAS_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN != '' }}
+          HAS_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD != '' }}
+          HAS_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF != '' }}
+        run: |
+          if [ "$HAS_ACCESS_TOKEN" = true ] && [ "$HAS_DB_PASSWORD" = true ] && [ "$HAS_PROJECT_REF" = true ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Supabase secrets are not configured; skipping db push."
+          fi
+
+  push:
+    needs: check-secrets
+    if: needs.check-secrets.outputs.configured == 'true'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v6
+        with:
+          package_json_file: web/package.json
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: web/.nvmrc
+          cache: pnpm
+          cache-dependency-path: web/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+
+      # Supabase CLI comes from web/package.json (pinned devDependency). It
+      # finds ../supabase by searching upward. Credentials are passed only
+      # through env vars, never inlined into the script.
+      - name: Push migrations
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+          SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+        run: pnpm exec supabase db push --remote="$SUPABASE_PROJECT_REF" --password "$SUPABASE_DB_PASSWORD" --yes
