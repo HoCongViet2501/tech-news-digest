@@ -1,6 +1,7 @@
 # Tech News Digest
 
 Full plan: `docs/PLAN.md`. Read the section for the current phase before writing code.
+Part 1 (phases 1–3) is done; current work is Part 2, the web app (phases W0–W5).
 
 ## Commands
 - Install: `uv sync`
@@ -15,6 +16,7 @@ Full plan: `docs/PLAN.md`. Read the section for the current phase before writing
 - Never log API keys, tokens or Authorization headers.
 - Prompts live in `src/digest/ai/prompts/`, never hardcoded.
 - Anything tunable goes through `config.yaml`.
+- Running cost must always be $0: only free tiers. When a free limit is near, degrade (retention, fewer calls) instead of proposing a paid plan.
 - User-facing digest text (summaries, reasons) is written in `ai.output_language` (Vietnamese by default); code, comments, logs and commit messages are in English.
 
 ## Workflow

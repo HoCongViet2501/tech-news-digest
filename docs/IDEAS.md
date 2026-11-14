@@ -23,7 +23,14 @@ to the profile when every LLM provider fails, instead of falling back to the
 heuristic. Fully local and keyless, but adds a large dependency and model download
 to every Actions run.
 
-## Radar extras (deferred from phase 3)
+## Dependency radar (removed in W0)
+
+Phase 3 was fully implemented, then removed by owner decision on 2026-11-14 because the
+web version does not need it. Commit `823a006` has the last working version (manifests,
+npm/PyPI/Go repo mapping, releases, OSV checks, AI release-note condensing). If revived,
+it could become a per-user "Radar" tab with manifests stored per user.
+
+### Radar extras (deferred from phase 3)
 
 - One-time "you are behind a major" report on the first run. Today the first sighting
   of a repo is a silent baseline, so a major that already existed is never mentioned.
@@ -34,3 +41,10 @@ to every Actions run.
   release tags like `@scope/pkg@1.2.3` to the right package instead of reading every
   release of the repo.
 - Radar entries in `feed.xml` (today only Telegram and the web pages show them).
+
+## Web extras (out of scope for Part 2)
+
+- Comments on items, squads (shared feeds), public profiles and reputation, like daily.dev.
+- Browser extension that replaces the new-tab page with My Feed.
+- Reddit via the official OAuth API, Bluesky via an app password, Product Hunt votes via a GraphQL token.
+- Hashnode feed once its current GraphQL endpoint is confirmed.

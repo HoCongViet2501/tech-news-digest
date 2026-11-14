@@ -4,6 +4,8 @@ A daily, personalized tech news digest. Every morning at 07:00 (Asia/Ho_Chi_Minh
 
 Work is split into 4 phases. Each phase ends with a working, shippable version; the project can stop after any phase.
 
+**Part 2 (sections 10–18)** extends the project into a multi-user web app in the style of daily.dev, in phases W0–W5. Owner decisions of 2026-11-14: Phase 3 (radar) is removed in W0, Phase 4 is dropped, and running cost must **always** stay at $0.
+
 ---
 
 ## 1. Goals, scope and key decisions
@@ -15,7 +17,7 @@ Work is split into 4 phases. Each phase ends with a working, shippable version; 
 - No server, no paid component.
 - Every phase ends in a runnable state.
 
-**Out of scope:** a custom web/app with login, multi-user support, realtime updates.
+**Out of scope (Part 1):** a custom web/app with login, multi-user support, realtime updates. Part 2 brings the web app and invite-only multi-user support into scope; realtime updates stay out.
 
 | Area | Choice | Why |
 | --- | --- | --- |
@@ -307,6 +309,8 @@ Items:
 
 ## 6. Phase 3 — Dependency radar
 
+> **Removed in W0** (owner decision 2026-11-14: not needed for the web version). The last commit containing the radar is `823a006`; see `docs/IDEAS.md`.
+
 The radar tracks exactly the libraries used in the owner's projects and reports three kinds of news: vulnerabilities affecting the installed version, new major versions, and releases with breaking changes. A "Radar" section appears at the top of the digest only when there is something to report, ordered: vulnerabilities → majors → other releases.
 
 ```yaml
@@ -344,6 +348,8 @@ radar:
 ---
 
 ## 7. Phase 4 — Feedback loop and weekly digest
+
+> **Dropped** (owner decision 2026-11-14). Web feedback (W4) replaces the Telegram buttons and polling; the weekly digest moves to W5. Kept below for reference only; do not implement.
 
 The owner taps like/dislike under the Telegram digest, and later scoring uses that history as examples. The only technical challenge is that there is no server to receive button events, so this phase uses polling.
 
@@ -407,3 +413,239 @@ These steps require account access; the coding agent should remind the owner whe
 - [ ] Edit `profile` in `config.yaml` to match the owner's stack.
 - [ ] Before phase 2: get Gemini (AI Studio) and Groq keys.
 - [ ] After each phase: trigger the workflow manually with "Run workflow" and check Telegram.
+
+---
+
+# Part 2 — Tech News Web (phases W0–W5)
+
+A multi-user web app in the style of daily.dev. The system collects stories from many sources and tags them against a shared taxonomy. Each user gets a personal "My Feed" ranked by their focus, which it learns from behavior (click, upvote, bookmark, hide). The daily Telegram digest stays, as the owner's top 10 from My Feed.
+
+## 10. Owner decisions (2026-11-14)
+
+| # | Decision |
+| --- | --- |
+| 1 | Multi-user schema from the start; sign-up is **invite-only** (email allowlist). |
+| 2 | Stack: Next.js + Supabase (Postgres, pgvector, Auth) on Vercel; the Python pipeline stays for ingestion. |
+| 3 | Running cost must **always be $0**. Every component runs on a free tier. When a free limit is near, degrade (shorter retention, fewer LLM calls, fewer runs) and never upgrade to a paid plan. |
+| 4 | Old Phase 4 (Telegram feedback buttons + polling) is dropped. |
+| 5 | Phase 3 radar is removed from the codebase in W0. |
+| 6 | The engineering-blog RSS list and the ~60-tag taxonomy are drafted by the agent and approved by the owner at the start of W1 / W2. |
+
+## 11. Feasibility study (2026-11-14)
+
+### Sources (probed once each, no keys, generic User-Agent)
+
+| Source | Endpoint | Items | Popularity signal | Native tags | Priority |
+| --- | --- | --- | --- | --- | --- |
+| Hacker News | Algolia `search?tags=front_page`, `show_hn` | 30–50 | points, comments | – | In use |
+| Lobsters | `hottest.json` | 25 | score | yes | In use |
+| GitHub Trending | HTML | ~25 | stars today | language | In use |
+| dev.to | `api/articles?top=1`, `?tag=` | 30/page | reactions, comments | yes (`tag_list`) | High |
+| Hugging Face Papers | `api/daily_papers` | 50 | upvotes | `ai_keywords`, `ai_summary` | High (AI) |
+| Engineering blogs RSS | GitHub, Cloudflare, AWS, Kubernetes, InfoQ, Changelog, … | 15–185/feed | none | category (some) | High |
+| GitHub Search | `search/repositories?q=created:>D&sort=stars` | 30/page | stars | `topics` | Medium (needs spam filter) |
+| HF trending models | `api/models?sort=trendingScore` | 20 | trendingScore | pipeline tag | Medium |
+| Viblo (Vietnamese) | `/rss`, `/api/posts/trending` | 40 | in API | yes | Medium |
+| Product Hunt | Atom `/feed` | 50 | none (votes need a GraphQL token) | – | Low |
+| Echo JS | `/rss` | 30 | none | – | Low |
+| Lemmy programming.dev | `api/v3/post/list?sort=TopDay` | 20 | score | community | Low |
+| Stack Overflow | `api.stackexchange.com …sort=hot` | 30 | score | yes | Low (Q&A, 300 req/day without key) |
+| Medium tag RSS | `/feed/tag/{tag}` | 10 | none | tag | Low (paywalls) |
+| YouTube channel RSS | `feeds/videos.xml?channel_id=` | 15 | none | – | Optional |
+| arXiv, Mastodon tags, TLDR RSS | – | – | none / very low | – | Not used |
+
+Blocked: Reddit (JSON and RSS both redirect to a login wall), Bluesky search (403), daily.dev (no public API, persisted GraphQL queries only; use it as a UX reference, **never scrape it**), Hashnode (`gql.hashnode.com` → 301, endpoint unconfirmed), X/Twitter (paid API).
+
+### Embedding experiment
+
+390 real items from 16 sources, embedded locally with `fastembed` on CPU (~40 items/s).
+
+| Model | Ranking by profile | Zero-shot tags | Vietnamese |
+| --- | --- | --- | --- |
+| `bge-small-en-v1.5` | Clear separation (top ~0.71: K8s, MCP, Bedrock agents; bottom ~0.3: FAA, Meta fine) | Good for AI / k8s / security; wrong for Go and Python | Poor |
+| `paraphrase-multilingual-MiniLM-L12-v2` | Equally good separation | Similar, lower scores | Good |
+
+Takeaways:
+1. Embeddings work for coarse filtering and similarity, but they **ignore negation**: the profile says "not interested in hiring", yet hiring posts still reached the top 5. Explicit signals (block, hide, "less like this") must handle the negative side.
+2. Zero-shot tagging is only reliable for broad topics. Language and tool tags need native tags and alias rules.
+3. Use the multilingual model.
+4. Embedding 1000 items takes ~25 s on an Actions runner, with no GPU and no paid API.
+
+## 12. Feature scope (reference: daily.dev)
+
+In scope:
+- **W3:** card grid feed (cover, title, source, tags, reading time), Popular / Most upvoted / Discussed, full-text search, AI TL;DR in `output_language`.
+- **W4:** My Feed from followed tags, onboarding, upvote / bookmark / hide / "less like this", block tag or source, reading history.
+
+Out of scope, recorded in `IDEAS.md`: comments, squads, public profiles, reputation, the browser new-tab extension.
+
+## 13. Architecture
+
+```
+                    GitHub Actions cron (every 3h)                   Vercel (Hobby)
+┌──────────────────────────────────────────────────────┐    ┌──────────────────────┐
+│ Python pipeline (src/digest)                         │    │ Next.js (App Router) │
+│ fetchers → normalize → dedupe (URL + near-dup)       │    │  /, /popular, /tags  │
+│   → enrich (og:image, text, reading time, language)  │    │  /my-feed, /bookmarks│
+│   → tag (native → rule → embed → LLM)                │    │  /search, /onboarding│
+│   → embed (fastembed, 384d) → quality score (LLM)    │    └─────────┬────────────┘
+│   → TL;DR for the popular pool → upsert Postgres     │              │ supabase-js + RPC
+│ daily cron: user vectors, Telegram digest            │              │
+└──────────────────────┬───────────────────────────────┘              │
+                       ▼                                              ▼
+              ┌──────────────────────────────────────────────────────────┐
+              │ Supabase free: Postgres + pgvector + Auth (GitHub) + RLS │
+              └──────────────────────────────────────────────────────────┘
+```
+
+| Area | Choice | Why |
+| --- | --- | --- |
+| Ingestion | Python, existing code | Fetchers, LLM chain and tests already exist |
+| Schedule | Actions cron `0 */3 * * *` | Free for public repos |
+| DB | Supabase Postgres + `pgvector` (free: 500 MB) | Auth + RLS included; ranking is one SQL query |
+| Web | Next.js + TypeScript + Tailwind on Vercel Hobby | Matches the owner's stack; ISR for public pages |
+| Auth | Supabase Auth, GitHub OAuth, email allowlist | No password storage |
+| Embeddings | `fastembed` + `paraphrase-multilingual-MiniLM-L12-v2`, model cached with `actions/cache` | Local, keyless, handles Vietnamese |
+| LLM | Existing provider chain | Free tiers with fallback |
+
+Repo layout becomes a monorepo: `src/digest/` (pipeline), `web/` (Next.js), `db/migrations/` (SQL, Supabase CLI).
+
+## 14. Data model (Postgres)
+
+```sql
+sources(id, kind, name, url, enabled, base_weight, last_ok_at, last_error)
+items(id text pk /*sha1 canonical url*/, cluster_id, source_id, title, url, discussion_url,
+      description, image_url, lang, reading_min, published_at, fetched_at,
+      native_score int, native_comments int, pop_pct real /*per-source percentile, 7 days*/,
+      quality real /*0–1, LLM*/, tldr text, embedding vector(384), fts tsvector)
+clusters(id, canonical_item_id, item_ids text[])
+tags(slug pk, name, parent, description, aliases text[])        -- seeded from taxonomy.yaml
+item_tags(item_id, tag, confidence real, method /*native|rule|embed|llm*/)
+invites(email pk, invited_at, used_at)
+profiles(user_id pk, display_name, lang, profile_text, user_vec vector(384), model jsonb, updated_at)
+user_tags(user_id, tag, state /*follow|block*/)
+user_sources(user_id, source_id, state /*block*/)
+events(id, user_id, item_id, kind /*impression|click|upvote|downvote|bookmark|hide|less_like_this*/,
+       dwell_ms, created_at)
+tag_affinity(user_id, tag, score real, updated_at)
+```
+
+Storage: ~1000 items/day × ~3.5 KB ≈ 100 MB/month. Embeddings and descriptions are kept for `retention.content_days` (default 90), then only metadata is kept. A weekly cleanup job keeps the DB under 400 MB; database size is reported in `stats`.
+
+## 15. Tagging and ranking
+
+### Tagging (stop when confident)
+1. **Native tags → aliases** (`k8s` → `kubernetes`), confidence 0.95.
+2. **Keyword/regex rules** from `taxonomy.yaml`, 0.9.
+3. **Embedding vs. tag description**, only for broad tags (`ai`, `devops`, `security`, `frontend`, `databases`, …), thresholds in config, 0.6–0.8.
+4. **LLM**, only for items that pass the coarse filter and still have no tag ≥ 0.8. Runs in batches of 20 with JSON output and must pick **only** from the taxonomy. The same call scores `quality` (technical depth, user-independent). Prompt: `ai/prompts/tag.md`.
+
+Target: precision ≥ 0.85 and recall ≥ 0.70 on 200 owner-labeled items.
+
+### Dedupe
+Canonical URL, plus near-duplicates: title cosine ≥ 0.92 within 72 h → same cluster. A card shows "also on HN · Lobsters", and popularity is combined across sources.
+
+### Per-user score (request time, one SQL function over the 7-day pool)
+```
+interest   = 0.5·tag_match(u,i) + 0.5·cos(user_vec, item_vec)
+popularity = pop_pct + bonus when the cluster spans ≥2 sources
+freshness  = exp(-age_hours / 36)
+score      = 0.40·interest + 0.25·popularity + 0.20·quality + 0.15·freshness
+```
+Before scoring, drop blocked tags/sources, hidden items and items already clicked. After scoring, apply MMR (λ = 0.7), allow at most 3 items per source per page, and fill 10–15% of slots with "explore" items from Popular. All weights live in `config.yaml` under `ranking:`.
+
+### Learning the user's focus (no model fine-tuning)
+- **Cold start:** onboarding asks for ≥3 tags plus optional free text. `user_vec` = embedding of the text + centroid of the chosen tags.
+- **Online learning:**
+  - Event weights: click +1, dwell ≥30 s +2, upvote +3, bookmark +4, hide −3, downvote −4, less_like_this −5. Half-life 21 days.
+  - `tag_affinity[t] = tanh(Σ w·decay)`
+  - `user_vec = normalize(α·init_vec + Σ w·decay·item_vec)`
+  - Recomputed daily; hide and block apply immediately.
+- **Supervised (W5):**
+  - Applies to users with ≥150 explicit events.
+  - Train a logistic regression daily on `[cos, tag_match, pop_pct, quality, freshness, source]`.
+  - Run it in shadow mode. Enable it only when offline NDCG@10 beats the fixed formula by ≥5%.
+
+### LLM budget
+TL;DR for ~100 items/day (batches of 10). Tags + quality for ~200–300 items/day (batches of 20). That is about 25–40 calls/day in total, with **no LLM call per user or per request**. If every provider fails, tagging falls back to native/rule/embed and TL;DR is skipped.
+
+## 16. Phases
+
+Every phase ends in a runnable state. All Part 1 conventions in `CLAUDE.md` still apply.
+
+### W0 — Groundwork
+1. Merge this plan into `PLAN.md` (done 2026-11-14).
+2. Remove the radar:
+   - Delete `src/digest/radar/`, its tests and fixtures, the snapshots, the `radar:` config section, the radar env in `daily.yml`, and the Radar block in the templates.
+   - Note in `IDEAS.md` that commit `823a006` has the last version.
+3. Monorepo skeleton:
+   - `web/`: Next.js + TypeScript + Tailwind, pnpm.
+   - `db/migrations/`.
+   - CI runs `pytest`, ruff, plus `pnpm lint`, `pnpm test` and `pnpm build`.
+4. **Acceptance:** CI green; the daily Telegram digest still runs unchanged.
+
+### W1 — Content store
+1. Postgres schema (§14) and migrations. Postgres storage backend in `state.py`; `seen.json` stays for Telegram.
+2. Owner approves the engineering-blog RSS list (~30 feeds) in `sources.yaml`.
+3. New fetchers: `devto`, `hf_papers`, `github_search` (spam filter), `lemmy`, `viblo`, `producthunt_rss`. Each with a fixture and a test.
+4. Enrichment: `og:image`, reading time, language detection.
+5. Near-duplicate clustering.
+6. `ingest.yml` every 3 h; source health via `sources.last_ok_at` / `last_error`.
+7. **Acceptance:** ≥500 unique items/day; one dead source does not break the run; two consecutive runs create no duplicates.
+
+### W2 — Tags and embeddings
+1. Owner approves `taxonomy.yaml` (~60 tags, aliases, descriptions); seed `tags`.
+2. Four-step tagger (§15), fastembed with the cached model, `ai/prompts/tag.md`.
+3. `scripts/label_sample.py` exports 200 items for labeling; `scripts/eval_tags.py` reports precision/recall.
+4. **Acceptance:** precision ≥ 0.85 and recall ≥ 0.70 (**owner labels manually**); 1000 items embedded in < 60 s on Actions.
+
+### W3 — Public web MVP (no login)
+1. Pages:
+   - Popular (card grid) and tag pages.
+   - Item page: TL;DR, original link, discussion link, "also on".
+   - Full-text search.
+   - Dark mode and mobile layout.
+2. TL;DR generated in the pipeline for the popular pool.
+3. ISR (revalidate 15 min) for public pages to save DB and Vercel quota.
+4. **Acceptance:** Lighthouse mobile ≥ 90; tag pages show only matching items; snapshot tests for cards with `& < >` and emoji; **owner reviews the UI manually**.
+
+### W4 — Accounts and personalization v1
+1. Supabase Auth (GitHub OAuth) with the `invites` allowlist. RLS on `profiles`, `user_*`, `events`, `tag_affinity`.
+2. Onboarding: tags plus optional free text.
+3. My Feed: SQL function `rank_feed(user_id, cursor)` (§15) with MMR and pagination.
+4. Actions:
+   - User actions: upvote, bookmark, hide, less-like-this, block tag/source.
+   - Tracking: impression, click and dwell events, batched and sent with `sendBeacon`.
+5. Bookmarks and reading-history pages; a "delete my history" action.
+6. The Telegram digest becomes the owner's My Feed top 10, linking to the web.
+7. **Acceptance:** two fixture users with different tags get different feeds; hide/block take effect on the next page; RLS test shows user A cannot read user B's events; a non-invited account cannot sign in; **owner uses it for 7 days and rates ≥7/10 of the top items worth reading**.
+
+### W5 — Learning from behavior
+1. Daily job recomputes `tag_affinity` and `user_vec` (§15).
+2. Per-user logistic regression in shadow mode; offline NDCG@10 script over `events`.
+3. Semantic search (pgvector); a "why you see this" note (matched tags, similarity).
+4. Weekly digest on Sunday 08:00 Vietnam time with stats, plus at most 3 tag/profile suggestions (suggest only, never auto-apply).
+5. **Acceptance:** after 2 weeks My Feed CTR is higher than Popular (owner checks); "less like this" visibly reduces same-tag items within 3 days; the model is only enabled when it beats the baseline.
+
+## 17. Risks ($0 constraint)
+
+| Risk | Mitigation |
+| --- | --- |
+| Supabase free project pauses after 7 days without activity | Ingest every 3 h keeps it active; warn when ingest has failed for > 24 h |
+| DB exceeds 500 MB | Retention, weekly cleanup, size in `stats`; shorten retention before anything else |
+| Actions schedules are disabled after 60 days without repo activity | Daily digest commits keep the repo active; keep that commit step |
+| Vercel Hobby limits (non-commercial, bandwidth, function time) | Personal, non-commercial, invite-only use; ISR caching; never upgrade |
+| GitHub Search spam repos | Filter by account age, fork/star ratio, missing description; low source weight |
+| RSS sources lack popularity signals | Per-source `base_weight`, LLM quality, cross-source cluster bonus |
+| LLM free tier tightened | Provider chain; tagging works without LLM; TL;DR optional |
+| Filter bubble | MMR plus explore slots |
+| User privacy | RLS, never log user ids or emails in Actions, history deletion |
+
+## 18. Human-only setup (Part 2)
+
+- [ ] Create a Supabase project (free), enable `pgvector`. Get `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` (Actions only) and the anon key (web).
+- [ ] Create a GitHub OAuth App for Supabase Auth.
+- [ ] Create a Vercel Hobby project for `web/`; add env vars.
+- [ ] Add the new secrets to GitHub Actions.
+- [ ] Approve the RSS list (W1) and the taxonomy (W2); label 200 items (W2).
+- [ ] Add invited emails; use and rate the feed in W4/W5.
