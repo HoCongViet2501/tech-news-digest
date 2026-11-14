@@ -514,7 +514,7 @@ Repo layout becomes a monorepo: `src/digest/` (pipeline), `web/` (Next.js), `sup
 
 | Part | How it deploys | Secrets / env |
 | --- | --- | --- |
-| Database | SQL in `supabase/migrations/`. `db.yml` runs `supabase db push` on merges to `main` that touch that folder, before any other job. | `SUPABASE_ACCESS_TOKEN`, `SUPABASE_DB_PASSWORD`, `SUPABASE_PROJECT_REF` (Actions only) |
+| Database | SQL in `supabase/migrations/`. `db.yml` runs `supabase db push` on merges to `main` that touch that folder, before any other job. | `SUPABASE_DB_URL` (Actions only). `db push --remote=<db url>` needs no Supabase access token. |
 | Pipeline | `ingest.yml` every 3 h. `daily.yml` at 07:00 handles Telegram, user vectors and cleanup. Both share one `concurrency` group so runs never overlap. Writes go through psycopg via the Supavisor pooler (IPv4; the direct host is IPv6-only and Actions runners have no IPv6). Session mode on port 5432. | `SUPABASE_DB_URL`, LLM keys, `TELEGRAM_*` |
 | Web | Vercel Git integration, root `web/`. `main` deploys production; PRs get preview deploys. An "Ignored Build Step" skips builds when `web/` did not change, so daily `digest:` commits cost no builds. | `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` (publishable key). No secret key exists in the project setup at all; the web always runs as the user (JWT + RLS). |
 | CI | `ci.yml`: pytest + ruff, `pnpm lint/test/build`. SQL and RLS tests run against a Postgres service container on the runner. | – |
@@ -721,7 +721,7 @@ Every phase ends in a runnable state. All Part 1 conventions in `CLAUDE.md` stil
 ## 18. Human-only setup (Part 2)
 
 - [ ] Create a Supabase project (free, region Singapore). Extensions (`vector`, `unaccent`, `pg_trgm`) are enabled by migrations, not by hand.
-  - Actions secrets: `SUPABASE_PROJECT_REF`, `SUPABASE_ACCESS_TOKEN`, `SUPABASE_DB_PASSWORD`, `SUPABASE_DB_URL` (session pooler, port 5432).
+  - Actions secret: `SUPABASE_DB_URL` (session pooler, port 5432) only. No Supabase access token is needed (verified 2026-11-15 with CLI 3.1.0 `db push --remote=<url> --dry-run`).
   - Web (W3): project URL and the publishable (anon) key.
   - No secret/service-role key is needed: the pipeline connects as Postgres through `SUPABASE_DB_URL`, which can call service-only functions.
 - [ ] Create a GitHub OAuth App for Supabase Auth.
