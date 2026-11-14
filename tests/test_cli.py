@@ -7,6 +7,7 @@ from zoneinfo import ZoneInfo
 import pytest
 
 from digest.__main__ import main, parse_args, resolve_now, resolve_run_date
+from digest.ai.llm import LLMChain
 
 REPO_CONFIG = Path(__file__).parent.parent / "config.yaml"
 
@@ -273,6 +274,8 @@ def test_ai_enabled_without_keys_sends_heuristic_digest_with_note(
 ) -> None:
     for var in ("GEMINI_API_KEY", "GROQ_API_KEY", "OPENROUTER_API_KEY"):
         monkeypatch.delenv(var, raising=False)
+    # Offline runs use the fake provider; this test covers the real chain with no keys.
+    monkeypatch.setattr("digest.__main__.fake_chain", LLMChain.from_config)
     config = tmp_path / "config.yaml"
     config.write_text(
         REPO_CONFIG.read_text(encoding="utf-8").replace(

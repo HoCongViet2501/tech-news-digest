@@ -13,6 +13,7 @@ from zoneinfo import ZoneInfo
 import httpx
 from dotenv import load_dotenv
 
+from digest.ai.fake import fake_chain
 from digest.ai.llm import AIUnavailable, LLMChain
 from digest.ai.scorer import score_items
 from digest.ai.summarizer import gather_context, summarize_items
@@ -120,6 +121,13 @@ def _telegram_secrets(cfg: Config, dry_run: bool) -> dict[str, str] | None:
     return {name: os.environ[name] for name in TELEGRAM_ENV}
 
 
+def _make_chain(cfg: Config) -> LLMChain | None:
+    """Real providers normally; the deterministic fake when offline; nothing when AI is off."""
+    if not cfg.ai.enabled:
+        return None
+    return fake_chain(cfg.ai) if is_offline() else LLMChain.from_config(cfg.ai)
+
+
 def build_digest(
     cfg: Config,
     fetched: dict[str, list[Item]],
@@ -206,7 +214,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         ",".join(args.only) if args.only else "all",
     )
 
-    chain = LLMChain.from_config(cfg.ai) if cfg.ai.enabled else None
+    chain = _make_chain(cfg)
     digest = build_digest(cfg, asyncio.run(_fetch(cfg, now, args.only)), seen, run_date, chain)
     if chain is not None:
         digest = add_summaries(cfg, digest, chain, offline_transport() if is_offline() else None)

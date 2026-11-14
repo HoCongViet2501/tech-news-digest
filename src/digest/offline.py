@@ -14,6 +14,10 @@ ROUTES: list[tuple[str, str, str]] = [
     ("api.github.com", "/search/repositories", "github_search.json"),
     ("lobste.rs", "/hottest.json", "lobsters.json"),
     ("lwn.net", "/headlines/rss", "rss_lwn.xml"),
+    # Summarizer context, so offline runs with AI enabled get summaries.
+    ("lwn.net", "/Articles/", "article_lwn.html"),
+    ("hn.algolia.com", "/api/v1/items/", "hn_item.json"),
+    ("api.github.com", "/repos/", "github_repo.json"),
 ]
 
 
