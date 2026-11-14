@@ -510,14 +510,61 @@ Out of scope, recorded in `IDEAS.md`: comments, squads, public profiles, reputat
 
 Repo layout becomes a monorepo: `src/digest/` (pipeline), `web/` (Next.js), `db/migrations/` (SQL, Supabase CLI).
 
+### Deployment
+
+| Part | How it deploys | Secrets / env |
+| --- | --- | --- |
+| Database | SQL in `db/migrations/`. `db.yml` runs `supabase db push` on merges to `main` that touch that folder, before any other job. | `SUPABASE_ACCESS_TOKEN`, `SUPABASE_DB_PASSWORD` (Actions only) |
+| Pipeline | `ingest.yml` every 3 h. `daily.yml` at 07:00 handles Telegram, user vectors and cleanup. Both share one `concurrency` group so runs never overlap. Writes go through psycopg via the Supavisor pooler (IPv4; the direct host is IPv6-only and Actions runners have no IPv6). Session mode on port 5432. | `SUPABASE_DB_URL`, LLM keys, `TELEGRAM_*` |
+| Web | Vercel Git integration, root `web/`. `main` deploys production; PRs get preview deploys. An "Ignored Build Step" skips builds when `web/` did not change, so daily `digest:` commits cost no builds. | `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`. The service-role key never goes to Vercel; the web always runs as the user (JWT + RLS). |
+| CI | `ci.yml`: pytest + ruff, `pnpm lint/test/build`. SQL and RLS tests run against a Postgres service container on the runner. | – |
+
+- **Environments:** local (`supabase start`, Docker) and production only. There is no staging project: a second free project pauses after 7 days idle. Preview deploys read production through the anon key, so RLS limits them to public data.
+- **GitHub Pages:** stays until W3 ships, then becomes a redirect to the web app. `data/` (`seen.json`, digests) is still committed daily, because that activity keeps scheduled workflows enabled.
+
+### Ingestion
+
+Sources are configured in `sources.yaml` and synced into the `sources` table. There are three fetcher kinds:
+- **Generic RSS** (`rss.py`): engineering blogs, Viblo, Product Hunt, Echo JS, YouTube. A new feed is one config line.
+- **One module per API source**: HN, Lobsters, dev.to, HF Papers, GitHub Search, Lemmy. Each follows the `FetchFn` protocol.
+- **HTML scraping**: GitHub Trending.
+
+Each source has a `cadence` so quotas are not burned on all 8 runs a day: HN, Lobsters and dev.to every run; GitHub Search twice a day; HF Papers and blog RSS once a day.
+
+One `ingest.yml` run (target ~5 min, job timeout 20 min):
+1. **Fetch** sources that are due, concurrently (8 in flight, at most 2 per host). Conditional GET with `ETag` / `Last-Modified` stored on `sources`; a 304 is skipped.
+2. **Normalize** to canonical URL → item id.
+3. **Upsert**: new items are inserted; known items only refresh `native_score` / `native_comments`, so popularity keeps up with growing HN points.
+4. **Enrich** new items only: `og:image`, description, reading time, language. Uses trafilatura with a 10 s timeout and at most `ingest.enrich_per_run` items; failures leave nulls.
+5. **Cluster** near-duplicates over 72 h.
+6. **Tag and embed** items that lack them.
+7. **LLM** tag fallback + quality, batches of 20, capped by `ingest.llm_calls_per_run`.
+8. **Recompute** `pop_pct` per source over 7 days.
+9. **TL;DR** for popular-pool items without one.
+10. **Health:** update `sources.last_ok_at` / `last_error`; a source failing for > 24 h triggers a Telegram warning.
+
+**Postgres is the work queue.** Each stage selects only items whose stage column (`enriched_at`, `tagged_at`, `embedded_at`, `summarized_at`) is null. A crashed or quota-limited run is finished by the next one, and every write is an upsert on `items.id`, so reruns never duplicate.
+
+**Content and politeness rules:**
+- Store and show only the title, a short description excerpt, links, the image URL and our own TL;DR.
+- Full article text is used transiently for embeddings and TL;DR, and is never stored or displayed.
+- Enrichment respects `robots.txt`, uses the project User-Agent, and only fetches pages of new items.
+
+**Tests:**
+- Fetchers keep the fixture + respx tests.
+- DB access goes through a repository interface: an in-memory implementation for unit tests, and a Postgres service container for integration tests.
+- `DIGEST_OFFLINE=1` reads fixtures and writes to local Supabase.
+
 ## 14. Data model (Postgres)
 
 ```sql
-sources(id, kind, name, url, enabled, base_weight, last_ok_at, last_error)
+sources(id, kind, name, url, enabled, base_weight, cadence_hours, etag, last_modified,
+        last_fetched_at, last_ok_at, last_error)
 items(id text pk /*sha1 canonical url*/, cluster_id, source_id, title, url, discussion_url,
       description, image_url, lang, reading_min, published_at, fetched_at,
       native_score int, native_comments int, pop_pct real /*per-source percentile, 7 days*/,
-      quality real /*0–1, LLM*/, tldr text, embedding vector(384), fts tsvector)
+      quality real /*0–1, LLM*/, tldr text, embedding vector(384), fts tsvector,
+      first_seen_at, enriched_at, tagged_at, embedded_at, summarized_at /*stage queue*/)
 clusters(id, canonical_item_id, item_ids text[])
 tags(slug pk, name, parent, description, aliases text[])        -- seeded from taxonomy.yaml
 item_tags(item_id, tag, confidence real, method /*native|rule|embed|llm*/)
@@ -580,18 +627,26 @@ Every phase ends in a runnable state. All Part 1 conventions in `CLAUDE.md` stil
    - Note in `IDEAS.md` that commit `823a006` has the last version.
 3. Monorepo skeleton:
    - `web/`: Next.js + TypeScript + Tailwind, pnpm.
-   - `db/migrations/`.
+   - `db/migrations/` and the `db.yml` workflow.
    - CI runs `pytest`, ruff, plus `pnpm lint`, `pnpm test` and `pnpm build`.
+   - Document the Vercel "Ignored Build Step" command (§13 Deployment).
 4. **Acceptance:** CI green; the daily Telegram digest still runs unchanged.
 
 ### W1 — Content store
 1. Postgres schema (§14) and migrations. Postgres storage backend in `state.py`; `seen.json` stays for Telegram.
 2. Owner approves the engineering-blog RSS list (~30 feeds) in `sources.yaml`.
 3. New fetchers: `devto`, `hf_papers`, `github_search` (spam filter), `lemmy`, `viblo`, `producthunt_rss`. Each with a fixture and a test.
-4. Enrichment: `og:image`, reading time, language detection.
-5. Near-duplicate clustering.
-6. `ingest.yml` every 3 h; source health via `sources.last_ok_at` / `last_error`.
-7. **Acceptance:** ≥500 unique items/day; one dead source does not break the run; two consecutive runs create no duplicates.
+4. Per-source `cadence_hours` and conditional GET (`ETag` / `Last-Modified`).
+5. Enrichment: `og:image`, reading time, language detection. Respect `robots.txt`; never store full text.
+6. Stage columns as the work queue (§13 Ingestion); per-run caps in `config.yaml` (`ingest.enrich_per_run`, `ingest.llm_calls_per_run`).
+7. Near-duplicate clustering.
+8. `ingest.yml` every 3 h with a shared `concurrency` group; source health via `sources.last_ok_at` / `last_error`, Telegram warning after 24 h of failures.
+9. **Acceptance:**
+   - ≥500 unique items/day.
+   - One dead source does not break the run.
+   - Two consecutive runs create no duplicates.
+   - A run killed midway is completed by the next run.
+   - A second fetch of an unchanged feed gets 304.
 
 ### W2 — Tags and embeddings
 1. Owner approves `taxonomy.yaml` (~60 tags, aliases, descriptions); seed `tags`.
@@ -607,7 +662,8 @@ Every phase ends in a runnable state. All Part 1 conventions in `CLAUDE.md` stil
    - Dark mode and mobile layout.
 2. TL;DR generated in the pipeline for the popular pool.
 3. ISR (revalidate 15 min) for public pages to save DB and Vercel quota.
-4. **Acceptance:** Lighthouse mobile ≥ 90; tag pages show only matching items; snapshot tests for cards with `& < >` and emoji; **owner reviews the UI manually**.
+4. GitHub Pages becomes a redirect to the web app.
+5. **Acceptance:** Lighthouse mobile ≥ 90; tag pages show only matching items; snapshot tests for cards with `& < >` and emoji; **owner reviews the UI manually**.
 
 ### W4 — Accounts and personalization v1
 1. Supabase Auth (GitHub OAuth) with the `invites` allowlist. RLS on `profiles`, `user_*`, `events`, `tag_affinity`.
