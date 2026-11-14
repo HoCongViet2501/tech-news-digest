@@ -2,9 +2,11 @@ timezone: Asia/Ho_Chi_Minh
 max_items: 10
 
 profile: |
-  Full-stack developer who also does DevOps (TypeScript/JavaScript, Python, Go; Docker, Kubernetes, CI/CD, cloud).
+  Full-stack developer who also does DevOps (TypeScript/JavaScript, Python, Go, Java; Docker, Kubernetes, CI/CD, cloud).
+  Backend stack: Java/Spring, Node.js, Kafka and messaging, databases (PostgreSQL, MySQL, Redis, MongoDB),
+  distributed systems and system design.
   Interested in: new AI technology and models, AI-powered developer tools (coding agents, MCP, LLM tooling),
-  trending open-source projects on GitHub, practical full-stack and DevOps tools, releases and techniques
+  trending open-source projects on GitHub, practical full-stack, backend and DevOps tools, releases and techniques
   that make day-to-day work faster.
   Not interested in: crypto, hiring/layoff drama, funding news, pure marketing or opinion pieces without technical depth.
 

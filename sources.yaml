@@ -1,0 +1,98 @@
+# Part 2 ingestion sources (docs/PLAN.md §11, §13 Ingestion).
+# Approved by the owner on 2026-11-15. Feeds were probed on 2026-11-15; URLs are the
+# final ones after redirects. base_weight (0-100) stands in for popularity, since RSS
+# has no votes: lower for high-volume or marketing-heavy feeds.
+# cadence_hours defaults to 24 for RSS. Weekly newsletters (Node/JS/Postgres Weekly)
+# yield one item per issue.
+# The Part 1 Telegram digest still reads sources from config.yaml, not from this file.
+
+defaults:
+  rss:
+    cadence_hours: 24
+
+devto:
+  tags: [java, springboot, node, kafka, database, postgres, redis, microservices, systemdesign]
+
+rss:
+  # --- AI ---
+  - {name: Simon Willison, url: "https://simonwillison.net/atom/everything/", category: ai, base_weight: 70}
+  - {name: Hugging Face Blog, url: "https://huggingface.co/blog/feed.xml", category: ai, base_weight: 60}
+  - {name: Google DeepMind, url: "https://deepmind.google/blog/rss.xml", category: ai, base_weight: 60}
+  - {name: Latent Space, url: "https://latent.space/feed", category: ai, base_weight: 60}
+  - {name: Google AI Blog, url: "https://blog.google/innovation-and-ai/technology/ai/rss/", category: ai, base_weight: 50}
+  - {name: OpenAI News, url: "https://openai.com/news/rss.xml", category: ai, base_weight: 40}
+
+  # --- DevOps / cloud ---
+  - {name: Kubernetes Blog, url: "https://kubernetes.io/feed.xml", category: devops, base_weight: 70}
+  - {name: Cloudflare Blog, url: "https://blog.cloudflare.com/rss/", category: devops, base_weight: 60}
+  - {name: GitHub Blog, url: "https://github.blog/feed/", category: devops, base_weight: 60}
+  - {name: AWS News Blog, url: "https://aws.amazon.com/blogs/aws/feed/", category: devops, base_weight: 50}
+  - {name: HashiCorp Blog, url: "https://www.hashicorp.com/blog/feed.xml", category: devops, base_weight: 50}
+  - {name: Grafana Blog, url: "https://grafana.com/blog/index.xml", category: devops, base_weight: 50}
+  - {name: GitHub Changelog, url: "https://github.blog/changelog/feed/", category: devops, base_weight: 50}
+  - {name: Google Cloud Blog, url: "https://cloudblog.withgoogle.com/rss/", category: devops, base_weight: 40}
+  - {name: The New Stack, url: "https://thenewstack.io/feed/", category: devops, base_weight: 40}
+
+  # --- Languages / frontend ---
+  - {name: Go Blog, url: "https://go.dev/blog/feed.atom", category: lang, base_weight: 70}
+  - {name: TypeScript Blog, url: "https://devblogs.microsoft.com/typescript/feed/", category: lang, base_weight: 70}
+  - {name: React Blog, url: "https://react.dev/rss.xml", category: lang, base_weight: 70}
+  - {name: Python Insider, url: "https://blog.python.org/feeds/posts/default", category: lang, base_weight: 60}
+  - {name: Astral Blog, url: "https://astral.sh/blog/rss.xml", category: lang, base_weight: 60}
+  - {name: Node.js Blog, url: "https://nodejs.org/en/feed/blog.xml", category: node, base_weight: 50}
+  - {name: Chrome for Developers, url: "https://developer.chrome.com/static/blog/feed.xml", category: lang, base_weight: 40}
+  - {name: Vercel Blog, url: "https://vercel.com/atom", category: lang, base_weight: 30}
+
+  # --- Java / JVM ---
+  - {name: Inside Java, url: "https://inside.java/feed.xml", category: java, base_weight: 70}
+  - {name: Spring Blog, url: "https://spring.io/blog.atom", category: java, base_weight: 70}
+  - {name: InfoQ Java, url: "https://feed.infoq.com/java/", category: java, base_weight: 60}
+  - {name: Vlad Mihalcea, url: "https://vladmihalcea.com/feed/", category: java, base_weight: 60}
+  - {name: Foojay, url: "https://foojay.io/index.xml", category: java, base_weight: 50}
+  - {name: Kotlin Blog, url: "https://blog.jetbrains.com/kotlin/feed/", category: java, base_weight: 50}
+  - {name: Quarkus Blog, url: "https://quarkus.io/feed.xml", category: java, base_weight: 40}
+  - {name: Baeldung, url: "https://www.baeldung.com/feed", category: java, base_weight: 40}
+
+  # --- Node.js / JS runtimes ---
+  - {name: Adventures in Nodeland, url: "https://adventures.nodeland.dev/rss/", category: node, base_weight: 60}
+  - {name: Bun Blog, url: "https://bun.sh/rss.xml", category: node, base_weight: 50}
+  - {name: Node Weekly, url: "https://cprss.s3.amazonaws.com/nodeweekly.com.xml", category: node, base_weight: 50}
+  - {name: JavaScript Weekly, url: "https://cprss.s3.amazonaws.com/javascriptweekly.com.xml", category: node, base_weight: 40}
+
+  # --- Kafka / messaging ---
+  - {name: Confluent Blog, url: "https://www.confluent.io/rss.xml", category: messaging, base_weight: 60}
+  - {name: Redpanda Blog, url: "https://www.redpanda.com/blog/rss.xml", category: messaging, base_weight: 50}
+  - {name: RabbitMQ Blog, url: "https://www.rabbitmq.com/blog/rss.xml", category: messaging, base_weight: 50}
+
+  # --- Databases ---
+  - {name: Postgres Weekly, url: "https://cprss.s3.amazonaws.com/postgresweekly.com.xml", category: db, base_weight: 60}
+  - {name: Murat Demirbas, url: "https://muratbuffalo.blogspot.com/feeds/posts/default", category: db, base_weight: 60}
+  - {name: PlanetScale Blog, url: "https://planetscale.com/blog/feed.atom", category: db, base_weight: 50}
+  - {name: Redis Blog, url: "https://redis.io/blog/feed/", category: db, base_weight: 50}
+  - {name: DuckDB Blog, url: "https://duckdb.org/feed.xml", category: db, base_weight: 50}
+  - {name: Percona Blog, url: "https://www.percona.com/blog/feed/", category: db, base_weight: 50}
+  - {name: Supabase Blog, url: "https://supabase.com/rss.xml", category: db, base_weight: 40}
+  - {name: Planet PostgreSQL, url: "https://planet.postgresql.org/rss20.xml", category: db, base_weight: 40}
+  - {name: ClickHouse Blog, url: "https://clickhouse.com/rss.xml", category: db, base_weight: 40}
+  - {name: Neon Blog, url: "https://neon.com/blog/rss.xml", category: db, base_weight: 40}
+  - {name: MySQL Blog, url: "https://blogs.oracle.com/mysql/feed", category: db, base_weight: 40}
+  - {name: MongoDB Blog, url: "https://www.mongodb.com/company/blog/rss", category: db, base_weight: 30}
+
+  # --- Backend architecture / engineering ---
+  - {name: ByteByteGo, url: "https://blog.bytebytego.com/feed", category: arch, base_weight: 60}
+  - {name: Grab Tech, url: "https://engineering.grab.com/feed.xml", category: arch, base_weight: 60}
+  - {name: Netflix Tech Blog, url: "https://netflixtechblog.com/feed", category: arch, base_weight: 60}
+  - {name: Martin Fowler, url: "https://martinfowler.com/feed.atom", category: arch, base_weight: 60}
+  - {name: Pragmatic Engineer, url: "https://newsletter.pragmaticengineer.com/feed", category: arch, base_weight: 60}
+  - {name: AWS Architecture Blog, url: "https://aws.amazon.com/blogs/architecture/feed/", category: arch, base_weight: 50}
+  - {name: Shopify Engineering, url: "https://shopify.engineering/blog.atom", category: arch, base_weight: 50}
+  - {name: Dropbox Tech, url: "https://dropbox.tech/feed", category: arch, base_weight: 50}
+  - {name: Airbnb Engineering, url: "https://medium.com/feed/airbnb-engineering", category: arch, base_weight: 50}
+  - {name: InfoQ, url: "https://feed.infoq.com/", category: arch, base_weight: 50}
+  - {name: LWN Headlines, url: "https://lwn.net/headlines/rss", category: arch, base_weight: 50}
+  - {name: Stripe Blog, url: "https://stripe.com/blog/feed.rss", category: arch, base_weight: 50}
+  - {name: Discord Blog, url: "https://discord.com/blog/rss.xml", category: arch, base_weight: 40}
+
+  # --- Security ---
+  - {name: Project Zero, url: "https://projectzero.google/feed.xml", category: security, base_weight: 60}
+  - {name: GitHub Security Blog, url: "https://github.blog/security/feed/", category: security, base_weight: 60}
