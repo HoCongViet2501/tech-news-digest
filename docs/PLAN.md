@@ -659,20 +659,21 @@ Every phase ends in a runnable state. All Part 1 conventions in `CLAUDE.md` stil
 4. Per-source `cadence_hours` and conditional GET (`ETag` / `Last-Modified`).
 5. Enrichment: `og:image`, reading time, language detection. Respect `robots.txt`; never store full text.
 6. Stage columns as the work queue (§13 Ingestion); per-run caps in `config.yaml` (`ingest.enrich_per_run`, `ingest.llm_calls_per_run`).
-7. Near-duplicate clustering.
+7. Near-duplicate clustering: **moved to W2** (needs embeddings).
 8. `ingest.yml` every 3 h with a shared `concurrency` group; source health via `sources.last_ok_at` / `last_error`, Telegram warning after 24 h of failures.
 9. **Acceptance:**
    - ≥500 unique items/day.
    - One dead source does not break the run.
    - Two consecutive runs create no duplicates.
    - A run killed midway is completed by the next run.
-   - A second fetch of an unchanged feed gets 304.
+   - A second fetch of an unchanged feed gets 304 when the server sends `ETag` / `Last-Modified` (some feeds, e.g. Go Blog and Cloudflare, send neither).
 
 ### W2 — Tags and embeddings
 1. Owner approves `taxonomy.yaml` (~60 tags, aliases, descriptions); seed `tags`.
 2. Four-step tagger (§15), fastembed with the cached model, `ai/prompts/tag.md`.
-3. `scripts/label_sample.py` exports 200 items for labeling; `scripts/eval_tags.py` reports precision/recall.
-4. **Acceptance:** precision ≥ 0.85 and recall ≥ 0.70 (**owner labels manually**); 1000 items embedded in < 60 s on Actions.
+3. Near-duplicate clustering (moved from W1): title cosine ≥ 0.92 within 72 h → same cluster.
+4. `scripts/label_sample.py` exports 200 items for labeling; `scripts/eval_tags.py` reports precision/recall.
+5. **Acceptance:** precision ≥ 0.85 and recall ≥ 0.70 (**owner labels manually**); 1000 items embedded in < 60 s on Actions; the same story on HN and Lobsters ends up in one cluster.
 
 ### W3 — Public web MVP (no login)
 1. Pages:
