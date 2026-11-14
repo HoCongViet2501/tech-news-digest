@@ -1,0 +1,201 @@
+{
+ "date": "2026-11-14",
+ "items": [
+  {
+   "id": "45b453e349d12cc977d80308a01593056fcbff0c",
+   "source": "github",
+   "title": "kajisho5/ffmpeg-skill: Local video editor for coding agents: 42 FFmpeg tools with a machine-readable contract and an MCP server, for Claude Code, Cursor and Codex. Cut, captions, reframe, loudness, platform exports. No cloud, no API keys.",
+   "url": "https://github.com/kajisho5/ffmpeg-skill",
+   "discussion_url": null,
+   "score": 168,
+   "comments": 0,
+   "published_at": "2026-11-14T11:10:11.290832+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ FFmpeg MCP tuyệt vời cho Claude Code và Cursor.",
+   "summary": "FFmpeg-skill là một Agent Skill và MCP server mã nguồn mở cho phép các coding agent thực hiện chỉnh sửa video cục bộ thông qua FFmpeg. Công cụ cung cấp 42 tiện ích xử lý video và âm thanh ngoại tuyến mà không cần cloud hay API key.",
+   "why_it_matters": "Giúp tích hợp khả năng xử lý media tự động hóa trực tiếp vào các coding agent và công cụ AI của bạn."
+  },
+  {
+   "id": "4e2960d2b01a5b466a9cd22f4991055fcf7c15fc",
+   "source": "github",
+   "title": "a2ui-project/a2ui: Open-source generative UI framework: agents stream layout data, and apps render it with native components in React, Angular, Lit, Flutter, SwiftUI and Jetpack Compose.",
+   "url": "https://github.com/a2ui-project/a2ui",
+   "discussion_url": null,
+   "score": 117,
+   "comments": 0,
+   "published_at": "2026-11-14T11:10:11.290832+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Framework UI tạo sinh mã nguồn mở cho các coding agents.",
+   "summary": "A2UI là một generative UI framework mã nguồn mở cho phép các AI agent stream giao diện động dựa trên dữ liệu cấu trúc thay vì mã thực thi. Framework cung cấp các native renderer cho nhiều nền tảng phổ biến như React, Flutter và SwiftUI.",
+   "why_it_matters": "Cung cấp giải pháp an toàn và hiệu quả để xây dựng giao diện người dùng do AI điều khiển trong các ứng dụng full-stack của bạn."
+  },
+  {
+   "id": "6e5ec8cd9b232f381ec6d9124bf65fd97a74c205",
+   "source": "github",
+   "title": "lidge-jun/opencodex: Universal provider proxy for OpenAI Codex & Claude Code — use any LLM (Claude, Gemini, Grok, DeepSeek, Ollama…) with Codex CLI, App, SDK, and Claude Code",
+   "url": "https://github.com/lidge-jun/opencodex",
+   "discussion_url": null,
+   "score": 54,
+   "comments": 0,
+   "published_at": "2026-11-14T11:10:11.290832+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Proxy đa năng chạy các LLM cho Codex CLI và Claude Code.",
+   "summary": "Opencodex là một local gateway nhẹ hoạt động như một universal provider proxy giữa các công cụ coding agent và nhiều nhà cung cấp mô hình AI khác nhau. Công cụ cho phép bạn sử dụng linh hoạt các mô hình như Claude, Gemini, DeepSeek hoặc Ollama với Claude Code và Codex.",
+   "why_it_matters": "Cho phép bạn tự do thử nghiệm các mô hình LLM mới nhất trên các công cụ coding agent quen thuộc của mình mà không bị khóa chặt vào một nhà cung cấp."
+  },
+  {
+   "id": "a699cca176201a64275ed75c357bbe7dd30706b5",
+   "source": "github",
+   "title": "asgeirtj/system_prompts_leaks: Leaked system prompts of ChatGPT, Claude, Gemini and more. The hidden system prompt of every popular chatbot, in full, every version since May 2025. Also Anthropic Claude Code, OpenAI Codex, Google Antigravity, xAI Grok, Meta Muse, Moonshot Kimi, Alibaba Qwen, Z.ai GLM ZCode, MiniMax, Cursor, Perplexity, DeepSeek and 30+ others. Updated daily.",
+   "url": "https://github.com/asgeirtj/system_prompts_leaks",
+   "discussion_url": null,
+   "score": 73,
+   "comments": 0,
+   "published_at": "2026-11-14T11:10:11.290832+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Tổng hợp system prompt bị rò rỉ của nhiều LLM và coding agent.",
+   "summary": "System_prompts_leaks là một kho lưu trữ mã nguồn mở cập nhật hàng ngày các system prompt bị rò rỉ của nhiều chatbot và công cụ AI phổ biến. Kho lưu trữ này bao gồm các phiên bản chi tiết của ChatGPT, Claude Code, Cursor và nhiều nền tảng khác từ tháng 5 năm 2025 đến nay.",
+   "why_it_matters": "Cung cấp góc nhìn kỹ thuật chuyên sâu về cách các công cụ AI và coding agent hàng đầu được cấu hình và hướng dẫn."
+  },
+  {
+   "id": "addc172903153248d6d66916adc8a7a3ecc40c2a",
+   "source": "github",
+   "title": "crowdsecurity/crowdsec: Open-source IDS/IPS, WAF and bot detection for Linux, Windows, Docker and Kubernetes, with a crowdsourced blocklist of malicious IPs.",
+   "url": "https://github.com/crowdsecurity/crowdsec",
+   "discussion_url": null,
+   "score": 25,
+   "comments": 0,
+   "published_at": "2026-11-14T11:10:11.290832+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Công cụ bảo mật IDS/IPS, WAF hỗ trợ Docker và Kubernetes.",
+   "summary": "CrowdSec là một giải pháp bảo mật mã nguồn mở bao gồm IDS/IPS, WAF và cơ chế phát hiện bot dành cho Linux, Windows, Docker và Kubernetes. Hệ thống phân tách quá trình phân tích nhật ký và chặn mối đe dọa, đồng thời chia sẻ danh sách đen IP độc hại từ cộng đồng theo thời gian thực.",
+   "why_it_matters": "Mang lại một công cụ DevOps và bảo mật hiện đại, dễ dàng tích hợp vào hạ tầng cloud và container để tự động chặn các cuộc tấn công."
+  },
+  {
+   "id": "9a87efc058c8bef30364b005b58bb5f2237e2e6f",
+   "source": "github",
+   "title": "callstack/agent-device: Open source device layer for AI coding agents: a CLI, MCP server, and typed Node.js API to control mobile, web, TV, and desktop apps on devices and simulators, locally or in the cloud.",
+   "url": "https://github.com/callstack/agent-device",
+   "discussion_url": null,
+   "score": 21,
+   "comments": 0,
+   "published_at": "2026-11-14T11:10:11.290832+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 9.0,
+   "reason": "Thư viện điều khiển thiết bị di động/desktop cho AI coding agents.",
+   "summary": "Agent-device là một tầng thiết bị mã nguồn mở dành cho AI coding agents, cung cấp CLI, MCP server và Node.js API để điều khiển ứng dụng trên nhiều nền tảng di động, web, TV và desktop. Công cụ này cho phép agent kiểm tra, debug, thực hiện các thao tác UI dựa trên cây accessibility snapshots thay vì chỉ dùng ảnh chụp màn hình, đồng thời lưu trữ bằng chứng để xem xét.",
+   "why_it_matters": "Giúp bạn tích hợp các AI coding agent vào luồng CI/CD và kiểm thử ứng dụng tự động một cách chính xác thông qua MCP và Node.js API."
+  },
+  {
+   "id": "b8c82d5c01fe377a81e5d9f29fb289b2eb52ed52",
+   "source": "lobsters",
+   "title": "Announcing Rust 1.100.0",
+   "url": "https://blog.rust-lang.org/2026/11/12/Rust-1.100.0",
+   "discussion_url": "https://lobste.rs/s/81hnjw/announcing_rust_1_100_0",
+   "score": 149,
+   "comments": 13,
+   "published_at": "2026-11-12T12:43:41.418000-06:00",
+   "tags": [
+    "release",
+    "rust"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Phát hành phiên bản mới của ngôn ngữ lập trình Rust.",
+   "summary": "Rust 1.100.0 chính thức ổn định \"never type\" (!) sau 10 năm phát triển, cho phép sử dụng ký hiệu này ở mọi nơi để biểu diễn các tính toán không bao giờ trả về giá trị. Phiên bản này cũng đổi tên Infallible thành một alias của never type và ổn định các phần lõi của allocator_api để định nghĩa custom allocator cho Vec và Box.",
+   "why_it_matters": "Cung cấp các kiểu dữ liệu và API phân bổ bộ nhớ chuẩn hóa sâu hơn, giúp bạn viết mã Rust tối ưu hóa hiệu suất và kiểm soát tài nguyên tốt hơn."
+  },
+  {
+   "id": "83d7731b7519451e41b579908f769651bbb60769",
+   "source": "github",
+   "title": "shanliuling/dsh-image-gen: 可在对话内生成、编辑、对比图像；内置 500 + 提示词、图库、多模型工作流，支持 ComfyUI。AI image studio for DeepSeek Harness — generate, edit & compare images in chat, with 500+ prompts, gallery, multi-model workflows and ComfyUI.",
+   "url": "https://github.com/shanliuling/dsh-image-gen",
+   "discussion_url": null,
+   "score": 95,
+   "comments": 0,
+   "published_at": "2026-11-14T11:10:11.290832+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Studio hình ảnh AI tích hợp ComfyUI và DeepSeek.",
+   "summary": "Dsh-image-gen là plugin sáng tạo hình ảnh gốc dành cho DeepSeek Harness, cho phép agent tạo, chỉnh sửa và so sánh hình ảnh trực tiếp trong đoạn chat. Plugin tích hợp hơn 500 prompt, hỗ trợ vẽ trên canvas, xử lý đồng thời nhiều mô hình như Gemini, OpenAI và ComfyUI.",
+   "why_it_matters": "Cung cấp một công cụ tích hợp AI workflow mạnh mẽ để tạo asset và trực quan hóa dữ liệu ngay trong môi trường phát triển của bạn."
+  },
+  {
+   "id": "4fee55cd2515a54721f7fb0841474d17a1c56439",
+   "source": "lobsters",
+   "title": "Probabilistic data structures in Go",
+   "url": "https://antonz.org/probabilistic-data-structures",
+   "discussion_url": "https://lobste.rs/s/xca2qj/probabilistic_data_structures_go",
+   "score": 32,
+   "comments": 9,
+   "published_at": "2026-11-13T10:03:44.210000-06:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Cấu trúc dữ liệu xác suất thực tế viết bằng Go.",
+   "summary": "Bài viết giới thiệu về cấu trúc dữ liệu xác suất (probabilistic data structures) bằng Go, giúp trả về các câu trả lời xấp xỉ với mức sử dụng bộ nhớ cực kỳ thấp. Tác giả cũng giới thiệu thư viện 'unsure' triển khai các cấu trúc như Bloom filter, Count-min sketch, HyperLogLog, T-digest và Top-k hoàn toàn bằng thư viện chuẩn của Go.",
+   "why_it_matters": "Cung cấp cho bạn các công cụ tối ưu hóa hiệu suất và giảm thiểu I/O hoặc bộ nhớ khi xử lý dữ liệu lớn trong các ứng dụng Go backend."
+  },
+  {
+   "id": "ec453d1217c2185916432f3e7a8148b66592ce66",
+   "source": "github",
+   "title": "tradermonty/claude-trading-skills: Claude Code skills for equity investors and traders — market analysis, technical charting, economic calendars, screeners, and trading strategy development.",
+   "url": "https://github.com/tradermonty/claude-trading-skills",
+   "discussion_url": null,
+   "score": 69,
+   "comments": 0,
+   "published_at": "2026-11-14T11:10:11.290832+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "relevance": 8.0,
+   "reason": "Kỹ năng phân tích thị trường tài chính cho Claude Code.",
+   "summary": "Claude Trading Skills là một bộ công cụ workflow giao dịch dựa trên Claude Code dành cho các nhà đầu tư cá nhân bị giới hạn về thời gian. Bộ công cụ này cung cấp các skill phân tích thị trường, lịch kinh tế, chiến lược giao dịch và quản lý rủi ro mà không tự động hóa hoàn toàn các quyết định mua bán.",
+   "why_it_matters": "Minh họa cách xây dựng các Claude Code skills và tự động hóa các tác vụ phân tích phức tạp bằng LLM tooling."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 100,
+  "fetched_github": 50,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 175,
+  "after_dedupe": 169,
+  "after_filter": 81,
+  "ai": "gemini",
+  "ai_tokens_in": 16594,
+  "ai_tokens_out": 3811,
+  "sent": 10,
+  "summarized": 10
+ },
+ "radar": []
+}
