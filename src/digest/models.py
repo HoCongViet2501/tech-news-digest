@@ -21,6 +21,7 @@ class Item(BaseModel):
     published_at: datetime
     tags: list[str] = Field(default_factory=list)
     also_on: list[str] = Field(default_factory=list)  # other sources that had the same URL
+    description: str | None = None  # plain-text excerpt (~300 chars) from the source
 
 
 class ScoredItem(Item):

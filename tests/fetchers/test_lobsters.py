@@ -41,6 +41,9 @@ def test_parses_fixture(cfg: Config) -> None:
     assert first.published_at == datetime(
         2026, 9, 27, 9, 44, 53, 153000, tzinfo=timezone(timedelta(hours=-5))
     )
+    assert first.description is None  # empty in the source
+    assert items[6].description is not None
+    assert items[6].description.startswith("Abstract: Understanding what affects")
 
 
 @respx.mock

@@ -6,6 +6,7 @@ from datetime import UTC, datetime, timedelta
 import httpx
 
 from digest.config import Config
+from digest.fetchers.text import excerpt
 from digest.http import get_with_retry
 from digest.models import Item, item_id
 
@@ -45,4 +46,5 @@ def _to_item(hit: dict) -> Item:
         score=hit.get("points") or 0,
         comments=hit.get("num_comments") or 0,
         published_at=datetime.fromtimestamp(hit["created_at_i"], UTC),
+        description=excerpt(hit.get("story_text")),
     )

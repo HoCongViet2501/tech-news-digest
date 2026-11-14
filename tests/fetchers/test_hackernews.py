@@ -36,6 +36,11 @@ def test_parses_fixture(cfg: Config) -> None:
     assert first.score == 42
     assert first.comments == 51
     assert first.published_at == datetime(2026, 9, 27, 16, 29, 38, tzinfo=UTC)
+    assert first.description is None  # link story, no text
+    show_hn = items[2]
+    assert show_hn.description is not None
+    assert show_hn.description.startswith("Did you ever click on an “AI Arena”")
+    assert "<" not in show_hn.description
 
 
 @respx.mock

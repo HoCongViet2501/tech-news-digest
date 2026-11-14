@@ -18,6 +18,12 @@ ROUTES: list[tuple[str, str, str]] = [
     ("lwn.net", "/Articles/", "article_lwn.html"),
     ("hn.algolia.com", "/api/v1/items/", "hn_item.json"),
     ("api.github.com", "/repos/", "github_repo.json"),
+    # Content store sources (W1). github_search shares the search route above.
+    ("dev.to", "/api/articles", "devto_top.json"),
+    ("huggingface.co", "/api/daily_papers", "hf_papers.json"),
+    ("programming.dev", "/api/v3/post/list", "lemmy.json"),
+    ("viblo.asia", "/api/posts/trending", "viblo_trending.json"),
+    ("www.producthunt.com", "/feed", "producthunt.xml"),
 ]
 
 

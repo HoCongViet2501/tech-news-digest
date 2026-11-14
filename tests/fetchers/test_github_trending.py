@@ -39,6 +39,7 @@ def test_parses_trending_fixture(cfg: Config) -> None:
     assert first.discussion_url is None
     assert first.tags == ["python"]
     assert first.published_at == NOW
+    assert first.description == "Hindsight: Agent Memory That Learns"
     django = next(i for i in items if i.url == "https://github.com/django/django")
     assert django.score == 27
 
@@ -54,6 +55,8 @@ def test_falls_back_to_search_when_trending_has_no_repos(cfg: Config) -> None:
     assert items[0].url == "https://github.com/Contrastive-LM/CLM"
     assert items[0].title == "Contrastive-LM/CLM"
     assert items[0].score == 1826
+    assert items[0].description is None  # repo has no description
+    assert sum(i.description is not None for i in items) > 0
     query = search.calls.last.request.url.params["q"]
     # NOW - 7 days = 2026-09-20
     assert query == "created:>2026-09-20 language:python"

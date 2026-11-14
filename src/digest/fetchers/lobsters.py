@@ -6,6 +6,7 @@ from datetime import datetime
 import httpx
 
 from digest.config import Config
+from digest.fetchers.text import excerpt
 from digest.http import get_with_retry
 from digest.models import Item, item_id
 
@@ -35,4 +36,5 @@ def _to_item(story: dict) -> Item:
         comments=story.get("comment_count") or 0,
         published_at=datetime.fromisoformat(story["created_at"]),
         tags=list(story.get("tags") or []),
+        description=excerpt(story.get("description_plain") or story.get("description")),
     )

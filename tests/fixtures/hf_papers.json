@@ -1,0 +1,225 @@
+[
+ {
+  "paper": {
+   "id": "2611.10439",
+   "mediaUrls": [
+    "https://cdn-uploads.huggingface.co/production/uploads/68081c47bf6d9018cfdabc18/9TuhonHn3bN_O-mmqGXEP.mp4"
+   ],
+   "publishedAt": "2026-11-07T00:00:00.000Z",
+   "submittedOnDailyAt": "2026-11-13T00:00:00.000Z",
+   "title": "Who Remembers What? Multi-Granularity Memory Extraction for Multi-User, Multi-Agent Interaction",
+   "summary": "Self-evolving agents improve their own skills, memory, and harness code from experience without retraining the base LLM, and group-evolving agents go further by sharing these lessons across agents. Yet most such systems overlook that sharing across users and heterogeneous agents requires deciding who can benefit from each lesson and what information must remain private. We present MixUA, a memory system that distills independent user-agent trajectories into lessons and assigns each lesson to a user-agent pair, user, agent, or global scope according to whom it benefits and what it may disclose. For evaluation, we introduce CrossLearnBench, a mixed-user-agent benchmark that pairs established agent tasks with user preferences and privacy probes that test whether private facts leak into memory other users can read. With five users and seven agents, MixUA raises pass rates by up to 16 points over no memory and 5 over a single global memory, even on tasks previously tried only by other users on other agents. It retains up to 90% of previously stated preferences, and at most 0.02% of privacy probes find a planted private fact in a forbidden scope. We hope MixUA offers a scalable path toward a global system where users and agents co-evolve.",
+   "upvotes": 7,
+   "discussionId": "6af7be765b183a63f4f1c636",
+   "projectPage": "https://wangyz1999.github.io/who-remembers-what/",
+   "ai_summary": "MixUA distills lessons from independent user-agent trajectories and assigns them to appropriate scopes to balance cross-user and cross-agent learning with privacy, evaluated by CrossLearnBench.",
+   "ai_keywords": [
+    "self-evolving agents",
+    "group-evolving agents",
+    "base LLM",
+    "memory system",
+    "user-agent trajectories",
+    "lessons",
+    "user-agent pair",
+    "global scope",
+    "CrossLearnBench",
+    "mixed-user-agent benchmark",
+    "privacy probes",
+    "forbidden scope",
+    "global memory",
+    "co-evolve"
+   ],
+   "ai_summary_model": "deepseek-ai/DeepSeek-V4.1-Flash",
+   "organization": {
+    "_id": "6058ec29102f61b42f65ae35",
+    "name": "AWS",
+    "fullname": "Amazon Web Services",
+    "avatar": "https://cdn-avatars.huggingface.co/v1/production/uploads/66f19ed428ae41c20c470792/wtuzZxWzijQ3do3zYoOFH.png"
+   }
+  },
+  "publishedAt": "2026-11-06T19:00:00.000Z",
+  "title": "Who Remembers What? Multi-Granularity Memory Extraction for Multi-User, Multi-Agent Interaction",
+  "summary": "Self-evolving agents improve their own skills, memory, and harness code from experience without retraining the base LLM, and group-evolving agents go further by sharing these lessons across agents. Yet most such systems overlook that sharing across users and heterogeneous agents requires deciding who can benefit from each lesson and what information must remain private. We present MixUA, a memory system that distills independent user-agent trajectories into lessons and assigns each lesson to a user-agent pair, user, agent, or global scope according to whom it benefits and what it may disclose. For evaluation, we introduce CrossLearnBench, a mixed-user-agent benchmark that pairs established agent tasks with user preferences and privacy probes that test whether private facts leak into memory other users can read. With five users and seven agents, MixUA raises pass rates by up to 16 points over no memory and 5 over a single global memory, even on tasks previously tried only by other users on other agents. It retains up to 90% of previously stated preferences, and at most 0.02% of privacy probes find a planted private fact in a forbidden scope. We hope MixUA offers a scalable path toward a global system where users and agents co-evolve.",
+  "mediaUrls": [
+   "https://cdn-uploads.huggingface.co/production/uploads/68081c47bf6d9018cfdabc18/9TuhonHn3bN_O-mmqGXEP.mp4"
+  ],
+  "thumbnail": "https://cdn-thumbnails.huggingface.co/social-thumbnails/papers/2611.10439.png",
+  "numComments": 3,
+  "organization": {
+   "_id": "6058ec29102f61b42f65ae35",
+   "name": "AWS",
+   "fullname": "Amazon Web Services",
+   "avatar": "https://cdn-avatars.huggingface.co/v1/production/uploads/66f19ed428ae41c20c470792/wtuzZxWzijQ3do3zYoOFH.png"
+  },
+  "isAuthorParticipating": false
+ },
+ {
+  "paper": {
+   "id": "2611.16728",
+   "mediaUrls": [
+    "https://cdn-uploads.huggingface.co/production/uploads/65366f44dea545ecdacf5cc9/UikxGuZGtaBxWjz0umj2f.mp4"
+   ],
+   "publishedAt": "2026-11-12T00:00:00.000Z",
+   "submittedOnDailyAt": "2026-11-13T00:00:00.000Z",
+   "title": "EgoX: Egocentric Cross-Embodiment Manipulation with Embodiment Dreaming",
+   "summary": "Generalist manipulation policies can benefit from the complementary experience of humans, real robots, and simulated agents. However, differences in morphology, sensing, and control interfaces make it difficult to learn effectively from their combined demonstrations. We introduce EgoX, an egocentric cross-embodiment learning framework that organizes heterogeneous demonstrations through semantically corresponding observation and action modalities. EgoX pretrains a Modularized Cross-Embodiment Transformer with Embodiment Dreaming (MXT+) on this mixture and fine-tunes it on target-embodiment demonstrations. Within each embodiment, MXT+ assigns a dedicated tokenizer to each observation modality and a dedicated expert to each action modality, with a Transformer trunk shared across embodiments. A training-only embodiment-dreaming objective predicts latent representations of future visual and proprioceptive states, encouraging the shared trunk to model each embodiment's dynamics. Across 13 task-embodiment pairs spanning five tasks and six robot embodiments, including five physical robots and one simulated humanoid, cross-embodiment pretraining raises MXT+'s average normalized task progress from 0.63 to 0.80 over training from scratch. The gains are particularly pronounced under out-of-distribution conditions, where average task progress increases from 0.53 to 0.77. Ablations demonstrate the benefits of broader pretraining mixtures, modular interfaces, and embodiment dreaming, with dreaming producing more similar latent geometry across embodiments. Project page: egox-dream.github.io.",
+   "upvotes": 1,
+   "discussionId": "6af7a0685b183a63f4f1c5be",
+   "projectPage": "https://egox-dream.github.io/",
+   "githubRepo": "https://github.com/egox-dream/egox",
+   "githubRepoAddedBy": "user",
+   "ai_summary": "EgoX is an egocentric cross-embodiment learning framework that pretrains a modular Transformer with embodiment dreaming on heterogeneous human, robot, and simulated demonstrations, then fine-tunes it to improve manipulation task progress, especially under out-of-distribution conditions.",
+   "ai_keywords": [
+    "generalist manipulation policies",
+    "egocentric cross-embodiment learning",
+    "heterogeneous demonstrations",
+    "observation modalities",
+    "action modalities",
+    "Modularized Cross-Embodiment Transformer with Embodiment Dreaming (MXT+)",
+    "tokenizer",
+    "expert",
+    "Transformer trunk",
+    "embodiment-dreaming objective",
+    "latent representations",
+    "visual and proprioceptive states",
+    "cross-embodiment pretraining",
+    "out-of-distribution",
+    "latent geometry",
+    "modular interfaces"
+   ],
+   "ai_summary_model": "deepseek-ai/DeepSeek-V4.1-Flash",
+   "githubStars": 9,
+   "organization": {
+    "_id": "691d9a1012cc4d473e1c862f",
+    "name": "CarnegieMellonU",
+    "fullname": "Carnegie Mellon University",
+    "avatar": "https://cdn-avatars.huggingface.co/v1/production/uploads/68e396f2b5bb631e9b2fac9a/6I146aJvxxlRCEbYFFAeQ.png"
+   }
+  },
+  "publishedAt": "2026-11-11T19:00:00.000Z",
+  "title": "EgoX: Egocentric Cross-Embodiment Manipulation with Embodiment Dreaming",
+  "summary": "Generalist manipulation policies can benefit from the complementary experience of humans, real robots, and simulated agents. However, differences in morphology, sensing, and control interfaces make it difficult to learn effectively from their combined demonstrations. We introduce EgoX, an egocentric cross-embodiment learning framework that organizes heterogeneous demonstrations through semantically corresponding observation and action modalities. EgoX pretrains a Modularized Cross-Embodiment Transformer with Embodiment Dreaming (MXT+) on this mixture and fine-tunes it on target-embodiment demonstrations. Within each embodiment, MXT+ assigns a dedicated tokenizer to each observation modality and a dedicated expert to each action modality, with a Transformer trunk shared across embodiments. A training-only embodiment-dreaming objective predicts latent representations of future visual and proprioceptive states, encouraging the shared trunk to model each embodiment's dynamics. Across 13 task-embodiment pairs spanning five tasks and six robot embodiments, including five physical robots and one simulated humanoid, cross-embodiment pretraining raises MXT+'s average normalized task progress from 0.63 to 0.80 over training from scratch. The gains are particularly pronounced under out-of-distribution conditions, where average task progress increases from 0.53 to 0.77. Ablations demonstrate the benefits of broader pretraining mixtures, modular interfaces, and embodiment dreaming, with dreaming producing more similar latent geometry across embodiments. Project page: egox-dream.github.io.",
+  "mediaUrls": [
+   "https://cdn-uploads.huggingface.co/production/uploads/65366f44dea545ecdacf5cc9/UikxGuZGtaBxWjz0umj2f.mp4"
+  ],
+  "thumbnail": "https://cdn-thumbnails.huggingface.co/social-thumbnails/papers/2611.16728.png",
+  "numComments": 1,
+  "organization": {
+   "_id": "691d9a1012cc4d473e1c862f",
+   "name": "CarnegieMellonU",
+   "fullname": "Carnegie Mellon University",
+   "avatar": "https://cdn-avatars.huggingface.co/v1/production/uploads/68e396f2b5bb631e9b2fac9a/6I146aJvxxlRCEbYFFAeQ.png"
+  },
+  "isAuthorParticipating": false
+ },
+ {
+  "paper": {
+   "id": "2611.17336",
+   "publishedAt": "2026-11-12T00:00:00.000Z",
+   "submittedOnDailyAt": "2026-11-13T00:00:00.000Z",
+   "title": "Back to Pixels: Lifting Latent Video Diffusion into Pixel Space",
+   "summary": "Frontier video generation models work in a VAE latent space that compresses video in both space and time. This compression made training tractable, but now limits high-resolution, controllable, and interactive generation -- doubling resolution quadruples token count, conditions apply to groups of frames rather than individual ones, and each response must wait for the rest of its multi-frame block. We present PixVid, a simple yet effective method that lifts a pretrained latent video model to directly generate every frame in pixel space. PixVid keeps the diffusion transformer and replaces the VAE decoder with a convolutional head that renders its outputs into pixels. We find that predicting clean video rather than velocity, together with a larger noise shift, is key to quality. Finetuned from Wan2.1-14B, PixVid is competitive with the latent baseline within sim 1.3M training clips. Working framewise in pixels, it generates at 2times higher resolution with the same per-frame token count, keeps depth-conditioned video editing aligned under fast motion, and responds to each action at the next frame. Project page: https://chenshuo20.github.io/PixVid/",
+   "upvotes": 3,
+   "discussionId": "6af768f85b183a63f4f1c508",
+   "projectPage": "https://chenshuo20.github.io/PixVid/",
+   "organization": {
+    "_id": "62a3a163b5db00777be6a438",
+    "name": "Roblox",
+    "fullname": "Roblox Corporation",
+    "avatar": "https://cdn-avatars.huggingface.co/v1/production/uploads/6438428526c25444413c54d1/zHEWe9jE0_osXQZ1f4tRl.png"
+   }
+  },
+  "publishedAt": "2026-11-11T19:00:00.000Z",
+  "title": "Back to Pixels: Lifting Latent Video Diffusion into Pixel Space",
+  "summary": "Frontier video generation models work in a VAE latent space that compresses video in both space and time. This compression made training tractable, but now limits high-resolution, controllable, and interactive generation -- doubling resolution quadruples token count, conditions apply to groups of frames rather than individual ones, and each response must wait for the rest of its multi-frame block. We present PixVid, a simple yet effective method that lifts a pretrained latent video model to directly generate every frame in pixel space. PixVid keeps the diffusion transformer and replaces the VAE decoder with a convolutional head that renders its outputs into pixels. We find that predicting clean video rather than velocity, together with a larger noise shift, is key to quality. Finetuned from Wan2.1-14B, PixVid is competitive with the latent baseline within sim 1.3M training clips. Working framewise in pixels, it generates at 2times higher resolution with the same per-frame token count, keeps depth-conditioned video editing aligned under fast motion, and responds to each action at the next frame. Project page: https://chenshuo20.github.io/PixVid/",
+  "thumbnail": "https://cdn-thumbnails.huggingface.co/social-thumbnails/papers/2611.17336.png",
+  "numComments": 1,
+  "organization": {
+   "_id": "62a3a163b5db00777be6a438",
+   "name": "Roblox",
+   "fullname": "Roblox Corporation",
+   "avatar": "https://cdn-avatars.huggingface.co/v1/production/uploads/6438428526c25444413c54d1/zHEWe9jE0_osXQZ1f4tRl.png"
+  },
+  "isAuthorParticipating": true
+ },
+ {
+  "paper": {
+   "id": "2611.17190",
+   "mediaUrls": [
+    "https://cdn-uploads.huggingface.co/production/uploads/6894ff79ceb1d2760357912c/FagatCtYabBpUo7ZKEgvY.webp",
+    "https://cdn-uploads.huggingface.co/production/uploads/6894ff79ceb1d2760357912c/qqMiN6OYJpNaI6s_mPT88.png"
+   ],
+   "publishedAt": "2026-11-12T00:00:00.000Z",
+   "submittedOnDailyAt": "2026-11-13T00:00:00.000Z",
+   "title": "Consensus Capture in Reference-Based UAV Video Stabilization: A Benchmark on Dynamic Urban Scenes",
+   "summary": "Reference-frame stabilization registers every frame of a hovering-drone video onto one reference frame, keeping object positions comparable. The registration pipelines it relies on are selected on feature-matching benchmarks in which only the camera moves. Over a busy intersection, vehicles moving together supply mutually consistent correspondences that can draw the robust homography estimate toward their motion: consensus capture, which inlier statistics cannot flag. A two-part benchmark measures it and the object masking meant to prevent it. A static protocol scores ten pipelines under exactly known homographies on 4K aerial frames, tuned on a site-disjoint split at a matched resolution and feature budget. A dynamic protocol scores them at an offline and a real-time budget on hovers selected from the video alone to span the amount and coherence of moving foreground, plus a stationary control. It measures background alignment, object position error and the share of a moving group's displacement an estimate follows, against a pseudo-ground-truth reference audited with manually annotated ground control points, which also score every candidate. On static scenes, tuned AKAZE, RootSIFT, SIFT and BRISK lead, retuning the matcher thresholds raises the mean average accuracy (mAA) by at most 0.0062, and masking costs less than 0.005. Unmasked ORB is captured on 28 of 304 real-time dynamic pairs and on 6 offline; its real-time captured estimates have a median corner error of 18.8 px yet typical inlier counts and ratios. Masking removes capture for every pipeline and leaves the leading pipelines unchanged. Code, data and results are released.",
+   "upvotes": 3,
+   "discussionId": "6af763fe5b183a63f4f1c4e2",
+   "projectPage": "https://doi.org/10.5281/zenodo.23623540",
+   "githubRepo": "https://github.com/rfonod/stabilo-benchmark",
+   "githubRepoAddedBy": "user",
+   "githubStars": 0,
+   "organization": {
+    "_id": "6a576b8869ba8959b34804a4",
+    "name": "epfl-ch",
+    "fullname": "EPFL",
+    "avatar": "https://cdn-avatars.huggingface.co/v1/production/uploads/64623812d9b49021880ebab1/W0HJnlYYzjvwRFn8hDC5h.png"
+   }
+  },
+  "publishedAt": "2026-11-11T19:00:00.000Z",
+  "title": "Consensus Capture in Reference-Based UAV Video Stabilization: A Benchmark on Dynamic Urban Scenes",
+  "summary": "Reference-frame stabilization registers every frame of a hovering-drone video onto one reference frame, keeping object positions comparable. The registration pipelines it relies on are selected on feature-matching benchmarks in which only the camera moves. Over a busy intersection, vehicles moving together supply mutually consistent correspondences that can draw the robust homography estimate toward their motion: consensus capture, which inlier statistics cannot flag. A two-part benchmark measures it and the object masking meant to prevent it. A static protocol scores ten pipelines under exactly known homographies on 4K aerial frames, tuned on a site-disjoint split at a matched resolution and feature budget. A dynamic protocol scores them at an offline and a real-time budget on hovers selected from the video alone to span the amount and coherence of moving foreground, plus a stationary control. It measures background alignment, object position error and the share of a moving group's displacement an estimate follows, against a pseudo-ground-truth reference audited with manually annotated ground control points, which also score every candidate. On static scenes, tuned AKAZE, RootSIFT, SIFT and BRISK lead, retuning the matcher thresholds raises the mean average accuracy (mAA) by at most 0.0062, and masking costs less than 0.005. Unmasked ORB is captured on 28 of 304 real-time dynamic pairs and on 6 offline; its real-time captured estimates have a median corner error of 18.8 px yet typical inlier counts and ratios. Masking removes capture for every pipeline and leaves the leading pipelines unchanged. Code, data and results are released.",
+  "mediaUrls": [
+   "https://cdn-uploads.huggingface.co/production/uploads/6894ff79ceb1d2760357912c/FagatCtYabBpUo7ZKEgvY.webp",
+   "https://cdn-uploads.huggingface.co/production/uploads/6894ff79ceb1d2760357912c/qqMiN6OYJpNaI6s_mPT88.png"
+  ],
+  "thumbnail": "https://cdn-thumbnails.huggingface.co/social-thumbnails/papers/2611.17190.png",
+  "numComments": 3,
+  "organization": {
+   "_id": "6a576b8869ba8959b34804a4",
+   "name": "epfl-ch",
+   "fullname": "EPFL",
+   "avatar": "https://cdn-avatars.huggingface.co/v1/production/uploads/64623812d9b49021880ebab1/W0HJnlYYzjvwRFn8hDC5h.png"
+  },
+  "isAuthorParticipating": true
+ },
+ {
+  "paper": {
+   "id": "2611.09567",
+   "mediaUrls": [
+    "https://cdn-uploads.huggingface.co/production/uploads/69f87bbffe2badf2dd144e6a/DbkgICdc4X8WFhmPbw360.gif"
+   ],
+   "publishedAt": "2026-11-06T00:00:00.000Z",
+   "submittedOnDailyAt": "2026-11-13T00:00:00.000Z",
+   "title": "TurtLES: A Large-Scale Benchmark for Turbulent 3D Neural PDE Surrogates",
+   "summary": "Machine-learning surrogates are increasingly used to accelerate computational fluid dynamics, yet progress is limited by the lack of benchmarks capturing realistic, time-dependent turbulent flows. We introduce TurtLES, a 14 TB dataset of 3D turbulent cylinder wakes in the shear-layer transition regime, computed via high-fidelity implicit large-eddy simulations. The dataset contains 400 trajectories of 400 time steps each, with 3-11 million points per frame, spanning variations in geometry, Reynolds number, and angle of attack. Unlike existing datasets, TurtLES combines (i) physically realistic turbulence with an active energy cascade driven by vortex stretching, (ii) dense irregular meshes, and (iii) long-horizon temporal dynamics. We benchmark state-of-the-art neural operators on autoregressive rollouts and identify key failure modes, including temporal instability, loss of small-scale energy, and challenges in learning on large irregular domains. TurtLES provides a new benchmark for evaluating surrogate models on 3D turbulent wakes at industrially relevant mesh resolution.",
+   "upvotes": 4,
+   "discussionId": "6af1dac205af6789c0632193",
+   "projectPage": "https://turtlesprojectml-alt.github.io/",
+   "githubRepo": "https://github.com/itsakk/TurtLES",
+   "githubRepoAddedBy": "user",
+   "githubStars": 1,
+   "organization": {
+    "_id": "68ca8b43eb0e3f82e67081fc",
+    "name": "SorbonneISIR",
+    "fullname": "Sorbonne University, Institute of Intelligent Systems and Robotics",
+    "avatar": "https://cdn-avatars.huggingface.co/v1/production/uploads/68c97df316f3c977d521b6a8/5lQsefJ1IQFZn19D-cfpQ.png"
+   }
+  },
+  "publishedAt": "2026-11-05T19:00:00.000Z",
+  "title": "TurtLES: A Large-Scale Benchmark for Turbulent 3D Neural PDE Surrogates",
+  "summary": "Machine-learning surrogates are increasingly used to accelerate computational fluid dynamics, yet progress is limited by the lack of benchmarks capturing realistic, time-dependent turbulent flows. We introduce TurtLES, a 14 TB dataset of 3D turbulent cylinder wakes in the shear-layer transition regime, computed via high-fidelity implicit large-eddy simulations. The dataset contains 400 trajectories of 400 time steps each, with 3-11 million points per frame, spanning variations in geometry, Reynolds number, and angle of attack. Unlike existing datasets, TurtLES combines (i) physically realistic turbulence with an active energy cascade driven by vortex stretching, (ii) dense irregular meshes, and (iii) long-horizon temporal dynamics. We benchmark state-of-the-art neural operators on autoregressive rollouts and identify key failure modes, including temporal instability, loss of small-scale energy, and challenges in learning on large irregular domains. TurtLES provides a new benchmark for evaluating surrogate models on 3D turbulent wakes at industrially relevant mesh resolution.",
+  "mediaUrls": [
+   "https://cdn-uploads.huggingface.co/production/uploads/69f87bbffe2badf2dd144e6a/DbkgICdc4X8WFhmPbw360.gif"
+  ],
+  "thumbnail": "https://cdn-thumbnails.huggingface.co/social-thumbnails/papers/2611.09567.png",
+  "numComments": 3,
+  "organization": {
+   "_id": "68ca8b43eb0e3f82e67081fc",
+   "name": "SorbonneISIR",
+   "fullname": "Sorbonne University, Institute of Intelligent Systems and Robotics",
+   "avatar": "https://cdn-avatars.huggingface.co/v1/production/uploads/68c97df316f3c977d521b6a8/5lQsefJ1IQFZn19D-cfpQ.png"
+  },
+  "isAuthorParticipating": false
+ }
+]

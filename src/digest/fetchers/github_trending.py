@@ -13,6 +13,7 @@ import httpx
 from bs4 import BeautifulSoup
 
 from digest.config import Config
+from digest.fetchers.text import excerpt
 from digest.http import get_with_retry
 from digest.models import Item, item_id
 
@@ -63,6 +64,7 @@ def _parse_trending(html: str, lang: str, now: datetime) -> list[Item]:
                 score=int(match.group(1).replace(",", "")) if match else 0,
                 published_at=now,
                 tags=[lang],
+                description=excerpt(desc),
             )
         )
     return items
@@ -87,6 +89,7 @@ async def _search(client: httpx.AsyncClient, lang: str, now: datetime) -> list[I
                 score=repo.get("stargazers_count") or 0,
                 published_at=datetime.fromisoformat(repo["created_at"]),
                 tags=[lang],
+                description=excerpt(repo.get("description")),
             )
             for repo in response.json()["items"]
         ]

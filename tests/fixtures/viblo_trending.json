@@ -1,0 +1,71 @@
+{
+ "data": [
+  {
+   "id": 94548,
+   "title": "Agent Harness là gì? Tại sao AI agent cần harness để hoạt động hiệu quả?",
+   "slug": "bA468BMMLKv",
+   "url": "https://viblo.asia/p/agent-harness-la-gi-tai-sao-ai-agent-can-harness-de-hoat-dong-hieu-qua-bA468BMMLKv",
+   "user_id": 22204,
+   "transliterated": "agent-harness-la-gi-tai-sao-ai-agent-can-harness-de-hoat-dong-hieu-qua",
+   "contents_short": "Agent harness là toàn bộ phần mềm bao quanh một language model: công cụ, bộ nhớ, trạng thái, môi trường thực thi, guardrail và observability.\nCông thức ngắn gọn mà LangChain đúc kết: Agent = Model + Harness. Model suy luận, harness cho suy luận đó một nơi để hành động, ghi nhớ, kiểm tra kết quả và tuân theo quy tắc.\n\nTóm tắt các điểm chính\n\n* Khái niệm \"agent harness\" được phổ biến từ tháng 2/2...",
+   "published_at": "2026-05-20T00:47:43.000000Z",
+   "scheduled_publish_at": null,
+   "is_shared": false,
+   "updated_at": "2026-11-14T17:55:02.000000Z",
+   "edited_at": "2026-05-20T00:51:17.000000Z",
+   "translation_source": null,
+   "trend_at": "2026-11-09 16:36:02",
+   "promoted_at": null,
+   "reading_time": 16,
+   "organization_pinned_at": null,
+   "profile_pin_position": null,
+   "points": 10,
+   "views_count": 14437,
+   "clips_count": 6,
+   "comments_count": 1,
+   "rated_value": null,
+   "promoted": false,
+   "trending": true,
+   "is_video": false,
+   "thumbnail_url": "https://images.viblo.asia/a9296203-61ab-4d34-adc3-0ebc691d9f82.png",
+   "tags": {
+    "data": [
+     {
+      "slug": "mayfest2026",
+      "name": "MayFest2026"
+     },
+     {
+      "slug": "agent",
+      "name": "Agent"
+     },
+     {
+      "slug": "agent-harness",
+      "name": "Agent Harness"
+     }
+    ]
+   },
+   "organization": {
+    "data": {
+     "id": 576,
+     "name": "Infinity",
+     "avatar": "30950708-614c-4472-b46e-bfb3bb9b732b.png",
+     "slug": "infinity",
+     "followers_count": 16,
+     "members_count": -2,
+     "short_description": "Infinity là đơn vị cung cấp giải pháp Digital Marketing tích hợp cho doanh nghiệp — từ thiết kế website chuẩn SEO & UX/UI, dịch vụ AI SEO (GEO/AEO), PR Digital, sáng tạo nội dung số, quảng cáo trực tuyến (SEM/Ads) đến phân tích dữ liệu Marketing. Với nền tảng nghiên cứu và dữ liệu thực chiến, chúng tôi giúp doanh nghiệp xây dựng chiến lược thương hiệu bền vững và tăng trưởng có hệ thống trong kỷ nguyên AI.",
+     "level_partner": null
+    }
+   }
+  }
+ ],
+ "meta": {
+  "pagination": {
+   "total": 1,
+   "count": 1,
+   "per_page": 20,
+   "current_page": 1,
+   "total_pages": 1,
+   "links": {}
+  }
+ }
+}
