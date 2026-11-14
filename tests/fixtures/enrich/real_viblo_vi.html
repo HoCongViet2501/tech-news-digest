@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html amp="" lang="en" prefix="og: https://ogp.me/ns#">
+<head viblo="true">
+<title>Django: dùng auto_now và auto_now_add đúng cách — khi nào nên thay bằng default=timezone.now</title><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="Viblo" name="application-name"/><meta content="Viblo" property="og:site_name"/><meta content="982854298857505" data-hid="fb:app_id" property="fb:app_id"/><meta content="RKTOz1S8uxhAZHqaOsf6cSvT_pqnPHEyAnlTnlLiiok" name="google-site-verification"/><meta content="U3I1Yy84OGp3ZFprUTZCU1JrbjM4UT090" name="dmca-site-verification"/><meta content="#FFFFFF" name="msapplication-TileColor"/><meta content="/mstile-144x144.png" name="msapplication-TileImage"/><meta content="/mstile-70x70.png" name="msapplication-square70x70logo"/><meta content="/mstile-150x150.png" name="msapplication-square150x150logo"/><meta content="/mstile-310x150.png" name="msapplication-wide310x150logo"/><meta content="/mstile-310x310.png" name="msapplication-square310x310logo"/><meta charset="utf-8" data-hid="charset"/><meta content="yes" data-hid="mobile-web-app-capable" name="mobile-web-app-capable"/><meta content="Viblo" data-hid="apple-mobile-web-app-title" name="apple-mobile-web-app-title"/><meta content="#5488c7" data-hid="theme-color" name="theme-color"/><meta content="article" data-hid="og:type" property="og:type"/><meta content="https://viblo.asia/p/django-dung-auto-now-va-auto-now-add-dung-cach-khi-nao-nen-thay-bang-defaulttimezonenow-k74a96Ql4eO" data-hid="og:url" property="og:url"/><meta content="Viblo" data-hid="og:site_name" property="og:site_name"/><meta content="Django: dùng auto_now và auto_now_add đúng cách — khi nào nên thay bằng default=timezone.now" data-hid="og:title" property="og:title"/><meta content="Django, Python, Web Development" data-hid="keywords" name="keywords"/><meta content="2026-11-14T22:32:37+07:00" data-hid="article:published_time" name="article:published_time"/><meta content="2026-11-15T00:32:02+07:00" data-hid="article:modified_time" name="article:modified_time"/><meta content="https://viblo.asia/u/linhfishCR7" data-hid="article:author" name="article:author"/><meta content="Django, Python, Web Development" data-hid="article:tag" name="article:tag"/><meta content="Django: dùng auto_now và auto_now_add đúng cách — khi nào nên thay bằng default=timezone.now" data-hid="twitter:title" name="twitter:title"/><meta content="Hầu hết model Django đều có hai trường thời gian: createdat để biết bản ghi được tạo khi nào và updatedat cho lần sửa cuối. Cách nhanh nhất là autonowadd=True cho createdat và autonow=True cho updated..." data-hid="twitter:description" name="twitter:description"/><meta content="summary" data-hid="twitter:card" name="twitter:card"/><meta content="index,follow" data-hid="robots" name="robots"/><meta content="https://images.viblo.asia/f276d918-bbe3-4a85-bf5e-241c3e652082.png" data-hid="og:image" property="og:image"/><meta content="Hầu hết model Django đều có hai trường thời gian: createdat để biết bản ghi được tạo khi nào và updatedat cho lần sửa cuối. Cách nhanh nhất là autonowadd=True cho createdat và autonow=True cho updated..." data-hid="description" name="description"/><meta content="Hầu hết model Django đều có hai trường thời gian: createdat để biết bản ghi được tạo khi nào và updatedat cho lần sửa cuối. Cách nhanh nhất là autonowadd=True cho createdat và autonow=True cho updated..." data-hid="og:description" property="og:description"/>
+</head>
+<body viblo="true">
+<div id="__nuxt"><div></div><div id="__layout"><div id="app-container"><header><div><div><a href="/newest"><img alt="Viblo" height="21" src="/logo_full.svg" width="62"/></a> <ul><li><a href="/newest">
+            Bài Viết
+        </a></li> <li id="v-step-2"><div><a href="/questions"><div>
+                    Hỏi Đáp
+                <sup></sup></div></a></div></li> <li><a href="/discussion">
+            Thảo Luận
+        </a></li></ul></div> <div><a href="/search"><i></i></a> <div><input placeholder="Tìm kiếm trên Viblo" value=""/>  <i></i> <i></i> <div><div></div></div></div> <div><span><div id="el-popover-8033"> <div><div><span>Thông tin</span> </div></div> <div><div><div><div> <div><span><i></i> Chưa có thông tin
+        </span></div> </div></div><div><div></div></div><div><div></div></div></div></div> <div><div><a href="/announcements">
+            Tất cả thông tin
+        </a></div></div></div><span><div>  </div></span></span> </div> <div><div></div> <div><div><span><img height="20" slot="prefix" src="/images/vi-flag-32x48.png" width="20"/> <span>vi</span></span> <ul><li tabindex="-1"><a>
+                Tiếng Việt
+            </a></li><li tabindex="-1"><a>
+                English
+            </a></li></ul></div></div> <span><div id="el-popover-1936"> <ul><li><a href="/" rel="noopener" target="_blank"><span></span> <span>
+                    Viblo
+                </span></a></li><li><a href="https://code.viblo.asia/?utm_source=Viblo_Service&amp;utm_medium=Page&amp;utm_campaign=DropdownServices" rel="noopener" target="_blank"><div><span></span> </div> <span>
+                    Viblo Code
+                </span></a></li><li><a href="https://ctf.viblo.asia/?utm_source=Viblo_Service&amp;utm_medium=Page&amp;utm_campaign=DropdownServices" rel="noopener" target="_blank"><div><span></span> </div> <span>
+                    Viblo CTF
+                </span></a></li><li><a href="https://cv.viblo.asia/?utm_source=Viblo_Service&amp;utm_medium=Page&amp;utm_campaign=DropdownServices" rel="noopener" target="_blank"><div><span></span> </div> <span>
+                    Viblo CV
+                </span></a></li><li><a href="https://learn.viblo.asia/?utm_source=Viblo_Service&amp;utm_medium=Page&amp;utm_campaign=DropdownServices" rel="noopener" target="_blank"><div><span></span> </div> <span>
+                    Viblo Learning
+                </span></a></li><li><a href="https://partner.viblo.asia/?utm_source=Viblo_Service&amp;utm_medium=Page&amp;utm_campaign=DropdownServices" rel="noopener" target="_blank"><div><span></span> </div> <span>
+                    Viblo Partner
+                </span></a></li><li><a href="https://battle.viblo.asia/?utm_source=Viblo_Service&amp;utm_medium=Page&amp;utm_campaign=DropdownServices" rel="noopener" target="_blank"><div><span></span> </div> <span>
+                    Viblo Battle
+                </span></a></li><li><a href="https://interview.viblo.asia/?utm_source=Viblo_Service&amp;utm_medium=Page&amp;utm_campaign=DropdownServices" rel="noopener" target="_blank"><div><span></span> <sup>
+                        new
+                    </sup></div> <span>
+                    Viblo Interview
+                </span></a></li></ul></div><span><div><i></i> <sup>new</sup></div></span></span>  </div> </div></div> </header> <div id="main-content"><div><div><a aria-ctr-enable="BHub" href="https://forms.gle/dF8n1ry1ZZmPxY5x5" rel="noopener" target="_blank"><div><span><canvas height="168" width="1140"></canvas></span></div></a></div>  <div><div><div><div> <div> <div>
+        0
+    </div> </div> <div></div> <span><div id="el-popover-7173"><div><div><i></i> <span>Cỡ chữ</span></div> <div> <span>18px</span> </div> <div><i></i> <span>Độ cao hàng</span></div> <div> <span>1.75</span> </div></div> <div><div><label tabindex="-1"><input checked="checked" tabindex="-1" type="radio" value="false"/><span>
+                Mặc định
+            </span></label> <label tabindex="-1"><input tabindex="-1" type="radio" value="true"/><span>
+                Toàn màn hình
+            </span></label></div></div> <div><p>
+            Màu nền
+        </p> <p></p> <p></p></div> <div></div> </div><span></span></span> <div><a rel="noopener" title="Chia sẻ liên kết đến trang này trên Facebook" tooltip-placement="right"><i></i></a> <a rel="noopener" title="Chia sẻ liên kết đến trang này trên Twitter" tooltip-placement="right"><i></i></a></div>  </div> </div> <div><article><header><div><div><div><a href="/u/linhfishCR7"><img alt="Avatar" src="https://images.viblo.asia/avatar/5105dbd5-d474-47dd-a13e-f60f64a0370e.png"/> </a></div> <div><div><div><a href="/u/linhfishCR7">
+                    Linh Fish Dev
+                </a> <span>@linhfishCR7</span></div> <div></div>  </div> <div><span title="Reputations: 0"><i></i>
+        0
+    </span><span title="Người theo dõi: 0"><i></i>
+        0
+    </span><span title="Bài viết: 8"><i></i>
+        8
+    </span> </div></div></div> <div><div title="thg 11 14, 3:32 CH">
+            Đã đăng vào khoảng 2 giờ trước
+          <span title="4 phút đọc">
+    4 phút đọc
+</span> </div> <div><div title="Lượt xem: 3"><i></i> <span>3</span></div> <div title="Di chuyển đến bình luận"></div> <div title="Xem danh sách người bookmark"></div> </div></div></div> <h1>
+            Django: dùng auto_now và auto_now_add đúng cách — khi nào nên thay bằng default=timezone.now
+        </h1> </header> <div><div> </div> <div><div> <ul> <li tabindex="-1"><i></i>
+                Báo cáo
+            </li> <li tabindex="-1"><i></i>
+                Thêm vào series của tôi
+            </li>      </ul></div>     </div></div>   <div><div><p>Hầu hết model Django đều có hai trường thời gian: <code>created_at</code> để biết bản ghi được tạo khi nào và <code>updated_at</code> cho lần sửa cuối. Cách nhanh nhất là <code>auto_now_add=True</code> cho <code>created_at</code> và <code>auto_now=True</code> cho <code>updated_at</code> — Django tự điền cả hai, bạn không cần chạm vào chúng. Nhưng hai tham số này có ba "cái bẫy" hay gặp: không gán được ngày cũ khi import dữ liệu, <code>update()</code> hàng loạt không đổi <code>updated_at</code>, và trường bị ẩn khỏi form.</p>
+<h2>Vấn đề</h2>
+<p>Giả sử bạn import 500 bài viết cũ từ blog khác và muốn giữ nguyên ngày đăng gốc:</p>
+<pre><code><span>from</span> datetime <span>import</span> datetime
+<span>from</span> django<span>.</span>utils <span>import</span> timezone
+
+old_date <span>=</span> timezone<span>.</span>make_aware<span>(</span>datetime<span>(</span><span>2024</span><span>,</span> <span>5</span><span>,</span> <span>10</span><span>,</span> <span>9</span><span>,</span> <span>0</span><span>)</span><span>)</span>
+
+<span># Muốn giữ ngày đăng gốc khi import...</span>
+post <span>=</span> Post<span>.</span>objects<span>.</span>create<span>(</span>title<span>=</span><span>"Bài cũ"</span><span>,</span> created_at<span>=</span>old_date<span>)</span>
+<span>print</span><span>(</span>post<span>.</span>created_at<span>)</span>  <span># Hôm nay, không phải 10/05/2024!</span>
+</code></pre>
+<p>Kết quả: <code>created_at</code> bị ghi đè bằng thời điểm hiện tại, ngày gốc mất. Lý do: <code>auto_now_add</code> chỉ chạy lúc INSERT — mọi giá trị bạn truyền vào <code>create()</code> đều bị thay bằng <code>timezone.now()</code>.</p>
+<p>Bẫy thứ hai nằm ở cập nhật hàng loạt:</p>
+<pre><code><span>from</span> django<span>.</span>utils <span>import</span> timezone
+
+<span># Bẫy thứ hai: cập nhật hàng loạt</span>
+Post<span>.</span>objects<span>.</span><span>filter</span><span>(</span>status<span>=</span><span>"draft"</span><span>)</span><span>.</span>update<span>(</span>status<span>=</span><span>"published"</span><span>)</span>
+<span># updated_at của 1.000 bài viết vẫn giữ nguyên!</span>
+</code></pre>
+<p><code>QuerySet.update()</code> chạy thẳng SQL, không gọi <code>save()</code> nên <code>auto_now</code> không kích hoạt — người dùng nhìn vào "cập nhật lần cuối" sẽ thấy ngày cũ dù nội dung vừa đổi.</p>
+<h2>Giải pháp</h2>
+<p>Muốn giữ ngày gốc khi import, đừng dùng <code>auto_now_add</code> cho <code>created_at</code>. Thay bằng <code>default=timezone.now</code> — lưu ý truyền hàm, không gọi hàm:</p>
+<pre><code><span>from</span> django<span>.</span>db <span>import</span> models
+<span>from</span> django<span>.</span>utils <span>import</span> timezone
+
+<span>class</span> <span>Post</span><span>(</span>models<span>.</span>Model<span>)</span><span>:</span>
+    title <span>=</span> models<span>.</span>CharField<span>(</span>max_length<span>=</span><span>200</span><span>)</span>
+    status <span>=</span> models<span>.</span>CharField<span>(</span>max_length<span>=</span><span>20</span><span>,</span> default<span>=</span><span>"draft"</span><span>)</span>
+    created_at <span>=</span> models<span>.</span>DateTimeField<span>(</span>default<span>=</span>timezone<span>.</span>now<span>)</span>
+    updated_at <span>=</span> models<span>.</span>DateTimeField<span>(</span>default<span>=</span>timezone<span>.</span>now<span>)</span>
+</code></pre>
+<p>Với cách này, tạo mới không truyền <code>created_at</code> thì Django vẫn tự điền thời gian hiện tại, còn khi import bạn truyền ngày cũ vào và nó được giữ nguyên. Hai trường này vẫn chỉnh được trong admin và ModelForm, khác với <code>auto_now</code>/<code>auto_now_add</code> vốn bị ẩn.</p>
+<p>Với cập nhật hàng loạt, truyền <code>updated_at</code> tường minh:</p>
+<pre><code><span>from</span> django<span>.</span>utils <span>import</span> timezone
+
+Post<span>.</span>objects<span>.</span><span>filter</span><span>(</span>status<span>=</span><span>"draft"</span><span>)</span><span>.</span>update<span>(</span>
+    status<span>=</span><span>"published"</span><span>,</span>
+    updated_at<span>=</span>timezone<span>.</span>now<span>(</span><span>)</span><span>,</span>
+<span>)</span>
+</code></pre>
+<p>Còn nếu vẫn muốn giữ <code>auto_now_add</code> vì không bao giờ cần sửa <code>created_at</code>, vẫn dùng được — chỉ nhớ gán ngày cũ sau khi tạo, vì <code>auto_now_add</code> chỉ chạy lúc INSERT nên lần <code>save()</code> thứ hai không ghi đè:</p>
+<pre><code>post <span>=</span> Post<span>.</span>objects<span>.</span>create<span>(</span>title<span>=</span><span>"Bài cũ"</span><span>)</span>
+post<span>.</span>created_at <span>=</span> old_date  <span># Gán sau khi tạo thì giữ được</span>
+post<span>.</span>save<span>(</span><span>)</span>
+</code></pre>
+<h2>Áp dụng vào dự án</h2>
+<p>Quy tắc chọn nhanh: dùng <code>auto_now_add</code>/<code>auto_now</code> cho các bảng chỉ cần "đóng dấu" thời gian như log, lịch sử thao tác. Dùng <code>default=timezone.now</code> khi ngày giờ là dữ liệu nghiệp vụ — ngày đăng bài, ngày hết hạn, ngày bắt đầu sự kiện — vì sớm muộn bạn cũng cần sửa tay, import dữ liệu cũ hoặc cho người dùng chỉnh trong admin. Và sau mỗi lần dùng <code>QuerySet.update()</code> hay <code>bulk_update()</code>, kiểm tra lại xem <code>updated_at</code> có cần cập nhật tường minh không.</p>
+<h2>Câu hỏi thường gặp</h2>
+<p><strong><code>auto_now</code> và <code>auto_now_add</code> khác nhau thế nào?</strong>
+<code>auto_now_add</code> chỉ chạy lúc tạo mới (INSERT), <code>auto_now</code> chạy mỗi lần <code>save()</code>. Cả hai đều tự điền <code>timezone.now()</code> và không sửa được qua form.</p>
+<p><strong>Vì sao <code>update()</code> không đổi <code>updated_at</code>?</strong>
+<code>update()</code> chạy SQL trực tiếp, bỏ qua <code>save()</code> nên <code>pre_save</code> của <code>auto_now</code> không chạy. Truyền <code>updated_at=timezone.now()</code> vào <code>update()</code> để đổi tường minh.</p>
+<p><strong><code>default=timezone.now</code> và <code>default=timezone.now()</code> khác nhau ra sao?</strong>
+Truyền hàm (không ngoặc) thì Django gọi lại mỗi lần tạo bản ghi, mỗi bản ghi có giờ riêng. Gọi hàm sẵn (có ngoặc) thì mọi bản ghi dùng chung một thời điểm tính lúc import module — lỗi kinh điển.</p>
+<p>💬 Bạn đã thử cách này trong dự án của mình chưa? Nếu gặp lỗi hoặc có cách làm gọn hơn, để lại bình luận bên dưới nhé.</p>
+<h2>Nguồn tham khảo</h2>
+<ul>
+<li>Django docs — DateField.auto_now / auto_now_add: <a href="https://docs.djangoproject.com/en/6.1/ref/models/fields/#django.db.models.DateField.auto_now" target="_blank">https://docs.djangoproject.com/en/6.1/ref/models/fields/#django.db.models.DateField.auto_now</a></li>
+<li>Django docs — QuerySet.update(): <a href="https://docs.djangoproject.com/en/6.1/ref/models/querysets/#update" target="_blank">https://docs.djangoproject.com/en/6.1/ref/models/querysets/#update</a></li>
+<li>Django docs — django.utils.timezone.now: <a href="https://docs.djangoproject.com/en/6.1/ref/utils/#django.utils.timezone.now" target="_blank">https://docs.djangoproject.com/en/6.1/ref/utils/#django.utils.timezone.now</a></li>
+</ul>
+<hr/>
+<p>Đọc bản đầy đủ bằng tiếng Anh tại: <a href="https://linhfish.dev/en/2026/11/14/django-use-auto_now-and-auto_now_add-correctly-when-to-switch-to-defaulttimezone-now/" target="_blank">https://linhfish.dev/en/2026/11/14/django-use-auto_now-and-auto_now_add-correctly-when-to-switch-to-defaulttimezone-now/</a></p>
+</div> </div>  <div> <a href="/tags/django">
+        Django
+    </a><a href="/tags/python">
+        Python
+    </a><a href="/tags/web-development">
+        Web Development
+    </a> </div> <br/> <p title="People cannot distribute, remix, adapt, and build upon this workwithout author's permission (or as permitted by fair use).">
+    All rights reserved
+</p> <div><div><a rel="noopener" title="Chia sẻ liên kết đến trang này trên Facebook" tooltip-placement="bottom"><i></i></a> <a rel="noopener" title="Chia sẻ liên kết đến trang này trên Twitter" tooltip-placement="bottom"><i></i></a></div> <div><div> <ul> <li tabindex="-1"><i></i>
+                Báo cáo
+            </li> <li tabindex="-1"><i></i>
+                Thêm vào series của tôi
+            </li>      </ul></div>     </div></div></article></div> <div><div><div></div> <div><div><div><h4>
+            Mục lục
+        </h4> <hr/></div> <div><div><p>
+        Không có mục lục
+    </p><i></i></div></div></div>  <br/> <div><div><div></div><div></div></div></div></div></div></div></div></div> </div></div>    <a href="javascript:void(0);" id="top-btn"><i></i></a> <div><div><div><img alt="Viblo" src="/favicon-white-128.png"/></div> <div><div><span>
+                    Hãy đăng ký một tài khoản Viblo để nhận được nhiều bài viết thú vị hơn.
+                </span></div> <div> <a href="https://accounts.viblo.asia/register">
+                    Đăng kí
+                </a></div></div> <div><i></i></div></div></div> </div></div></div>
+</body>
+</html>

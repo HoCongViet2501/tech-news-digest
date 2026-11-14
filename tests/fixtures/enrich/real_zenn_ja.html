@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><title>1時間で作るPerlOS: Yet Another Perl Computer</title><meta content="summary_large_image" name="twitter:card"/><meta content="https://zenn.dev/takesako/articles/e9b10360d889ca" property="og:url"/><meta content="1時間で作るPerlOS: Yet Another Perl Computer" property="og:title"/><meta content="https://res.cloudinary.com/zenn/image/upload/s--awvuSY3e--/c_fit%2Cg_north_west%2Cl_text:notosansjp-medium.otf_55:1%25E6%2599%2582%25E9%2596%2593%25E3%2581%25A7%25E4%25BD%259C%25E3%2582%258BPerlOS%253A%2520Yet%2520Another%2520Perl%2520Computer%2Cw_1010%2Cx_90%2Cy_100/g_south_west%2Cl_text:notosansjp-medium.otf_37:takesako%2Cx_203%2Cy_121/g_south_west%2Ch_90%2Cl_fetch:aHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jS1NCSlhhaTdSYy1OZTh1MXQzQ1JwUmJrMlZPbW9wajVYckI4UTZKZTBfaGg2cnpBOWs9czI1MC1j%2Cr_max%2Cw_90%2Cx_87%2Cy_95/v1627283836/default/og-base-w1200-v2.png?_a=BACMTiAE" property="og:image"/><meta content="article" property="og:type"/><meta content="Zenn" property="og:site_name"/><meta content="https://lh3.googleusercontent.com/a/ACg8ocKSBJXai7Rc-Ne8u1t3CRpRbk2VOmopj5XrB8Q6Je0_hh6rzA9k=s250-c" name="zenn:image"/><meta content="takesakoさんによる記事" name="zenn:description"/><meta content="Zenn" name="apple-mobile-web-app-title"/></head><body><div id="__next"><header><div><div><div><a href="/"></a><div></div></div></div></div></header><article><header><div><div><div><span><span></span></span><span>🖥️</span></div><h1><span>1時間で作るPerlOS: Yet Another Perl Computer</span></h1><div><div><span><time datetime="2026-11-14T07:09:37+00:00">2026/11/14</time>に公開</span></div></div></div></div></header><div><div><div><div><div><div id="gtm-article-left-like"></div><span></span><span></span><div><a aria-label="X(Twitter)にポスト" href="https://twitter.com/intent/tweet?url=https://zenn.dev/takesako/articles/e9b10360d889ca&amp;text=1%E6%99%82%E9%96%93%E3%81%A7%E4%BD%9C%E3%82%8BPerlOS%3A%20Yet%20Another%20Perl%20Computer%EF%BD%9Ctakesako&amp;hashtags=zenn" id="gtm-article-left-tweet" rel="nofollow noopener" target="_blank"></a><a aria-label="はてなブックマークに登録" href="https://b.hatena.ne.jp/add?mode=confirm&amp;url=https://zenn.dev/takesako/articles/e9b10360d889ca&amp;title=1%E6%99%82%E9%96%93%E3%81%A7%E4%BD%9C%E3%82%8BPerlOS%3A%20Yet%20Another%20Perl%20Computer%EF%BD%9Ctakesako" id="gtm-article-left-hatena-bookmark" rel="nofollow noopener" target="_blank"></a></div></div></div><div><section><div><div><div><a href="/topics/perl"><div><img height="26" src="https://static.zenn.studio/user-upload/topics/054e1dba27.png" width="26"/></div><div>Perl</div></a><a href="/topics/c"><div><img height="26" src="https://static.zenn.studio/user-upload/topics/8566ba2ec0.jpeg" width="26"/></div><div>C</div></a><a href="/topics/os"><div><img height="26" src="https://static.zenn.studio/user-upload/topics/e0bf9de6ea.png" width="26"/></div><div>OS</div></a><a href="/tech-or-idea"><div><img src="https://static.zenn.studio/images/drawing/tech-icon.svg"/></div><div>tech</div></a></div><div><h1 id="perlos-%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E4%BD%8E%E3%83%AC%E3%82%A4%E3%83%A4%E3%83%BC%E3%82%92%E5%AD%A6%E3%81%BC%E3%81%86">
+<a href="#perlos-%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E4%BD%8E%E3%83%AC%E3%82%A4%E3%83%A4%E3%83%BC%E3%82%92%E5%AD%A6%E3%81%BC%E3%81%86"></a> PerlOS を作って低レイヤーを学ぼう</h1>
+<p>普段書いているC言語のプログラムで疑問に思ったことはないでしょうか？</p>
+<ul>
+<li>
+<code>#include &lt;stdio.h&gt;</code>で使われる標準ライブラリの実体は、どこにあるのか？</li>
+<li>
+<code>main</code>関数が呼ばれるまで、誰がどんなことをしているのか？</li>
+<li>
+<code>printf</code>関数は、どうやって文字を画面に出しているのか？</li>
+</ul>
+<p>この記事では、組み込み用のPerl言語処理系「microperl」を自作OSに組み込み、起動するとPerlのシェルが使える「PerlOS」を作る手順を解説します。</p>
+<p>最初はC言語で自作OSの数十行のコードを書いて、仮想環境QEMUを用いてシリアルコンソール経由で文字を表示できるところから始めます。printfが存在しないベアメタル環境なので、簡単なC標準ライブラリ（libc）も自作します。そして、microperlをコンパイルして自作OSを組み込み、シェルのコマンドをPerlで実装します。</p>
+<p>最終目標として、QEMU上で作ったPerlOSをRaspberry Pi Pico 2の実機向けにビルドします。PerlのNVの値をdoubleではなくfloatを使うように修正して、CPUで浮動小数点演算ができるようにします。実機はRAMが使える領域が小さいため、mallocの実装を改善してメモリを節約します。</p>
+<h2 id="%E7%94%A8%E8%AA%9E">
+<a href="#%E7%94%A8%E8%AA%9E"></a> 用語</h2>
+<ul>
+<li>QEMU（キューエミュ）：CPUや周辺機器をソフトウェアで再現するエミュレータ。Quick Emulatorの略。QEMUは、実物のハードウェアがなくても、ソフトウェアでCPUや周辺機器の動きを再現できます。CPUの命令もソフトウェアで処理するため、実機より遅くなる場合がありますが、自作OSを開発して動作を確認するには大変便利です。</li>
+<li>Cortex-M33：32ビットArm系CPU。今回使用するAN505の仮想マシンとRaspberry Pi Pico 2（RP2350）の両方ともで使われている。</li>
+<li>Thumb（サム）命令：Armの命令セットの一種。16ビット長と32ビット長の命令があり、プログラムのサイズを小さくできる。Cortex-M33はThumb命令のみを実行する。</li>
+<li>ベアメタル：LinuxなどのOSを経由せず、CPUや周辺機器を直接制御してプログラムを動かすこと。</li>
+<li>ベクタテーブル：CPUのリセット時や例外・割り込み発生時に使用するアドレスを記録した表。</li>
+<li>リンカスクリプト：プログラムやデータをメモリ上のどのアドレスに配置するか指定するファイル。</li>
+<li>MMIO（Memory-Mapped I/O）：特定のメモリアドレスを読み書きして周辺機器を操作する仕組み。</li>
+<li>microperl：Perlを組み込み環境でも動かせるようにビルドする仕組み。今回は古いPerl 5.12.5をベースに、ベアメタル環境向けの変更を加える。</li>
+<li>XSUB：PerlからC言語で実装された関数を呼び出すための仕組み。</li>
+</ul>
+<h1 id="%E6%BA%96%E5%82%99">
+<a href="#%E6%BA%96%E5%82%99"></a> 準備</h1>
+<p>macOSではHomebrewから、Ubuntu(Debian) / WSL2(Windows) ではaptから必要なツールを入れます。ターミナルを開いて以下のコマンドを実行してください。</p>
+<p>macOSの場合:</p>
+<div><pre><code><span><span>brew</span><span> install</span><span> make</span><span> perl</span><span> curl</span><span> arm-none-eabi-gcc</span><span> qemu</span><span> ffmpeg</span></span>
+<span></span></code></pre></div><p>Ubuntu(Debian) / WSL2(Windows) の場合:</p>
+<div><pre><code><span><span>sudo</span><span> apt</span><span> update</span></span>
+<span><span>sudo</span><span> apt</span><span> install</span><span> make</span><span> perl</span><span> curl</span><span> tar</span><span> gcc-arm-none-eabi</span><span> qemu-system-arm</span><span> ffmpeg</span></span>
+<span></span></code></pre></div><p>次のコマンドで、コンパイラとQEMUとPerlとffplayコマンドがあることを確認します。</p>
+<div><pre><code><span><span>arm-none-eabi-gcc</span><span> --version</span></span>
+<span><span>qemu-system-arm</span><span> --version</span></span>
+<span><span>perl</span><span> --version</span></span>
+<span><span>ffplay</span><span> -version</span></span>
+<span></span></code></pre></div><p>まず、作業ディレクトリ <code>perlos</code> を作ります。</p>
+<div><pre><code><span><span>mkdir</span><span> perlos</span></span>
+<span><span>cd</span><span> perlos</span></span>
+<span></span></code></pre></div><p>VS Codeでこのフォルダを開くには、次のコマンドを実行します。</p>
+<div><pre><code><span><span>code</span><span> .</span></span>
+<span></span></code></pre></div><p>これから新しいファイルを作るときは、<code>code boot.S</code> や <code>code stdio.h</code> のようにファイル名を指定してファイルを開いて、内容を入力して保存するようにします。</p>
+<p>VS Code以外のエディタ（例：<code>vi</code>、<code>vim</code>、<code>nano</code>、<code>micro</code>、<code>emacs</code>など）を使用する場合は、以降<code>code</code>コマンドを読み替えて実行してください。</p>
+<h2 id="%E6%BC%94%E7%BF%921%EF%BC%9Aboot.s%E3%81%8B%E3%82%89%E6%9C%80%E5%B0%8F%E3%81%AEos%E3%82%92%E8%B5%B7%E5%8B%95%E3%81%99%E3%82%8B">
+<a href="#%E6%BC%94%E7%BF%921%EF%BC%9Aboot.s%E3%81%8B%E3%82%89%E6%9C%80%E5%B0%8F%E3%81%AEos%E3%82%92%E8%B5%B7%E5%8B%95%E3%81%99%E3%82%8B"></a> 演習1：<code>boot.S</code>から最小のOSを起動する</h2>
+<h3 id="1-1.-kernel.c%E3%82%92%E6%9B%B8%E3%81%8F">
+<a href="#1-1.-kernel.c%E3%82%92%E6%9B%B8%E3%81%8F"></a> 1-1. <code>kernel.c</code>を書く</h3>
+<p>ターミナルで <code>code kernel.c</code> を実行して <code>kernel.c</code> を新規作成します。</p>
+<div><pre><code><span><span>code</span><span> kernel.c</span></span>
+<span></span></code></pre></div><p>OSが起動した後に最初に呼び出されるC言語の関数<code>kernel_main()</code>を作成します。</p>
+<div><pre><code><span><span>void</span><span> kernel_main</span><span>(</span><span>void</span><span>) {</span></span>
+<span><span>    for</span><span> (;;) {</span></span>
+<span><span>        __asm </span><span>volatile</span><span>(</span><span>"wfi"</span><span>);</span></span>
+<span><span>    }</span></span>
+<span><span>}</span></span>
+<span></span></code></pre></div><p>for (;;) は無限ループを表しています。while(1)と同様です。</p>
+<p>__asm はC言語の中にCPUの命令（アセンブリ言語）を直接書くための拡張です。volatile は、コンパイラが最適化するときに、この処理は不要と判断して削除しないように指定します。</p>
+<p>"wfi"（Wait For Interrupt）は、割り込みが発生するまでCPUを待機させるArmの命令です。<br/>
+今回はまだ割り込みを設定していないため、CPUは何も表示せず、待機を続けます。</p>
+<h3 id="1-2.-boot.s%E3%82%92%E6%9B%B8%E3%81%8F">
+<a href="#1-2.-boot.s%E3%82%92%E6%9B%B8%E3%81%8F"></a> 1-2. <code>boot.S</code>を書く</h3>
+<p>ターミナルで <code>code boot.S</code> を実行して <code>boot.S</code> を新規作成します。</p>
+<div><pre><code><span><span>code</span><span> boot.S</span></span>
+<span></span></code></pre></div><p>アセンブリ言語で書きます。</p>
+<div><pre><code><span><span>.syntax unified</span></span>
+<span><span>.cpu cortex-m33</span></span>
+<span><span>.thumb</span></span>
+<span></span>
+<span><span>.section .vectors,"a"</span></span>
+<span><span>.balign </span><span>128</span></span>
+<span><span>.</span><span>word</span><span> __stack_top</span></span>
+<span><span>.</span><span>word</span><span> reset+</span><span>1</span></span>
+<span><span>.rept </span><span>14</span></span>
+<span><span>.</span><span>word</span><span> halt+</span><span>1</span></span>
+<span><span>.endr</span></span>
+<span></span>
+<span><span>.</span><span>section .text</span><span>.reset,"</span><span>ax</span><span>"</span></span>
+<span><span>.global</span><span> reset</span></span>
+<span><span>.thumb_func</span></span>
+<span><span>reset:</span></span>
+<span><span>    bl</span><span> kernel_main</span></span>
+<span><span>halt:</span></span>
+<span><span>    b halt</span></span>
+<span></span></code></pre></div><p>Cortex-M33がリセットされると、ベクタテーブルの最初の2ワード（各32ビット）を読み、最初の値をスタックポインタ（SP）に、2番目の値をリセット処理の開始アドレスとして使います。<code>reset</code> に到達すると、<code>bl kernel_main</code> によってC言語のカーネルが呼び出されます。</p>
+<h3 id="arm%E5%91%BD%E4%BB%A4%E3%81%A8thumb%E5%91%BD%E4%BB%A4%EF%BC%9A%E3%81%AA%E3%81%9C-reset%2B1-%E3%81%AA%E3%81%AE%E3%81%8B">
+<a href="#arm%E5%91%BD%E4%BB%A4%E3%81%A8thumb%E5%91%BD%E4%BB%A4%EF%BC%9A%E3%81%AA%E3%81%9C-reset%2B1-%E3%81%AA%E3%81%AE%E3%81%8B"></a> Arm命令とThumb命令：なぜ <code>reset+1</code> なのか</h3>
+<p>ArmのCPUは32ビットのレジスタとアドレス空間を扱いますが、すべての機械語命令が32ビット長になるわけではありません。</p>
+<ul>
+<li>従来のArm命令は、基本的に1命令が32ビット長です。8ビット長の命令はありません。</li>
+<li>Thumb命令は、プログラムのサイズを小さくするため16ビット長の命令として導入されました。</li>
+</ul>
+<p>Armでは1バイト命令が存在しないため、命令長が必ず偶数になります。そのため、ジャンプ先の最後の1ビットをThumb命令として実行するかどうかのフラグとして使っています。リセットベクタに置く実行開始アドレスでは、最下位ビットを <code>1</code> にして、Thumb命令として実行することを指定しています。これが <code>.word reset+1</code> の理由です。</p>
+<p>例えば、リンカが <code>reset</code> の命令を <code>0x10000100</code> に置いたとします。</p>
+<div><pre><code><span><span>実際の命令の配置アドレス      0x10000100  （必ず2バイト境界で配置される）</span></span>
+<span><span>ベクタテーブルに格納する値    0x10000101  （最下位ビットを 1 にしている）</span></span>
+<span><span>CPUが命令を読み始める位置     0x10000100  （最下位ビットを 0 にした番地）</span></span>
+<span><span></span></span></code></pre></div><p>ベクタテーブル内の値を奇数にするのは、Thumb状態を指定するためのもので、実際の命令は2バイト境界から読み込みます。この例では16エントリのベクタテーブルを用意し、使わない例外を <code>halt</code> に向けます。<code>halt+1</code> も同じ理由で最下位ビットを1にしています。</p>
+<h3 id="%E8%B5%B7%E5%8B%95%E3%81%AE%E3%82%A2%E3%82%BB%E3%83%B3%E3%83%96%E3%83%A9%E5%91%BD%E4%BB%A4%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E3%81%BF%E3%82%88%E3%81%86">
+<a href="#%E8%B5%B7%E5%8B%95%E3%81%AE%E3%82%A2%E3%82%BB%E3%83%B3%E3%83%96%E3%83%A9%E5%91%BD%E4%BB%A4%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E3%81%BF%E3%82%88%E3%81%86"></a> 起動のアセンブラ命令を読んでみよう</h3>
+<table>
+<thead>
+<tr>
+<th>記述</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.thumb</code></td>
+<td>以下の命令をThumb命令としてアセンブルする指示（Cortex-M33向け）</td>
+</tr>
+<tr>
+<td><code>.thumb_func</code></td>
+<td>次のラベルをThumb関数として宣言する</td>
+</tr>
+<tr>
+<td><code>.word __stack_top</code></td>
+<td>起動時のスタックポインタの初期値32ビット値を配置</td>
+</tr>
+<tr>
+<td><code>.word reset+1</code></td>
+<td>実行開始アドレスを奇数にする（Thumb関数として実行する）</td>
+</tr>
+<tr>
+<td><code>bl kernel_main</code></td>
+<td>サブルーチン<code>kernel_main</code>を呼ぶ（戻り先はLRへ保存される）</td>
+</tr>
+<tr>
+<td><code>b halt</code></td>
+<td>無条件で分岐する（ここではhaltに飛ぶので無限ループになる）</td>
+</tr>
+<tr>
+<td><code>wfi</code></td>
+<td>Wait For Interrupt（CPUを割り込み待ちにする）</td>
+</tr>
+</tbody>
+</table>
+<p><code>.word</code> はCPUの命令ではなく、データをメモリ上に配置しているだけです。</p>
+<h3 id="1-2.-qemu.ld%E3%82%92%E6%9B%B8%E3%81%8F">
+<a href="#1-2.-qemu.ld%E3%82%92%E6%9B%B8%E3%81%8F"></a> 1-2. <code>qemu.ld</code>を書く</h3>
+<p>ターミナルで <code>code qemu.ld</code> を実行して <code>qemu.ld</code> を新規作成します。</p>
+<div><pre><code><span><span>code</span><span> qemu.ld</span></span>
+<span></span></code></pre></div><div><pre><code><span><span>ENTRY(reset)</span></span>
+<span><span>MEMORY {</span></span>
+<span><span>    CODE (rx) : ORIGIN = 0x10000000, LENGTH = 4M</span></span>
+<span><span>    RAM (rwx) : ORIGIN = 0x80000000, LENGTH = 16M</span></span>
+<span><span>}</span></span>
+<span><span>SECTIONS {</span></span>
+<span><span>    .vectors : { KEEP(*(.vectors)) } &gt; CODE</span></span>
+<span><span>    .text : { *(.text*) *(.rodata*) } &gt; CODE</span></span>
+<span><span>    .data : { __data_start = .; *(.data*) . = ALIGN(4); __data_end = .; } &gt; RAM</span></span>
+<span><span>    __data_load = LOADADDR(.data);</span></span>
+<span><span>    .bss (NOLOAD) : {</span></span>
+<span><span>        __bss_start = .; *(.bss*) *(COMMON)</span></span>
+<span><span>        . = ALIGN(4); __bss_end = .;</span></span>
+<span><span>    } &gt; RAM</span></span>
+<span><span>    __stack_top = ORIGIN(RAM) + LENGTH(RAM);</span></span>
+<span><span>}</span></span>
+<span><span></span></span></code></pre></div><ul>
+<li>
+<code>.vectors</code>には起動時に必要なベクタテーブルを置きます。</li>
+<li>
+<code>.text</code>はCPUが実行する命令を置く場所です。</li>
+<li>
+<code>.data</code>には初期値のある変数を置きます</li>
+<li>
+<code>.bss</code>にはゼロ初期化する変数を置きます。</li>
+<li>
+<code>__stack_top</code>はスタックに使うメモリ番地のトップです。</li>
+</ul>
+<p>これらのアドレスの指定は、今回使うQEMUのAN505仮想ボード向けのものです。</p>
+<h3 id="1-4.-run.sh%E3%82%92%E6%9B%B8%E3%81%8F">
+<a href="#1-4.-run.sh%E3%82%92%E6%9B%B8%E3%81%8F"></a> 1-4. <code>run.sh</code>を書く</h3>
+<p>ターミナルで <code>code run.sh</code> を実行して <code>run.sh</code> を新規作成します。</p>
+<div><pre><code><span><span>code</span><span> run.sh</span></span>
+<span></span></code></pre></div><p>以下のbashスクリプトを書いてください。</p>
+<div><pre><code><span><span>#!/usr/bin/env bash</span></span>
+<span><span>set</span><span> -euo</span><span> pipefail</span></span>
+<span></span>
+<span><span>src</span><span>=</span><span>(</span><span>boot.S</span><span> kernel.c</span><span>)</span></span>
+<span><span>for</span><span> file </span><span>in</span><span> main.c</span><span> printf.c</span><span> heap0.c</span><span> os/timer.c</span><span>; </span><span>do</span></span>
+<span><span>    if</span><span> [ </span><span>-f</span><span> "</span><span>$file</span><span>"</span><span> ]; </span><span>then</span><span> src</span><span>+=</span><span>(</span><span>"</span><span>$file</span><span>"</span><span>); </span><span>fi</span></span>
+<span><span>done</span></span>
+<span></span>
+<span><span>flags</span><span>=</span><span>(</span><span>-mcpu</span><span>=</span><span>cortex-m33</span><span> -mthumb</span><span> -mfpu</span><span>=</span><span>fpv5-sp-d16</span><span> -mfloat-abi</span><span>=</span><span>hard</span><span>)</span></span>
+<span><span>flags</span><span>+=</span><span>(</span><span>-O2</span><span> -ffreestanding</span><span> -fno-builtin</span><span> -fno-stack-protector</span><span>)</span></span>
+<span><span>flags</span><span>+=</span><span>(</span><span>-ffunction-sections</span><span> -fdata-sections</span><span> -nostdlib</span><span>)</span></span>
+<span><span>flags</span><span>+=</span><span>(</span><span>-Wl,--gc-sections</span><span> -Wl,</span><span>-Map</span><span>=</span><span>qemu.map</span><span> -T</span><span> qemu.ld</span><span>)</span></span>
+<span><span>arm-none-eabi-gcc</span><span> "${</span><span>flags</span><span>[</span><span>@</span><span>]}"</span><span> "${</span><span>src</span><span>[</span><span>@</span><span>]}"</span><span> -o</span><span> qemu.elf</span></span>
+<span></span>
+<span><span>qemu-system-arm</span><span> -version</span></span>
+<span><span>qemu-system-arm</span><span> -M</span><span> mps2-an505</span><span> -nographic</span><span> -serial</span><span> mon:stdio</span><span> \</span></span>
+<span><span>-semihosting-config </span><span>enable=on,target=native</span><span> -kernel</span><span> qemu.elf</span></span>
+<span></span></code></pre></div><p><code>set -euo pipefail</code> は、シェルスクリプトの実行時にエラーを見逃さないための設定です。</p>
+<ul>
+<li>
+<code>-e</code>：コマンドが失敗した場合、原則として処理を中断します。</li>
+<li>
+<code>-u</code>：定義されていない変数を使った場合、エラーにします。</li>
+<li>
+<code>-o pipefail</code>：パイプ（|）でつないだ途中のコマンドが失敗した場合も、失敗とします。</li>
+</ul>
+<p>このシェルスクリプトでは、gccでArmで実行できるバイナリをクロスコンパイルして <code>qemu.elf</code> を作成して、それをQEMUから起動します。</p>
+<p><code>run.sh</code> を実行します。</p>
+<div><pre><code><span><span>bash</span><span> run.sh</span></span>
+<span></span></code></pre></div><p>以下の出力が表示されて、QEMUが起動したままになれば、正常です。</p>
+<div><pre><code><span><span>QEMU emulator version 10.0.13 (Debian 1:10.0.13+ds-0+deb13u1)</span></span>
+<span><span>Copyright (c) 2003-2025 Fabrice Bellard and the QEMU Project developers</span></span>
+<span><span></span></span></code></pre></div><p>QEMUを終了するには<code>Ctrl+A</code>を押してから<code>X</code>を押します。（<code>Ctrl+C</code>では終了できません）</p>
+<h2 id="%E6%BC%94%E7%BF%922%EF%BC%9Auart%E3%81%A7hello%2C-kernel!%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B">
+<a href="#%E6%BC%94%E7%BF%922%EF%BC%9Auart%E3%81%A7hello%2C-kernel!%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B"></a> 演習2：UARTで<code>Hello, kernel!</code>を表示する</h2>
+<p>ターミナルで <code>code kernel.c</code> を実行して <code>kernel.c</code> を開きます。</p>
+<div><pre><code><span><span>code</span><span> kernel.c</span></span>
+<span></span></code></pre></div><p>ファイル全体を次の内容に置き換えます。</p>
+<div><pre><code><span><span>#define</span><span> UART</span><span>(</span><span>o</span><span>) (</span><span>*</span><span>(</span><span>volatile</span><span> unsigned</span><span> *</span><span>)(</span><span>0x</span><span>50200000</span><span>u</span><span> +</span><span> (o)))</span></span>
+<span></span>
+<span><span>int</span><span> putchar</span><span>(</span><span>int</span><span> c</span><span>) {</span></span>
+<span><span>    while</span><span> (</span><span>UART</span><span>(</span><span>4</span><span>) </span><span>&amp;</span><span> 1</span><span>) {}</span><span>  // TXFULL: 送信可能になるまで待つ</span></span>
+<span><span>    UART</span><span>(</span><span>0</span><span>) </span><span>=</span><span> (</span><span>unsigned</span><span>)c;</span><span>  // DATA: 1文字送る</span></span>
+<span><span>    return</span><span> c;</span></span>
+<span><span>}</span></span>
+<span></span>
+<span><span>void</span><span> kernel_main</span><span>(</span><span>void</span><span>) {</span></span>
+<span><span>    UART</span><span>(</span><span>0x</span><span>10</span><span>) </span><span>=</span><span> 16</span><span>;</span><span>  // BAUDDIV: 通信速度を設定</span></span>
+<span><span>    UART</span><span>(</span><span>8</span><span>) </span><span>=</span><span> 3</span><span>;</span><span>      // CTRL: 送信(TX)と受信(RX)を有効化</span></span>
+<span><span>    const</span><span> char</span><span> *</span><span>s </span><span>=</span><span> "Hello, kernel!</span><span>\r\n</span><span>"</span><span>;</span></span>
+<span><span>    while</span><span> (</span><span>*</span><span>s) </span><span>putchar</span><span>(</span><span>*</span><span>s</span><span>++</span><span>);</span></span>
+<span><span>    for</span><span> (;;) __asm </span><span>volatile</span><span>(</span><span>"wfi"</span><span>);</span></span>
+<span><span>}</span></span>
+<span></span></code></pre></div><p>実行します。</p>
+<div><pre><code><span><span>bash</span><span> run.sh</span></span>
+<span></span></code></pre></div><p>以下の表示が出力されれば成功です。</p>
+<div><pre><code><span><span>Hello, kernel!</span></span>
+<span><span></span></span></code></pre></div><p>QEMUを終了するには<code>Ctrl+A</code>を押してから<code>X</code>を押します。（<code>Ctrl+C</code>では終了できません）</p>
+<h3 id="%E8%A7%A3%E8%AA%AC%EF%BC%9Auart%E3%81%A8%E3%81%AF%EF%BC%9F">
+<a href="#%E8%A7%A3%E8%AA%AC%EF%BC%9Auart%E3%81%A8%E3%81%AF%EF%BC%9F"></a> 解説：UARTとは？</h3>
+<p>UART（Universal Asynchronous Receiver/Transmitter）は、文字などのデータを1ビットずつ順番に送受信するためのハードウェアです。マイコンとパソコンの間で文字をやり取りするシリアル通信によく使われます。通常、画面に文字を表示するときは <code>printf()</code> 関数を使います。しかし、今作っているOSには、まだC言語の標準ライブラリ（libc）がありません。そこで今回は、UARTという周辺機器を直接操作して、QEMUのターミナルに文字を表示しています。</p>
+<h3 id="c%E8%A8%80%E8%AA%9E%E3%81%8B%E3%82%89uart%E3%82%92%E6%93%8D%E4%BD%9C%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95">
+<a href="#c%E8%A8%80%E8%AA%9E%E3%81%8B%E3%82%89uart%E3%82%92%E6%93%8D%E4%BD%9C%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95"></a> C言語からUARTを操作する方法</h3>
+<p>次のマクロを使うと、UARTのレジスタをC言語の変数のように読み書きできます。</p>
+<div><pre><code><span><span>#define</span><span> UART</span><span>(</span><span>o</span><span>) (</span><span>*</span><span>(</span><span>volatile</span><span> unsigned</span><span> *</span><span>)(</span><span>0x</span><span>50200000</span><span>u</span><span> +</span><span> (o)))</span></span>
+<span></span></code></pre></div><p>次のコードはUARTのDATAレジスタに文字 <code>A</code>（ASCIIコード65）を書き込んでいます。</p>
+<div><pre><code><span><span>UART</span><span>(</span><span>0</span><span>) </span><span>=</span><span> 'A'</span><span>;</span></span>
+<span></span></code></pre></div><p>実際には、メモリアドレス <code>0x50200000</code> に <code>65</code> の値を書き込む操作です。UARTは書き込まれた値を送信データとして扱います。ただし、その前に、UARTが送信データを受け付けられる状態かどうかSTATEレジスタの値を読み込んで確認する必要があります。</p>
+<div><pre><code><span><span>while</span><span> (</span><span>UART</span><span>(</span><span>4</span><span>) </span><span>&amp;</span><span> 1</span><span>) {}</span></span>
+<span></span></code></pre></div><p><code>UART(4)</code> はSTATEレジスタを読み出します。<code>&amp; 1</code> は最下位のビットを取り出すAND演算です。送信バッファが満杯の間はここが<code>0</code>になっているので、空きが出るまで <code>while</code> で待ちます。</p>
+<h3 id="%E3%83%A1%E3%83%A2%E3%83%AA%E3%82%A2%E3%83%89%E3%83%AC%E3%82%B9%E3%81%A7%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E3%82%92%E6%93%8D%E4%BD%9C%E3%81%99%E3%82%8B">
+<a href="#%E3%83%A1%E3%83%A2%E3%83%AA%E3%82%A2%E3%83%89%E3%83%AC%E3%82%B9%E3%81%A7%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E3%82%92%E6%93%8D%E4%BD%9C%E3%81%99%E3%82%8B"></a> メモリアドレスでハードウェアを操作する</h3>
+<p>CPUはメモリの読み書きだけでなく、特定のアドレスを使って周辺機器も操作できます。これをMMIO（Memory-Mapped I/O）と呼びます。今回のAN505仮想マシンでは、UARTのレジスタが <code>0x50200000</code> から始まるアドレスに配置されています。レジスタとは、ハードウェアの状態を確認したり、動作を指示したりするための領域で、特定のメモリのアドレス（番地）に対して値を読み書きして操作します。</p>
+<table>
+<thead>
+<tr>
+<th>アドレス</th>
+<th>レジスタ</th>
+<th>役割</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x50200000</code></td>
+<td>DATA</td>
+<td>送信する文字を書き込む。受信した文字を読み出す</td>
+</tr>
+<tr>
+<td><code>0x50200004</code></td>
+<td>STATE</td>
+<td>UARTが送受信できる状態か確認する</td>
+</tr>
+<tr>
+<td><code>0x50200008</code></td>
+<td>CTRL</td>
+<td>UARTの送信・受信を有効にする</td>
+</tr>
+<tr>
+<td><code>0x50200010</code></td>
+<td>BAUDDIV</td>
+<td>通信速度（ボーレート）を設定するための分周値</td>
+</tr>
+</tbody>
+</table>
+<p>STATEレジスタでは、各ビットが異なる意味を持っています。</p>
+<ul>
+<li>bit 0（TXFULL）：1なら送信バッファが満杯。0になるまで待つ。</li>
+<li>bit 1（RXFULL）：1なら受信したデータがある。0ならまだ届いていない。</li>
+</ul>
+<p>CTRLレジスタでは、bit 0が送信の有効化、bit 1が受信の有効化を担当します。したがって、<code>3</code>（2進数で<code>11</code>）を書き込むと、送信と受信の両方が有効になります。</p>
+<h3 id="volatile%E3%81%AF%E3%81%AA%E3%81%9C%E5%BF%85%E8%A6%81%EF%BC%9F">
+<a href="#volatile%E3%81%AF%E3%81%AA%E3%81%9C%E5%BF%85%E8%A6%81%EF%BC%9F"></a> volatileはなぜ必要？</h3>
+<p>通常のC言語の変数は、コンパイラによって最適化されます。例えば、何度も同じ値を読み出す処理は、値が変わらないと判断されれば最適化によってコードが省略される場合があります。しかし、UARTのSTATEレジスタは、ハードウェア側で値が常に変化します。そこで <code>volatile</code> を指定して、レジスタの読み書きの処理をコンパイラが勝手に省略しないように指示しています。</p>
+<p>このプログラムでは、<code>printf()</code> も <code>stdio.h</code> も使用していません。CPUが直接ハードウェアのレジスタを読み書きするだけで、ターミナルに文字を表示しています。低レイヤー、面白いですね。</p>
+<h2 id="%E6%BC%94%E7%BF%923%EF%BC%9A%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E3%81%8B%E3%82%891%E6%96%87%E5%AD%97%E5%85%A5%E5%8A%9B%E3%81%99%E3%82%8B">
+<a href="#%E6%BC%94%E7%BF%923%EF%BC%9A%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E3%81%8B%E3%82%891%E6%96%87%E5%AD%97%E5%85%A5%E5%8A%9B%E3%81%99%E3%82%8B"></a> 演習3：キーボードから1文字入力する</h2>
+<p>ターミナルで <code>code kernel.c</code> を実行して <code>kernel.c</code> を編集します。</p>
+<div><pre><code><span><span>code</span><span> kernel.c</span></span>
+<span></span></code></pre></div><p>今まで書かれたコードはそのままで、<code>putchar</code>の<code>次に、</code>getchar`関数を新しく追加します。</p>
+<div><pre><code><span><span>int</span><span> getchar</span><span>(</span><span>void</span><span>) {</span></span>
+<span><span>    while</span><span> (</span><span>!</span><span>(</span><span>UART</span><span>(</span><span>4</span><span>) </span><span>&amp;</span><span> 2</span><span>)) {}</span><span>  // RXFULL: 受信まで待つ</span></span>
+<span><span>    return</span><span> UART</span><span>(</span><span>0</span><span>) </span><span>&amp;</span><span> 255</span><span>;</span></span>
+<span><span>}</span></span>
+<span></span></code></pre></div><p>一番上の行に<code>int main(void);</code>のプロトタイプ宣言を追加します。</p>
+<div><pre><code><span><span>int</span><span> main</span><span>(</span><span>void</span><span>);</span></span>
+<span></span></code></pre></div><p><code>kernel_main</code>関数を以下のように置き換えて、<code>main()</code>を呼び出す形に修正します。</p>
+<div><pre><code><span><span>void</span><span> kernel_main</span><span>(</span><span>void</span><span>) {</span></span>
+<span><span>    UART</span><span>(</span><span>0x</span><span>10</span><span>) </span><span>=</span><span> 16</span><span>;</span></span>
+<span><span>    UART</span><span>(</span><span>8</span><span>) </span><span>=</span><span> 3</span><span>;</span></span>
+<span><span>    main</span><span>();</span><span> // ← 関数を呼び出す</span></span>
+<span><span>    for</span><span> (;;) __asm </span><span>volatile</span><span>(</span><span>"wfi"</span><span>);</span></span>
+<span><span>}</span></span>
+<span></span></code></pre></div><p>ターミナルで <code>code main.c</code> を実行して <code>main.c</code> を新規作成します。</p>
+<div><pre><code><span><span>code</span><span> main.c</span></span>
+<span></span></code></pre></div><p>以下のコードを新しく書いてください。</p>
+<div><pre><code><span><span>int</span><span> putchar</span><span>(</span><span>int</span><span>);</span></span>
+<span><span>int</span><span> getchar</span><span>(</span><span>void</span><span>);</span></span>
+<span></span>
+<span><span>int</span><span> main</span><span>(</span><span>void</span><span>) {</span></span>
+<span><span>    putchar</span><span>(</span><span>'&gt;'</span><span>);</span></span>
+<span><span>    for</span><span> (;;) {</span></span>
+<span><span>      int</span><span> c </span><span>=</span><span> getchar</span><span>();</span></span>
+<span><span>      putchar</span><span>(c);</span></span>
+<span><span>      if</span><span> (c </span><span>==</span><span> '</span><span>\r</span><span>'</span><span>) </span><span>putchar</span><span>(</span><span>'</span><span>\n</span><span>'</span><span>);</span></span>
+<span><span>    }</span></span>
+<span><span>    return</span><span> 0</span><span>;</span></span>
+<span><span>}</span></span>
+<span></span></code></pre></div><p>実行します。</p>
+<div><pre><code><span><span>bash</span><span> run.sh</span></span>
+<span></span></code></pre></div><p>確認すること：</p>
+<ul>
+<li>最初に <code>&gt;</code> がコンソールに表示される。</li>
+<li>入力した文字がそのまま表示されることを確認する。</li>
+<li>QEMUの終了は<code>Ctrl+A</code>を押した後に<code>X</code>キーを入力します。</li>
+</ul>
+<p>ここまでで以下のような流れでプログラムが動くようになりました。</p>
+<div><pre><code><span><span>reset → kernel_main → main → putchar → getchar ↔ putchar</span></span>
+<span><span></span></span></code></pre></div><h2 id="%E6%BC%94%E7%BF%924%EF%BC%9Aprintf()%E3%82%92%E8%87%AA%E4%BD%9C%E3%81%99%E3%82%8B">
+<a href="#%E6%BC%94%E7%BF%924%EF%BC%9Aprintf()%E3%82%92%E8%87%AA%E4%BD%9C%E3%81%99%E3%82%8B"></a> 演習4：<code>printf()</code>を自作する</h2>
+<p>1文字ずつ文字を出力するのは不便なので、簡単な<code>printf()</code>関数を作ります。</p>
+<p>ターミナルで <code>code stdio.h</code> を実行して <code>stdio.h</code> を新規作成します。</p>
+<div><pre><code><span><span>code</span><span> stdio.h</span></span>
+<span></span></code></pre></div><p>ヘッダファイルでは以下の関数のプロトタイプ宣言だけを書きます。</p>
+<div><pre><code><span><span>int</span><span> putchar</span><span>(</span><span>int</span><span>);</span></span>
+<span><span>int</span><span> getchar</span><span>(</span><span>void</span><span>);</span></span>
+<span><span>int</span><span> printf</span><span>(</span><span>const</span><span> char</span><span> *</span><span>, ...);</span></span>
+<span></span></code></pre></div><p>ターミナルで <code>code printf.c</code> を実行して <code>printf.c</code> を新規作成します。</p>
+<div><pre><code><span><span>code</span><span> printf.c</span></span>
+<span></span></code></pre></div><p>ここではちょっと長いですが、<code>printf()</code>関数の中身を書きます。</p>
+<div><pre><code><span><span>#include</span><span> "stdio.h"</span></span>
+<span></span>
+<span><span>static</span><span> int</span><span> _printnum</span><span>(</span><span>unsigned</span><span> x</span><span>, </span><span>int</span><span> base</span><span>) {</span></span>
+<span><span>  char</span><span> buf</span><span>[</span><span>16</span><span>];</span></span>
+<span><span>  int</span><span> n </span><span>=</span><span> 0</span><span>;</span></span>
+<span><span>  do</span><span> {</span></span>
+<span><span>    buf</span><span>[n</span><span>++</span><span>] </span><span>=</span><span> "0123456789abcdef"</span><span>[x </span><span>%</span><span> base];</span></span>
+<span><span>  } </span><span>while</span><span> (x </span><span>/=</span><span> base);</span></span>
+<span><span>  for</span><span> (</span><span>int</span><span> i </span><span>=</span><span> n; i </span><span>&gt;</span><span> 0</span><span>;) </span><span>putchar</span><span>(</span><span>buf</span><span>[</span><span>--</span><span>i]);</span></span>
+<span><span>  return</span><span> n;</span></span>
+<span><span>}</span></span>
+<span></span>
+<span><span>int</span><span> printf</span><span>(</span><span>const</span><span> char</span><span> *</span><span>fmt</span><span>, ...) {</span></span>
+<span><span>  __builtin_va_list ap;</span></span>
+<span><span>  __builtin_va_start</span><span>(ap, fmt);</span></span>
+<span><span>  int</span><span> count </span><span>=</span><span> 0</span><span>;</span></span>
+<span><span>  for</span><span> (; </span><span>*</span><span>fmt; fmt</span><span>++</span><span>) {</span></span>
+<span><span>    if</span><span> (</span><span>*</span><span>fmt </span><span>!=</span><span> '%'</span><span>) {</span></span>
+<span><span>      putchar</span><span>(</span><span>*</span><span>fmt); count</span><span>++</span><span>; </span><span>continue</span><span>;</span></span>
+<span><span>    }</span></span>
+<span><span>    if</span><span> (</span><span>!*++</span><span>fmt) </span><span>break</span><span>;</span></span>
+<span><span>    if</span><span> (</span><span>*</span><span>fmt </span><span>==</span><span> 's'</span><span>) {</span></span>
+<span><span>      const</span><span> char</span><span> *</span><span>s </span><span>=</span><span> __builtin_va_arg</span><span>(ap, </span><span>const</span><span> char</span><span> *</span><span>);</span></span>
+<span><span>      while</span><span> (</span><span>*</span><span>s) { </span><span>putchar</span><span>(</span><span>*</span><span>s</span><span>++</span><span>); count</span><span>++</span><span>; }</span></span>
+<span><span>    } </span><span>else</span><span> if</span><span> (</span><span>*</span><span>fmt </span><span>==</span><span> 'd'</span><span>) {</span></span>
+<span><span>      int</span><span> x </span><span>=</span><span> __builtin_va_arg</span><span>(ap, </span><span>int</span><span>);</span></span>
+<span><span>      if</span><span> (x </span><span>&lt;</span><span> 0</span><span>) { </span><span>putchar</span><span>(</span><span>'-'</span><span>); count</span><span>++</span><span>; }</span></span>
+<span><span>      count </span><span>+=</span><span> _printnum</span><span>(x </span><span>&lt;</span><span> 0</span><span> ?</span><span> -</span><span>(</span><span>unsigned</span><span>)x </span><span>:</span><span> (</span><span>unsigned</span><span>)x, </span><span>10</span><span>);</span></span>
+<span><span>    } </span><span>else</span><span> if</span><span> (</span><span>*</span><span>fmt </span><span>==</span><span> 'x'</span><span>) {</span></span>
+<span><span>      count </span><span>+=</span><span> _printnum</span><span>(</span><span>__builtin_va_arg</span><span>(ap, </span><span>unsigned</span><span>), </span><span>16</span><span>);</span></span>
+<span><span>    } </span><span>else</span><span> if</span><span> (</span><span>*</span><span>fmt </span><span>==</span><span> '%'</span><span> ||</span><span> *</span><span>fmt </span><span>==</span><span> 'c'</span><span>) {</span></span>
+<span><span>      putchar</span><span> (</span><span>*</span><span>fmt </span><span>==</span><span> '%'</span><span> ?</span><span> '%'</span><span> :</span><span> __builtin_va_arg</span><span>(ap, </span><span>int</span><span>));</span></span>
+<span><span>      count</span><span>++</span><span>;</span></span>
+<span><span>    }</span></span>
+<span><span>  }</span></span>
+<span><span>  __builtin_va_end</span><span>(ap);</span></span>
+<span><span>  return</span><span> count;</span></span>
+<span><span>}</span></span>
+<span></span></code></pre></div><p>この<code>printf()</code>関数は、<code>%s</code>、<code>%c</code>、<code>%d</code>、<code>%x</code>、<code>%%</code>だけに対応しています。<code>%f</code>など、他のいろんな書式に対応するためには大幅に機能追加の修正が必要です。<br/>
+<code>__builtin_va_list</code>や<code>__builtin_va_arg</code>は、コンパイラが解釈する可変長引数の処理です。</p>
+<p>ターミナルで <code>code main.c</code> を実行して <code>main.c</code> を開きます。</p>
+<div><pre><code><span><span>code</span><span> main.c</span></span>
+<span></span></code></pre></div><p>以前の内容は消して、次の内容にまるごと書き換えます。</p>
+<div><pre><code><span><span>#include</span><span> "stdio.h"</span></span>
+<span></span>
+<span><span>int</span><span> main</span><span>(</span><span>void</span><span>) {</span></span>
+<span><span>    printf</span><span>(</span><span>"Hello, </span><span>%s</span><span> %d</span><span>!</span><span>\r\n</span><span>"</span><span>, </span><span>"Cortex-M"</span><span>, </span><span>33</span><span>);</span></span>
+<span><span>    return</span><span> 0</span><span>;</span></span>
+<span><span>}</span></span>
+<span></span></code></pre></div><p>実行します。</p>
+<div><pre><code><span><span>bash</span><span> run.sh</span></span>
+<span></span></code></pre></div><p>コンソールに以下が出力されれば成功です。</p>
+<div><pre><code><span><span>Hello, Cortex-M 33!</span></span>
+<span><span></span></span></code></pre></div><p>QEMUの終了は<code>Ctrl+A</code>を押した後に<code>X</code>キーを入力します。</p>
+<p><code>printf()</code>を使えるようにするために、裏で地道な努力があったのですね。</p>
+<h2 id="%E6%BC%94%E7%BF%925%EF%BC%9A%E8%B5%B7%E5%8B%95%E5%87%A6%E7%90%86%E3%80%81ram%E5%88%9D%E6%9C%9F%E5%8C%96%E3%80%81%E3%82%BF%E3%82%A4%E3%83%9E%E3%83%BC%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8B">
+<a href="#%E6%BC%94%E7%BF%925%EF%BC%9A%E8%B5%B7%E5%8B%95%E5%87%A6%E7%90%86%E3%80%81ram%E5%88%9D%E6%9C%9F%E5%8C%96%E3%80%81%E3%82%BF%E3%82%A4%E3%83%9E%E3%83%BC%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8B"></a> 演習5：起動処理、RAM初期化、タイマーを追加する</h2>
+<p>これまではプログラムを簡単にするため、RAMの初期化を省略していました。これからPerlを動かすために、起動時に初期値のある変数（.data）をRAMにコピーし、初期値のない変数（.bss）を0で初期化する処理を追加します。</p>
+<p>ターミナルで <code>code boot.S</code> を実行して <code>boot.S</code> を開き、次の完成形に置き換えます。</p>
+<div><pre><code><span><span>code</span><span> boot.S</span></span>
+<span></span></code></pre></div><div><pre><code><span><span>.syntax unified</span></span>
+<span><span>.cpu cortex-m33</span></span>
+<span><span>.fpu fpv5-</span><span>sp</span><span>-d16</span></span>
+<span><span>.thumb</span></span>
+<span></span>
+<span><span>.section .vectors,"a"</span></span>
+<span><span>.balign </span><span>128</span></span>
+<span><span>vectors:</span></span>
+<span><span>    .</span><span>word</span><span> __stack_top, reset+</span><span>1</span></span>
+<span><span>    .rept </span><span>13</span></span>
+<span><span>    .</span><span>word</span><span> fault+</span><span>1</span></span>
+<span><span>    .endr</span></span>
+<span><span>    .</span><span>word</span><span> _systick+</span><span>1</span></span>
+<span></span>
+<span><span>.</span><span>section .text</span><span>.reset,"</span><span>ax</span><span>"</span></span>
+<span><span>.global</span><span> reset</span></span>
+<span><span>.thumb_func</span></span>
+<span><span>reset:</span></span>
+<span><span>    cpsid i</span></span>
+<span><span>    ldr r0, =vectors</span></span>
+<span><span>    ldr r1, =</span><span>0xe000ed08</span></span>
+<span><span>    str</span><span> r0, [r1]             // ベクタテーブルのアドレス</span></span>
+<span></span>
+<span><span>    ldr r0, =</span><span>0xe000ed88</span><span>      // FPUアクセス許可</span></span>
+<span><span>    ldr r1, [r0]</span></span>
+<span><span>    ldr r2, =</span><span>0xf00000</span></span>
+<span><span>    orr r1, r2</span></span>
+<span><span>    str</span><span> r1, [r0]</span></span>
+<span><span>    dsb</span></span>
+<span><span>    isb</span></span>
+<span></span>
+<span><span>    ldr r0, =__data_load     // </span><span>.data</span><span> をRAMへコピー</span></span>
+<span><span>    ldr r1, =__data_start</span></span>
+<span><span>    ldr r2, =__data_end</span></span>
+<span><span>1</span><span>:  </span><span>cmp</span><span> r1, r2</span></span>
+<span><span>    bhs 2f</span></span>
+<span><span>    ldr r3, [r0], #</span><span>4</span></span>
+<span><span>    str</span><span> r3, [r1], #</span><span>4</span></span>
+<span><span>    b </span><span>1b</span></span>
+<span></span>
+<span><span>2</span><span>:  ldr r0, =__bss_start     // </span><span>.bss</span><span> を0で初期化</span></span>
+<span><span>    ldr r1, =__bss_end</span></span>
+<span><span>    movs</span><span> r2, #</span><span>0</span></span>
+<span><span>3</span><span>:  </span><span>cmp</span><span> r0, r1</span></span>
+<span><span>    bhs 4f</span></span>
+<span><span>    str</span><span> r2, [r0], #</span><span>4</span></span>
+<span><span>    b 3b</span></span>
+<span></span>
+<span><span>4</span><span>:  </span><span>bl</span><span> kernel_main</span></span>
+<span><span>fault:</span></span>
+<span><span>    b fault</span></span>
+<span></span></code></pre></div><p>この例では <code>.data</code> が4バイト境界に配置されていることを前提にしています。<code>__stack_top</code> はリセット時に自動的にSPへ設定されるため、起動時に <code>sp</code> を代入しなくても大丈夫です。</p>
+<p>起動時のコードには以下のアセンブラ命令があります。</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>cpsid i</code> / <code>cpsie i</code>
+</td>
+<td>通常の割り込みを禁止／許可</td>
+</tr>
+<tr>
+<td><code>ldr r0, =値</code></td>
+<td>定数やアドレスをレジスタに読み込む擬似命令</td>
+</tr>
+<tr>
+<td><code>ldr r3, [r0], #4</code></td>
+<td>r0の指すメモリから32ビットを読み、r0を4増やす</td>
+</tr>
+<tr>
+<td><code>str r3, [r1], #4</code></td>
+<td>r1の指すメモリに32ビットを書き、r1を4増やす</td>
+</tr>
+<tr>
+<td>
+<code>cmp r1, r2</code> / <code>bhs 2f</code>
+</td>
+<td>比較して、符号なしで以上なら前方の <code>2:</code> へ分岐</td>
+</tr>
+<tr>
+<td><code>b 1b</code></td>
+<td>後方にある <code>1:</code> へ分岐</td>
+</tr>
+<tr>
+<td><code>orr r1, r2</code></td>
+<td>ビット単位のOR</td>
+</tr>
+<tr>
+<td>
+<code>dsb</code> / <code>isb</code>
+</td>
+<td>メモリアクセスの完了と命令実行状態の同期</td>
+</tr>
+</tbody>
+</table>
+<p><code>ldr</code> / <code>str</code> は <code>.data</code> をROM側からRAM側へコピーし、続く <code>str</code> ループは <code>.bss</code> を0で埋めます。<code>0xe000ed08</code> は割り込み処理のアドレスを記録したベクタテーブルの位置を設定するレジスタ（VTOR）、<code>0xe000ed88</code> は浮動小数点演算を行うFPUの使用を許可するレジスタ（CPACR）を意味しています。正確に理解する必要はないので、こんなものがあるのね、ぐらいに思っていただければ大丈夫です。</p>
+<h3 id="get.sh%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%B2%E3%83%83%E3%83%88">
+<a href="#get.sh%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%B2%E3%83%83%E3%83%88"></a> <code>get.sh</code>でファイルをゲット</h3>
+<p>ここから先の演習では、追加するファイルが多くあるため、<code>get.sh</code> を作成し、GitHubからダウンロードして取得するようにします。</p>
+<p>ターミナルで <code>code get.sh</code> を実行して、取得用スクリプト <code>get.sh</code> を新規作成します。</p>
+<div><pre><code><span><span>code</span><span> get.sh</span></span>
+<span></span></code></pre></div><div><pre><code><span><span>#!/bin/sh</span></span>
+<span><span>set</span><span> -eu</span></span>
+<span></span>
+<span><span>TAG</span><span>=</span><span>v0.1.1</span></span>
+<span><span>RAW</span><span>=</span><span>"https://raw.githubusercontent.com/takesako/perlos/</span><span>$TAG</span><span>"</span></span>
+<span><span>ARCHIVE</span><span>=</span><span>"https://codeload.github.com/takesako/perlos/tar.gz/refs/tags/</span><span>$TAG</span><span>"</span></span>
+<span><span>tmp</span><span>=</span><span>$(</span><span>mktemp</span><span> -d</span><span>)</span></span>
+<span><span>trap</span><span> 'rm -rf "$tmp"'</span><span> EXIT</span><span> HUP</span><span> INT</span><span> TERM</span></span>
+<span><span>archive_root</span><span>=</span></span>
+<span></span>
+<span><span>for</span><span> path </span><span>in</span><span> "</span><span>$@</span><span>"</span><span>; </span><span>do</span></span>
+<span><span>    case</span><span> "</span><span>$path</span><span>"</span><span> in</span></span>
+<span><span>        *</span><span>/</span><span>)</span></span>
+<span><span>            if</span><span> [ </span><span>-z</span><span> "</span><span>$archive_root</span><span>"</span><span> ]; </span><span>then</span></span>
+<span><span>                curl</span><span> -fL</span><span> --retry</span><span> 3</span><span> "</span><span>$ARCHIVE</span><span>"</span><span> -o</span><span> "</span><span>$tmp</span><span>/repo.tar.gz"</span></span>
+<span><span>                archive_root</span><span>=</span><span>$(</span><span>tar</span><span> -tzf</span><span> "</span><span>$tmp</span><span>/repo.tar.gz"</span><span> |</span><span> sed</span><span> -n</span><span> '1s@/.*@@p'</span><span>)</span></span>
+<span><span>            fi</span></span>
+<span><span>            tar</span><span> -xzf</span><span> "</span><span>$tmp</span><span>/repo.tar.gz"</span><span> --strip-components=1</span><span> -C</span><span> .</span><span> "</span><span>$archive_root</span><span>/</span><span>$path</span><span>"</span></span>
+<span><span>            ;;</span></span>
+<span><span>        *)</span></span>
+<span><span>            mkdir</span><span> -p</span><span> "$(</span><span>dirname</span><span> "</span><span>$path</span><span>")"</span></span>
+<span><span>            curl</span><span> -fL</span><span> --retry</span><span> 3</span><span> "</span><span>$RAW</span><span>/</span><span>$path</span><span>"</span><span> -o</span><span> "</span><span>$tmp</span><span>/file"</span></span>
+<span><span>            mv</span><span> "</span><span>$tmp</span><span>/file"</span><span> "</span><span>$path</span><span>"</span></span>
+<span><span>            ;;</span></span>
+<span><span>    esac</span></span>
+<span><span>done</span></span>
+<span></span></code></pre></div><p>ファイルに実行権限をつけて実行します。</p>
+<div><pre><code><span><span>chmod</span><span> +x</span><span> get.sh</span></span>
+<span><span>./get.sh</span><span> os/timer.c</span><span> os/timer.h</span></span>
+<span></span></code></pre></div><p>例えば <code>./get.sh libc/</code> と書けば <code>libc/</code> 内の <code>.c</code>、<code>.h</code>、<code>sys/</code> 以下をまとめて取得できます。<code>./get.sh root/lib/</code> はPerlモジュールを再帰的に取得します。</p>
+<p><code>os/timer.c</code>ではSysTick割り込みのたびにカウンタを増やし、<code>msleep()</code>で指定ミリ秒待てるようにしています。短いので実装を読んでみましょう。</p>
+<p>ターミナルで <code>code kernel.c</code> を実行して <code>kernel.c</code> を開きます。UARTの <code>putchar()</code> と <code>getchar()</code> は残して、<code>kernel_main()</code> を次の形に変更します。</p>
+<div><pre><code><span><span>code</span><span> kernel.c</span></span>
+<span></span></code></pre></div><div><pre><code><span><span>#include</span><span> "os/timer.h"</span></span>
+<span><span>#define</span><span> R</span><span>(</span><span>a</span><span>) (</span><span>*</span><span>(</span><span>volatile</span><span> unsigned</span><span> *</span><span>)(a))</span></span>
+<span></span>
+<span><span>void</span><span> kernel_main</span><span>(</span><span>void</span><span>) {</span></span>
+<span><span>    R</span><span>(</span><span>0x</span><span>e000e014</span><span>) </span><span>=</span><span> 20000000</span><span>u</span><span> /</span><span> 1000</span><span> -</span><span> 1</span><span>;</span><span>  // SysTickを1ms周期に</span></span>
+<span><span>    R</span><span>(</span><span>0x</span><span>e000e018</span><span>) </span><span>=</span><span> 0</span><span>;</span></span>
+<span><span>    R</span><span>(</span><span>0x</span><span>e000e010</span><span>) </span><span>=</span><span> 7</span><span>;</span></span>
+<span><span>    __asm </span><span>volatile</span><span>(</span><span>"cpsie i"</span><span>);</span><span>             // 割り込みを許可</span></span>
+<span></span>
+<span><span>    UART</span><span>(</span><span>0x</span><span>10</span><span>) </span><span>=</span><span> 16</span><span>;</span></span>
+<span><span>    UART</span><span>(</span><span>8</span><span>) </span><span>=</span><span> 3</span><span>;</span></span>
+<span><span>    main</span><span>();</span></span>
+<span><span>    for</span><span> (;;) __asm </span><span>volatile</span><span>(</span><span>"wfi"</span><span>);</span></span>
+<span><span>}</span></span>
+<span></span></code></pre></div><p>このコードの前の方には、以前から使っている<code>UART</code>マクロ、<code>putchar()</code>、<code>getchar()</code>、<code>int main(void);</code>の宣言が必要なので、残しておいてください。</p>
+<p>ちなみに、<code>20000000</code>（20MHz）は今回の仮想環境で使っているCPUのクロック周波数の設定です。</p>
+<p>ターミナルで <code>code main.c</code> を実行して <code>main.c</code> を開き、次のように書き換えます。</p>
+<div><pre><code><span><span>code</span><span> main.c</span></span>
+<span></span></code></pre></div><div><pre><code><span><span>#include</span><span> "stdio.h"</span></span>
+<span><span>#include</span><span> "os/timer.h"</span></span>
+<span></span>
+<span><span>int</span><span> main</span><span>(</span><span>void</span><span>) {</span></span>
+<span><span>    printf</span><span>(</span><span>"3</span><span>\r\n</span><span>"</span><span>); </span><span>msleep</span><span>(</span><span>1000</span><span>);</span></span>
+<span><span>    printf</span><span>(</span><span>"2</span><span>\r\n</span><span>"</span><span>); </span><span>msleep</span><span>(</span><span>1000</span><span>);</span></span>
+<span><span>    printf</span><span>(</span><span>"1</span><span>\r\n</span><span>"</span><span>); </span><span>msleep</span><span>(</span><span>1000</span><span>);</span></span>
+<span><span>    printf</span><span>(</span><span>"Go!</span><span>\r\n</span><span>"</span><span>);</span></span>
+<span><span>    return</span><span> 0</span><span>;</span></span>
+<span><span>}</span></span>
+<span></span></code></pre></div><p>確認すること：</p>
+<ul>
+<li>
+<code>bash run.sh</code>で1秒ごとに数字が表示されること。</li>
+</ul>
+<h2 id="%E6%BC%94%E7%BF%926%EF%BC%9A%E6%9C%80%E5%88%9D%E3%81%AEmalloc()%E3%82%92%E4%BD%9C%E3%82%8B">
+<a href="#%E6%BC%94%E7%BF%926%EF%BC%9A%E6%9C%80%E5%88%9D%E3%81%AEmalloc()%E3%82%92%E4%BD%9C%E3%82%8B"></a> 演習6：最初の<code>malloc()</code>を作る</h2>
+<p>まずは「使った領域を返却できない」単純なヒープを作ります。ターミナルで <code>code qemu.ld</code> を実行して <code>qemu.ld</code> を開き、<code>.bss</code> の後、<code>__stack_top</code> より前に次の領域を追加します。</p>
+<div><pre><code><span><span>code</span><span> qemu.ld</span></span>
+<span></span></code></pre></div><div><pre><code><span><span>.heap (NOLOAD) : ALIGN(8) {</span></span>
+<span><span>    __heap_start = .;</span></span>
+<span><span>    . += 1048576;</span></span>
+<span><span>    __heap_end = .;</span></span>
+<span><span>} &gt; RAM</span></span>
+<span><span></span></span></code></pre></div><p>ターミナルで <code>code heap0.c</code> を実行して <code>heap0.c</code> を新規作成します。</p>
+<div><pre><code><span><span>code</span><span> heap0.c</span></span>
+<span></span></code></pre></div><div><pre><code><span><span>extern</span><span> unsigned</span><span> char</span><span> __heap_start</span><span>[]</span><span>, __heap_end</span><span>[]</span><span>;</span></span>
+<span><span>static</span><span> unsigned</span><span> char</span><span> *</span><span>next </span><span>=</span><span> __heap_start;</span></span>
+<span></span>
+<span><span>void</span><span> *</span><span>malloc</span><span>(</span><span>unsigned</span><span> size</span><span>) {</span></span>
+<span><span>    unsigned</span><span> long</span><span> p </span><span>=</span><span> ((</span><span>unsigned</span><span> long</span><span>)next </span><span>+</span><span> 7</span><span>ul</span><span>) </span><span>&amp;</span><span> ~</span><span>7</span><span>ul</span><span>;</span></span>
+<span><span>    if</span><span> (p </span><span>+</span><span> size </span><span>&gt;</span><span> (</span><span>unsigned</span><span> long</span><span>)__heap_end) </span><span>return</span><span> 0</span><span>;</span></span>
+<span><span>    next </span><span>=</span><span> (</span><span>unsigned</span><span> char</span><span> *</span><span>)(p </span><span>+</span><span> size);</span></span>
+<span><span>    return</span><span> (</span><span>void</span><span> *</span><span>)p;</span></span>
+<span><span>}</span></span>
+<span></span></code></pre></div><p>ターミナルで <code>code main.c</code> を実行して <code>main.c</code> を開き、次の内容に置き換えます。</p>
+<div><pre><code><span><span>code</span><span> main.c</span></span>
+<span></span></code></pre></div><div><pre><code><span><span>#include</span><span> "stdio.h"</span></span>
+<span><span>void</span><span> *</span><span>malloc</span><span>(</span><span>unsigned</span><span> size</span><span>);</span></span>
+<span></span>
+<span><span>int</span><span> main</span><span>(</span><span>void</span><span>) {</span></span>
+<span><span>    void</span><span> *</span><span>a </span><span>=</span><span> malloc</span><span>(</span><span>16</span><span>);</span></span>
+<span><span>    void</span><span> *</span><span>b </span><span>=</span><span> malloc</span><span>(</span><span>32</span><span>);</span></span>
+<span><span>    printf</span><span>(</span><span>"a = 0x</span><span>%x\r\n</span><span>"</span><span>, (</span><span>unsigned</span><span>)a);</span></span>
+<span><span>    printf</span><span>(</span><span>"b = 0x</span><span>%x\r\n</span><span>"</span><span>, (</span><span>unsigned</span><span>)b);</span></span>
+<span><span>    return</span><span> 0</span><span>;</span></span>
+<span><span>}</span></span>
+<span></span></code></pre></div><p><code>bash run.sh</code>で2つの異なるアドレスが表示されれば成功です。ただしこの<code>malloc()</code>には<code>free()</code>がありません。Perlを動かすにはメモリ確保・解放・再確保が必要です。次の演習ではこれらの処理を追加して完成版のヒープに置き換えます。</p>
+<p>考えてみよう：</p>
+<ul>
+<li>
+<code>free()</code>を何もしない関数として実装した場合、ずっとプログラムを実行し続けると何が起きるでしょうか。</li>
+</ul>
+<h2 id="%E6%BC%94%E7%BF%927%EF%BC%9Amicrolibc%E3%81%A8romfs2%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8B">
+<a href="#%E6%BC%94%E7%BF%927%EF%BC%9Amicrolibc%E3%81%A8romfs2%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8B"></a> 演習7：microlibcとROMFS2を追加する</h2>
+<p>ここまででは<code>printf.c</code>や<code>heap0.c</code>を手書きで実装していましたが、本格的な実装に切り替えます。</p>
+<h3 id="7-1.-libc%E3%82%92%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E5%8D%98%E4%BD%8D%E3%81%A7%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B">
+<a href="#7-1.-libc%E3%82%92%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E5%8D%98%E4%BD%8D%E3%81%A7%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B"></a> 7-1. libcをディレクトリ単位で取得する</h3>
+<p>実行してC言語の標準ライブラリ（libc）の実装をダウンロードします。</p>
+<div><pre><code><span><span>./get.sh</span><span> libc/</span><span> script/</span><span> root/lib/</span><span> os/romfs.c</span><span> os/romfs.h</span><span> root/timethis.pl</span></span>
+<span></span></code></pre></div><p>ここでは、3つのディレクトリのソースアーカイブを取得し、追加の3つのファイルも取得します。</p>
+<p>実装を見るには、<code>libc/stdio.c</code>（UART入出力）、<code>libc/heap.c</code>（確保・解放）、<code>libc/math.c</code>（数学関数）、<code>libc/aeabi.c</code>（Arm EABI補助関数）のファイルを見てください。</p>
+<h3 id="7-2.-romfs2%E3%81%A8perl%E6%A8%99%E6%BA%96%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B">
+<a href="#7-2.-romfs2%E3%81%A8perl%E6%A8%99%E6%BA%96%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B"></a> 7-2. ROMFS2とPerl標準モジュールを取得する</h3>
+<div><pre><code><span><span>mkdir</span><span> -p</span><span> root</span></span>
+<span><span>printf</span><span> 'Hello from ROMFS!\n'</span><span> &gt;</span><span> root/hello.txt</span></span>
+<span></span></code></pre></div><p><code>script/</code> はROMFS2生成とmicroperlの準備に使うスクリプト群です。<code>root/lib/</code> の下にある <code>Benchmark.pm</code>、<code>Exporter.pm</code>、<code>Carp.pm</code> なども再帰的に取得します。<code>root/timethis.pl</code> は比較に使うスクリプトです。<code>root/</code> 全体を取得すると、次に自分で書く <code>boot.pl</code> まで上書きされるため、ここでは <code>root/lib/</code> と <code>root/timethis.pl</code> を指定しています。</p>
+<p>ROMFS2は読み取り専用のファイルシステムをプログラム本体に埋め込みます。PerlOS起動後の <code>do "timethis.pl"</code> はこのROMFS2から読み込まれます。</p>
+<p>ターミナルで <code>code root/boot.pl</code> を実行して <code>root/boot.pl</code> を新規作成します。これはPerlOS起動時に自動実行するスクリプトです。</p>
+<div><pre><code><span><span>code</span><span> root/boot.pl</span></span>
+<span></span></code></pre></div><div><pre><code><span><span>print</span><span> "Welcome to PerlOS!</span><span>\n</span><span>"</span><span>;</span></span>
+<span><span>print</span><span> "Try: do </span><span>\"</span><span>timethis.pl</span><span>\"\n</span><span>"</span><span>;</span></span>
+<span></span></code></pre></div><p>PerlでROMFS2イメージを生成し、ファイル一覧を表示します。</p>
+<div><pre><code><span><span>perl</span><span> script/mkromfs.pl</span><span> root</span><span> os/romfs_image.rom</span></span>
+<span><span>perl</span><span> script/mkromfs.pl</span><span> --list</span><span> os/romfs_image.rom</span></span>
+<span><span>perl</span><span> script/mkromfs.pl</span><span> --carray</span><span> os/romfs_image.rom</span><span> os/romfs_image.c</span><span> romfs_image</span></span>
+<span></span></code></pre></div><p>一覧には <code>boot.pl</code>、<code>hello.txt</code>、<code>timethis.pl</code>、<code>lib/Benchmark.pm</code>、<code>lib/Exporter.pm</code> などが含まれます。ROMFS2のC配列は <code>os/romfs_image.c</code> です。<code>root/</code> を変更したら、後で <code>make run</code> または <code>make ramview</code> を実行するだけでROMFS2が作り直されます。</p>
+<h2 id="%E6%BC%94%E7%BF%928%EF%BC%9Amicroperl%E3%82%92%E7%B5%84%E3%81%BF%E8%BE%BC%E3%81%BF%E3%80%81perl%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%92%E8%B5%B7%E5%8B%95%E3%81%99%E3%82%8B">
+<a href="#%E6%BC%94%E7%BF%928%EF%BC%9Amicroperl%E3%82%92%E7%B5%84%E3%81%BF%E8%BE%BC%E3%81%BF%E3%80%81perl%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%92%E8%B5%B7%E5%8B%95%E3%81%99%E3%82%8B"></a> 演習8：microperlを組み込み、Perlシェルを起動する</h2>
+<p>いよいよmicroperlを追加します。Perl本体のソースコードは大きいため、PerlOSの <code>Makefile</code> と <code>script/perl-get.sh</code> を利用します。</p>
+<h3 id="8-1.-qemu%E5%B0%82%E7%94%A8i%2Fo%E3%81%A8perl%E5%9F%8B%E3%82%81%E8%BE%BC%E3%81%BF%E3%82%B3%E3%83%BC%E3%83%89%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B">
+<a href="#8-1.-qemu%E5%B0%82%E7%94%A8i%2Fo%E3%81%A8perl%E5%9F%8B%E3%82%81%E8%BE%BC%E3%81%BF%E3%82%B3%E3%83%BC%E3%83%89%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B"></a> 8-1. QEMU専用I/OとPerl埋め込みコードを取得する</h3>
+<div><pre><code><span><span>./get.sh</span><span> Makefile</span><span> os/io.h</span><span> os/io_an505.c</span><span> os/perlos.c</span><span> os/perlos.h</span></span>
+<span></span></code></pre></div><p><code>Makefile</code> が呼び出す、<code>script/perl-get.sh</code> は、Perl 5.12.5の必要なソースをCPANから取得します。続いて<code>perl-patch.pl</code>などが、ベアメタルと<code>NV=float</code>向けのパッチや設定を適用します。</p>
+<h3 id="8-2.-%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%9C%80%E7%B5%82%E5%BD%A2%E3%81%AB%E6%95%B4%E3%81%88%E3%82%8B">
+<a href="#8-2.-%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%9C%80%E7%B5%82%E5%BD%A2%E3%81%AB%E6%95%B4%E3%81%88%E3%82%8B"></a> 8-2. カーネルを最終形に整える</h3>
+<p>演習で作った <code>boot.S</code> と <code>qemu.ld</code> はQEMU版ではそのまま使います。ターミナルで <code>code kernel.c</code> を実行し、<code>kernel.c</code> をI/Oバックエンドに処理を分けた次の形へ変更します。最後のRaspberry Pi Pico 2を使った実機演習にも対応するため、<code>PICO2</code> が定義されている場合はSysTickのクロック周波数の設定を150MHz用に切り替えるようにします。</p>
+<div><pre><code><span><span>code</span><span> kernel.c</span></span>
+<span></span></code></pre></div><p>以下に置き換えて下さい。</p>
+<div><pre><code><span><span>#include</span><span> "io.h"</span></span>
+<span></span>
+<span><span>extern</span><span> int</span><span> main</span><span>(</span><span>void</span><span>);</span></span>
+<span><span>#define</span><span> R</span><span>(</span><span>a</span><span>) (</span><span>*</span><span>(</span><span>volatile</span><span> unsigned</span><span> *</span><span>)(a))</span></span>
+<span></span>
+<span><span>#ifdef</span><span> PICO2</span></span>
+<span><span>#define</span><span> CPU_HZ</span><span> 150000000</span><span>u</span></span>
+<span><span>#else</span></span>
+<span><span>#define</span><span> CPU_HZ</span><span> 20000000</span><span>u</span></span>
+<span><span>#endif</span></span>
+<span></span>
+<span><span>void</span><span> kernel_main</span><span>(</span><span>void</span><span>) {</span></span>
+<span><span>    R</span><span>(</span><span>0x</span><span>e000e014</span><span>) </span><span>=</span><span> CPU_HZ </span><span>/</span><span> 1000</span><span> -</span><span> 1</span><span>;</span></span>
+<span><span>    R</span><span>(</span><span>0x</span><span>e000e018</span><span>) </span><span>=</span><span> 0</span><span>;</span></span>
+<span><span>    R</span><span>(</span><span>0x</span><span>e000e010</span><span>) </span><span>=</span><span> 7</span><span>;</span></span>
+<span><span>    __asm </span><span>volatile</span><span>(</span><span>"cpsie i"</span><span>);</span></span>
+<span><span>    _io_init</span><span>();</span></span>
+<span><span>    int</span><span> code </span><span>=</span><span> main</span><span>();</span></span>
+<span><span>    _io_exit</span><span>(code);</span></span>
+<span><span>}</span></span>
+<span></span></code></pre></div><p>最初に自分で書いたUART処理は、<code>os/io_an505.c</code>に入っています。実機では<code>os/io_pico2.c</code>がUSB CDCを担当し、同じ <code>kernel.c</code> を利用します。<code>_io_exit()</code>だけはQEMUを終了するためSemihostingを使用します。コンソールの文字入出力はUARTのMMIOを共通して使っています。</p>
+<p>ターミナルで <code>code main.c</code> を実行し、<code>main.c</code> をCのテストプログラムからPerlの起動処理へ置き換えます。</p>
+<div><pre><code><span><span>code</span><span> main.c</span></span>
+<span></span></code></pre></div><div><pre><code><span><span>#include</span><span> &lt;stdio.h&gt;</span></span>
+<span><span>#include</span><span> "romfs.h"</span></span>
+<span><span>#include</span><span> "perlos.h"</span></span>
+<span></span>
+<span><span>extern</span><span> const</span><span> unsigned</span><span> char</span><span> romfs_image</span><span>[]</span><span>;</span></span>
+<span></span>
+<span><span>int</span><span> main</span><span>(</span><span>void</span><span>) {</span></span>
+<span><span>    if</span><span> (</span><span>romfs_init</span><span>(romfs_image)) {</span></span>
+<span><span>        puts</span><span>(</span><span>"ROMFS init failed"</span><span>);</span></span>
+<span><span>        return</span><span> 1</span><span>;</span></span>
+<span><span>    }</span></span>
+<span><span>    return</span><span> perlos_repl</span><span>();</span></span>
+<span><span>}</span></span>
+<span></span></code></pre></div><p>もし途中で不整合が生じたら、次の2ファイルだけ完成版と見比べてみてください。</p>
+<ul>
+<li><a href="https://github.com/takesako/perlos/blob/v0.1.1/boot.S" rel="nofollow noopener noreferrer" target="_blank">https://github.com/takesako/perlos/blob/v0.1.1/boot.S</a></li>
+<li><a href="https://github.com/takesako/perlos/blob/v0.1.1/qemu.ld" rel="nofollow noopener noreferrer" target="_blank">https://github.com/takesako/perlos/blob/v0.1.1/qemu.ld</a></li>
+</ul>
+<h3 id="8-3.-%2Fdev%2Fnull%E3%82%92%E4%BD%9C%E3%82%8B">
+<a href="#8-3.-%2Fdev%2Fnull%E3%82%92%E4%BD%9C%E3%82%8B"></a> 8-3. /dev/nullを作る</h3>
+<p><code>perl -e</code>でスクリプトを実行する場合、内部で<code>/dev/null</code>を参照するので、仮のダミーの空ファイルを作っておきます。</p>
+<div><pre><code><span><span>mkdir root/dev/</span></span>
+<span><span>touch root/dev/null</span></span>
+<span><span></span></span></code></pre></div><h3 id="8-4.-%E3%83%93%E3%83%AB%E3%83%89%E3%81%99%E3%82%8B">
+<a href="#8-4.-%E3%83%93%E3%83%AB%E3%83%89%E3%81%99%E3%82%8B"></a> 8-4. ビルドする</h3>
+<div><pre><code><span><span>make</span><span> run</span></span>
+<span></span></code></pre></div><p>初回はPerl 5.12.5のソースの取得、パッチ適用、コンパイルが走ります。起動したら次を試し、<code>:quit</code> でQEMUを終了します。</p>
+<div><pre><code><span><span>perl&gt; 1 + 2</span></span>
+<span><span>3</span></span>
+<span><span>perl&gt; "Hello, Perl!"</span></span>
+<span><span>"Hello, Perl!"</span></span>
+<span><span>perl&gt; PerlOS::load(0x50200004)</span></span>
+<span><span>...</span></span>
+<span><span>perl&gt; :quit</span></span>
+<span><span></span></span></code></pre></div><p><code>PerlOS::load(0x50200004)</code>の値はUARTの状態によって変わります。特定の数値になるとは限りません。</p>
+<p>これで、起動からPerlの対話シェルまで実行することができました。</p>
+<div><pre><code><span><span>boot.S</span></span>
+<span><span>  → kernel_main</span></span>
+<span><span>    → _io_init / SysTick</span></span>
+<span><span>      → main</span></span>
+<span><span>        → romfs_init</span></span>
+<span><span>          → perlos_repl</span></span>
+<span><span>            → perl_alloc / perl_parse / perl_run</span></span>
+<span><span>              → Perl式を評価</span></span>
+<span><span></span></span></code></pre></div><h2 id="%E6%BC%94%E7%BF%929%EF%BC%9Aramview-%E3%81%A7perl%E3%81%AE%E3%83%A1%E3%83%A2%E3%83%AA%E3%82%92%E5%8F%AF%E8%A6%96%E5%8C%96%E3%81%99%E3%82%8B">
+<a href="#%E6%BC%94%E7%BF%929%EF%BC%9Aramview-%E3%81%A7perl%E3%81%AE%E3%83%A1%E3%83%A2%E3%83%AA%E3%82%92%E5%8F%AF%E8%A6%96%E5%8C%96%E3%81%99%E3%82%8B"></a> 演習9：<code>ramview</code> でPerlのメモリを可視化する</h2>
+<p>PerlOSの <code>Makefile</code> には <code>ramview</code> ターゲットがあります。QEMUをQMP（QEMU Machine Protocol）付きで起動し、ホスト上の <code>script/ramview.pl</code> が一定範囲のメモリを読み、<code>ffplay</code> のウィンドウに表示します。QEMUの画面とは別に「PerlOS RAM」というウィンドウが開きます。</p>
+<h3 id="9-1.-ramview.pl-%E3%81%AE%E8%A1%A8%E7%A4%BA%E6%BA%96%E5%82%99">
+<a href="#9-1.-ramview.pl-%E3%81%AE%E8%A1%A8%E7%A4%BA%E6%BA%96%E5%82%99"></a> 9-1. <code>ramview.pl</code> の表示準備</h3>
+<p><code>script/ramview.pl</code> は、元の <code>v0.1.1</code> ではRAMダンプ先にLinux固有の <code>/dev/shm</code> を使っています。macOSとWSL2/Ubuntuで同じ教材を使えるよう、<code>/tmp</code> に変更します。</p>
+<div><pre><code><span><span>perl</span><span> -pi</span><span> -e</span><span> 's{/dev/shm/perlos-ram\.bin}{/tmp/perlos-ram.bin}'</span><span> script/ramview.pl</span></span>
+<span></span></code></pre></div><p>続いて、<code>make ramview</code> でビューアがQEMUより先に起動してもQMP接続できるよう、接続待ちの処理を入れます。ターミナルで <code>code script/ramview.pl</code> を実行して開き、先頭にある <code>use JSON::PP ...</code> の直後に次の1行を追加してください。</p>
+<div><pre><code><span><span>code</span><span> script/ramview.pl</span></span>
+<span></span></code></pre></div><div><pre><code><span><span>use</span><span> Time::HiRes </span><span>qw(usleep)</span><span>;</span></span>
+<span></span></code></pre></div><p>同じファイルの <code>my $qmp = IO::Socket::INET-&gt;new(...) or die ...;</code> の部分を、次のコードへ置き換えます。</p>
+<div><pre><code><span><span>my</span><span> $qmp;</span></span>
+<span><span>for</span><span> (1 .. 100) {</span></span>
+<span><span>    $qmp = IO::Socket::INET</span><span>-&gt;</span><span>new(</span></span>
+<span><span>        PeerAddr</span><span> =&gt;</span><span> "127.0.0.1"</span><span>, </span><span>PeerPort</span><span> =&gt;</span><span> 4444, </span><span>Proto</span><span> =&gt;</span><span> "tcp"</span></span>
+<span><span>    );</span></span>
+<span><span>    last</span><span> if</span><span> $qmp;</span></span>
+<span><span>    usleep(100_000);</span></span>
+<span><span>}</span></span>
+<span><span>$qmp </span><span>or</span><span> die</span><span> "QMP: unable to connect</span><span>\n</span><span>"</span><span>;</span></span>
+<span></span></code></pre></div><p>この変更はホスト側のRAM表示処理だけです。<code>make ramview</code> を実行することで <code>qemu.elf</code> のビルドとリアルタイムのメモリ可視化が始まります。GUIを表示できるデスクトップ環境で実行します。</p>
+<h3 id="9-2.-%E8%B5%B7%E5%8B%95%E3%81%97%E3%81%A6-do-%22timethis.pl%22-%E3%82%92%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B">
+<a href="#9-2.-%E8%B5%B7%E5%8B%95%E3%81%97%E3%81%A6-do-%22timethis.pl%22-%E3%82%92%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B"></a> 9-2. 起動して <code>do "timethis.pl"</code> を実行する</h3>
+<div><pre><code><span><span>make</span><span> ramview</span></span>
+<span></span></code></pre></div><p>PerlOSが起動したら、REPLに次の1行を入力してください。</p>
+<div><pre><code><span><span>perl&gt; do "timethis.pl"</span></span>
+<span><span></span></span></code></pre></div><p><code>timethis.pl</code> では、まず10万回の <code>sqrt()</code> を実行し、その後 <code>Benchmark::timethis</code> と <code>Benchmark::cmpthese</code> で加算と平方根の処理を計測します。<code>Benchmark</code> は演習7で取り込んだ <code>root/lib/Benchmark.pm</code> から読み込まれます。数値や所要時間は実行環境に依存します。</p>
+<p>観察するポイントは次のとおりです。</p>
+<ul>
+<li>PerlOSの起動時に、最初からどの程度RAMが書き換わるか。</li>
+<li>
+<code>do "timethis.pl"</code> の実行中に、画面のどの部分が激しく変化するか。</li>
+<li>計算が終わった後に、どの領域が残るか。</li>
+<li>
+<code>:mem</code> と <code>meminfo()</code> の値が、表示の変化とどう対応するか。</li>
+</ul>
+<p>次のようにREPLからヒープの統計値を表示できます。</p>
+<div><pre><code><span><span>perl&gt; :mem</span></span>
+<span><span>perl&gt; meminfo()</span></span>
+<span><span>perl&gt; :mem reset</span></span>
+<span><span>perl&gt; do "timethis.pl"</span></span>
+<span><span>perl&gt; :mem</span></span>
+<span><span></span></span></code></pre></div><p><code>ramview.pl</code> の設定は <code>ADDR=0x80000000</code>、<code>SIZE=520*1024</code>、<code>W=1024</code>、<code>H=520</code> です。1024×520ピクセルの画面で1ピクセルが1バイトに対応し、先頭から520KiBを表示します。今回のヒープ領域は1MiBあるため、画面にはその全体ではなく先頭側の一部が映ります。色はメモリのバイト値に応じて付きます。「使用中／解放済み」を直接判定して色分けしているわけではありません。</p>
+<p>RAM上の1バイトの位置は、先頭アドレスを <code>A=0x80000000</code> とすると、<code>x=(addr-A)%1024</code>、<code>y=(addr-A)/1024</code> です。連続するメモリアドレスが横方向に並び、1024バイトごとに次の行になります。</p>
+<p><code>ramview</code> が起動している間は <code>ffplay</code> のウィンドウとPerlOSのREPLを並べて、入力直後の変化を観察してください。終了するときはREPLで <code>:quit</code> と入力します。</p>
+<h2 id="%E6%BC%94%E7%BF%9210%EF%BC%9A%E7%B4%A0%E6%9C%B4%E3%81%AA-heap.c-%E3%81%AB%E5%B7%AE%E3%81%97%E6%9B%BF%E3%81%88%E3%81%A6%E6%AF%94%E8%BC%83%E3%81%99%E3%82%8B">
+<a href="#%E6%BC%94%E7%BF%9210%EF%BC%9A%E7%B4%A0%E6%9C%B4%E3%81%AA-heap.c-%E3%81%AB%E5%B7%AE%E3%81%97%E6%9B%BF%E3%81%88%E3%81%A6%E6%AF%94%E8%BC%83%E3%81%99%E3%82%8B"></a> 演習10：素朴な <code>heap.c</code> に差し替えて比較する</h2>
+<p>現在の <code>v0.1.1/libc/heap.c</code> は8・16・24・32・48バイトの要求に固定サイズプールを使用します。素朴な実装の <code>heap.c</code> は、空きブロックを探索・分割・結合する単一の汎用ヒープです。どちらも <code>malloc</code>、<code>free</code>、<code>realloc</code> を提供しますが、小さい確保の管理方法が異なります。</p>
+<h3 id="10-1.-%E7%8F%BE%E8%A1%8C%E7%89%88%E3%81%AE%E6%A7%98%E5%AD%90%E3%82%92%E8%A8%98%E9%8C%B2%E3%81%99%E3%82%8B">
+<a href="#10-1.-%E7%8F%BE%E8%A1%8C%E7%89%88%E3%81%AE%E6%A7%98%E5%AD%90%E3%82%92%E8%A8%98%E9%8C%B2%E3%81%99%E3%82%8B"></a> 10-1. 現行版の様子を記録する</h3>
+<p>演習9の <code>make ramview</code> で <code>do "timethis.pl"</code> を実行した直後に、画面と <code>:mem</code> の情報を比較してください。<code>meminfo()</code> は <code>used</code>、<code>free</code>、<code>overhead</code>、<code>used_blocks</code>、<code>peak_used</code> などを返します。必要なら画面のスクリーンショットと出力を保存します。</p>
+<p>QEMUを <code>:quit</code> で終了してから、ホストのシェルで現行版を退避します。</p>
+<div><pre><code><span><span>cp</span><span> libc/heap.c</span><span> libc/heap.c.new</span></span>
+<span></span></code></pre></div><h3 id="10-2.-%E7%B4%A0%E6%9C%B4%E3%81%AAmalloc%E5%AE%9F%E8%A3%85%E3%81%AB%E5%88%87%E3%82%8A%E6%9B%BF%E3%81%88%E3%82%8B">
+<a href="#10-2.-%E7%B4%A0%E6%9C%B4%E3%81%AAmalloc%E5%AE%9F%E8%A3%85%E3%81%AB%E5%88%87%E3%82%8A%E6%9B%BF%E3%81%88%E3%82%8B"></a> 10-2. 素朴なmalloc実装に切り替える</h3>
+<div><pre><code><span><span>curl</span><span> -fL</span><span> --retry</span><span> 3</span><span> https://raw.githubusercontent.com/takesako/perlos/9449fb50221468d28f511f82b891bf208d8b62b9/libc/heap.c</span><span> -o</span><span> libc/heap.c</span></span>
+<span><span>rm</span><span> -f</span><span> libc/heap.o</span><span> qemu.elf</span></span>
+<span><span>make</span><span> ramview</span></span>
+<span></span></code></pre></div><p><code>libc/heap.h</code> や <code>Makefile</code> は変更しなくて大丈夫です。新旧どちらも <code>heap.c</code> は同じヒープAPIに対応しています。<code>rm -f</code> はリンク済みの旧オブジェクトとELFを消して確実に再コンパイルするために実行します。</p>
+<p>起動後は、前回と同じ入力を実行します。</p>
+<div><pre><code><span><span>perl&gt; :mem reset</span></span>
+<span><span>perl&gt; do "timethis.pl"</span></span>
+<span><span>perl&gt; :mem</span></span>
+<span><span>perl&gt; meminfo()</span></span>
+<span><span>perl&gt; :quit</span></span>
+<span><span></span></span></code></pre></div><p><code>ramview</code> の表示とヒープ統計から、次の違いを見つけてください。</p>
+<table>
+<thead>
+<tr>
+<th>観察対象</th>
+<th>現行版 <code>v0.1.1</code>
+</th>
+<th>指定した旧版</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>小さい確保</td>
+<td>8・16・24・32・48バイトのプールを利用</td>
+<td>汎用ブロック管理を使用</td>
+</tr>
+<tr>
+<td>小さい領域の管理</td>
+<td>サイズごとの空きリストを使用</td>
+<td>汎用ヒープから探索して確保</td>
+</tr>
+<tr>
+<td>メモリの初期状態</td>
+<td>小サイズプールの空きリストを準備</td>
+<td>汎用ヒープの先頭に管理情報を作成</td>
+</tr>
+<tr>
+<td>可視化</td>
+<td>プール領域と汎用ヒープが変化</td>
+<td>汎用ヒープ中心に変化</td>
+</tr>
+<tr>
+<td>比較する数値</td>
+<td>
+<code>used</code>、<code>overhead</code>、<code>peak_occupied</code>、<code>used_blocks</code>
+</td>
+<td>同じ指標を同じタイミングで観察</td>
+</tr>
+</tbody>
+</table>
+<p>現行版のプールは合計269,824バイトを先に予約します。素朴な実装にはこの予約がありません。したがって <code>overhead</code> や空き領域の数字を単純に比べるのではなく、ヒープの内訳と空きブロックに注目してください。</p>
+<h3 id="10-3.-%E7%8F%BE%E8%A1%8C%E7%89%88%E3%81%B8%E6%88%BB%E3%81%99">
+<a href="#10-3.-%E7%8F%BE%E8%A1%8C%E7%89%88%E3%81%B8%E6%88%BB%E3%81%99"></a> 10-3. 現行版へ戻す</h3>
+<div><pre><code><span><span>cp</span><span> libc/heap.c.new</span><span> libc/heap.c</span></span>
+<span><span>rm</span><span> -f</span><span> libc/heap.o</span><span> qemu.elf</span></span>
+<span><span>make</span><span> ramview</span></span>
+<span></span></code></pre></div><p>REPLからもう一度 <code>do "timethis.pl"</code> を実行すると、現行版のメモリの動きを改めて確認できます。</p>
+<h3 id="%E5%8F%82%E8%80%83%E8%B3%87%E6%96%99">
+<a href="#%E5%8F%82%E8%80%83%E8%B3%87%E6%96%99"></a> 参考資料</h3>
+<ul>
+<li>PerlOSリポジトリ： <a href="https://github.com/takesako/perlos" rel="nofollow noopener noreferrer" target="_blank">https://github.com/takesako/perlos</a>
+</li>
+<li>この演習の基準タグ <code>v0.1.1</code>： <a href="https://github.com/takesako/perlos/tree/v0.1.1" rel="nofollow noopener noreferrer" target="_blank">https://github.com/takesako/perlos/tree/v0.1.1</a>
+</li>
+<li>旧 <code>heap.c</code>： <a href="https://github.com/takesako/perlos/blob/9449fb50221468d28f511f82b891bf208d8b62b9/libc/heap.c" rel="nofollow noopener noreferrer" target="_blank">https://github.com/takesako/perlos/blob/9449fb50221468d28f511f82b891bf208d8b62b9/libc/heap.c</a>
+</li>
+<li>QEMU Arm MPS2/MPS3： <a href="https://www.qemu.org/docs/master/system/arm/mps2.html" rel="nofollow noopener noreferrer" target="_blank">https://www.qemu.org/docs/master/system/arm/mps2.html</a>
+</li>
+<li>GitHubソースコードアーカイブの仕様： <a href="https://docs.github.com/en/repositories/working-with-files/using-files/downloading-source-code-archives" rel="nofollow noopener noreferrer" target="_blank">https://docs.github.com/en/repositories/working-with-files/using-files/downloading-source-code-archives</a>
+</li>
+</ul>
+<h2 id="%E7%99%BA%E5%B1%95%E6%BC%94%E7%BF%92%EF%BC%9Araspberry-pi-pico-2%E5%AE%9F%E6%A9%9F%E3%81%A7perlos%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99">
+<a href="#%E7%99%BA%E5%B1%95%E6%BC%94%E7%BF%92%EF%BC%9Araspberry-pi-pico-2%E5%AE%9F%E6%A9%9F%E3%81%A7perlos%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99"></a> 発展演習：Raspberry Pi Pico 2実機でPerlOSを動かす</h2>
+<p>ここまではRaspberry Pi Pico 2に近いCPU環境として、QEMUのAN505（Arm Cortex-M33）を使用しました。今度は同じソースコードを実際のRaspberry Pi Pico 2（RP2350）に書き込みます。QEMUと実機ではCPUの命令セットを共有できますが、メモリ配置と入出力デバイスが異なります。</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>QEMU AN505</th>
+<th>Raspberry Pi Pico 2実機</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU</td>
+<td>Cortex-M33の仮想CPU</td>
+<td>RP2350内蔵のCortex-M33</td>
+</tr>
+<tr>
+<td>リンカスクリプト</td>
+<td><code>qemu.ld</code></td>
+<td><code>pico2.ld</code></td>
+</tr>
+<tr>
+<td>起動用の補助データ</td>
+<td>
+<code>boot.S</code> のベクタテーブル</td>
+<td>共通の <code>boot.S</code> とRP2350用の <code>pico2.S</code>
+</td>
+</tr>
+<tr>
+<td>RAMの配置</td>
+<td>
+<code>0x80000000</code> から</td>
+<td>
+<code>0x20000000</code> から</td>
+</tr>
+<tr>
+<td>コンソール</td>
+<td>AN505のUART</td>
+<td>USB CDC（USBシリアル）</td>
+</tr>
+<tr>
+<td>生成するファイル</td>
+<td><code>qemu.elf</code></td>
+<td><code>pico2.uf2</code></td>
+</tr>
+<tr>
+<td>メモリの可視化</td>
+<td>
+<code>make ramview</code> が利用可能</td>
+<td>同じQMP方式は使えない（QEMU専用）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="p-1.-%E5%AE%9F%E6%A9%9F%E5%B0%82%E7%94%A8%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B">
+<a href="#p-1.-%E5%AE%9F%E6%A9%9F%E5%B0%82%E7%94%A8%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B"></a> P-1. 実機専用のファイルを取得する</h3>
+<p>Raspberry Pi Pico 2本体と、データ通信に対応したUSBケーブルを用意します。ターミナルで次のコマンドを実行し、実機向けの起動メタデータ、メモリ配置、USB CDCドライバ、LED点滅用のPerlスクリプトを取得します。</p>
+<div><pre><code><span><span>./get.sh</span><span> pico2.S</span><span> pico2.ld</span><span> os/io_pico2.c</span><span> script/picotool.pl</span><span> script/usb-com.pl</span><span> root/pico2led.pl</span></span>
+<span></span></code></pre></div><p><code>boot.S</code>、<code>kernel.c</code>、<code>main.c</code>、<code>libc/</code>、<code>root/lib/</code> はQEMU版と共通です。演習8で <code>kernel.c</code> に追加した <code>#ifdef PICO2</code> により、実機ではSysTickを150MHzに合わせて設定します。Pico 2のRAMは520KiBなので、実機用の <code>pico2.ld</code> はヒープ領域もQEMU版より小さく設定しています。</p>
+<p>LED点滅スクリプトは、先頭の機種判定でPerlの演算子の優先順位を明確にするため、括弧を補っておきます。ターミナルで <code>code root/pico2led.pl</code> を実行してファイルを開いてください。</p>
+<div><pre><code><span><span>code</span><span> root/pico2led.pl</span></span>
+<span></span></code></pre></div><p>1行目の <code>if</code> の条件式を次のように修正して保存します（他の行は変更しません）。</p>
+<div><pre><code><span><span>if</span><span> ((PerlOS::load(0x40000000) &amp; 0x0fffffff) == 0x4927) {</span></span>
+<span></span></code></pre></div><p>これで「レジスタ値をビットマスクしてから比較する」という意図どおりの評価になります。</p>
+<h3 id="p-2.-pico-2%E7%94%A8%E3%81%AEuf2%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E4%BD%9C%E3%82%8B">
+<a href="#p-2.-pico-2%E7%94%A8%E3%81%AEuf2%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E4%BD%9C%E3%82%8B"></a> P-2. Pico 2用のUF2ファイルを作る</h3>
+<p>ターミナルで次のコマンドを実行します。</p>
+<div><pre><code><span><span>make</span><span> pico2.uf2</span></span>
+<span></span></code></pre></div><p><code>pico2.elf</code> がビルドされ、続いて <code>script/picotool.pl</code> によって <code>pico2.uf2</code> が生成されます。この変換には別途Pico SDKをインストールする必要はありません。</p>
+<h3 id="p-3.-usb%E7%B5%8C%E7%94%B1%E3%81%A7pico-2%E3%81%AB%E6%9B%B8%E3%81%8D%E8%BE%BC%E3%82%80">
+<a href="#p-3.-usb%E7%B5%8C%E7%94%B1%E3%81%A7pico-2%E3%81%AB%E6%9B%B8%E3%81%8D%E8%BE%BC%E3%82%80"></a> P-3. USB経由でPico 2に書き込む</h3>
+<ol>
+<li>Pico 2をいったんPCから取り外します。</li>
+<li>基板上の <code>BOOTSEL</code> ボタンを押したまま、USBケーブルをPCに接続します。</li>
+<li>PCに <code>RP2350</code> というUSBドライブが現れたら、<code>BOOTSEL</code> を離します。</li>
+<li>作成した <code>pico2.uf2</code> をそのドライブにコピーします。</li>
+<li>書き込み後にドライブが自動で切断され、Pico 2が再起動します。</li>
+</ol>
+<p>Windows／WSL2の場合は、エクスプローラーから <code>pico2.uf2</code> を <code>RP2350</code> ドライブへドラッグ＆ドロップできます。WSL2の作業ディレクトリをエクスプローラーで開きたい場合は、ターミナルで次を実行します。</p>
+<div><pre><code><span><span>explorer.exe</span><span> .</span></span>
+<span></span></code></pre></div><p>macOSの場合はFinderで <code>RP2350</code> を開いてコピーできます。これはPico 2のROMにあるUSB書き込み機能を使うため、事前に別のファームウェアを書き込む必要はありません。</p>
+<h3 id="p-4.-%E5%AE%9F%E6%A9%9F%E3%81%AEperl%E3%82%B7%E3%82%A7%E3%83%AB%E3%81%AB%E6%8E%A5%E7%B6%9A%E3%81%99%E3%82%8B">
+<a href="#p-4.-%E5%AE%9F%E6%A9%9F%E3%81%AEperl%E3%82%B7%E3%82%A7%E3%83%AB%E3%81%AB%E6%8E%A5%E7%B6%9A%E3%81%99%E3%82%8B"></a> P-4. 実機のPerlシェルに接続する</h3>
+<p>Pico 2が再起動すると、USB CDCのシリアルポートとして認識されます。macOSでは次のコマンドで自動検出して接続します。</p>
+<div><pre><code><span><span>perl</span><span> script/usb-com.pl</span></span>
+<span></span></code></pre></div><p>Windows／WSL2では、WindowsのデバイスマネージャーでPico 2のCOMポート番号を確認し、その番号を指定します（次はCOM3だった場合の例です）。</p>
+<div><pre><code><span><span>perl</span><span> script/usb-com.pl</span><span> COM3</span></span>
+<span></span></code></pre></div><p>Ubuntu（ネイティブLinux）では、シリアル端末を使います。以下は接続されたポートが <code>/dev/ttyACM0</code> の場合です。</p>
+<div><pre><code><span><span>sudo</span><span> apt</span><span> install</span><span> picocom</span></span>
+<span><span>sudo</span><span> picocom</span><span> -b</span><span> 115200</span><span> /dev/ttyACM0</span></span>
+<span></span></code></pre></div><p>シリアルポートが別の名前で表示された場合は、その名前を使用します。<code>picocom</code> の終了は <code>Ctrl+A</code>、次に <code>Ctrl+X</code> です。<code>usb-com.pl</code> は <code>Esc</code> キーで終了します。</p>
+<h3 id="p-5.-perl%E3%81%8B%E3%82%89%E5%AE%9F%E6%A9%9F%E3%81%AEled%E3%82%92%E7%82%B9%E6%BB%85%E3%81%95%E3%81%9B%E3%82%8B">
+<a href="#p-5.-perl%E3%81%8B%E3%82%89%E5%AE%9F%E6%A9%9F%E3%81%AEled%E3%82%92%E7%82%B9%E6%BB%85%E3%81%95%E3%81%9B%E3%82%8B"></a> P-5. Perlから実機のLEDを点滅させる</h3>
+<p>USBシリアルの画面にPerlOSのプロンプトが表示されたら、次を入力します。</p>
+<div><pre><code><span><span>perl&gt; 1 + 2</span></span>
+<span><span>3</span></span>
+<span><span>perl&gt; do "pico2led.pl"</span></span>
+<span><span></span></span></code></pre></div><p>Pico 2の基板上のLED（GPIO25）が点滅します。このスクリプトは <code>PerlOS::load()</code> と <code>PerlOS::store()</code> を使い、GPIOのレジスタをPerlから直接操作します。</p>
+<p>さらに、QEMUと同じPerlスクリプトを実機でも実行できます。</p>
+<div><pre><code><span><span>perl&gt; do "timethis.pl"</span></span>
+<span><span>perl&gt; meminfo()</span></span>
+<span><span></span></span></code></pre></div><p>AN505のUARTアドレス <code>0x50200000</code> はPico 2のUSB CDCには使いません。実機では <code>os/io_pico2.c</code> が入出力を担当します。<code>ramview</code> でのメモリ観察はQEMU専用ですが、PerlOSのソースコードとPerlスクリプトの大部分はそのまま実機でも動きます。</p>
+</div><div id="share"><div><div id="gtm-article-footer-like"></div></div><div><div></div><div><a aria-label="X(Twitter)にポスト" href="https://twitter.com/intent/tweet?url=https://zenn.dev/takesako/articles/e9b10360d889ca&amp;text=1%E6%99%82%E9%96%93%E3%81%A7%E4%BD%9C%E3%82%8BPerlOS%3A%20Yet%20Another%20Perl%20Computer%EF%BD%9Ctakesako&amp;hashtags=zenn" id="gtm-article-footer-tweet" rel="nofollow noopener" target="_blank"></a><a aria-label="はてなブックマークに登録" href="https://b.hatena.ne.jp/add?mode=confirm&amp;url=https://zenn.dev/takesako/articles/e9b10360d889ca&amp;title=1%E6%99%82%E9%96%93%E3%81%A7%E4%BD%9C%E3%82%8BPerlOS%3A%20Yet%20Another%20Perl%20Computer%EF%BD%9Ctakesako" id="gtm-article-footer-hatena-bookmark" rel="nofollow noopener" target="_blank"></a></div></div></div><span></span></div></div><div id="discuss"><div><section><div><h3>Discussion</h3><img src="https://static.zenn.studio/images/drawing/discussion.png" width="300"/></div></section></div></div></section></div></div></div></div><div id="related-contents"></div></article><div id="modal-portal"></div></div></body></html>
