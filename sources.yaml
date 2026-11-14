@@ -10,6 +10,20 @@ defaults:
   rss:
     cadence_hours: 24
 
+# Sources with their own fetcher module (src/digest/fetchers/). Name and URL are fixed
+# per kind (store/sources_yaml.py API_SOURCES). dev.to's daily top list is fetched
+# together with the first due dev.to tag. HN and Lobsters scores keep growing, so they
+# are polled every run; base_weight is lower where volume or spam is high.
+api:
+  - {kind: hackernews, base_weight: 70, cadence_hours: 3}
+  - {kind: lobsters, base_weight: 70, cadence_hours: 3}
+  - {kind: hf_papers, category: ai, base_weight: 60, cadence_hours: 24}
+  - {kind: github_trending, base_weight: 60, cadence_hours: 24}
+  - {kind: viblo, base_weight: 50, cadence_hours: 6}
+  - {kind: lemmy, base_weight: 40, cadence_hours: 6}
+  - {kind: github_search, base_weight: 30, cadence_hours: 12}
+  - {kind: producthunt, base_weight: 30, cadence_hours: 24}
+
 devto:
   tags: [java, springboot, node, kafka, database, postgres, redis, microservices, systemdesign]
 
@@ -75,7 +89,6 @@ rss:
   - {name: Planet PostgreSQL, url: "https://planet.postgresql.org/rss20.xml", category: db, base_weight: 40}
   - {name: ClickHouse Blog, url: "https://clickhouse.com/rss.xml", category: db, base_weight: 40}
   - {name: Neon Blog, url: "https://neon.com/blog/rss.xml", category: db, base_weight: 40}
-  - {name: MySQL Blog, url: "https://blogs.oracle.com/mysql/feed", category: db, base_weight: 40}
   - {name: MongoDB Blog, url: "https://www.mongodb.com/company/blog/rss", category: db, base_weight: 30}
 
   # --- Backend architecture / engineering ---

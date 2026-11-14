@@ -1,7 +1,7 @@
 """Load and validate sources.yaml (Part 2 ingestion sources) into SourceSpecs."""
 
 from pathlib import Path
-from typing import Self
+from typing import Literal, Self
 
 import yaml
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_validator
@@ -10,6 +10,30 @@ from digest.config import ConfigError, _format_errors
 from digest.store.models import SourceSpec
 
 DEVTO_TAG_URL = "https://dev.to/t/{tag}"
+
+ApiKind = Literal[
+    "hackernews",
+    "lobsters",
+    "lemmy",
+    "viblo",
+    "github_search",
+    "hf_papers",
+    "github_trending",
+    "producthunt",
+]
+
+# Display name and URL of each API source. The URL is the (kind, url) natural key and
+# its host is what the per-host fetch limit counts against, so it names the endpoint.
+API_SOURCES: dict[str, tuple[str, str]] = {
+    "hackernews": ("Hacker News", "https://hn.algolia.com/api/v1/search_by_date"),
+    "lobsters": ("Lobsters", "https://lobste.rs/hottest.json"),
+    "lemmy": ("Lemmy programming.dev", "https://programming.dev/api/v3/post/list"),
+    "viblo": ("Viblo", "https://viblo.asia/api/posts"),
+    "github_search": ("GitHub new repos", "https://api.github.com/search/repositories"),
+    "hf_papers": ("Hugging Face Papers", "https://huggingface.co/api/daily_papers"),
+    "github_trending": ("GitHub Trending", "https://github.com/trending"),
+    "producthunt": ("Product Hunt", "https://www.producthunt.com/feed"),
+}
 
 
 class _Strict(BaseModel):
@@ -40,10 +64,20 @@ class RssEntry(_Strict):
     cadence_hours: int | None = Field(default=None, gt=0)
 
 
+class ApiEntry(_Strict):
+    """A non-RSS source with its own fetcher module; name and URL come from API_SOURCES."""
+
+    kind: ApiKind
+    category: str | None = None
+    base_weight: int = Field(default=50, ge=0, le=100)
+    cadence_hours: int = Field(default=24, gt=0)
+
+
 class SourcesFile(_Strict):
     defaults: Defaults = Field(default_factory=Defaults)
     devto: DevtoConfig = Field(default_factory=DevtoConfig)
     rss: list[RssEntry] = Field(default_factory=list)
+    api: list[ApiEntry] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def _unique(self) -> Self:
@@ -51,6 +85,7 @@ class SourcesFile(_Strict):
             ("rss url", [e.url for e in self.rss]),
             ("rss name", [e.name for e in self.rss]),
             ("devto tag", self.devto.tags),
+            ("api kind", [e.kind for e in self.api]),
         ):
             dupes = sorted({v for v in values if values.count(v) > 1})
             if dupes:
@@ -58,7 +93,7 @@ class SourcesFile(_Strict):
         return self
 
     def specs(self) -> list[SourceSpec]:
-        """One SourceSpec per RSS feed and per dev.to tag; natural key (kind, url)."""
+        """One SourceSpec per RSS feed, dev.to tag and API source; natural key (kind, url)."""
         specs = [
             SourceSpec(
                 kind="rss",
@@ -79,6 +114,17 @@ class SourcesFile(_Strict):
                 cadence_hours=self.devto.cadence_hours or self.defaults.devto.cadence_hours,
             )
             for tag in self.devto.tags
+        ]
+        specs += [
+            SourceSpec(
+                kind=e.kind,
+                name=API_SOURCES[e.kind][0],
+                url=API_SOURCES[e.kind][1],
+                category=e.category,
+                base_weight=e.base_weight,
+                cadence_hours=e.cadence_hours,
+            )
+            for e in self.api
         ]
         return specs
 

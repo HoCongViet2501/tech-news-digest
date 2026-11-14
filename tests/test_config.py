@@ -99,3 +99,29 @@ def test_unknown_timezone_is_rejected(tmp_path: Path) -> None:
 def test_repo_config_yaml_is_valid() -> None:
     cfg = load_config(Path(__file__).parent.parent / "config.yaml")
     assert cfg.max_items == 10
+
+
+def test_ingest_defaults(tmp_path: Path) -> None:
+    ingest = load_config(write(tmp_path, MINIMAL)).ingest
+
+    assert (ingest.enrich_per_run, ingest.concurrency, ingest.per_host) == (150, 8, 2)
+    assert (ingest.enrich_timeout_s, ingest.due_slack_minutes, ingest.pop_window_days) == (
+        10,
+        15,
+        7,
+    )
+    assert ingest.rss_max_age_days == 30
+    assert ingest.github_search.days == 7
+    assert ingest.github_search.zero_fork_min_stars == 200
+
+
+def test_ingest_section_is_strict(tmp_path: Path) -> None:
+    with pytest.raises(ConfigError, match="ingest.github_search.colour"):
+        load_config(write(tmp_path, MINIMAL + "ingest:\n  github_search: {colour: red}\n"))
+    with pytest.raises(ConfigError, match="ingest.per_host"):
+        load_config(write(tmp_path, MINIMAL + "ingest: {per_host: 0}\n"))
+
+
+def test_repo_config_ingest_matches_defaults() -> None:
+    cfg = load_config(Path(__file__).parent.parent / "config.yaml")
+    assert cfg.ingest == type(cfg.ingest)()

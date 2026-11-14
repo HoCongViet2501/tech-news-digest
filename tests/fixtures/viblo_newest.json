@@ -1,0 +1,143 @@
+{
+ "data": [
+  {
+   "id": 110677,
+   "title": "Django: dùng auto_now và auto_now_add đúng cách — khi nào nên thay bằng default=timezone.now",
+   "slug": "k74a96Ql4eO",
+   "url": "https://viblo.asia/p/django-dung-auto-now-va-auto-now-add-dung-cach-khi-nao-nen-thay-bang-defaulttimezonenow-k74a96Ql4eO",
+   "user_id": 59670,
+   "transliterated": "django-dung-auto-now-va-auto-now-add-dung-cach-khi-nao-nen-thay-bang-defaulttimezonenow",
+   "contents_short": "Hầu hết model Django đều có hai trường thời gian: createdat để biết bản ghi được tạo khi nào và updatedat cho lần sửa cuối. Cách nhanh nhất là autonowadd=True cho createdat và autonow=True cho updatedat — Django tự điền cả hai, bạn không cần chạm vào chúng. Nhưng hai tham số này có ba \"cái bẫy\" hay gặp: không gán được ngày cũ khi import dữ liệu, update() hàng loạt không đổi updatedat, và trường...",
+   "published_at": "2026-11-14T15:32:37.000000Z",
+   "scheduled_publish_at": null,
+   "is_shared": false,
+   "updated_at": "2026-11-14T17:32:02.000000Z",
+   "edited_at": "2026-11-14T15:31:24.000000Z",
+   "translation_source": null,
+   "trend_at": null,
+   "promoted_at": null,
+   "reading_time": 4,
+   "organization_pinned_at": null,
+   "profile_pin_position": null,
+   "points": 0,
+   "views_count": 3,
+   "clips_count": 0,
+   "comments_count": 0,
+   "rated_value": null,
+   "promoted": false,
+   "trending": false,
+   "is_video": false,
+   "thumbnail_url": "https://images.viblo.asia/f276d918-bbe3-4a85-bf5e-241c3e652082.png",
+   "tags": {
+    "data": [
+     {
+      "slug": "django",
+      "name": "Django"
+     },
+     {
+      "slug": "python",
+      "name": "Python"
+     },
+     {
+      "slug": "web-development",
+      "name": "Web Development"
+     }
+    ]
+   }
+  },
+  {
+   "id": 110673,
+   "title": "CHINH PHỤC ANZ SAU 5 NĂM LÀM BACKEND ENGINEER CỦA NỮ HỌC VIÊN",
+   "slug": "R5JRQrgr4Gv",
+   "url": "https://viblo.asia/p/chinh-phuc-anz-sau-5-nam-lam-backend-engineer-cua-nu-hoc-vien-R5JRQrgr4Gv",
+   "user_id": 148488,
+   "transliterated": "chinh-phuc-anz-sau-5-nam-lam-backend-engineer-cua-nu-hoc-vien",
+   "contents_short": "Trong hành trình sự nghiệp công nghệ, việc tìm kiếm cơ hội tại các tập đoàn quốc tế luôn là mục tiêu của nhiều kỹ sư phần mềm. Với một kỹ sư backend có gần 5 năm kinh nghiệm làm việc tại Viettel con đường đến với ANZ không chỉ là câu chuyện của nỗ lực cá nhân mà còn là minh chứng cho sức mạnh của việc học tập bài bản và định hướng đúng đắn.\n\nCùng Engineer Pro trò chuyện với nữ học viên này để h...",
+   "published_at": "2026-11-14T13:21:39.000000Z",
+   "scheduled_publish_at": null,
+   "is_shared": false,
+   "updated_at": "2026-11-14T15:44:04.000000Z",
+   "edited_at": "2026-11-14T13:21:34.000000Z",
+   "translation_source": null,
+   "trend_at": null,
+   "promoted_at": null,
+   "reading_time": 8,
+   "organization_pinned_at": null,
+   "profile_pin_position": null,
+   "points": 0,
+   "views_count": 8,
+   "clips_count": 0,
+   "comments_count": 0,
+   "rated_value": null,
+   "promoted": false,
+   "trending": false,
+   "is_video": false,
+   "thumbnail_url": "https://images.viblo.asia/0aed2df1-a88e-4c8c-8193-1d595707c5b3.png",
+   "tags": {
+    "data": [
+     {
+      "slug": "atbigtech",
+      "name": "@BigTech"
+     },
+     {
+      "slug": "atengineerpro",
+      "name": "@EngineerPro"
+     },
+     {
+      "slug": "atinterview",
+      "name": "@Interview"
+     }
+    ]
+   }
+  },
+  {
+   "id": 107349,
+   "title": "Series Java Swing Bài 28: WindowListener - Xử lý logic khi thu nhỏ, phóng to và Cảnh báo trước khi thoát",
+   "slug": "gdJzvPwjJz5",
+   "url": "https://viblo.asia/p/series-java-swing-bai-28-windowlistener-xu-ly-logic-khi-thu-nho-phong-to-va-canh-bao-truoc-khi-thoat-gdJzvPwjJz5",
+   "user_id": 182653,
+   "transliterated": "series-java-swing-bai-28-windowlistener-xu-ly-logic-khi-thu-nho-phong-to-va-canh-bao-truoc-khi-thoat",
+   "contents_short": "Mọi cửa sổ ứng dụng trên hệ điều hành đều có một vòng đời: Mở lên, được người dùng sử dụng (Activate), thu nhỏ xuống thanh Taskbar (Minimize), phóng to trở lại, và cuối cùng là bị đóng (bấm nút X).\n\nĐôi khi, bạn muốn ứng dụng của mình \"phản ứng\" lại các trạng thái này. Điển hình nhất là tính năng: Bật hộp thoại hỏi \"Bạn có chắc chắn muốn thoát không? Dữ liệu chưa lưu sẽ bị mất\" khi người dùng v...",
+   "published_at": "2026-11-14T12:26:36.000000Z",
+   "scheduled_publish_at": null,
+   "is_shared": false,
+   "updated_at": "2026-11-14T17:00:37.000000Z",
+   "edited_at": "2026-09-26T03:17:30.000000Z",
+   "translation_source": null,
+   "trend_at": null,
+   "promoted_at": null,
+   "reading_time": 4,
+   "organization_pinned_at": null,
+   "profile_pin_position": null,
+   "points": 0,
+   "views_count": 13,
+   "clips_count": 0,
+   "comments_count": 0,
+   "rated_value": null,
+   "promoted": false,
+   "trending": false,
+   "is_video": false,
+   "thumbnail_url": "https://images.viblo.asia/43c724a4-1c2d-4faf-af03-41ddefb8fe0d.png",
+   "tags": {
+    "data": [
+     {
+      "slug": "backend",
+      "name": "Backend"
+     }
+    ]
+   }
+  }
+ ],
+ "meta": {
+  "pagination": {
+   "total": 48194,
+   "count": 20,
+   "per_page": 20,
+   "current_page": 1,
+   "total_pages": 2410,
+   "links": {
+    "next": "http://viblo.asia/posts/newest?page=2"
+   }
+  }
+ }
+}

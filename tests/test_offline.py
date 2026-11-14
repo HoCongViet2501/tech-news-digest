@@ -5,7 +5,7 @@ from digest.offline import FIXTURES_DIR, ROUTES, offline_transport
 
 
 def test_every_route_has_a_fixture() -> None:
-    for _, _, filename in ROUTES:
+    for _, _, filename, *_ in ROUTES:
         assert (FIXTURES_DIR / filename).is_file(), filename
 
 
@@ -15,9 +15,17 @@ def test_every_route_has_a_fixture() -> None:
         ("https://dev.to/api/articles?tag=java&top=7", "devto_top.json"),
         ("https://huggingface.co/api/daily_papers", "hf_papers.json"),
         ("https://programming.dev/api/v3/post/list?sort=TopDay", "lemmy.json"),
-        ("https://viblo.asia/api/posts/trending", "viblo_trending.json"),
+        ("https://viblo.asia/api/posts/editors-choice?limit=20", "viblo_editors_choice.json"),
+        ("https://viblo.asia/api/posts/newest?limit=20", "viblo_newest.json"),
         ("https://www.producthunt.com/feed", "producthunt.xml"),
-        ("https://api.github.com/search/repositories?q=created:>2026-11-08", "github_search.json"),
+        (
+            "https://api.github.com/search/repositories?q=created:>2026-11-08",
+            "github_search_new.json",
+        ),
+        (
+            "https://api.github.com/search/repositories?q=created:>2026-11-08 language:go",
+            "github_search.json",
+        ),
     ],
 )
 def test_content_store_endpoints_are_served_offline(url: str, fixture: str) -> None:

@@ -23,6 +23,10 @@ LABELS = {
         "feed": "RSS",
         "all_failed": "Hôm nay không lấy được tin từ nguồn nào. Xem log GitHub Actions.",
         "ai_unavailable": "AI không khả dụng hôm nay, tin được xếp hạng theo heuristic.",
+        "health_title": "Nguồn tin lỗi quá 24 giờ",
+        "health_last_ok": "lần cuối OK:",
+        "health_never": "chưa bao giờ",
+        "health_not_fetched": "không được lấy tin (ingest có chạy không?)",
     },
     "en": {
         "title": "Tech digest",
@@ -33,6 +37,10 @@ LABELS = {
         "feed": "RSS",
         "all_failed": "No source could be fetched today. Check the GitHub Actions log.",
         "ai_unavailable": "AI unavailable today; items are ranked by heuristic.",
+        "health_title": "Sources failing for over 24 h",
+        "health_last_ok": "last ok:",
+        "health_never": "never",
+        "health_not_fetched": "not fetched (is ingest running?)",
     },
 }
 

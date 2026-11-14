@@ -1,0 +1,56 @@
+name: ingest
+
+# Content store ingestion (docs/PLAN.md §13): fetch due sources, enrich, pop_pct.
+on:
+  schedule:
+    - cron: "0 */3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Own group: ingest runs never overlap each other, and a pending ingest can never
+# cancel the daily digest (daily only reads the DB, in its health step).
+concurrency:
+  group: ingest
+  cancel-in-progress: false
+
+jobs:
+  # Secrets cannot be read in a job-level `if`, so this job only reports
+  # whether the DB secret is set. Until the owner adds it (human-only setup),
+  # the ingest job is skipped instead of failing.
+  check-secrets:
+    runs-on: ubuntu-latest
+    outputs:
+      configured: ${{ steps.check.outputs.configured }}
+    steps:
+      - id: check
+        env:
+          HAS_DB_URL: ${{ secrets.SUPABASE_DB_URL != '' }}
+        run: |
+          if [ "$HAS_DB_URL" = true ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::SUPABASE_DB_URL is not configured; skipping ingest."
+          fi
+
+  ingest:
+    needs: check-secrets
+    if: needs.check-secrets.outputs.configured == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+
+      - run: uv sync --locked
+
+      # The DB URL (session pooler) is passed only through env, never inlined.
+      # GITHUB_TOKEN raises the GitHub Search API rate limit; it is never logged.
+      - name: Ingest
+        run: uv run python -m digest ingest
+        env:
+          DIGEST_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+          GITHUB_TOKEN: ${{ github.token }}

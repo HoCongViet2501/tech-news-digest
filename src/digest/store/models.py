@@ -59,6 +59,7 @@ class Source(SourceSpec):
     last_fetched_at: AwareDatetime | None = None
     last_ok_at: AwareDatetime | None = None
     last_error: str | None = None
+    created_at: AwareDatetime | None = None
 
 
 class SyncResult(_Model):
@@ -139,4 +140,18 @@ class StoredItem(NewItem):
 
 class UpsertResult(_Model):
     new_ids: list[str] = Field(default_factory=list)  # inserted by this call, in input order
-    refreshed: int = 0  # already known; native_score/comments/fetched_at refreshed
+    refreshed: int = 0  # already known from the same source; popularity refreshed
+    # Already known from another source (same canonical URL): left untouched, since one
+    # source's points must not overwrite another's (pop_pct is per source).
+    other_source: int = 0
+
+
+class EnrichmentUpdate(_Model):
+    """What the enrich stage writes for one item. None leaves the stored value as it is;
+    description is only filled when the item has none."""
+
+    id: str = Field(pattern=r"^[0-9a-f]{40}$")
+    image_url: str | None = None
+    description: str | None = None
+    reading_min: int | None = Field(default=None, ge=0, le=32767)
+    lang: str | None = None

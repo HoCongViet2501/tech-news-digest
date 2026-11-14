@@ -20,6 +20,7 @@ SECRET_ENV = (
     "OPENROUTER_API_KEY",
     "GH_READ_TOKEN",
     "GITHUB_TOKEN",
+    "DIGEST_DB_URL",
 )
 
 # Shortly after the fixtures were downloaded (2026-09-27 ~17:43 UTC).

@@ -152,10 +152,16 @@ def build_targets(now: datetime) -> list[Target]:
             trim=trim_json(10, key="posts"),
         ),
         Target(
-            "viblo",
-            "https://viblo.asia/api/posts/trending",
-            "viblo_trending.json",
-            trim=trim_json(5, key="data"),
+            "viblo_editors_choice",
+            "https://viblo.asia/api/posts/editors-choice?limit=20",
+            "viblo_editors_choice.json",
+            trim=trim_json(3, key="data"),
+        ),
+        Target(
+            "viblo_newest",
+            "https://viblo.asia/api/posts/newest?limit=20",
+            "viblo_newest.json",
+            trim=trim_json(3, key="data"),
         ),
         Target(
             "producthunt",

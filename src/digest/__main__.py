@@ -1,16 +1,23 @@
-"""CLI entry point: `python -m digest run [--dry-run] [--only ...] [--date ...]`."""
+"""CLI entry point.
+
+- `python -m digest run [--dry-run] [--only ...] [--date ...]`: the daily Telegram digest.
+- `python -m digest ingest [--allow-remote]`: one content-store run (needs DIGEST_DB_URL).
+- `python -m digest health [--dry-run] [--allow-remote]`: Telegram warning for failing sources.
+"""
 
 import argparse
 import asyncio
 import logging
 import os
 import sys
-from collections.abc import Sequence
-from datetime import date, datetime, time
+from collections.abc import Mapping, Sequence
+from contextlib import AbstractContextManager
+from datetime import UTC, date, datetime, time
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import httpx
+import psycopg
 from dotenv import load_dotenv
 
 from digest.ai.fake import fake_chain
@@ -22,7 +29,9 @@ from digest.deliver.pages import build_pages
 from digest.deliver.telegram import DeliveryError, send_messages
 from digest.fetchers import fetch_all
 from digest.filter import apply_filters, rank
+from digest.health import render_health, stale_sources
 from digest.http import make_client
+from digest.ingest import IngestStats, run_ingest
 from digest.logs import setup_logging
 from digest.models import Digest, Item, ScoredItem
 from digest.normalize import normalize
@@ -34,6 +43,8 @@ from digest.state import (
     save_digest,
     save_seen,
 )
+from digest.store import ContentStore, PostgresStore, SourceSpec, load_sources
+from digest.store.dburl import DB_URL_ENV, DbUrlError, resolve_db_url
 
 SOURCE_NAMES = ("hn", "github", "lobsters", "reddit", "rss")
 TELEGRAM_ENV = ("TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID")
@@ -74,6 +85,23 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     run.add_argument("--config", type=Path, default=Path("config.yaml"), help="path to config")
     run.add_argument("--data-dir", type=Path, default=Path("data"), help="state directory")
     run.add_argument("--site-dir", type=Path, default=Path("site"), help="Pages output directory")
+
+    remote_help = "allow a non-local DIGEST_DB_URL outside GitHub Actions"
+    ingest = commands.add_parser(
+        "ingest", help="fetch due sources into the content store (DIGEST_DB_URL)"
+    )
+    ingest.add_argument("--config", type=Path, default=Path("config.yaml"), help="path to config")
+    ingest.add_argument(
+        "--sources", type=Path, default=Path("sources.yaml"), help="path to sources.yaml"
+    )
+    ingest.add_argument("--allow-remote", action="store_true", help=remote_help)
+
+    health = commands.add_parser(
+        "health", help="Telegram warning for sources failing > 24 h (DIGEST_DB_URL)"
+    )
+    health.add_argument("--config", type=Path, default=Path("config.yaml"), help="path to config")
+    health.add_argument("--dry-run", action="store_true", help="print the warning; send nothing")
+    health.add_argument("--allow-remote", action="store_true", help=remote_help)
 
     return parser.parse_args(argv)
 
@@ -190,10 +218,102 @@ def add_summaries(
     return digest.model_copy(update={"items": items, "stats": stats})
 
 
+def _open_store(url: str) -> AbstractContextManager[ContentStore]:
+    return PostgresStore.connect(url)
+
+
+def _connect(url: str) -> AbstractContextManager[ContentStore] | None:
+    """Open the store; on failure print why without the URL (libpq messages name the
+    host and user) and return None."""
+    try:
+        return _open_store(url)
+    except psycopg.Error as exc:
+        print(f"could not connect to the database ({type(exc).__name__})", file=sys.stderr)
+        return None
+
+
+async def _run_ingest(store: ContentStore, cfg: Config, specs: list[SourceSpec]) -> IngestStats:
+    offline = is_offline()
+    async with make_client(offline_transport() if offline else None) as client:
+        return await run_ingest(
+            store,
+            cfg,
+            specs,
+            client,
+            now=datetime.now(UTC),
+            github_token=os.environ.get("GITHUB_TOKEN") or None,
+            devto_pause_seconds=0 if offline else 1.0,
+        )
+
+
+def ingest_main(args: argparse.Namespace, db_env: Mapping[str, str]) -> int:
+    try:
+        cfg = load_config(args.config)
+        specs = load_sources(args.sources).specs()  # a bad file fails before connecting
+        url = resolve_db_url(db_env, allow_remote=args.allow_remote)
+    except (ConfigError, DbUrlError) as exc:
+        print(exc, file=sys.stderr)
+        return 2
+    if url is None:
+        print(f"{DB_URL_ENV} is not set; nowhere to ingest into", file=sys.stderr)
+        return 2
+    store = _connect(url)
+    if store is None:
+        return 1
+    with store as opened:
+        stats = asyncio.run(_run_ingest(opened, cfg, specs))
+    log.info("%s", stats.line())
+    print(stats.line())
+    return 0
+
+
+def health_main(args: argparse.Namespace, db_env: Mapping[str, str]) -> int:
+    try:
+        cfg = load_config(args.config)
+        url = resolve_db_url(db_env, allow_remote=args.allow_remote)
+    except (ConfigError, DbUrlError) as exc:
+        print(exc, file=sys.stderr)
+        return 2
+    if url is None:
+        log.info("health: %s is not set, skipping", DB_URL_ENV)
+        return 0
+    store = _connect(url)
+    if store is None:
+        return 1
+    with store as opened:
+        sources = opened.list_sources(enabled_only=True)
+    now = datetime.now(cfg.tz)
+    stale = stale_sources(sources, now)
+    print(f"health: {len(stale)} of {len(sources)} enabled sources failing for over 24 h")
+    if not stale:
+        return 0
+    message = render_health(stale, now, cfg.ai.output_language)
+    if args.dry_run:
+        print(message)
+        return 0
+    try:
+        secrets = _telegram_secrets(cfg, dry_run=False)
+        asyncio.run(_deliver(cfg, [message], secrets))
+    except ConfigError as exc:
+        print(exc, file=sys.stderr)
+        return 2
+    except DeliveryError as exc:
+        log.error("telegram delivery failed: %s", exc)
+        return 1
+    return 0
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
     setup_logging()
+    # The DB URL is read before .env is loaded: .env holds the production URL under
+    # another name, and ingest must only ever use an explicitly exported DIGEST_DB_URL.
+    db_env = {k: os.environ[k] for k in (DB_URL_ENV, "GITHUB_ACTIONS") if k in os.environ}
     load_dotenv(Path(".env"))
+    if args.command == "ingest":
+        return ingest_main(args, db_env)
+    if args.command == "health":
+        return health_main(args, db_env)
 
     try:
         cfg = load_config(args.config)

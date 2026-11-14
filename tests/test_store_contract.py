@@ -11,6 +11,7 @@ import pytest
 
 from digest.store import (
     ContentStore,
+    EnrichmentUpdate,
     FetchOutcome,
     MemoryStore,
     NewItem,
@@ -213,6 +214,24 @@ def test_upsert_refreshes_only_popularity_and_fetched_at(
     assert new.first_seen_at == later
 
 
+def test_upsert_leaves_items_of_another_source_alone(store: ContentStore) -> None:
+    """The same URL on HN and Lobsters: Lobsters' score must not overwrite HN's."""
+    store.sync_sources([spec("Alpha"), spec("Beta")])
+    alpha, beta = (s.id for s in store.list_sources())
+    store.upsert_items([make_item(1, alpha, native_score=10)])
+
+    result = store.upsert_items(
+        [
+            make_item(1, beta, native_score=99, fetched_at=T0 + timedelta(hours=1)),
+            make_item(2, beta),
+        ]
+    )
+
+    assert (result.new_ids, result.refreshed, result.other_source) == ([f"{2:040x}"], 0, 1)
+    [item] = store.get_items([f"{1:040x}"])
+    assert (item.source_id, item.native_score, item.fetched_at) == (alpha, 10, T0)
+
+
 def test_upsert_duplicate_ids_in_batch_last_wins(store: ContentStore, source_id: int) -> None:
     result = store.upsert_items(
         [make_item(1, source_id, native_score=1), make_item(1, source_id, native_score=9)]
@@ -266,3 +285,120 @@ def test_killed_run_is_finished_by_next_run(store: ContentStore, source_id: int)
     rest = store.pending(Stage.ENRICH, limit=100)
 
     assert {i.id for i in rest} == {i.id for i in batch} - {i.id for i in first_run}
+
+
+def test_sync_sets_created_at(store: ContentStore) -> None:
+    store.sync_sources([spec("Alpha")])
+
+    [source] = store.list_sources()
+
+    assert source.created_at is not None
+
+
+# --- enrichment ------------------------------------------------------------
+
+
+def test_save_enrichment_fills_fields_and_marks_done(store: ContentStore, source_id: int) -> None:
+    store.upsert_items([make_item(1, source_id), make_item(2, source_id, description="feed")])
+    done_at = T0 + timedelta(hours=1)
+
+    count = store.save_enrichment(
+        [
+            EnrichmentUpdate(
+                id=f"{1:040x}",
+                image_url="https://img.example/1.png",
+                description="from page",
+                reading_min=4,
+                lang="vi",
+            ),
+            EnrichmentUpdate(id=f"{2:040x}", description="from page", lang="en"),
+            EnrichmentUpdate(id="f" * 40, lang="en"),  # unknown id: ignored
+        ],
+        done_at,
+    )
+
+    assert count == 2
+    one, two = store.get_items([f"{1:040x}", f"{2:040x}"])
+    assert (one.image_url, one.description, one.reading_min, one.lang) == (
+        "https://img.example/1.png",
+        "from page",
+        4,
+        "vi",
+    )
+    # The source's own description wins over the page's.
+    assert (two.image_url, two.description, two.reading_min, two.lang) == (
+        None,
+        "feed",
+        None,
+        "en",
+    )
+    assert one.enriched_at == two.enriched_at == done_at
+    assert store.pending(Stage.ENRICH, limit=10) == []
+
+
+def test_save_enrichment_with_nothing_found_still_marks_done(
+    store: ContentStore, source_id: int
+) -> None:
+    store.upsert_items([make_item(1, source_id)])
+    store.save_enrichment(
+        [EnrichmentUpdate(id=f"{1:040x}", image_url="https://img.example/a.png")], T0
+    )
+
+    # A later empty result (e.g. a re-run) neither clears fields nor re-queues the item.
+    assert store.save_enrichment([EnrichmentUpdate(id=f"{1:040x}")], T0 + timedelta(1)) == 1
+
+    [item] = store.get_items([f"{1:040x}"])
+    assert item.image_url == "https://img.example/a.png"
+    assert item.enriched_at == T0 + timedelta(1)
+    assert store.save_enrichment([], T0) == 0
+
+
+# --- pop_pct ---------------------------------------------------------------
+
+
+def pcts(store: ContentStore, *ns: int) -> list[float | None]:
+    return [i.pop_pct for i in store.get_items([f"{n:040x}" for n in ns])]
+
+
+def test_pop_pct_is_mid_rank_percentile_per_source(store: ContentStore) -> None:
+    store.sync_sources([spec("Alpha"), spec("Beta"), spec("Gamma")])
+    alpha, beta, gamma = (s.id for s in store.list_sources())
+    # Alpha: scores 10, 20, 20, 40 -> ties share the middle of their ranks.
+    store.upsert_items(
+        [
+            make_item(1, alpha, native_score=10),
+            make_item(2, alpha, native_score=20),
+            make_item(3, alpha, native_score=20),
+            make_item(4, alpha, native_score=40),
+            # Beta: a lone item. Gamma: all tie (RSS: score = base weight).
+            make_item(5, beta, native_score=1000),
+            make_item(6, gamma, native_score=60),
+            make_item(7, gamma, native_score=60),
+        ]
+    )
+
+    changed = store.recompute_pop_pct(T0, timedelta(days=7))
+
+    assert changed == 7
+    assert pcts(store, 1, 2, 3, 4) == pytest.approx([0, 0.5, 0.5, 1], abs=1e-6)
+    assert pcts(store, 5, 6, 7) == pytest.approx([0.5, 0.5, 0.5], abs=1e-6)
+    # Nothing changed since: nothing is rewritten.
+    assert store.recompute_pop_pct(T0, timedelta(days=7)) == 0
+
+
+def test_pop_pct_only_counts_the_window(store: ContentStore, source_id: int) -> None:
+    store.upsert_items(
+        [
+            make_item(1, source_id, native_score=5),
+            make_item(2, source_id, native_score=50),
+            # Published 10 days ago: outside the window, neither ranked nor updated.
+            make_item(3, source_id, native_score=500, published_at=T0 - timedelta(days=10)),
+        ]
+    )
+
+    store.recompute_pop_pct(T0, timedelta(days=7))
+    assert pcts(store, 1, 2, 3) == pytest.approx([0, 1, None], abs=1e-6)
+
+    store.upsert_items([make_item(2, source_id, native_score=1)])  # score dropped
+    assert store.recompute_pop_pct(T0, timedelta(days=7)) == 2
+    assert pcts(store, 1, 2) == pytest.approx([1, 0], abs=1e-6)

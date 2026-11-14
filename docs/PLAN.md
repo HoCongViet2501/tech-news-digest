@@ -515,7 +515,7 @@ Repo layout becomes a monorepo: `src/digest/` (pipeline), `web/` (Next.js), `sup
 | Part | How it deploys | Secrets / env |
 | --- | --- | --- |
 | Database | SQL in `supabase/migrations/`. `db.yml` runs `supabase db push` on merges to `main` that touch that folder, before any other job. | `SUPABASE_DB_URL` (Actions only). `db push --remote=<db url>` needs no Supabase access token. |
-| Pipeline | `ingest.yml` every 3 h. `daily.yml` at 07:00 handles Telegram, user vectors and cleanup. Both share one `concurrency` group so runs never overlap. Writes go through psycopg via the Supavisor pooler (IPv4; the direct host is IPv6-only and Actions runners have no IPv6). Session mode on port 5432. | `SUPABASE_DB_URL`, LLM keys, `TELEGRAM_*` |
+| Pipeline | `ingest.yml` every 3 h. `daily.yml` at 07:00 handles Telegram, user vectors and cleanup. Each has its own `concurrency` group (`ingest`, `daily-digest`): GitHub keeps one pending run per group, so a shared group could let a manual ingest cancel the daily digest. Ingest runs never overlap each other, and the daily job only reads the DB (health check). Writes go through psycopg via the Supavisor pooler (IPv4; the direct host is IPv6-only and Actions runners have no IPv6). Session mode on port 5432. | `SUPABASE_DB_URL`, LLM keys, `TELEGRAM_*` |
 | Web | Vercel Git integration, root `web/`. `main` deploys production; PRs get preview deploys. An "Ignored Build Step" skips builds when `web/` did not change, so daily `digest:` commits cost no builds. | `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` (publishable key). No secret key exists in the project setup at all; the web always runs as the user (JWT + RLS). |
 | CI | `ci.yml`: pytest + ruff, `pnpm lint/test/build`. SQL and RLS tests run against a Postgres service container on the runner. | – |
 
@@ -660,7 +660,7 @@ Every phase ends in a runnable state. All Part 1 conventions in `CLAUDE.md` stil
 5. Enrichment: `og:image`, reading time, language detection. Respect `robots.txt`; never store full text.
 6. Stage columns as the work queue (§13 Ingestion); per-run caps in `config.yaml` (`ingest.enrich_per_run`, `ingest.llm_calls_per_run`).
 7. Near-duplicate clustering: **moved to W2** (needs embeddings).
-8. `ingest.yml` every 3 h with a shared `concurrency` group; source health via `sources.last_ok_at` / `last_error`, Telegram warning after 24 h of failures.
+8. `ingest.yml` every 3 h in its own `concurrency` group; RSS entries older than `ingest.rss_max_age_days` (30) are skipped so archives are never backfilled; source health via `sources.last_ok_at` / `last_error`, Telegram warning after 24 h of failures.
 9. **Acceptance:**
    - ≥500 unique items/day.
    - One dead source does not break the run.

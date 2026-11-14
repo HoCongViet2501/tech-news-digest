@@ -43,3 +43,20 @@ ai:
 delivery:
   telegram: {enabled: true}
   pages: {enabled: true, base_url: "https://hocongviet2501.github.io/tech-news-digest/"}
+
+# Part 2 content store: `python -m digest ingest` (ingest.yml, every 3 h).
+# Sources for it live in sources.yaml.
+ingest:
+  enrich_per_run: 150       # pages fetched for og:image / description / language per run
+  concurrency: 8            # sources (and enrichment pages) in flight at once
+  per_host: 2               # at most this many in flight per host
+  enrich_timeout_s: 10
+  due_slack_minutes: 15     # a source is due this early, to absorb cron start jitter
+  pop_window_days: 7        # pop_pct = per-source percentile of native_score over this window
+  rss_max_age_days: 30      # skip older RSS entries, so a first fetch never imports whole archives
+  github_search:
+    days: 7                 # repos created in the last N days
+    max_fork_ratio: 0.5     # forks > ratio x stars: bot forks
+    min_fork_ratio: 0.005   # with >= zero_fork_min_stars stars, fewer forks: bought stars
+    zero_fork_min_stars: 200
+  llm_calls_per_run: 20     # reserved for W2 tagging; not used yet

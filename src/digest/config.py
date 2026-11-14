@@ -92,6 +92,30 @@ class DeliveryConfig(_Strict):
     pages: PagesConfig = Field(default_factory=PagesConfig)
 
 
+class GitHubSearchIngestConfig(_Strict):
+    """Query window and spam thresholds for the github_search fetcher."""
+
+    days: int = Field(default=7, gt=0)
+    max_fork_ratio: float = Field(default=0.5, gt=0)
+    min_fork_ratio: float = Field(default=0.005, ge=0)
+    zero_fork_min_stars: int = Field(default=200, ge=0)
+
+
+class IngestConfig(_Strict):
+    """`python -m digest ingest` (Part 2 content store, docs/PLAN.md §13 Ingestion)."""
+
+    enrich_per_run: int = Field(default=150, ge=0)
+    concurrency: int = Field(default=8, gt=0)  # sources (and pages) fetched at once
+    per_host: int = Field(default=2, gt=0)  # at most this many in flight per host
+    enrich_timeout_s: float = Field(default=10, gt=0)
+    due_slack_minutes: int = Field(default=15, ge=0)  # absorbs cron start jitter
+    pop_window_days: int = Field(default=7, gt=0)
+    # RSS entries older than this are skipped, so a first fetch never imports an archive.
+    rss_max_age_days: int = Field(default=30, gt=0)
+    github_search: GitHubSearchIngestConfig = Field(default_factory=GitHubSearchIngestConfig)
+    llm_calls_per_run: int = Field(default=20, ge=0)  # reserved for W2 tagging; unused
+
+
 class Config(_Strict):
     profile: str
     timezone: str = "Asia/Ho_Chi_Minh"
@@ -100,6 +124,7 @@ class Config(_Strict):
     filters: FiltersConfig = Field(default_factory=FiltersConfig)
     ai: AIConfig = Field(default_factory=AIConfig)
     delivery: DeliveryConfig = Field(default_factory=DeliveryConfig)
+    ingest: IngestConfig = Field(default_factory=IngestConfig)
 
     @field_validator("timezone")
     @classmethod

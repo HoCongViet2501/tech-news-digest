@@ -26,14 +26,18 @@ async def fetch(
     top_days: int = 1,
     tag_top_days: int = 7,
     pause_seconds: float = 1.0,
+    include_top: bool = True,
 ) -> list[Item]:
     """Top articles of the last `top_days`, then of the last `tag_top_days` for each tag.
 
+    `include_top=False` skips the overall top list (ingest fetches it only once per run).
     An article listed under several tags is returned once. `now` is unused (the API
     gives publish times) but kept for the common fetcher signature. dev.to answers 429
     to quick bursts, so requests are spaced by `pause_seconds`.
     """
-    requests = [{"top": top_days, "per_page": per_page}]
+    requests: list[dict[str, int | str]] = []
+    if include_top:
+        requests.append({"top": top_days, "per_page": per_page})
     requests += [{"tag": tag, "top": tag_top_days, "per_page": per_page} for tag in tags]
     items: dict[str, Item] = {}
     for n, params in enumerate(requests):

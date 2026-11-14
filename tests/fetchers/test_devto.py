@@ -77,3 +77,23 @@ def test_network_error_returns_empty() -> None:
     respx.get(API).mock(side_effect=httpx.ConnectError("down"))
 
     assert fetch(["java"]) == []
+
+
+@respx.mock
+def test_include_top_false_fetches_only_the_tags() -> None:
+    top = respx.get(API, params={"top": "1"}).respond(200, json=[])
+    java = respx.get(API, params={"tag": "java", "top": "7"}).respond(
+        200, content=fixture_bytes("devto_tag_java.json")
+    )
+
+    async def go() -> list[Item]:
+        async with make_client() as client:
+            return await devto.fetch(
+                client, tags=["java"], now=NOW, pause_seconds=0, include_top=False
+            )
+
+    items = asyncio.run(go())
+
+    assert not top.called
+    assert java.called
+    assert len(items) == 5

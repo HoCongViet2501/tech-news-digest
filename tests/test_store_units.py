@@ -65,6 +65,10 @@ rss:
             "duplicate rss url",
         ),
         ("devto: {tags: [go, go]}\n", "duplicate devto tag"),
+        ("api:\n  - {kind: hackernews, url: 'https://x'}\n", "api.0.url"),
+        ("api:\n  - {kind: reddit}\n", "api.0.kind"),
+        ("api:\n  - {kind: lemmy, cadence_hours: 0}\n", "api.0.cadence_hours"),
+        ("api:\n  - {kind: lemmy}\n  - {kind: lemmy}\n", "duplicate api kind"),
         ("unknown: 1\n", "unknown"),
         ("- a\n", "must be a mapping"),
         ("rss: [\n", "Invalid YAML"),
@@ -73,6 +77,41 @@ rss:
 def test_invalid_sources_file(tmp_path: Path, text: str, message: str) -> None:
     with pytest.raises(ConfigError, match=message):
         load_sources(write(tmp_path, text))
+
+
+def test_api_sources_get_name_and_endpoint_url(tmp_path: Path) -> None:
+    path = write(
+        tmp_path,
+        "api:\n  - {kind: hackernews, base_weight: 70, cadence_hours: 3, category: news}\n",
+    )
+
+    [hn] = load_sources(path).specs()
+
+    assert hn.model_dump() == {
+        "kind": "hackernews",
+        "name": "Hacker News",
+        "url": "https://hn.algolia.com/api/v1/search_by_date",
+        "category": "news",
+        "base_weight": 70,
+        "cadence_hours": 3,
+    }
+
+
+def test_repo_sources_yaml_api_cadences() -> None:
+    specs = load_sources(REPO_ROOT / "sources.yaml").specs()
+
+    cadence = {s.kind: s.cadence_hours for s in specs if s.kind not in ("rss", "devto")}
+
+    assert cadence == {
+        "hackernews": 3,
+        "lobsters": 3,
+        "lemmy": 6,
+        "viblo": 6,
+        "github_search": 12,
+        "hf_papers": 24,
+        "github_trending": 24,
+        "producthunt": 24,
+    }
 
 
 def test_missing_sources_file(tmp_path: Path) -> None:

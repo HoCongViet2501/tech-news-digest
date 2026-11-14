@@ -15,6 +15,7 @@ from psycopg.rows import dict_row
 
 from digest.store.base import DEFAULT_DUE_SLACK, StoreError
 from digest.store.models import (
+    EnrichmentUpdate,
     FetchOutcome,
     NewItem,
     Source,
@@ -27,7 +28,7 @@ from digest.store.models import (
 
 _SOURCE_COLUMNS = (
     "id, kind, name, url, category, enabled, base_weight, cadence_hours, etag, "
-    "last_modified, last_fetched_at, last_ok_at, last_error"
+    "last_modified, last_fetched_at, last_ok_at, last_error, created_at"
 )
 # Everything except embedding (large) and fts (derived).
 _ITEM_COLUMNS = (
@@ -78,7 +79,41 @@ on conflict (id) do update set
   native_score = excluded.native_score,
   native_comments = excluded.native_comments,
   fetched_at = excluded.fetched_at
+where items.source_id = excluded.source_id
 returning id, (xmax = 0) as inserted
+"""
+
+# Description is only filled when missing; the other fields keep their value on null.
+_SAVE_ENRICHMENT = """
+update public.items i set
+  image_url = coalesce(u.image_url, i.image_url),
+  description = coalesce(i.description, u.description),
+  reading_min = coalesce(u.reading_min, i.reading_min),
+  lang = coalesce(u.lang, i.lang),
+  enriched_at = %s
+from unnest(%s::text[], %s::text[], %s::text[], %s::smallint[], %s::text[])
+  as u(id, image_url, description, reading_min, lang)
+where i.id = u.id
+"""
+
+# Mid-rank percentile of native_score per source: (#lower + #lower-or-equal - 1) / 2(n - 1).
+# rank() - 1 counts lower scores; count(*) over an ordered window (default RANGE frame)
+# counts lower-or-equal ones. A lone item, or a source whose items all tie, gets 0.5.
+_RECOMPUTE_POP_PCT = """
+with ranked as (
+  select id,
+         (case when count(*) over src = 1 then 0.5
+               else ((rank() over ordered - 1) + (count(*) over ordered - 1))::float8
+                    / (2 * (count(*) over src - 1))
+          end)::real as pct
+  from public.items
+  where published_at >= %s
+  window src as (partition by source_id),
+         ordered as (partition by source_id order by native_score)
+)
+update public.items i set pop_pct = r.pct
+from ranked r
+where i.id = r.id and i.pop_pct is distinct from r.pct
 """
 
 
@@ -186,11 +221,15 @@ class PostgresStore:
         try:
             with self._conn.transaction(), self._conn.cursor() as cur:
                 cur.execute(_UPSERT_ITEMS, params)
-                inserted = {row[0] for row in cur.fetchall() if row[1]}
+                rows = cur.fetchall()
         except psycopg.errors.ForeignKeyViolation as exc:
             raise StoreError("item references an unknown source id") from exc
+        inserted = {row[0] for row in rows if row[1]}
         new_ids = [item.id for item in batch if item.id in inserted]
-        return UpsertResult(new_ids=new_ids, refreshed=len(batch) - len(new_ids))
+        refreshed = len(rows) - len(new_ids)
+        return UpsertResult(
+            new_ids=new_ids, refreshed=refreshed, other_source=len(batch) - len(rows)
+        )
 
     def get_items(self, ids: Sequence[str]) -> list[StoredItem]:
         wanted = list(dict.fromkeys(ids))
@@ -211,6 +250,21 @@ class PostgresStore:
         )
         with self._conn.transaction(), self._conn.cursor() as cur:
             cur.execute(query, (at, list(dict.fromkeys(ids))))
+            return cur.rowcount
+
+    def save_enrichment(self, updates: Sequence[EnrichmentUpdate], at: datetime) -> int:
+        batch = list({u.id: u for u in updates}.values())
+        if not batch:
+            return 0
+        columns = ("id", "image_url", "description", "reading_min", "lang")
+        params = (at, *([getattr(u, c) for u in batch] for c in columns))
+        with self._conn.transaction(), self._conn.cursor() as cur:
+            cur.execute(_SAVE_ENRICHMENT, params)
+            return cur.rowcount
+
+    def recompute_pop_pct(self, now: datetime, window: timedelta) -> int:
+        with self._conn.transaction(), self._conn.cursor() as cur:
+            cur.execute(_RECOMPUTE_POP_PCT, (now - window,))
             return cur.rowcount
 
     # --- helpers -----------------------------------------------------------

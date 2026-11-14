@@ -30,6 +30,20 @@ by a stub that prints the messages, and state is still written; pass `--data-dir
 
 Behavior is configured in `config.yaml`.
 
+## Content store ingest (Part 2)
+
+```bash
+# Local Supabase only; the DB URL is read from the environment, never from .env.
+DIGEST_DB_URL=postgresql://postgres:postgres@127.0.0.1:54322/postgres uv run python -m digest ingest
+DIGEST_DB_URL=... uv run python -m digest health --dry-run  # list sources failing > 24 h
+```
+
+`ingest` syncs `sources.yaml`, fetches the sources that are due, enriches new items and
+recomputes `pop_pct` (tunables under `ingest:` in `config.yaml`). Outside GitHub Actions a
+non-local `DIGEST_DB_URL` is refused unless `--allow-remote` is passed. `ingest.yml` runs
+it every 3 hours; `daily.yml` runs `health`, which sends one Telegram warning when sources
+have been failing for more than 24 hours.
+
 ## AI scoring and summaries
 
 Set `ai.enabled: true` in `config.yaml` and provide at least one provider key

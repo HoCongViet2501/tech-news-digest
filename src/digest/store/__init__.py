@@ -6,6 +6,7 @@ state.py keeps the Part 1 Telegram state (seen.json, digests) and is unrelated.
 from digest.store.base import DEFAULT_DUE_SLACK, ContentStore, StoreError
 from digest.store.memory import MemoryStore
 from digest.store.models import (
+    EnrichmentUpdate,
     FetchOutcome,
     NewItem,
     Source,
@@ -21,6 +22,7 @@ from digest.store.sources_yaml import SourcesFile, load_sources
 __all__ = [
     "DEFAULT_DUE_SLACK",
     "ContentStore",
+    "EnrichmentUpdate",
     "FetchOutcome",
     "MemoryStore",
     "NewItem",
