@@ -5,7 +5,7 @@ from collections.abc import Iterable
 from datetime import date, timedelta
 from pathlib import Path
 
-from digest.models import Digest, RadarState
+from digest.models import Digest
 
 
 class StateError(Exception):
@@ -27,26 +27,6 @@ def _load_object(path: Path) -> dict:
 def load_seen(path: Path) -> dict[str, str]:
     """Map of item id -> date (YYYY-MM-DD) it was sent. Missing file = nothing sent yet."""
     return {str(k): str(v) for k, v in _load_object(path).items()}
-
-
-def load_radar_map(path: Path) -> dict[str, str | None]:
-    """Cache of dependency key ("npm:lodash") -> "owner/repo", or None if it has none."""
-    return {str(k): (str(v) if v else None) for k, v in _load_object(path).items()}
-
-
-def save_radar_map(path: Path, mapping: dict[str, str | None]) -> None:
-    _write_atomic(path, json.dumps(dict(sorted(mapping.items())), indent=1) + "\n")
-
-
-def load_radar_state(path: Path) -> RadarState:
-    try:
-        return RadarState.model_validate(_load_object(path))
-    except ValueError as exc:
-        raise StateError(f"Invalid {path}: {exc}") from exc
-
-
-def save_radar_state(path: Path, state: RadarState) -> None:
-    _write_atomic(path, state.model_dump_json(indent=1) + "\n")
 
 
 def _write_atomic(path: Path, text: str) -> None:
@@ -78,10 +58,8 @@ def save_digest(digests_dir: Path, digest: Digest) -> None:
         previous = Digest.model_validate_json(path.read_text(encoding="utf-8"))
         known = {i.id for i in previous.items}
         items = previous.items + [i for i in digest.items if i.id not in known]
-        known_radar = {r.key for r in previous.radar}
-        radar = previous.radar + [r for r in digest.radar if r.key not in known_radar]
         digest = digest.model_copy(
-            update={"items": items, "radar": radar, "stats": {**digest.stats, "sent": len(items)}}
+            update={"items": items, "stats": {**digest.stats, "sent": len(items)}}
         )
     _write_atomic(path, digest.model_dump_json(indent=1) + "\n")
 

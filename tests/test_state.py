@@ -78,3 +78,59 @@ def test_load_digests_from_missing_dir_is_empty(tmp_path: Path) -> None:
     from digest.state import load_digests
 
     assert load_digests(tmp_path / "nope") == []
+
+
+def test_old_digest_with_radar_key_still_loads(tmp_path: Path) -> None:
+    """Digests saved before the dependency radar was removed carry a "radar" key."""
+    from datetime import UTC, date, datetime
+
+    from digest.models import Digest, ScoredItem
+    from digest.state import load_digests, save_digest
+
+    old = {
+        "date": "2026-09-27",
+        "items": [
+            {
+                "id": "id1",
+                "source": "hn",
+                "title": "t1",
+                "url": "https://e.com/1",
+                "score": 1,
+                "published_at": "2026-09-27T00:00:00Z",
+                "relevance": 1.0,
+            }
+        ],
+        "stats": {"sent": 1, "radar": 1, "radar_warnings": "x"},
+        "radar": [
+            {
+                "key": "GHSA-p6mc-m468-83gw",
+                "kind": "vulnerability",
+                "ecosystem": "npm",
+                "package": "lodash",
+                "installed": "4.17.15",
+                "title": "Prototype Pollution",
+                "url": "https://osv.dev/vulnerability/GHSA-p6mc-m468-83gw",
+            }
+        ],
+    }
+    (tmp_path / "2026-09-27.json").write_text(json.dumps(old), encoding="utf-8")
+
+    [digest] = load_digests(tmp_path)
+    assert digest.date == date(2026, 9, 27)
+    assert [i.id for i in digest.items] == ["id1"]
+    assert "radar" not in digest.model_dump()
+
+    # a same-day re-run merges into the old file and drops the obsolete key
+    new = ScoredItem(
+        id="id2",
+        source="hn",
+        title="t2",
+        url="https://e.com/2",
+        score=2,
+        published_at=datetime(2026, 9, 27, tzinfo=UTC),
+        relevance=1.0,
+    )
+    save_digest(tmp_path, Digest(date=date(2026, 9, 27), items=[new]))
+    saved = json.loads((tmp_path / "2026-09-27.json").read_text(encoding="utf-8"))
+    assert "radar" not in saved
+    assert [i["id"] for i in saved["items"]] == ["id1", "id2"]

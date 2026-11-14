@@ -16,18 +16,6 @@ import httpx
 FIXTURES_DIR = Path(__file__).resolve().parent.parent / "tests" / "fixtures"
 USER_AGENT = "tech-news-digest/0.1 (fixture refresh)"
 
-# Radar fixtures mirror host/path, so the offline transport can serve them by URL.
-RADAR = "radar"
-# Ids the querybatch fixture returns for lodash@4.17.15; update both together.
-OSV_LODASH_IDS = (
-    "GHSA-29mw-wpgm-hmr9",
-    "GHSA-35jh-r3h4-6jhm",
-    "GHSA-f23m-r3pf-42rh",
-    "GHSA-p6mc-m468-83gw",
-    "GHSA-r5fr-rjxr-66jc",
-    "GHSA-xxjr-mmjv-4gpg",
-)
-
 log = logging.getLogger("refresh_fixtures")
 
 
@@ -72,47 +60,6 @@ def build_targets(now: datetime) -> list[Target]:
         Target("hn_item", "https://hn.algolia.com/api/v1/items/49868083", "hn_item.json"),
         Target(
             "github_repo", "https://api.github.com/repos/vectorize-io/hindsight", "github_repo.json"
-        ),
-        # Radar: package -> repo lookups for the hand-written manifests in radar/api.github.com
-        Target(
-            "npm_lodash",
-            "https://registry.npmjs.org/lodash/latest",
-            f"{RADAR}/registry.npmjs.org/lodash/latest.json",
-        ),
-        Target(
-            "pypi_httpx",
-            "https://pypi.org/pypi/httpx/json",
-            f"{RADAR}/pypi.org/pypi/httpx/json.json",
-        ),
-        Target(
-            "releases_lodash",
-            "https://api.github.com/repos/lodash/lodash/releases?per_page=5",
-            f"{RADAR}/api.github.com/repos/lodash/lodash/releases.json",
-        ),
-        Target(
-            "releases_httpx",
-            "https://api.github.com/repos/encode/httpx/releases?per_page=5",
-            f"{RADAR}/api.github.com/repos/encode/httpx/releases.json",
-        ),
-        # Same queries, in the same order, as the offline radar run over the demo manifests.
-        Target(
-            "osv_querybatch",
-            "https://api.osv.dev/v1/querybatch",
-            f"{RADAR}/api.osv.dev/v1/querybatch.json",
-            json_body={
-                "queries": [
-                    {"package": {"name": "lodash", "ecosystem": "npm"}, "version": "4.17.15"},
-                    {"package": {"name": "httpx", "ecosystem": "PyPI"}, "version": "0.27.0"},
-                ]
-            },
-        ),
-        *(
-            Target(
-                f"osv_{vuln_id}",
-                f"https://api.osv.dev/v1/vulns/{vuln_id}",
-                f"{RADAR}/api.osv.dev/v1/vulns/{vuln_id}.json",
-            )
-            for vuln_id in OSV_LODASH_IDS
         ),
     ]
 
