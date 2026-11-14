@@ -6,6 +6,7 @@ Part 1 (phases 1–3) is done; current work is Part 2, the web app (phases W0–
 ## Commands
 - Install: `uv sync`
 - Test: `uv run pytest`
+- DB integration tests (local Supabase running): `DIGEST_TEST_DB_URL=postgresql://postgres:postgres@127.0.0.1:54322/postgres uv run pytest` (never point it at production)
 - Lint: `uv run ruff check . && uv run ruff format --check .`
 - Offline end-to-end run: `DIGEST_OFFLINE=1 uv run python -m digest run --dry-run`
 - Web (run in `web/`; Node from `web/.nvmrc`, pnpm from `packageManager`): `pnpm install`, `pnpm dev`, `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`

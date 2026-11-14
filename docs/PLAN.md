@@ -652,7 +652,7 @@ Every phase ends in a runnable state. All Part 1 conventions in `CLAUDE.md` stil
 4. **Acceptance:** CI green; the daily Telegram digest still runs unchanged.
 
 ### W1 — Content store
-1. Content tables from §14 (`sources`, `items`, `clusters`, `tags`, `item_tags`) and their migrations, with RLS: anon/authenticated may only `select`. A storage layer for the pipeline; `seen.json` stays for Telegram.
+1. Content tables from §14 (`sources`, `items`, `clusters`, `tags`, `item_tags`) and their migrations, with RLS: anon/authenticated may only `select`. A storage layer for the pipeline in `src/digest/store/` (`ContentStore`: `MemoryStore`, `PostgresStore`); `seen.json` stays in `state.py` for Telegram. Default privileges are revoked so future tables/functions are never auto-exposed to anon.
    User tables and ranking functions are created in W4 together with their RLS, so no user table ever exists without policies.
 2. Owner approves the RSS list in `sources.yaml` (done 2026-11-15: 65 feeds including a backend set — Java, Node.js, messaging, databases, architecture — plus dev.to tags).
 3. New fetchers: `devto`, `hf_papers`, `github_search` (spam filter), `lemmy`, `viblo`, `producthunt_rss`. Each with a fixture and a test.

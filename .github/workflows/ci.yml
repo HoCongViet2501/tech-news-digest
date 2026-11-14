@@ -14,8 +14,8 @@ env:
 
 jobs:
   # Decides which jobs run, so Python-only changes skip the web jobs and
-  # web/DB-only changes skip pytest. data/ (daily digest commits) and docs
-  # trigger nothing.
+  # web-only changes skip pytest. Migrations run both (pytest has DB tests).
+  # data/ (daily digest commits) and docs trigger nothing.
   changes:
     runs-on: ubuntu-latest
     outputs:
@@ -33,7 +33,6 @@ jobs:
             python:
               - '**'
               - '!web/**'
-              - '!supabase/**'
               - '!data/**'
               - '!docs/**'
               - '!**/*.md'
@@ -51,9 +50,26 @@ jobs:
     needs: changes
     if: needs.changes.outputs.python == 'true'
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      # Local Supabase Postgres started below (default local credentials, not a secret).
+      # With CI set, the integration tests fail instead of skipping when this DB is missing.
+      DIGEST_TEST_DB_URL: postgresql://postgres:postgres@127.0.0.1:54322/postgres
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
+
+      # Same CLI version as the pinned devDependency in web/package.json, without
+      # installing the web toolchain.
+      - id: supabase-version
+        run: echo "version=$(jq -r '.devDependencies.supabase' web/package.json)" >> "$GITHUB_OUTPUT"
+      - uses: supabase/setup-cli@v1
+        with:
+          version: ${{ steps.supabase-version.outputs.version }}
+      # DB only (no API/Auth/Studio); applies supabase/migrations from scratch.
+      - name: Start local Postgres and apply migrations
+        run: supabase db start
+
       - run: uv sync --locked
       - run: uv run ruff check .
       - run: uv run ruff format --check .
