@@ -48,3 +48,4 @@ it could become a per-user "Radar" tab with manifests stored per user.
 - Browser extension that replaces the new-tab page with My Feed.
 - Reddit via the official OAuth API, Bluesky via an app password, Product Hunt votes via a GraphQL token.
 - Hashnode feed once its current GraphQL endpoint is confirmed.
+- PWA / web push notifications. Telegram already covers push, so this stays out of Part 2.

@@ -503,8 +503,8 @@ Out of scope, recorded in `IDEAS.md`: comments, squads, public profiles, reputat
 | Ingestion | Python, existing code | Fetchers, LLM chain and tests already exist |
 | Schedule | Actions cron `0 */3 * * *` | Free for public repos |
 | DB | Supabase Postgres + `pgvector` (free: 500 MB) | Auth + RLS included; ranking is one SQL query |
-| Web | Next.js + TypeScript + Tailwind on Vercel Hobby | Matches the owner's stack; ISR for public pages |
-| Auth | Supabase Auth, GitHub OAuth, email allowlist | No password storage |
+| Web | Next.js + TypeScript + Tailwind on Vercel Hobby. Public pages use ISR. Personalized data (My Feed, bookmarks, events) is fetched **from the browser straight to Supabase RPC** with the user's JWT, never through Vercel functions. | Matches the owner's stack; keeps Vercel function usage near zero and keeps a later move to a static export (e.g. Cloudflare Pages) easy |
+| Auth | Supabase Auth, GitHub OAuth; allowlist enforced by a "before user created" Auth Hook in the DB | No password storage; the allowlist cannot be bypassed by calling Auth directly |
 | Embeddings | `fastembed` + `paraphrase-multilingual-MiniLM-L12-v2`, model cached with `actions/cache` | Local, keyless, handles Vietnamese |
 | LLM | Existing provider chain | Free tiers with fallback |
 
@@ -563,21 +563,26 @@ sources(id, kind, name, url, enabled, base_weight, cadence_hours, etag, last_mod
 items(id text pk /*sha1 canonical url*/, cluster_id, source_id, title, url, discussion_url,
       description, image_url, lang, reading_min, published_at, fetched_at,
       native_score int, native_comments int, pop_pct real /*per-source percentile, 7 days*/,
-      quality real /*0–1, LLM*/, tldr text, embedding vector(384), fts tsvector,
+      quality real /*0–1, LLM*/, tldr text, embedding halfvec(384), fts tsvector,
       first_seen_at, enriched_at, tagged_at, embedded_at, summarized_at /*stage queue*/)
 clusters(id, canonical_item_id, item_ids text[])
 tags(slug pk, name, parent, description, aliases text[])        -- seeded from taxonomy.yaml
 item_tags(item_id, tag, confidence real, method /*native|rule|embed|llm*/)
-invites(email pk, invited_at, used_at)
-profiles(user_id pk, display_name, lang, profile_text, user_vec vector(384), model jsonb, updated_at)
+invites(id, email null, github_login null, invited_at, used_at)  -- match by email OR GitHub login
+profiles(user_id pk, display_name, lang, profile_text, profile_embedded_at, user_vec halfvec(384),
+         model jsonb, updated_at)
 user_tags(user_id, tag, state /*follow|block*/)
 user_sources(user_id, source_id, state /*block*/)
-events(id, user_id, item_id, kind /*impression|click|upvote|downvote|bookmark|hide|less_like_this*/,
+events(id, user_id, item_id, kind /*click|upvote|downvote|bookmark|hide|less_like_this*/,
        dwell_ms, created_at)
+impressions(id, user_id, snapshot_id, item_ids text[], created_at)  -- one row per page view, not per card
+feed_snapshots(id, user_id, item_ids text[], created_at)            -- ranked list, kept 30 min
 tag_affinity(user_id, tag, score real, updated_at)
 ```
 
-Storage: ~1000 items/day × ~3.5 KB ≈ 100 MB/month. Embeddings and descriptions are kept for `retention.content_days` (default 90), then only metadata is kept. A weekly cleanup job keeps the DB under 400 MB; database size is reported in `stats`.
+Embeddings use `halfvec(384)` (~0.8 KB instead of ~1.5 KB). There is **no ANN index** (HNSW): the 7-day pool (~7k items) is scanned exactly in a few ms, and an HNSW index over 90 days would take RAM the free instance does not have. Full-text search uses the `simple` config + `unaccent` (Postgres has no Vietnamese config), plus a `pg_trgm` index on titles for typo tolerance.
+
+Storage: ~1000 items/day × ~2.8 KB ≈ 85 MB/month. Embeddings and descriptions are kept for `retention.content_days` (default 90), then only metadata is kept. A weekly cleanup job keeps the DB under 400 MB; database size is reported in `stats`.
 
 ## 15. Tagging and ranking
 
@@ -592,17 +597,29 @@ Target: precision ≥ 0.85 and recall ≥ 0.70 on 200 owner-labeled items.
 ### Dedupe
 Canonical URL, plus near-duplicates: title cosine ≥ 0.92 within 72 h → same cluster. A card shows "also on HN · Lobsters", and popularity is combined across sources.
 
-### Per-user score (request time, one SQL function over the 7-day pool)
+### Per-user score (one plpgsql function, used by both the web and Telegram)
 ```
 interest   = 0.5·tag_match(u,i) + 0.5·cos(user_vec, item_vec)
 popularity = pop_pct + bonus when the cluster spans ≥2 sources
 freshness  = exp(-age_hours / 36)
 score      = 0.40·interest + 0.25·popularity + 0.20·quality + 0.15·freshness
 ```
-Before scoring, drop blocked tags/sources, hidden items and items already clicked. After scoring, apply MMR (λ = 0.7), allow at most 3 items per source per page, and fill 10–15% of slots with "explore" items from Popular. All weights live in `config.yaml` under `ranking:`.
+1. **Filter:** drop blocked tags/sources, hidden items and items already clicked.
+2. **Score candidates:** score the 7-day pool and keep the top 200.
+3. **Diversify:** run MMR (λ = 0.7) over those 200, allow at most 3 items per source per page, and fill 10–15% of slots with "explore" items from Popular.
+4. **Snapshot:** store the ranked ids in `feed_snapshots`. The first page view computes the snapshot. Later pages slice it by offset, which keeps pagination stable and costs no re-ranking. A snapshot older than 30 minutes, or a pull-to-refresh, triggers a new one.
+
+All weights live in `config.yaml` under `ranking:`; the pipeline syncs them into a `ranking_config` table that the function reads. The whole ranking lives in SQL only, so Python and TypeScript never duplicate it.
+
+**Security:**
+- `my_feed(cursor)` takes the user from `auth.uid()` and never accepts a user id from the client.
+- `feed_for_user(user_id, n)` exists only for the Telegram digest and is granted to `service_role` alone.
 
 ### Learning the user's focus (no model fine-tuning)
-- **Cold start:** onboarding asks for ≥3 tags plus optional free text. `user_vec` = embedding of the text + centroid of the chosen tags.
+- **Cold start:** onboarding asks for ≥3 tags plus optional free text.
+  - The web cannot run the embedding model. The free text is embedded by the next `ingest.yml` run: rows with `profile_embedded_at` null, at most 3 h later.
+  - Until then, `user_vec` = centroid of the chosen tags, and interest relies on `tag_match`.
+  - Afterwards, `user_vec` = embedding of the text + centroid of the chosen tags.
 - **Online learning:**
   - Event weights: click +1, dwell ≥30 s +2, upvote +3, bookmark +4, hide −3, downvote −4, less_like_this −5. Half-life 21 days.
   - `tag_affinity[t] = tanh(Σ w·decay)`
@@ -630,6 +647,8 @@ Every phase ends in a runnable state. All Part 1 conventions in `CLAUDE.md` stil
    - `db/migrations/` and the `db.yml` workflow.
    - CI runs `pytest`, ruff, plus `pnpm lint`, `pnpm test` and `pnpm build`.
    - Document the Vercel "Ignored Build Step" command (§13 Deployment).
+   - TypeScript DB types generated with `supabase gen types typescript`; CI fails when the committed types differ from the migrations.
+   - Playwright set up against local Supabase (`supabase start`) in CI; flows are added in W3/W4.
 4. **Acceptance:** CI green; the daily Telegram digest still runs unchanged.
 
 ### W1 — Content store
@@ -658,28 +677,30 @@ Every phase ends in a runnable state. All Part 1 conventions in `CLAUDE.md` stil
 1. Pages:
    - Popular (card grid) and tag pages.
    - Item page: TL;DR, original link, discussion link, "also on".
-   - Full-text search.
+   - Full-text search (`simple` + `unaccent` + `pg_trgm`, §14).
    - Dark mode and mobile layout.
+   - Virtualized infinite-scroll list; the next page is prefetched.
+   - Images: no `next/image` optimization (Hobby quota). Thumbnails go through the free wsrv.nl resize proxy, with `loading="lazy"` and a fixed aspect ratio. A broken image falls back to the source favicon on a gradient.
 2. TL;DR generated in the pipeline for the popular pool.
 3. ISR (revalidate 15 min) for public pages to save DB and Vercel quota.
 4. GitHub Pages becomes a redirect to the web app.
-5. **Acceptance:** Lighthouse mobile ≥ 90; tag pages show only matching items; snapshot tests for cards with `& < >` and emoji; **owner reviews the UI manually**.
+5. **Acceptance:** Lighthouse mobile ≥ 90; tag pages show only matching items; searching "kien truc" finds "kiến trúc"; Playwright covers browsing Popular, a tag page and search; snapshot tests for cards with `& < >` and emoji; **owner reviews the UI manually**.
 
 ### W4 — Accounts and personalization v1
-1. Supabase Auth (GitHub OAuth) with the `invites` allowlist. RLS on `profiles`, `user_*`, `events`, `tag_affinity`.
-2. Onboarding: tags plus optional free text.
-3. My Feed: SQL function `rank_feed(user_id, cursor)` (§15) with MMR and pagination.
+1. Supabase Auth (GitHub OAuth) with the "before user created" hook checking `invites` by email or GitHub login. RLS on `profiles`, `user_*`, `events`, `impressions`, `feed_snapshots`, `tag_affinity`.
+2. Onboarding: tags plus optional free text (embedded asynchronously, §15).
+3. My Feed: `my_feed(cursor)` (§15), called from the browser through Supabase RPC; snapshots for pagination.
 4. Actions:
    - User actions: upvote, bookmark, hide, less-like-this, block tag/source.
-   - Tracking: impression, click and dwell events, batched and sent with `sendBeacon`.
+   - Tracking: one `impressions` row per page view; click and dwell events batched and sent with `sendBeacon`.
 5. Bookmarks and reading-history pages; a "delete my history" action.
-6. The Telegram digest becomes the owner's My Feed top 10, linking to the web.
-7. **Acceptance:** two fixture users with different tags get different feeds; hide/block take effect on the next page; RLS test shows user A cannot read user B's events; a non-invited account cannot sign in; **owner uses it for 7 days and rates ≥7/10 of the top items worth reading**.
+6. The Telegram digest becomes the owner's My Feed top 10 via `feed_for_user`, linking to the web.
+7. **Acceptance:** two fixture users with different tags get different feeds; hide/block take effect on the next page; RLS test shows user A cannot read user B's events or snapshots; calling `feed_for_user` with the anon key fails; a non-invited account cannot be created even by calling Auth directly; paging through 5 pages shows no duplicates; Playwright covers sign-in, onboarding, hide and bookmark; **owner uses it for 7 days and rates ≥7/10 of the top items worth reading**.
 
 ### W5 — Learning from behavior
 1. Daily job recomputes `tag_affinity` and `user_vec` (§15).
 2. Per-user logistic regression in shadow mode; offline NDCG@10 script over `events`.
-3. Semantic search (pgvector); a "why you see this" note (matched tags, similarity).
+3. "Related items" on the item page (pgvector, from the item's own embedding, so nothing is embedded at request time); a "why you see this" note (matched tags, similarity). Free-text semantic search is not planned: the web cannot embed queries with the same model.
 4. Weekly digest on Sunday 08:00 Vietnam time with stats, plus at most 3 tag/profile suggestions (suggest only, never auto-apply).
 5. **Acceptance:** after 2 weeks My Feed CTR is higher than Popular (owner checks); "less like this" visibly reduces same-tag items within 3 days; the model is only enabled when it beats the baseline.
 
@@ -690,7 +711,7 @@ Every phase ends in a runnable state. All Part 1 conventions in `CLAUDE.md` stil
 | Supabase free project pauses after 7 days without activity | Ingest every 3 h keeps it active; warn when ingest has failed for > 24 h |
 | DB exceeds 500 MB | Retention, weekly cleanup, size in `stats`; shorten retention before anything else |
 | Actions schedules are disabled after 60 days without repo activity | Daily digest commits keep the repo active; keep that commit step |
-| Vercel Hobby limits (non-commercial, bandwidth, function time) | Personal, non-commercial, invite-only use; ISR caching; never upgrade |
+| Vercel Hobby limits (non-commercial, bandwidth, function time, image optimization) | Personal, non-commercial, invite-only use; ISR for public pages; personalized data goes browser → Supabase; no `next/image` optimization; never upgrade. Fallback: static export to Cloudflare Pages |
 | GitHub Search spam repos | Filter by account age, fork/star ratio, missing description; low source weight |
 | RSS sources lack popularity signals | Per-source `base_weight`, LLM quality, cross-source cluster bonus |
 | LLM free tier tightened | Provider chain; tagging works without LLM; TL;DR optional |
