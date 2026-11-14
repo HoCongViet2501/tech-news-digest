@@ -652,8 +652,9 @@ Every phase ends in a runnable state. All Part 1 conventions in `CLAUDE.md` stil
 4. **Acceptance:** CI green; the daily Telegram digest still runs unchanged.
 
 ### W1 — Content store
-1. Postgres schema (§14) and migrations. Postgres storage backend in `state.py`; `seen.json` stays for Telegram.
-2. Owner approves the engineering-blog RSS list (~30 feeds) in `sources.yaml`.
+1. Content tables from §14 (`sources`, `items`, `clusters`, `tags`, `item_tags`) and their migrations, with RLS: anon/authenticated may only `select`. A storage layer for the pipeline; `seen.json` stays for Telegram.
+   User tables and ranking functions are created in W4 together with their RLS, so no user table ever exists without policies.
+2. Owner approves the RSS list in `sources.yaml` (done 2026-11-15: 65 feeds including a backend set — Java, Node.js, messaging, databases, architecture — plus dev.to tags).
 3. New fetchers: `devto`, `hf_papers`, `github_search` (spam filter), `lemmy`, `viblo`, `producthunt_rss`. Each with a fixture and a test.
 4. Per-source `cadence_hours` and conditional GET (`ETag` / `Last-Modified`).
 5. Enrichment: `og:image`, reading time, language detection. Respect `robots.txt`; never store full text.
@@ -687,7 +688,7 @@ Every phase ends in a runnable state. All Part 1 conventions in `CLAUDE.md` stil
 5. **Acceptance:** Lighthouse mobile ≥ 90; tag pages show only matching items; searching "kien truc" finds "kiến trúc"; Playwright covers browsing Popular, a tag page and search; snapshot tests for cards with `& < >` and emoji; **owner reviews the UI manually**.
 
 ### W4 — Accounts and personalization v1
-1. Supabase Auth (GitHub OAuth) with the "before user created" hook checking `invites` by email or GitHub login. RLS on `profiles`, `user_*`, `events`, `impressions`, `feed_snapshots`, `tag_affinity`.
+1. User tables from §14 + migrations. Supabase Auth (GitHub OAuth) with the "before user created" hook checking `invites` by email or GitHub login. RLS on `profiles`, `user_*`, `events`, `impressions`, `feed_snapshots`, `tag_affinity`.
 2. Onboarding: tags plus optional free text (embedded asynchronously, §15).
 3. My Feed: `my_feed(cursor)` (§15), called from the browser through Supabase RPC; snapshots for pagination.
 4. Actions:
