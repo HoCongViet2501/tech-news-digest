@@ -442,6 +442,8 @@ async def run_ingest(
             synced.updated,
             synced.disabled,
         )
+    if store.sync_ranking(cfg.ranking):
+        log.info("ranking config updated")
     if taxonomy is not None:
         tags = store.sync_tags(taxonomy.specs())
         if tags.changed:

@@ -4,10 +4,11 @@ Secrets are never stored here: providers only name the env var holding their key
 """
 
 from pathlib import Path
+from typing import Self
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 import yaml
-from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
+from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator, model_validator
 
 
 class ConfigError(Exception):
@@ -193,6 +194,41 @@ class IngestConfig(_Strict):
     tldr: TldrConfig = Field(default_factory=TldrConfig)
 
 
+class RankingConfig(_Strict):
+    """Per-user ranking knobs (docs/PLAN.md §15). Synced into the ranking_config table at
+    the start of every ingest run; the ranking itself lives only in SQL (my_feed,
+    feed_for_user, popular_feed). Bounds mirror the table's CHECK constraints."""
+
+    # score = w_interest·interest + w_popularity·popularity + w_quality·quality
+    #         + w_freshness·freshness
+    w_interest: float = Field(default=0.40, ge=0, le=1)
+    w_popularity: float = Field(default=0.25, ge=0, le=1)
+    w_quality: float = Field(default=0.20, ge=0, le=1)
+    w_freshness: float = Field(default=0.15, ge=0, le=1)
+    # interest = t·tag_match + (1 - t)·cos(user_vec, item): t is interest_tag_weight, or
+    # cold_start_tag_weight while user_vec is still the followed-tags centroid.
+    interest_tag_weight: float = Field(default=0.5, ge=0, le=1)
+    cold_start_tag_weight: float = Field(default=0.7, ge=0, le=1)
+    affinity_weight: float = Field(default=0.5, ge=0, le=1)  # tag_affinity's share of tag_match
+    multi_source_bonus: float = Field(default=0.2, ge=0, le=1)  # cluster seen on >= 2 sites
+    freshness_hours: float = Field(default=36, gt=0)  # freshness = exp(-age_hours / this)
+    default_quality: float = Field(default=0.5, ge=0, le=1)  # items the LLM has not scored
+    pool_days: int = Field(default=7, ge=1, le=30)  # candidate pool (and Popular) window
+    centroid_days: int = Field(default=7, ge=1, le=90)  # cold-start centroid window
+    candidates: int = Field(default=200, ge=10, le=500)  # top-scored items kept for MMR
+    mmr_lambda: float = Field(default=0.7, ge=0, le=1)  # 1 = pure relevance, 0 = pure diversity
+    page_size: int = Field(default=24, ge=1, le=60)  # matches the web's PAGE_SIZE
+    max_per_source: int = Field(default=3, ge=1)  # per page_size window
+    explore_ratio: float = Field(default=0.125, ge=0, le=0.5)  # share of Popular explore slots
+    snapshot_minutes: int = Field(default=30, gt=0)  # a first page reuses a snapshot this young
+
+    @model_validator(mode="after")
+    def _popular_weights(self) -> Self:
+        if self.w_popularity + self.w_quality + self.w_freshness <= 0:
+            raise ValueError("w_popularity + w_quality + w_freshness must be > 0")
+        return self
+
+
 class Config(_Strict):
     profile: str
     timezone: str = "Asia/Ho_Chi_Minh"
@@ -202,6 +238,7 @@ class Config(_Strict):
     ai: AIConfig = Field(default_factory=AIConfig)
     delivery: DeliveryConfig = Field(default_factory=DeliveryConfig)
     ingest: IngestConfig = Field(default_factory=IngestConfig)
+    ranking: RankingConfig = Field(default_factory=RankingConfig)
 
     @field_validator("timezone")
     @classmethod

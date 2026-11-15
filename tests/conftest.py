@@ -60,6 +60,21 @@ _LOCAL_HOSTS = {"localhost", "127.0.0.1", "::1"}
 _CONTENT_TABLES = ", ".join(
     f"public.{t}" for t in ("item_mentions", "item_tags", "tags", "items", "clusters", "sources")
 )
+# W4 user tables (ranking_config is left alone: it is one config row, not data). Test
+# users are inserted into auth.users inside the test transaction and rolled back.
+_USER_TABLES = ", ".join(
+    f"public.{t}"
+    for t in (
+        "invites",
+        "profiles",
+        "user_tags",
+        "user_sources",
+        "events",
+        "impressions",
+        "feed_snapshots",
+        "tag_affinity",
+    )
+)
 
 
 @pytest.fixture
@@ -80,7 +95,7 @@ def pg_conn() -> Iterator[psycopg.Connection]:
     try:
         # Starts the outer transaction: store calls become savepoints inside it, and the
         # truncate (transactional in Postgres) is undone together with the test's writes.
-        conn.execute(f"truncate {_CONTENT_TABLES} cascade")
+        conn.execute(f"truncate {_CONTENT_TABLES}, {_USER_TABLES} cascade")
         yield conn
     finally:
         conn.rollback()

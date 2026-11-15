@@ -7,6 +7,7 @@ from datetime import UTC, datetime, timedelta
 
 import numpy as np
 
+from digest.config import RankingConfig
 from digest.store.base import DEFAULT_DUE_SLACK, EMBEDDING_DIM, StoreError
 from digest.store.models import (
     Cluster,
@@ -39,6 +40,7 @@ class MemoryStore:
         self._item_tags: dict[tuple[str, str], StoredItemTag] = {}
         self._embeddings: dict[str, list[float]] = {}
         self._clusters: dict[int, Cluster] = {}
+        self.ranking = RankingConfig()  # the migration seeds the row with the defaults
         self._next_cluster_id = 1
         self._next_source_id = 1
         self._clock = clock  # stands in for the created_at default of now()
@@ -211,6 +213,13 @@ class MemoryStore:
                 if item.pop_pct is None or abs(item.pop_pct - pct) > 1e-6:
                     self._items[item.id] = item.model_copy(update={"pop_pct": pct})
                     changed += 1
+        return changed
+
+    # --- ranking config ----------------------------------------------------
+
+    def sync_ranking(self, cfg: RankingConfig) -> bool:
+        changed = cfg != self.ranking
+        self.ranking = cfg.model_copy()
         return changed
 
     # --- tags --------------------------------------------------------------

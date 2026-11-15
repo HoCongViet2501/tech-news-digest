@@ -14,6 +14,7 @@ from psycopg import sql
 from psycopg.rows import dict_row
 from psycopg.types.json import Jsonb
 
+from digest.config import RankingConfig
 from digest.store.base import DEFAULT_DUE_SLACK, EMBEDDING_DIM, StoreError
 from digest.store.models import (
     Cluster,
@@ -451,6 +452,26 @@ class PostgresStore:
         with self._conn.transaction(), self._conn.cursor() as cur:
             cur.execute(_RECOMPUTE_POP_PCT, (now - window,))
             return cur.rowcount
+
+    # --- ranking config ----------------------------------------------------
+
+    def sync_ranking(self, cfg: RankingConfig) -> bool:
+        values = cfg.model_dump()
+        cols = sql.SQL(", ").join(sql.Identifier(c) for c in values)
+        params = sql.SQL(", ").join(sql.Placeholder(c) for c in values)
+        query = sql.SQL(
+            "insert into public.ranking_config as r ({cols}) values ({params}) "
+            "on conflict (id) do update set ({cols}) = row({excluded}), updated_at = now() "
+            "where row({current}) is distinct from row({excluded})"
+        ).format(
+            cols=cols,
+            params=params,
+            excluded=sql.SQL(", ").join(sql.Identifier("excluded", c) for c in values),
+            current=sql.SQL(", ").join(sql.Identifier("r", c) for c in values),
+        )
+        with self._conn.transaction(), self._conn.cursor() as cur:
+            cur.execute(query, values)
+            return cur.rowcount > 0
 
     # --- tags --------------------------------------------------------------
 

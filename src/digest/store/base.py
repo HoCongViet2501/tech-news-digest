@@ -4,6 +4,7 @@ from collections.abc import Mapping, Sequence
 from datetime import datetime, timedelta
 from typing import Protocol
 
+from digest.config import RankingConfig
 from digest.store.models import (
     Cluster,
     EnrichmentUpdate,
@@ -83,6 +84,13 @@ class ContentStore(Protocol):
         Ties share a value, so a source whose items all tie (RSS: native_score is the
         base weight) or that has one item gets 0.5. Older items keep their last value.
         Returns how many rows changed."""
+        ...
+
+    # --- ranking config (W4) ---------------------------------------------
+
+    def sync_ranking(self, cfg: RankingConfig) -> bool:
+        """Store config.yaml `ranking:` in the single ranking_config row that the SQL
+        ranking reads. Returns whether any value changed."""
         ...
 
     # --- tags (W2) ---------------------------------------------------------

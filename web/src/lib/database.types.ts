@@ -43,6 +43,74 @@ isOneToOne: false
       referencedColumns: ["id"]
     }
                   ]
+                },"events": {
+                  Row: {
+                    "created_at": string,"dwell_ms": number | null,"id": number,"item_id": string,"kind": string,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"dwell_ms"?: number | null,"id"?: never,"item_id": string,"kind": string,"user_id": string
+                  }
+                  Update: {
+                    "created_at"?: string,"dwell_ms"?: number | null,"id"?: never,"item_id"?: string,"kind"?: string,"user_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "events_item_id_fkey"
+      columns: ["item_id"]
+isOneToOne: false
+      referencedRelation: "items"
+      referencedColumns: ["id"]
+    }
+                  ]
+                },"feed_snapshots": {
+                  Row: {
+                    "created_at": string,"id": number,"item_ids": (string)[],"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"id"?: never,"item_ids": (string)[],"user_id": string
+                  }
+                  Update: {
+                    "created_at"?: string,"id"?: never,"item_ids"?: (string)[],"user_id"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"impressions": {
+                  Row: {
+                    "created_at": string,"id": number,"item_ids": (string)[],"snapshot_id": number | null,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"id"?: never,"item_ids": (string)[],"snapshot_id"?: number | null,"user_id": string
+                  }
+                  Update: {
+                    "created_at"?: string,"id"?: never,"item_ids"?: (string)[],"snapshot_id"?: number | null,"user_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "impressions_snapshot_id_fkey"
+      columns: ["snapshot_id"]
+isOneToOne: false
+      referencedRelation: "feed_snapshots"
+      referencedColumns: ["id"]
+    }
+                  ]
+                },"invites": {
+                  Row: {
+                    "email": string | null,"github_login": string | null,"id": number,"invited_at": string,"used_at": string | null
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "email"?: string | null,"github_login"?: string | null,"id"?: never,"invited_at"?: string,"used_at"?: string | null
+                  }
+                  Update: {
+                    "email"?: string | null,"github_login"?: string | null,"id"?: never,"invited_at"?: string,"used_at"?: string | null
+                  }
+                  Relationships: [
+                    
+                  ]
                 },"item_mentions": {
                   Row: {
                     "discussion_url": string | null,"first_seen_at": string,"item_id": string,"native_comments": number,"native_score": number,"source_id": number
@@ -121,6 +189,34 @@ isOneToOne: false
       referencedColumns: ["id"]
     }
                   ]
+                },"profiles": {
+                  Row: {
+                    "created_at": string,"display_name": string | null,"lang": string,"model": Json | null,"profile_embedded_at": string | null,"profile_text": string | null,"updated_at": string,"user_id": string,"user_vec": unknown
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"display_name"?: string | null,"lang"?: string,"model"?: Json | null,"profile_embedded_at"?: string | null,"profile_text"?: string | null,"updated_at"?: string,"user_id": string,"user_vec"?: unknown
+                  }
+                  Update: {
+                    "created_at"?: string,"display_name"?: string | null,"lang"?: string,"model"?: Json | null,"profile_embedded_at"?: string | null,"profile_text"?: string | null,"updated_at"?: string,"user_id"?: string,"user_vec"?: unknown
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"ranking_config": {
+                  Row: {
+                    "affinity_weight": number,"candidates": number,"centroid_days": number,"cold_start_tag_weight": number,"default_quality": number,"explore_ratio": number,"freshness_hours": number,"id": boolean,"interest_tag_weight": number,"max_per_source": number,"mmr_lambda": number,"multi_source_bonus": number,"page_size": number,"pool_days": number,"snapshot_minutes": number,"updated_at": string,"w_freshness": number,"w_interest": number,"w_popularity": number,"w_quality": number
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "affinity_weight"?: number,"candidates"?: number,"centroid_days"?: number,"cold_start_tag_weight"?: number,"default_quality"?: number,"explore_ratio"?: number,"freshness_hours"?: number,"id"?: boolean,"interest_tag_weight"?: number,"max_per_source"?: number,"mmr_lambda"?: number,"multi_source_bonus"?: number,"page_size"?: number,"pool_days"?: number,"snapshot_minutes"?: number,"updated_at"?: string,"w_freshness"?: number,"w_interest"?: number,"w_popularity"?: number,"w_quality"?: number
+                  }
+                  Update: {
+                    "affinity_weight"?: number,"candidates"?: number,"centroid_days"?: number,"cold_start_tag_weight"?: number,"default_quality"?: number,"explore_ratio"?: number,"freshness_hours"?: number,"id"?: boolean,"interest_tag_weight"?: number,"max_per_source"?: number,"mmr_lambda"?: number,"multi_source_bonus"?: number,"page_size"?: number,"pool_days"?: number,"snapshot_minutes"?: number,"updated_at"?: string,"w_freshness"?: number,"w_interest"?: number,"w_popularity"?: number,"w_quality"?: number
+                  }
+                  Relationships: [
+                    
+                  ]
                 },"sources": {
                   Row: {
                     "base_weight": number,"cadence_hours": number,"category": string | null,"created_at": string,"enabled": boolean,"etag": string | null,"id": number,"kind": string,"last_error": string | null,"last_fetched_at": string | null,"last_modified": string | null,"last_ok_at": string | null,"name": string,"url": string
@@ -134,6 +230,26 @@ isOneToOne: false
                   }
                   Relationships: [
                     
+                  ]
+                },"tag_affinity": {
+                  Row: {
+                    "score": number,"tag": string,"updated_at": string,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "score": number,"tag": string,"updated_at"?: string,"user_id": string
+                  }
+                  Update: {
+                    "score"?: number,"tag"?: string,"updated_at"?: string,"user_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "tag_affinity_tag_fkey"
+      columns: ["tag"]
+isOneToOne: false
+      referencedRelation: "tags"
+      referencedColumns: ["slug"]
+    }
                   ]
                 },"tags": {
                   Row: {
@@ -155,13 +271,59 @@ isOneToOne: false
       referencedColumns: ["slug"]
     }
                   ]
+                },"user_sources": {
+                  Row: {
+                    "created_at": string,"source_id": number,"state": string,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"source_id": number,"state"?: string,"user_id": string
+                  }
+                  Update: {
+                    "created_at"?: string,"source_id"?: number,"state"?: string,"user_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "user_sources_source_id_fkey"
+      columns: ["source_id"]
+isOneToOne: false
+      referencedRelation: "sources"
+      referencedColumns: ["id"]
+    }
+                  ]
+                },"user_tags": {
+                  Row: {
+                    "created_at": string,"state": string,"tag": string,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"state": string,"tag": string,"user_id": string
+                  }
+                  Update: {
+                    "created_at"?: string,"state"?: string,"tag"?: string,"user_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "user_tags_tag_fkey"
+      columns: ["tag"]
+isOneToOne: false
+      referencedRelation: "tags"
+      referencedColumns: ["slug"]
+    }
+                  ]
                 }
           }
           Views: {
             [_ in never]: never
           }
           Functions: {
-            "feed_cards":
+            "before_user_created_hook":
+{ Args: { "event": Json }; Returns: Json
+                           },
+"delete_my_history":
+{ Args: Record<PropertyKey, never>; Returns: number
+                           },
+"feed_cards":
 { Args: { "p_full"?: boolean,"p_ids": (string)[] }; Returns: Database["public"]['CompositeTypes']["feed_card"][]
                           SetofOptions: {
         from: "*"
@@ -169,11 +331,46 @@ isOneToOne: false
         isOneToOne: false
         isSetofReturn: true
       } },
+"feed_for_user":
+{ Args: { "p_n"?: number,"p_user_id": string }; Returns: Database["public"]['CompositeTypes']["feed_card"][]
+                          SetofOptions: {
+        from: "*"
+        to: "feed_card"
+        isOneToOne: false
+        isSetofReturn: true
+      } },
+"follow_centroid":
+{ Args: { "p_as_of"?: string,"p_user": string }; Returns: unknown
+                           },
 "immutable_unaccent":
 { Args: { "input": string }; Returns: string
                            },
+"item_action":
+{ Args: { "p_item_id": string,"p_kind": string,"p_on"?: boolean }; Returns: undefined
+                           },
 "item_detail":
 { Args: { "p_id": string }; Returns: Database["public"]['CompositeTypes']["feed_card"][]
+                          SetofOptions: {
+        from: "*"
+        to: "feed_card"
+        isOneToOne: false
+        isSetofReturn: true
+      } },
+"my_bookmarks":
+{ Args: { "p_limit"?: number,"p_offset"?: number }; Returns: Database["public"]['CompositeTypes']["feed_card"][]
+                          SetofOptions: {
+        from: "*"
+        to: "feed_card"
+        isOneToOne: false
+        isSetofReturn: true
+      } },
+"my_feed":
+{ Args: { "p_after"?: number,"p_limit"?: number,"p_refresh"?: boolean,"p_snapshot_id"?: number }; Returns: {
+              "card": Database["public"]['CompositeTypes']["feed_card"],"pos": number,"snapshot_id": number
+            }[]
+                           },
+"my_history":
+{ Args: { "p_limit"?: number,"p_offset"?: number }; Returns: Database["public"]['CompositeTypes']["feed_card"][]
                           SetofOptions: {
         from: "*"
         to: "feed_card"
@@ -188,8 +385,19 @@ isOneToOne: false
         isOneToOne: false
         isSetofReturn: true
       } },
+"popular_pool":
+{ Args: { "p_as_of": string,"p_days": number }; Returns: {
+              "cluster_id": number,"comments": number,"id": string,"n_sites": number,"pop_pct": number,"published_at": string,"quality": number,"source_id": number,"upvotes": number
+            }[]
+                           },
 "popular_score":
-{ Args: { "p_as_of": string,"p_n_sites": number,"p_pop_pct": number,"p_published_at": string,"p_quality": number }; Returns: number
+{ Args: { "p_as_of": string,"p_cfg": Omit<Database["public"]['Tables']["ranking_config"]['Row'], Database["public"]['Tables']["ranking_config"]['ComputedFields']>,"p_n_sites": number,"p_pop_pct": number,"p_published_at": string,"p_quality": number }; Returns: number
+                           },
+"record_events":
+{ Args: { "p_events": Json }; Returns: number
+                           },
+"record_impression":
+{ Args: { "p_item_ids": (string)[],"p_snapshot_id": number }; Returns: undefined
                            },
 "search_items":
 { Args: { "p_limit"?: number,"p_offset"?: number,"p_q": string }; Returns: Database["public"]['CompositeTypes']["feed_card"][]
@@ -199,6 +407,15 @@ isOneToOne: false
         isOneToOne: false
         isSetofReturn: true
       } },
+"set_followed_tags":
+{ Args: { "p_profile_text"?: string,"p_tags": (string)[] }; Returns: undefined
+                           },
+"set_source_blocked":
+{ Args: { "p_blocked"?: boolean,"p_source_id": number }; Returns: undefined
+                           },
+"set_tag_state":
+{ Args: { "p_state": string,"p_tag": string }; Returns: undefined
+                           },
 "source_site":
 { Args: { "p_kind": string,"p_source_id": number }; Returns: string
                            },
@@ -206,6 +423,9 @@ isOneToOne: false
 { Args: Record<PropertyKey, never>; Returns: {
               "description": string,"item_count": number,"name": string,"parent": string,"slug": string
             }[]
+                           },
+"update_profile":
+{ Args: { "p_display_name"?: string,"p_lang"?: string,"p_profile_text"?: string }; Returns: undefined
                            },
 "url_host":
 { Args: { "p_url": string }; Returns: string

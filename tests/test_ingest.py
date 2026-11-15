@@ -171,6 +171,14 @@ def test_first_run_stores_items_and_source_health(store: ContentStore, cfg: Conf
     assert web.count("dev.to", tag="java") == web.count("dev.to", tag="go") == 1
 
 
+def test_run_syncs_the_ranking_config(store: ContentStore, cfg: Config) -> None:
+    cfg = cfg.model_copy(update={"ranking": cfg.ranking.model_copy(update={"mmr_lambda": 0.55})})
+
+    ingest(store, cfg, FakeWeb())
+
+    assert store.sync_ranking(cfg.ranking) is False  # already stored by the run
+
+
 def test_enrichment_marks_every_item_done(store: ContentStore, cfg: Config) -> None:
     stats = ingest(store, cfg, FakeWeb())
 

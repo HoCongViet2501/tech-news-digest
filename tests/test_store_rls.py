@@ -17,6 +17,19 @@ from digest.store import NewItem, PostgresStore, SourceSpec
 pytestmark = pytest.mark.integration
 
 CONTENT_TABLES = ("sources", "items", "clusters", "tags", "item_tags", "item_mentions")
+# W4: authenticated users read their own rows; every write goes through an RPC
+# (tests/test_personalization.py covers the behaviour).
+USER_TABLES = (
+    "profiles",
+    "user_tags",
+    "user_sources",
+    "events",
+    "impressions",
+    "feed_snapshots",
+    "tag_affinity",
+)
+# No client access at all: read only by SECURITY DEFINER functions.
+PRIVATE_TABLES = ("invites", "ranking_config")
 CLIENT_ROLES = ("anon", "authenticated")
 T0 = datetime(2026, 11, 15, 7, 0, tzinfo=UTC)
 ITEM_ID = "a" * 40
@@ -147,11 +160,30 @@ def test_rls_enabled_and_policies_are_select_only(pg_conn: psycopg.Connection) -
         """
     ).fetchall()
     policies = pg_conn.execute(
-        "select tablename, cmd from pg_policies where schemaname = 'public' order by tablename"
+        "select tablename, cmd, roles::text[], qual from pg_policies where schemaname = 'public'"
     ).fetchall()
+    content = sorted((t, c, r, q) for t, c, r, q in policies if t in CONTENT_TABLES)
+    user = sorted((t, c, r, q) for t, c, r, q in policies if t not in CONTENT_TABLES)
 
     assert no_rls == []
-    assert sorted(policies) == sorted((t, "SELECT") for t in CONTENT_TABLES)
+    assert content == sorted(
+        (t, "SELECT", ["anon", "authenticated"], "true") for t in CONTENT_TABLES
+    )
+    # Own rows only; private tables have no policy (and no grant) at all.
+    own = "(user_id = ( SELECT auth.uid() AS uid))"
+    assert user == sorted((t, "SELECT", ["authenticated"], own) for t in USER_TABLES)
+
+
+def test_private_tables_have_no_client_grants(pg_conn: psycopg.Connection) -> None:
+    rows = pg_conn.execute(
+        """
+        select t, r from unnest(%s::text[]) t cross join unnest(%s::text[]) r
+        where has_table_privilege(r, 'public.' || t, 'select')
+           or has_any_column_privilege(r, 'public.' || t, 'select')
+        """,
+        (list(PRIVATE_TABLES), list(CLIENT_ROLES)),
+    ).fetchall()
+    assert rows == []
 
 
 # --- schema behaviour ------------------------------------------------------

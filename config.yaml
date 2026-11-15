@@ -98,3 +98,26 @@ ingest:
     input_chars: 1500       # article text sent per item (keeps a batch inside free-tier TPM)
     min_chars: 120          # less article/description text than this: skipped, not summarized
     max_chars: 600          # TL;DR length cap; longer answers are cut at a sentence end
+
+# Per-user ranking (docs/PLAN.md §15). Synced into the ranking_config table on every
+# ingest run; the ranking itself lives only in SQL (my_feed, feed_for_user, popular_feed).
+ranking:
+  # score = w_interest·interest + w_popularity·popularity + w_quality·quality + w_freshness·freshness
+  w_interest: 0.40
+  w_popularity: 0.25
+  w_quality: 0.20
+  w_freshness: 0.15
+  interest_tag_weight: 0.5    # interest = t·tag_match + (1 - t)·cos(user_vec, item)
+  cold_start_tag_weight: 0.7  # t while user_vec is still the followed-tags centroid
+  affinity_weight: 0.5        # tag_affinity's share of tag_match (W5 fills tag_affinity)
+  multi_source_bonus: 0.2     # popularity bonus when a story is on >= 2 sites
+  freshness_hours: 36         # freshness = exp(-age_hours / 36)
+  default_quality: 0.5        # for items the LLM has not scored
+  pool_days: 7                # candidate pool, also the Popular window
+  centroid_days: 7            # items used for the cold-start centroid
+  candidates: 200             # top-scored items that go through MMR
+  mmr_lambda: 0.7             # 1 = pure relevance, 0 = pure diversity
+  page_size: 24               # matches the web's PAGE_SIZE; per-source cap applies per page
+  max_per_source: 3
+  explore_ratio: 0.125        # every 8th slot is a Popular "explore" item
+  snapshot_minutes: 30        # a first page reuses a snapshot this young, else re-ranks

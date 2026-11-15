@@ -705,6 +705,16 @@ Every phase ends in a runnable state. All Part 1 conventions in `CLAUDE.md` stil
    - Tracking: one `impressions` row per page view; click and dwell events batched and sent with `sendBeacon`.
 5. Bookmarks and reading-history pages; a "delete my history" action.
 6. The Telegram digest becomes the owner's My Feed top 10 via `feed_for_user`, linking to the web.
+   - Implementation notes (2026-11-15, database layer: `supabase/migrations/*_w4_accounts.sql`):
+     - **Access:** clients only `SELECT` their own rows of the user tables (RLS + grants; `profiles.user_vec` / `model` are not granted). Every write goes through a `SECURITY DEFINER` RPC that takes the user from `auth.uid()`: `set_followed_tags` (onboarding, ≥3 tags + optional `profile_text`), `update_profile`, `set_tag_state`, `set_source_blocked`, `item_action` (upvote/downvote/bookmark/hide/less_like_this, on or off), `record_events` (click/dwell batches, ≤50, ≤600 events/user/hour), `record_impression`, `delete_my_history`; reads: `my_feed`, `my_bookmarks`, `my_history`. `invites` and `ranking_config` have no client grants. Internals live in a `private` schema that the Data API does not expose.
+     - **Reactions are state, not a log:** at most one upvote/downvote/bookmark/hide/less_like_this row per user and item; undoing deletes it, so its learning weight disappears too. Clicks and a separate `dwell` kind (with `dwell_ms`) are append-only. "Delete my history" removes clicks, dwell, impressions and snapshots; explicit choices stay.
+     - **`my_feed(p_snapshot_id, p_after, p_limit, p_refresh)`** returns `(snapshot_id, pos, card feed_card)`: the next page passes the last row's `snapshot_id` and `pos`. Positions index the snapshot, so items hidden or blocked mid-session are skipped without shifting later pages. A cursor into a snapshot that was already cleaned up (> 2 h) restarts from the top with a new `snapshot_id`.
+     - **Cold start:** until `profiles.user_vec` exists, the interest vector is the mean of per-followed-tag centroids of item embeddings (each tag counts once; descendants included; `ranking.centroid_days`). Tag descriptions are never embedded in the DB, item embeddings are. `tag_match` gets `ranking.cold_start_tag_weight` (0.7) of the interest instead of 0.5. `public.follow_centroid(user)` is also available to the pipeline for "text + centroid".
+     - **Explore:** every `round(1/explore_ratio)`-th position (8th by default, 12.5%) is the next most Popular eligible item outside the top candidates. The per-source cap applies per `page_size` window of the snapshot; when every remaining source is capped, the cap is broken rather than ending the list.
+     - **Popular weights** moved to `ranking_config` (synced from `config.yaml ranking:` at ingest start). `popular_feed` now reads them via `popular_pool` + `popular_score(cfg, ...)`; the Popular order is unchanged with the defaults.
+     - **Auth hook:** `public.before_user_created_hook` matches `invites` by email, or by GitHub login only when `app_metadata.provider = 'github'` (user_metadata is client-controlled on email sign-ups). A trigger on `auth.users` creates the `profiles` row.
+     - **Web:** `navigator.sendBeacon` cannot send the `Authorization` header, so click/dwell batches go through `fetch(..., {keepalive: true})` to the `record_events` RPC instead.
+     - **Performance (local, Apple silicon):** 7.1k-item pool (real + synthetic), cold start: first page ~235 ms (centroid ~55, scoring ~130, 200×200 similarity ~30, MMR ~20), with `user_vec` ~185 ms; later pages ~5 ms (snapshot slice).
 7. **Acceptance:** two fixture users with different tags get different feeds; hide/block take effect on the next page; RLS test shows user A cannot read user B's events or snapshots; calling `feed_for_user` with the anon key fails; a non-invited account cannot be created even by calling Auth directly; paging through 5 pages shows no duplicates; Playwright covers sign-in, onboarding, hide and bookmark; **owner uses it for 7 days and rates ≥7/10 of the top items worth reading**.
 
 ### W5 — Learning from behavior
@@ -735,6 +745,7 @@ Every phase ends in a runnable state. All Part 1 conventions in `CLAUDE.md` stil
   - Web (W3): project URL and the publishable (anon) key.
   - No secret/service-role key is needed: the pipeline connects as Postgres through `SUPABASE_DB_URL`, which can call service-only functions.
 - [ ] Create a GitHub OAuth App for Supabase Auth.
+- [ ] (W4) In the dashboard, Authentication > Hooks: enable "Before User Created" as a Postgres function, `public.before_user_created_hook`. Disable the Email provider (GitHub only), or at least keep email confirmations on, so nobody can claim an invited email with a password sign-up.
 - [ ] Create a Vercel Hobby project for `web/`; add env vars.
 - [ ] Add the new secrets to GitHub Actions.
 - [ ] Approve the RSS list (W1) and the taxonomy (W2); label 200 items (W2).

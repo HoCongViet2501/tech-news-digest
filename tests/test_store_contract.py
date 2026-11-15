@@ -9,6 +9,7 @@ from pathlib import Path
 
 import pytest
 
+from digest.config import RankingConfig
 from digest.store import (
     ContentStore,
     EnrichmentUpdate,
@@ -484,6 +485,16 @@ def tag(slug: str, parent: str | None = None, **kw: object) -> TagSpec:
 
 
 TAGS = [tag("backend"), tag("messaging", "backend"), tag("kafka", "messaging", aliases=["k"])]
+
+
+def test_sync_ranking_reports_changes_only(store: ContentStore) -> None:
+    custom = RankingConfig(mmr_lambda=0.6, candidates=150, explore_ratio=0.1)
+
+    store.sync_ranking(custom)
+
+    assert store.sync_ranking(custom) is False
+    assert store.sync_ranking(custom.model_copy(update={"page_size": 12})) is True
+    assert store.sync_ranking(RankingConfig()) is True
 
 
 def test_sync_tags_inserts_updates_and_retires(store: ContentStore) -> None:
