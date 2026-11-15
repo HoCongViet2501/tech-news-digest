@@ -1,0 +1,205 @@
+{
+ "date": "2026-11-15",
+ "items": [
+  {
+   "id": "c6524b3bb676a860909056e7c34a6e95fe7b9208",
+   "source": "github",
+   "title": "elementalsouls/Claude-BugHunter: A Claude Code skill bundle for bug hunting and external red-team work - 82 skills, 15 slash commands, 681 disclosed-report patterns curated across 24 core vulnerability classes, plus enterprise identity + infrastructure attack matrices.",
+   "url": "https://github.com/elementalsouls/Claude-BugHunter",
+   "discussion_url": null,
+   "score": 124,
+   "comments": 0,
+   "published_at": "2026-11-15T10:55:26.911034+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "description": "A Claude Code skill bundle for bug hunting and external red-team work - 82 skills, 15 slash commands, 681 disclosed-report patterns curated across 24 core vulnerability classes, plus enterprise identity + infrastructure attack matrices.",
+   "relevance": 9.0,
+   "reason": "Công cụ AI agent hỗ trợ kiểm thử bảo mật và bug hunting.",
+   "summary": "Công cụ này cung cấp một gói skill bundle tích hợp sẵn cho Claude Code, biến trợ lý AI này thành một chuyên gia bug hunting hoặc kỹ sư red-team. Nó bao gồm hơn 80 skill, các lệnh slash, mẫu khai thác lỗi bảo mật và các ma trận tấn công hạ tầng doanh nghiệp.",
+   "why_it_matters": "Giúp tận dụng Claude Code như một chuyên gia bảo mật tự động để kiểm tra lỗ hổng ứng dụng web và hạ tầng trực tiếp trong quy trình phát triển."
+  },
+  {
+   "id": "ed99da94672b0bfea5c595c608c9ce7a6f1fb1b5",
+   "source": "github",
+   "title": "mukul975/Anthropic-Cybersecurity-Skills: 817 structured cybersecurity skills for AI agents · Mapped to 6 frameworks: MITRE ATT&CK, NIST CSF 2.0, MITRE ATLAS, D3FEND, NIST AI RMF & MITRE F3 (Fight Fraud) · agentskills.io standard · Works with Claude Code, GitHub Copilot, Codex CLI, Cursor, Gemini CLI & 20+ platforms · 29 security domains · Apache 2.0",
+   "url": "https://github.com/mukul975/Anthropic-Cybersecurity-Skills",
+   "discussion_url": null,
+   "score": 59,
+   "comments": 0,
+   "published_at": "2026-11-15T10:55:26.911034+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "description": "817 structured cybersecurity skills for AI agents · Mapped to 6 frameworks: MITRE ATT&CK, NIST CSF 2.0, MITRE ATLAS, D3FEND, NIST AI RMF & MITRE F3 (Fight Fraud) · agentskills.io standard · Works with Claude Code, GitHub Copilot, Codex CLI, Cursor, Gemini CLI & 20+ platforms · 29 security domains…",
+   "relevance": 9.0,
+   "reason": "Bộ kỹ năng bảo mật toàn diện tích hợp cho các AI coding agent.",
+   "summary": "Thư viện này cung cấp hàng trăm skill bảo mật có cấu trúc được ánh xạ tới các tiêu chuẩn công nghiệp lớn như MITRE ATT&CK, NIST CSF 2.0 và MITRE ATLAS. Nó giúp các AI agent hiểu và thực hiện các nhiệm vụ điều tra sự cố, phân tích mã độc và đánh giá rủi ro.",
+   "why_it_matters": "Cho phép tích hợp kiến thức chuyên sâu về bảo mật vào các AI agent và công cụ lập trình hỗ trợ LLM để tự động phát hiện rủi ro trong hệ thống."
+  },
+  {
+   "id": "404dff4b1ceac4718063664630d84f793e1c6137",
+   "source": "github",
+   "title": "dream-num/univer: Build your own AI office with Univer Office SDK. Bring editing, calculation, collaboration, and file processing into your product for people and AI agents. Built on an extensible open-source core.",
+   "url": "https://github.com/dream-num/univer",
+   "discussion_url": null,
+   "score": 495,
+   "comments": 0,
+   "published_at": "2026-11-15T10:55:26.911034+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "description": "Build your own AI office with Univer Office SDK. Bring editing, calculation, collaboration, and file processing into your product for people and AI agents. Built on an extensible open-source core.",
+   "relevance": 8.0,
+   "reason": "SDK mã nguồn mở tích hợp tính năng văn phòng và AI agent.",
+   "summary": "Univer Office SDK là bộ công cụ mã nguồn mở cho phép tích hợp trực tiếp khả năng chỉnh sửa bảng tính (sheets), văn bản (docs) và tính toán vào ứng dụng web riêng. Bộ SDK hỗ trợ cả giao diện người dùng lẫn xử lý không giao diện (headless) qua Node.js để tự động hóa.",
+   "why_it_matters": "Cung cấp giải pháp nhúng các tính năng xử lý tài liệu và bảng tính mạnh mẽ vào ứng dụng web toàn diện hoặc phục vụ các tác vụ tự động hóa của AI agent."
+  },
+  {
+   "id": "d7ce53251c694396fe6895d376dac4f76089d745",
+   "source": "github",
+   "title": "LibreTranslate/LibreTranslate: Free and Open Source Machine Translation API. Self-hosted, offline capable and easy to setup.",
+   "url": "https://github.com/LibreTranslate/LibreTranslate",
+   "discussion_url": null,
+   "score": 130,
+   "comments": 0,
+   "published_at": "2026-11-15T10:55:26.911034+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "description": "Free and Open Source Machine Translation API. Self-hosted, offline capable and easy to setup.",
+   "relevance": 8.0,
+   "reason": "API dịch máy mã nguồn mở, hỗ trợ tự host và offline.",
+   "summary": "Đây là API dịch máy hoàn toàn mã nguồn mở và có thể tự host (self-hosted), hoạt động độc lập mà không phụ thuộc vào các dịch vụ thương mại như Google hay Azure. Công cụ này vận hành dựa trên thư viện dịch mã nguồn mở Argos Translate và hỗ trợ hoạt động ngoại tuyến.",
+   "why_it_matters": "Mang lại giải pháp dịch thuật khép kín, tự host dễ dàng trong hạ tầng nội bộ để đảm bảo bảo mật dữ liệu mà không cần gọi các API bên ngoài."
+  },
+  {
+   "id": "ad8b3d5bdfd0d7ff6bc7be05d05e550781855268",
+   "source": "hn",
+   "title": "Show HN: DeepSeek V3 in ~200 lines of pure Jax",
+   "url": "https://github.com/Vaibhaav-Tiwari/deepseek-v3-jax",
+   "discussion_url": "https://news.ycombinator.com/item?id=50497589",
+   "score": 197,
+   "comments": 11,
+   "published_at": "2026-11-14T15:04:15Z",
+   "tags": [],
+   "also_on": [],
+   "description": null,
+   "relevance": 8.0,
+   "reason": "Mã nguồn triển khai mô hình AI DeepSeek V3 bằng thư viện Jax.",
+   "summary": "Dự án này tái tạo lại kiến trúc của mô hình DeepSeek-V3 chỉ trong khoảng 190 dòng mã thuần JAX, không phụ thuộc vào các framework lớn như PyTorch hay Flax. Mô hình tích hợp các kỹ thuật tiên tiến như Multi-head Latent Attention và DeepSeekMoE, được huấn luyện mẫu trực tiếp trên Apple Silicon.",
+   "why_it_matters": "Là một tài liệu tham khảo kỹ thuật tuyệt vời bằng code thuần JAX để hiểu rõ cấu trúc bên trong của các mô hình ngôn ngữ lớn hiện đại và cách tối ưu hóa phần cứng."
+  },
+  {
+   "id": "89c956ab1bb35fa4e16ef4254820514b7a030265",
+   "source": "github",
+   "title": "0x0funky/agent-sprite-forge: Agent Skill for generating 2D sprite sheets and map, transparent PNG frames, and animated GIFs from prompts.",
+   "url": "https://github.com/0x0funky/agent-sprite-forge",
+   "discussion_url": null,
+   "score": 39,
+   "comments": 0,
+   "published_at": "2026-11-15T10:55:26.911034+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "description": "Agent Skill for generating 2D sprite sheets and map, transparent PNG frames, and animated GIFs from prompts.",
+   "relevance": 8.0,
+   "reason": "AI skill hỗ trợ tạo tài nguyên đồ họa 2D từ câu lệnh.",
+   "summary": "Công cụ này cung cấp một Agent Skill tích hợp cho các trợ lý AI như Claude Code, Codex và Grok để tự động tạo sprite sheet 2D, khung hình PNG trong suốt và hoạt hình GIF từ các prompt. Hệ thống sử dụng các Python tool xác định để lọc lưới, căn chỉnh, tạo vòng lặp (loop) và đóng gói dữ liệu cho các engine như Godot hoặc Aseprite.",
+   "why_it_matters": "Cải tiến quy trình phát triển game và tự động hóa tài sản đồ họa bằng AI trực tiếp qua các coding agent."
+  },
+  {
+   "id": "1a04addd3212e240302821364e65eec8674442af",
+   "source": "github",
+   "title": "Narcooo/inkos: Story Creation AI Agent for novel, scripts, translation, interactive games, and IP content",
+   "url": "https://github.com/Narcooo/inkos",
+   "discussion_url": null,
+   "score": 21,
+   "comments": 0,
+   "published_at": "2026-11-15T10:55:26.911034+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "description": "Story Creation AI Agent for novel, scripts, translation, interactive games, and IP content",
+   "relevance": 8.0,
+   "reason": "AI agent mã nguồn mở hỗ trợ sáng tạo nội dung tự động.",
+   "summary": "InkOS 2.0 là một hệ thống AI Agent tập trung vào sáng tác cốt truyện, dịch thuật và quản lý nội dung, tích hợp đa dạng các LLM thông qua API và hỗ trợ Model Context Protocol (MCP). Phiên bản này cung cấp một harness sản xuất thống nhất với các skill chuyên nghiệp, quản lý trạng thái, tìm kiếm dựa trên SQLite FTS5 và giao diện TUI/Studio.",
+   "why_it_matters": "Cung cấp kiến trúc hệ thống phân tán và agentic workflow thực tế, hữu ích cho việc tích hợp MCP và LLM tooling."
+  },
+  {
+   "id": "c7151b3a95bbc738dc2ca0344dfbd173dfa08513",
+   "source": "github",
+   "title": "pnnbao97/VieNeu-TTS: Vietnamese TTS with instant voice cloning • On-device • Real-time CPU inference • 48kHz audio quality • Chuyển văn bản thành giọng nói tiếng Việt • Text to speech tiếng Việt • TTS tiếng Việt",
+   "url": "https://github.com/pnnbao97/VieNeu-TTS",
+   "discussion_url": null,
+   "score": 73,
+   "comments": 0,
+   "published_at": "2026-11-15T10:55:26.911034+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "description": "Vietnamese TTS with instant voice cloning • On-device • Real-time CPU inference • 48kHz audio quality • Chuyển văn bản thành giọng nói tiếng Việt • Text to speech tiếng Việt • TTS tiếng Việt",
+   "relevance": 8.0,
+   "reason": "Thư viện chuyển văn bản thành giọng nói tiếng Việt chạy trên CPU.",
+   "summary": "VieNeu-TTS v3 Turbo là mô hình Text-to-Speech tiếng Việt chạy hoàn toàn trên thiết bị (on-device) với khả năng nhân bản giọng nói tức thì chỉ từ một đoạn audio ngắn 3-8 giây. Hệ thống cung cấp API streaming tương thích với OpenAI, hỗ trợ Docker và đạt hiệu suất cao với độ trễ thấp trên cả GPU và CPU.",
+   "why_it_matters": "Mang lại một công cụ TTS tiếng Việt tối ưu hiệu suất, dễ dàng tích hợp qua Docker và OpenAI-compatible API cho các ứng dụng full-stack."
+  },
+  {
+   "id": "20e5d5ca3707010ba66156864a71b1ccd036516a",
+   "source": "github",
+   "title": "totec448-spec/chat-on-steroids: Cross-platform local MCP capabilities for ChatGPT with Chrome integration, Goal, Compact & Resume, and durable multi-agent workflows.",
+   "url": "https://github.com/totec448-spec/chat-on-steroids",
+   "discussion_url": null,
+   "score": 10,
+   "comments": 0,
+   "published_at": "2026-11-15T10:55:26.911034+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "description": "Cross-platform local MCP capabilities for ChatGPT with Chrome integration, Goal, Compact & Resume, and durable multi-agent workflows.",
+   "relevance": 8.0,
+   "reason": "Tích hợp giao thức Model Context Protocol cục bộ cho trợ lý AI.",
+   "summary": "Chat On Steroids là một môi trường làm việc mã nguồn mở, đa nền tảng, tích hợp tính năng Model Context Protocol (MCP) cục bộ cho ChatGPT cùng với tiện ích mở rộng trên trình duyệt. Công cụ này hỗ trợ quy trình làm việc đa tác nhân (multi-agent) bền bỉ, quản lý thư mục, thực thi lệnh qua terminal và tự động hóa thông báo qua Telegram hoặc ntfy.",
+   "why_it_matters": "Cung cấp một môi trường developer workspace mạnh mẽ tích hợp LLM và local tools để tự động hóa các tác vụ phát triển hàng ngày."
+  },
+  {
+   "id": "8f2daa11c5051adae150f68e6fc1e855367032cc",
+   "source": "hn",
+   "title": "Serving GLM-5.3 at 607.8 tok/s across two Nvidia DGX stations with vLLM",
+   "url": "https://developer.nvidia.com/blog/when-one-gpu-isnt-enough-serving-glm-5-3-across-two-nvidia-dgx-stations-with-vllm",
+   "discussion_url": "https://news.ycombinator.com/item?id=50497155",
+   "score": 130,
+   "comments": 65,
+   "published_at": "2026-11-14T14:09:25Z",
+   "tags": [],
+   "also_on": [],
+   "description": null,
+   "relevance": 8.0,
+   "reason": "Tối ưu hóa hiệu năng phục vụ mô hình ngôn ngữ lớn với vLLM.",
+   "summary": "Bài viết hướng dẫn cách phục vụ mô hình ngôn ngữ lớn GLM-5.3 (753 tỷ tham số) cục bộ trên hai trạm NVIDIA DGX kết nối qua RDMA bằng vLLM. Quá trình này sử dụng kỹ thuật song song tensor (tensor parallelism) kết hợp với phần cứng GPU GB300 để phân chia trọng số và xử lý yêu cầu qua một endpoint duy nhất tương thích với OpenAI.",
+   "why_it_matters": "Cung cấp kiến trúc và cấu hình hạ tầng phân tán thực tế để triển khai các mô hình AI quy mô lớn vượt quá dung lượng VRAM của một máy chủ đơn lẻ."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 69,
+  "fetched_github": 47,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 141,
+  "after_dedupe": 139,
+  "after_filter": 61,
+  "ai": "gemini",
+  "ai_tokens_in": 16174,
+  "ai_tokens_out": 4080,
+  "sent": 10,
+  "summarized": 10
+ }
+}
