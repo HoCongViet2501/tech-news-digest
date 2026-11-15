@@ -235,7 +235,7 @@ tags:
     name: Distributed Systems
     parent: backend
     description: Consensus, replication, consistency and the theory and practice of distributed systems.
-    aliases: [distributed, consensus, raft, paxos, crdt]
+    aliases: [distributed, distributedsystems, consensus, raft, paxos, crdt]
     keywords: ['distributed systems?', 'consensus', 'Raft', 'Paxos', 'CRDTs?', 'replication']
     embed: true
   - slug: system-design
@@ -300,7 +300,7 @@ tags:
   - slug: frontend
     name: Frontend
     description: Building user interfaces for the web, frameworks, styling and the browser platform.
-    aliases: [frontend, front-end, webdev, web-development, ui]
+    aliases: [frontend, front-end, web-development, ui]
     keywords: ['frontend', 'front-end']
     embed: true
   - slug: react
@@ -376,7 +376,7 @@ tags:
   - slug: engineering
     name: Software Engineering
     description: The craft and practice of building software, beyond any single technology.
-    aliases: [software-engineering, programming, coding, best-practices]
+    aliases: [software-engineering, softwareengineering, coding, best-practices]
     keywords: ['software engineering']
     embed: true
   - slug: developer-tools
