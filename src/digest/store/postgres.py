@@ -247,6 +247,29 @@ select (select id from target)
 """
 
 
+# popular_feed serves at most this many rows per call, so the pool is read page by page.
+POPULAR_FEED_PAGE_MAX = 60
+
+# The Popular ranking lives only in SQL (public.popular_feed / popular_score); this just
+# pages through its top `pool` ids and keeps those still waiting for a TL;DR.
+_TLDR_CANDIDATES = """
+select {cols}
+from generate_series(0, %(pool)s - 1, %(page)s) as pg(off)
+cross join lateral public.popular_feed(
+  'popular', null, %(as_of)s, least(%(page)s, %(pool)s - pg.off), pg.off
+) with ordinality as f
+join public.items i on i.id = f.id
+where i.tldr is null and i.summarized_at is null
+order by pg.off, f.ordinality
+"""
+
+_SAVE_TLDRS = """
+update public.items i set tldr = u.tldr, summarized_at = %s
+from unnest(%s::text[], %s::text[]) as u(id, tldr)
+where i.id = u.id
+"""
+
+
 class PostgresStore:
     def __init__(self, conn: psycopg.Connection) -> None:
         self._conn = conn
@@ -550,6 +573,25 @@ class PostgresStore:
         with self._conn.transaction(), self._conn.cursor(row_factory=dict_row) as cur:
             cur.execute(query)
             return [Cluster.model_validate(row) for row in cur.fetchall()]
+
+    # --- TL;DR -------------------------------------------------------------
+
+    def tldr_candidates(self, as_of: datetime, pool_size: int) -> list[StoredItem]:
+        if pool_size <= 0:
+            return []
+        cols = ", ".join(f"i.{c.strip()}" for c in _ITEM_COLUMNS.split(","))
+        query = _TLDR_CANDIDATES.format(cols=cols)
+        params = {"pool": pool_size, "page": POPULAR_FEED_PAGE_MAX, "as_of": as_of}
+        with self._conn.transaction(), self._conn.cursor(row_factory=dict_row) as cur:
+            cur.execute(query, params)
+            return [StoredItem.model_validate(row) for row in cur.fetchall()]
+
+    def save_tldrs(self, tldrs: Mapping[str, str], at: datetime) -> int:
+        if not tldrs:
+            return 0
+        with self._conn.transaction(), self._conn.cursor() as cur:
+            cur.execute(_SAVE_TLDRS, (at, list(tldrs), list(tldrs.values())))
+            return cur.rowcount
 
     # --- helpers -----------------------------------------------------------
 

@@ -69,6 +69,15 @@ def test_falls_back_to_next_provider_on_api_error(error: Exception) -> None:
     assert len(first.calls) == 1
 
 
+def test_rate_limits_are_remembered_per_provider() -> None:
+    answer = FakeClient('{"items": [3]}')
+    llm = chain(FakeClient(rate_limited()), FakeClient(server_error()), answer)
+
+    assert llm.rate_limited == set()
+    assert llm.complete(MESSAGES, Out).provider == "p3"
+    assert llm.rate_limited == {"p1"}  # only the 429 counts, not the 503
+
+
 def test_broken_json_falls_back_instead_of_crashing() -> None:
     first, second = FakeClient('{"items": [1,'), FakeClient('```json\n{"items": [2]}\n```')
 

@@ -677,3 +677,62 @@ def test_merge_cluster_needs_two_known_items(store: ContentStore, source_id: int
     store.upsert_items([make_item(1, source_id)])
     with pytest.raises(StoreError):
         store.merge_cluster([f"{1:040x}", "f" * 40])
+
+
+# --- TL;DR (W3) ------------------------------------------------------------
+
+
+def iid(n: int) -> str:
+    return f"{n:040x}"
+
+
+def test_tldr_candidates_follow_popular_and_fold_clusters(
+    store: ContentStore, source_id: int
+) -> None:
+    # native_score n -> pop_pct rises with n; that dominates freshness over a few hours.
+    store.upsert_items([make_item(n, source_id) for n in range(1, 6)])
+    store.upsert_items([make_item(9, source_id, published_at=T0 - timedelta(days=8))])
+    store.recompute_pop_pct(T0, timedelta(days=30))
+    store.merge_cluster([iid(4), iid(5)])  # canonical: item 4 (same first_seen_at, lower id)
+
+    found = store.tldr_candidates(T0, 10)
+
+    # One row per cluster (its canonical item), nothing older than the 7-day pool.
+    assert [i.id for i in found] == [iid(4), iid(3), iid(2), iid(1)]
+    assert [i.id for i in store.tldr_candidates(T0, 2)] == [iid(4), iid(3)]
+    assert store.tldr_candidates(T0, 0) == []
+    # Not first seen yet at as_of: not in the pool.
+    assert store.tldr_candidates(T0 - timedelta(minutes=1), 10) == []
+
+
+def test_tldr_candidates_skip_done_items_without_refilling_the_pool(
+    store: ContentStore, source_id: int
+) -> None:
+    store.upsert_items([make_item(n, source_id) for n in range(1, 5)])
+    store.recompute_pop_pct(T0, timedelta(days=30))
+
+    assert store.save_tldrs({iid(4): "Bản tóm tắt."}, T0) == 1
+    assert store.mark_done(Stage.SUMMARIZE, [iid(2)], T0) == 1
+
+    # The pool is the top 3 (4, 3, 2); done items leave it, the 4th never moves up.
+    assert [i.id for i in store.tldr_candidates(T0, 3)] == [iid(3)]
+    [item] = store.get_items([iid(4)])
+    assert (item.tldr, item.summarized_at) == ("Bản tóm tắt.", T0)
+    assert store.save_tldrs({"f" * 40: "x"}, T0) == 0  # unknown ids are skipped
+    assert store.save_tldrs({}, T0) == 0
+
+
+@pytest.mark.integration
+def test_tldr_candidates_use_the_sql_popular_ranking(pg_conn) -> None:  # type: ignore[no-untyped-def]
+    """Postgres only: the order comes from popular_feed, so quality (which MemoryStore's
+    stand-in ignores) changes it."""
+    store = PostgresStore(pg_conn)
+    store.sync_sources([spec("Alpha")])
+    sid = store.list_sources()[0].id
+    store.upsert_items([make_item(n, sid, native_score=10) for n in (1, 2)])
+    store.recompute_pop_pct(T0, timedelta(days=7))
+    for n, quality in ((1, 0.1), (2, 0.9)):
+        store.save_tags([TagUpdate(id=iid(n), methods=frozenset(), quality=quality)], T0)
+
+    # Item 2 is an hour older but much better: popular_score puts it first.
+    assert [i.id for i in store.tldr_candidates(T0, 10)] == [iid(2), iid(1)]

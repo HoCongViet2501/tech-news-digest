@@ -4,15 +4,15 @@ In order: sync sources.yaml and taxonomy.yaml; fetch the due sources; normalize 
 upsert (items keep their source's native tags, and every (item, source) pair gets an
 item_mentions row); enrich; embed (fastembed, title + description); cluster near-
 duplicates over 72 h; tag (native -> rule -> embedding, then the LLM fallback that also
-scores quality, capped by `ingest.llm_calls_per_run`); recompute pop_pct; record source
-health. TL;DR comes in a later phase.
+scores quality, capped by `ingest.llm_calls_per_run`); recompute pop_pct; TL;DR for the
+Popular pool (digest.tldr, capped by `ingest.tldr.calls_per_run`); record source health.
 
 Every step is resumable: items are upserted by id, record_fetch runs only after a
-source's items are stored (so a crash leaves the source due), and enrichment, embedding
-and tagging work off the `enriched_at` / `embedded_at` / `tagged_at` queues (each stage
-only takes items whose previous stage is done), so whatever a killed run left undone is
-picked up by the next. Clustering re-reads the whole window each run and only writes
-what changed.
+source's items are stored (so a crash leaves the source due), and enrichment, embedding,
+tagging and TL;DR work off the `enriched_at` / `embedded_at` / `tagged_at` /
+`summarized_at` queues (embedding and tagging only take items whose previous stage is
+done), so whatever a killed run left undone is picked up by the next. Clustering
+re-reads the whole window each run and only writes what changed.
 """
 
 import asyncio
@@ -52,6 +52,7 @@ from digest.store import ContentStore, EnrichmentUpdate, FetchOutcome, NewItem, 
 from digest.store.models import SourceSpec
 from digest.tagger import tag_pending
 from digest.taxonomy import Taxonomy
+from digest.tldr import tldr_pending
 
 log = logging.getLogger(__name__)
 
@@ -71,6 +72,10 @@ class IngestStats(BaseModel):
     tagged: int = 0  # items taken off the tag queue (done)
     llm_calls: int = 0  # LLM tag + quality batches
     llm_waiting: int = 0  # items left for the LLM in a later run
+    tldr: int = 0  # TL;DRs stored
+    tldr_calls: int = 0  # TL;DR LLM batches
+    tldr_skipped: int = 0  # pool items marked summarized without a TL;DR
+    tldr_waiting: int = 0  # pool items left for a later run
     duration_s: float = 0.0
 
     def line(self) -> str:
@@ -79,7 +84,9 @@ class IngestStats(BaseModel):
             f"refreshed={self.refreshed} not_modified={self.not_modified} "
             f"errors={self.errors} enriched={self.enriched} embedded={self.embedded} "
             f"clustered={self.clustered} tagged={self.tagged} llm_calls={self.llm_calls} "
-            f"llm_waiting={self.llm_waiting} duration={self.duration_s:.1f}s"
+            f"llm_waiting={self.llm_waiting} tldr={self.tldr} tldr_calls={self.tldr_calls} "
+            f"tldr_skipped={self.tldr_skipped} tldr_waiting={self.tldr_waiting} "
+            f"duration={self.duration_s:.1f}s"
         )
 
 
@@ -422,7 +429,8 @@ async def run_ingest(
     chain: LLMChain | None = None,
 ) -> IngestStats:
     """One run. Without an embedder the embed, cluster and tag stages are skipped;
-    without a taxonomy, tagging is; without an LLM chain, tagging stops after step 3."""
+    without a taxonomy, tagging is; without an LLM chain, tagging stops after step 3 and
+    TL;DR is skipped."""
     started = time.monotonic()
     stats = IngestStats()
 
@@ -468,6 +476,11 @@ async def run_ingest(
 
     changed = store.recompute_pop_pct(now, timedelta(days=cfg.ingest.pop_window_days))
     log.info("pop_pct: %d items changed", changed)
+
+    # After pop_pct, so the Popular pool reflects this run's scores.
+    tldr = await tldr_pending(store, cfg, client, chain, now=now)
+    stats.tldr, stats.tldr_calls = tldr.stored, tldr.calls
+    stats.tldr_skipped, stats.tldr_waiting = tldr.skipped, tldr.waiting
 
     stats.duration_s = time.monotonic() - started
     return stats

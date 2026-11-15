@@ -27,6 +27,7 @@ from digest.store.models import (
 )
 
 _SPEC_FIELDS = ("name", "category", "base_weight", "cadence_hours")
+POPULAR_WINDOW = timedelta(days=7)  # public.popular_feed's pool
 
 
 class MemoryStore:
@@ -323,3 +324,40 @@ class MemoryStore:
 
     def list_clusters(self) -> list[Cluster]:
         return sorted(self._clusters.values(), key=lambda c: c.id)
+
+    # --- TL;DR -------------------------------------------------------------
+
+    def tldr_candidates(self, as_of: datetime, pool_size: int) -> list[StoredItem]:
+        """Stand-in for public.popular_feed('popular'): the same pool (published in the
+        7 days before `as_of`, first seen by then, one row per cluster: its canonical
+        item), but ordered by the cluster's best pop_pct, then newest, then id. The real
+        ranking lives only in SQL; tests that need it run against Postgres."""
+        if pool_size <= 0:
+            return []
+        pool = [
+            i
+            for i in self._items.values()
+            if i.published_at > as_of - POPULAR_WINDOW and i.first_seen_at <= as_of
+        ]
+        heads: dict[str, list[StoredItem]] = defaultdict(list)
+        for item in pool:
+            cluster = self._clusters.get(item.cluster_id) if item.cluster_id else None
+            heads[cluster.canonical_item_id if cluster else item.id].append(item)
+        ranked = [
+            (max(m.pop_pct or 0.0 for m in members), self._items[head])
+            for head, members in heads.items()
+            if any(m.id == head for m in members)  # canonical item outside the pool: no card
+        ]
+        ranked.sort(key=lambda r: r[1].id)
+        ranked.sort(key=lambda r: (r[0], r[1].published_at), reverse=True)
+        top = [item for _, item in ranked[:pool_size]]
+        return [i for i in top if i.tldr is None and i.summarized_at is None]
+
+    def save_tldrs(self, tldrs: Mapping[str, str], at: datetime) -> int:
+        count = 0
+        for item_id, tldr in tldrs.items():
+            item = self._items.get(item_id)
+            if item is not None:
+                self._items[item_id] = item.model_copy(update={"tldr": tldr, "summarized_at": at})
+                count += 1
+        return count

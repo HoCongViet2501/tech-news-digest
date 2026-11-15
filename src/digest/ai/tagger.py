@@ -50,7 +50,7 @@ class _Response(BaseModel):
     items: list[_Answer]
 
 
-def _short_ids(ids: list[str]) -> dict[str, str]:
+def short_ids(ids: list[str]) -> dict[str, str]:
     length = SHORT_ID
     while len({i[:length] for i in ids}) < len(set(ids)):
         length += 4
@@ -66,7 +66,7 @@ def llm_tag_batch(
 ) -> dict[str, LLMTagAnswer]:
     """Tags (known slugs only, at most MAX_TAGS) and quality (0-1) per item id. Items the
     model skipped, or answered without a quality, are left out. Raises AIUnavailable."""
-    by_short = _short_ids([i.id for i in items])
+    by_short = short_ids([i.id for i in items])
     to_short = {full: short for short, full in by_short.items()}
     payload = [
         {

@@ -90,3 +90,11 @@ ingest:
     window_hours: 72
     title_threshold: 0.92   # title cosine, from transient title embeddings
     prefilter: 0.5          # stored-vector cosine a pair needs before titles are compared
+  tldr:                     # TL;DR for the Popular pool (docs/PLAN.md §13 step 9, §15 LLM budget)
+    pool_size: 100          # top N of popular_feed('popular'), one item per cluster
+    calls_per_run: 2        # LLM batches per run (Gemini quota is shared with Telegram + tagger)
+    batch_size: 10
+    max_age_hours: 72       # a pool item still waiting for the LLM gives up after this
+    input_chars: 1500       # article text sent per item (keeps a batch inside free-tier TPM)
+    min_chars: 120          # less article/description text than this: skipped, not summarized
+    max_chars: 600          # TL;DR length cap; longer answers are cut at a sentence end

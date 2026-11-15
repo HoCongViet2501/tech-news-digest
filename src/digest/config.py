@@ -152,6 +152,28 @@ class ClusterConfig(_Strict):
     prefilter: float = Field(default=0.5, ge=-1, le=1)
 
 
+class TldrConfig(_Strict):
+    """TL;DR for the Popular pool (docs/PLAN.md §13 Ingestion step 9, §15 LLM budget).
+
+    The Gemini free quota is shared with the daily Telegram digest and the tagger, so
+    the defaults stay small: 2 calls x 8 runs is at most 16 calls (160 items) a day."""
+
+    # Top N of popular_feed('popular') (one item per cluster) that should have a TL;DR.
+    pool_size: int = Field(default=100, ge=0)
+    calls_per_run: int = Field(default=2, ge=0)  # LLM batches per run; 0 turns the stage off
+    batch_size: int = Field(default=10, gt=0)
+    # A pool item still without a TL;DR is retried each run until it is this old
+    # (first_seen_at), then marked summarized without one.
+    max_age_hours: int = Field(default=72, gt=0)
+    # Article text sent per item; 10 x 1500 chars keeps a batch under ~6k input tokens,
+    # inside the smallest free-tier per-minute token limit in the provider chain.
+    input_chars: int = Field(default=1500, gt=0)
+    # Less text than this (article or description) and the item is skipped: there is
+    # not enough to summarize honestly.
+    min_chars: int = Field(default=120, ge=0)
+    max_chars: int = Field(default=600, gt=0)  # longer answers are cut at a sentence end
+
+
 class IngestConfig(_Strict):
     """`python -m digest ingest` (Part 2 content store, docs/PLAN.md §13 Ingestion)."""
 
@@ -168,6 +190,7 @@ class IngestConfig(_Strict):
     embed: EmbedConfig = Field(default_factory=EmbedConfig)
     tagging: TaggingConfig = Field(default_factory=TaggingConfig)
     cluster: ClusterConfig = Field(default_factory=ClusterConfig)
+    tldr: TldrConfig = Field(default_factory=TldrConfig)
 
 
 class Config(_Strict):

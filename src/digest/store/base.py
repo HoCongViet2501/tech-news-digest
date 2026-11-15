@@ -130,3 +130,17 @@ class ContentStore(Protocol):
         ...
 
     def list_clusters(self) -> list[Cluster]: ...
+
+    # --- TL;DR (W3) --------------------------------------------------------
+
+    def tldr_candidates(self, as_of: datetime, pool_size: int) -> list[StoredItem]:
+        """Items among the top `pool_size` of the Popular feed at `as_of` (one per
+        cluster: its canonical item) that have neither a tldr nor summarized_at, in rank
+        order. Postgres reads the ranking from public.popular_feed('popular'), so it is
+        never duplicated in Python; MemoryStore uses a stand-in order (see there)."""
+        ...
+
+    def save_tldrs(self, tldrs: Mapping[str, str], at: datetime) -> int:
+        """Store each TL;DR and set summarized_at. Unknown ids are skipped. Returns rows
+        updated. Items skipped without a TL;DR use mark_done(Stage.SUMMARIZE, ...)."""
+        ...

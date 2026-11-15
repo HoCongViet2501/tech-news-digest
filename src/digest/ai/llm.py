@@ -67,6 +67,9 @@ def _openai_client(base_url: str, api_key: str) -> ChatClient:
 class LLMChain:
     def __init__(self, providers: list[Provider]) -> None:
         self.providers = providers
+        # Providers that answered 429 (rate limit or exhausted free quota) during this
+        # chain's lifetime, so quota-sensitive callers can stop instead of hammering.
+        self.rate_limited: set[str] = set()
 
     @classmethod
     def from_config(
@@ -95,6 +98,8 @@ class LLMChain:
                 response = provider.client.chat.completions.create(**kwargs)
                 data = parse_json(response.choices[0].message.content or "", schema)
             except openai.APIError as exc:
+                if isinstance(exc, openai.RateLimitError):
+                    self.rate_limited.add(provider.name)
                 log.warning("ai: %s failed (%s), trying next", provider.name, type(exc).__name__)
                 continue
             except ValueError as exc:

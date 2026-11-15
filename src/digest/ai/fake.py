@@ -1,8 +1,9 @@
 """Deterministic stand-in for the LLM providers, used when DIGEST_OFFLINE=1.
 
-It answers the real prompts (loaded from ai/prompts/) with valid JSON derived only
-from the items in the prompt, so offline runs exercise scoring, summarizing, JSON
-parsing and rendering without network access, API keys or quota.
+It answers the real prompts (score, summarize, tag, tldr from ai/prompts/) with valid
+JSON derived only from the items in the prompt, so offline runs exercise scoring,
+summarizing, tagging, TL;DRs, JSON parsing and rendering without network access, API
+keys or quota.
 """
 
 import hashlib
@@ -30,11 +31,13 @@ TEXTS: dict[str, dict[str, str]] = {
         "reason": "Điểm giả lập từ nguồn {source}.",
         "summary": "Tóm tắt giả lập cho “{title}” ({source}), dựa trên {chars} ký tự nội dung.",
         "why": "Ghi chú giả lập: chỉ dùng để kiểm tra pipeline offline.",
+        "tldr": "TL;DR giả lập cho “{title}”, từ {chars} ký tự nội dung.",
     },
     "en": {
         "reason": "Simulated score for a {source} item.",
         "summary": "Simulated summary of “{title}” ({source}), from {chars} characters of content.",
         "why": "Simulated note: only used to exercise the offline pipeline.",
+        "tldr": "Simulated TL;DR of “{title}”, from {chars} characters of content.",
     },
 }
 
@@ -62,6 +65,7 @@ class FakeLLMClient:
             _template_head("score"): self._score,
             _template_head("summarize"): self._summarize,
             _template_head("tag"): self._tag,
+            _template_head("tldr"): self._tldr,
         }
         self.chat = SimpleNamespace(completions=SimpleNamespace(create=self._create))
 
@@ -92,6 +96,12 @@ class FakeLLMClient:
             "summary": f"{PREFIX} {summary}",
             "why_it_matters": f"{PREFIX} {self.texts['why']}",
         }
+
+    def _tldr(self, item: dict[str, Any], prompt: str) -> dict[str, Any]:
+        tldr = self.texts["tldr"].format(
+            title=item.get("title", ""), chars=len(item.get("content") or "")
+        )
+        return {"id": item.get("id"), "tldr": f"{PREFIX} {tldr}"}
 
     def reply(self, prompt: str) -> str:
         """JSON answer for a known prompt; '{}' (which fails validation) for anything else."""

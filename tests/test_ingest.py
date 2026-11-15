@@ -12,7 +12,7 @@ import pytest
 from conftest import NOW, fixture_bytes
 from digest.ai.fake import fake_chain
 from digest.ai.llm import AIUnavailable, LLMChain
-from digest.config import Config
+from digest.config import Config, TldrConfig
 from digest.embedding import HashEmbedder
 from digest.http import make_client
 from digest.ingest import FetchContext, IngestStats, fetch_sources, run_ingest
@@ -106,10 +106,10 @@ def store(request: pytest.FixtureRequest) -> ContentStore:
 def cfg() -> Config:
     # HashEmbedder similarities are lower than the real model's, so the embedding and
     # LLM thresholds are lowered to give every tagger step something to do.
+    # TL;DR is off here (all_items() reads the summarize queue); its tests turn it on.
     tagging = {"embed_threshold": 0.2, "llm_min_similarity": 0.1, "llm_batch_size": 5}
-    return Config.model_validate(
-        {"profile": "Backend developer.", "ingest": {"enrich_per_run": 1000, "tagging": tagging}}
-    )
+    ingest = {"enrich_per_run": 1000, "tagging": tagging, "tldr": {"calls_per_run": 0}}
+    return Config.model_validate({"profile": "Backend developer.", "ingest": ingest})
 
 
 TAXONOMY = load_taxonomy(REPO_ROOT / "taxonomy.yaml")
@@ -136,7 +136,7 @@ def ingest(
 
 
 def all_items(store: ContentStore) -> list[StoredItem]:
-    return store.pending(Stage.SUMMARIZE, limit=100_000)  # nothing is summarized in W2
+    return store.pending(Stage.SUMMARIZE, limit=100_000)  # TL;DR is off in these tests
 
 
 def by_name(store: ContentStore) -> dict[str, Source]:
@@ -351,11 +351,16 @@ def test_stats_line() -> None:
         tagged=3,
         llm_calls=1,
         llm_waiting=1,
+        tldr=2,
+        tldr_calls=1,
+        tldr_skipped=1,
+        tldr_waiting=3,
         duration_s=2.25,
     )
     assert stats.line() == (
         "ingest due=3 fetched=10 new=4 refreshed=6 not_modified=1 errors=1 enriched=4 "
-        "embedded=4 clustered=1 tagged=3 llm_calls=1 llm_waiting=1 duration=2.2s"
+        "embedded=4 clustered=1 tagged=3 llm_calls=1 llm_waiting=1 tldr=2 tldr_calls=1 "
+        "tldr_skipped=1 tldr_waiting=3 duration=2.2s"
     )
 
 
@@ -467,3 +472,35 @@ def test_rerun_rewrites_no_clusters(store: ContentStore, cfg: Config) -> None:
 
     assert stats.clustered == 0
     assert store.list_clusters() == before
+
+
+# --- W3: TL;DR for the Popular pool --------------------------------------------
+
+
+def test_run_writes_tldrs_for_the_popular_pool(store: ContentStore, cfg: Config) -> None:
+    tldr = {"pool_size": 30, "calls_per_run": 2, "batch_size": 10}
+    on = cfg.model_copy(
+        update={"ingest": cfg.ingest.model_copy(update={"tldr": TldrConfig(**tldr)})}
+    )
+
+    first = ingest(store, on, FakeWeb())
+
+    pool = store.tldr_candidates(NOW, 30)  # what is still waiting
+    done = [i for i in store.get_items(_ids(store)) if i.summarized_at is not None]
+    with_tldr = [i for i in done if i.tldr]
+    assert first.tldr_calls <= 2 and first.tldr == len(with_tldr) > 0
+    assert first.tldr + first.tldr_skipped == len(done)
+    assert first.tldr_waiting == len(pool) > 0
+    assert all(i.tldr.startswith("[offline]") for i in with_tldr)  # type: ignore[union-attr]
+    # One TL;DR per cluster at most: only canonical items get one.
+    canonical = {c.canonical_item_id for c in store.list_clusters()}
+    members = {i for c in store.list_clusters() for i in c.item_ids} - canonical
+    assert not members & {i.id for i in with_tldr}
+
+    second = ingest(store, on, FakeWeb(), now=NOW + timedelta(minutes=5))
+    assert second.tldr > 0
+    assert not {i.id for i in with_tldr} & {i.id for i in store.tldr_candidates(NOW, 30)}
+
+
+def _ids(store: ContentStore) -> list[str]:
+    return [c.id for c in store.recent_items(NOW - timedelta(days=3650))]
