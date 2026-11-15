@@ -1,4 +1,4 @@
 export const site = {
   name: "Tech News",
-  tagline: "A personalized tech news feed. Coming soon.",
+  tagline: "Popular tech news from Hacker News, Lobsters, dev.to, Viblo and engineering blogs.",
 } as const;

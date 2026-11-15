@@ -1,1 +1,27 @@
 @import "tailwindcss";
+
+/*
+ * Dark mode: an explicit choice sets data-theme on <html> (ThemeToggle, plus the
+ * inline script in layout.tsx so there is no flash); without one the system
+ * preference applies. Works without JS.
+ */
+@custom-variant dark {
+  &:where([data-theme="dark"], [data-theme="dark"] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme="light"]), :root:not([data-theme="light"]) *) {
+      @slot;
+    }
+  }
+}
+
+:root {
+  color-scheme: light dark;
+}
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}

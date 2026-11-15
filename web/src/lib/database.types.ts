@@ -137,14 +137,14 @@ isOneToOne: false
                   ]
                 },"tags": {
                   Row: {
-                    "aliases": (string)[],"description": string | null,"name": string,"parent": string | null,"slug": string
+                    "active": boolean,"aliases": (string)[],"description": string | null,"name": string,"parent": string | null,"slug": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "aliases"?: (string)[],"description"?: string | null,"name": string,"parent"?: string | null,"slug": string
+                    "active"?: boolean,"aliases"?: (string)[],"description"?: string | null,"name": string,"parent"?: string | null,"slug": string
                   }
                   Update: {
-                    "aliases"?: (string)[],"description"?: string | null,"name"?: string,"parent"?: string | null,"slug"?: string
+                    "active"?: boolean,"aliases"?: (string)[],"description"?: string | null,"name"?: string,"parent"?: string | null,"slug"?: string
                   }
                   Relationships: [
                     {
@@ -161,15 +161,63 @@ isOneToOne: false
             [_ in never]: never
           }
           Functions: {
-            "immutable_unaccent":
+            "feed_cards":
+{ Args: { "p_full"?: boolean,"p_ids": (string)[] }; Returns: Database["public"]['CompositeTypes']["feed_card"][]
+                          SetofOptions: {
+        from: "*"
+        to: "feed_card"
+        isOneToOne: false
+        isSetofReturn: true
+      } },
+"immutable_unaccent":
 { Args: { "input": string }; Returns: string
+                           },
+"item_detail":
+{ Args: { "p_id": string }; Returns: Database["public"]['CompositeTypes']["feed_card"][]
+                          SetofOptions: {
+        from: "*"
+        to: "feed_card"
+        isOneToOne: false
+        isSetofReturn: true
+      } },
+"popular_feed":
+{ Args: { "p_as_of"?: string,"p_limit"?: number,"p_offset"?: number,"p_sort"?: string,"p_tag"?: string }; Returns: Database["public"]['CompositeTypes']["feed_card"][]
+                          SetofOptions: {
+        from: "*"
+        to: "feed_card"
+        isOneToOne: false
+        isSetofReturn: true
+      } },
+"popular_score":
+{ Args: { "p_as_of": string,"p_n_sites": number,"p_pop_pct": number,"p_published_at": string,"p_quality": number }; Returns: number
+                           },
+"search_items":
+{ Args: { "p_limit"?: number,"p_offset"?: number,"p_q": string }; Returns: Database["public"]['CompositeTypes']["feed_card"][]
+                          SetofOptions: {
+        from: "*"
+        to: "feed_card"
+        isOneToOne: false
+        isSetofReturn: true
+      } },
+"source_site":
+{ Args: { "p_kind": string,"p_source_id": number }; Returns: string
+                           },
+"tag_list":
+{ Args: Record<PropertyKey, never>; Returns: {
+              "description": string,"item_count": number,"name": string,"parent": string,"slug": string
+            }[]
+                           },
+"url_host":
+{ Args: { "p_url": string }; Returns: string
                            }
           }
           Enums: {
             [_ in never]: never
           }
           CompositeTypes: {
-            [_ in never]: never
+            "feed_card": {
+                        "id": string | null,"title": string | null,"url": string | null,"discussion_url": string | null,"description": string | null,"image_url": string | null,"lang": string | null,"reading_min": number | null,"published_at": string | null,"tldr": string | null,"source_id": number | null,"source_name": string | null,"source_kind": string | null,"source_domain": string | null,"upvotes": number | null,"comments": number | null,"tags": Json | null,"mentions": Json | null,"siblings": Json | null
+                      }
           }
         }
 }

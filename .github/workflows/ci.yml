@@ -119,7 +119,8 @@ jobs:
       - run: pnpm install --frozen-lockfile
 
       # Supabase CLI comes from web/package.json (pinned devDependency).
-      # Services nothing uses yet are excluded to keep startup fast.
+      # Services nothing uses yet are excluded to keep startup fast. The web needs
+      # Postgres, PostgREST and the Kong gateway; postgres-meta serves `pnpm db:types`.
       - name: Start local Supabase
         run: pnpm exec supabase start -x studio,imgproxy,mailpit,logflare,vector,edge-runtime,supavisor,realtime,storage-api
 
@@ -143,7 +144,17 @@ jobs:
           path: web/src/lib/database.types.ts
           if-no-files-found: ignore
 
+      # Public, well-known local-dev values (not secrets). The build bakes them into the
+      # client bundle; the API tests in e2e/ read them too.
+      - name: Export local Supabase URL and anon key
+        run: |
+          status="$(pnpm exec supabase status -o json)"
+          echo "NEXT_PUBLIC_SUPABASE_URL=$(jq -r .API_URL <<<"$status")" >> "$GITHUB_ENV"
+          echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=$(jq -r .PUBLISHABLE_KEY <<<"$status")" >> "$GITHUB_ENV"
+
       - run: pnpm exec playwright install --with-deps chromium
+      # Fixtures first: the build prerenders the public pages from the database.
+      - run: pnpm e2e:seed
       - run: pnpm build
       - run: pnpm e2e
       - if: failure()
