@@ -43,6 +43,32 @@ isOneToOne: false
       referencedColumns: ["id"]
     }
                   ]
+                },"item_mentions": {
+                  Row: {
+                    "discussion_url": string | null,"first_seen_at": string,"item_id": string,"native_comments": number,"native_score": number,"source_id": number
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "discussion_url"?: string | null,"first_seen_at"?: string,"item_id": string,"native_comments"?: number,"native_score"?: number,"source_id": number
+                  }
+                  Update: {
+                    "discussion_url"?: string | null,"first_seen_at"?: string,"item_id"?: string,"native_comments"?: number,"native_score"?: number,"source_id"?: number
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "item_mentions_item_id_fkey"
+      columns: ["item_id"]
+isOneToOne: false
+      referencedRelation: "items"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "item_mentions_source_id_fkey"
+      columns: ["source_id"]
+isOneToOne: false
+      referencedRelation: "sources"
+      referencedColumns: ["id"]
+    }
+                  ]
                 },"item_tags": {
                   Row: {
                     "confidence": number,"created_at": string,"item_id": string,"method": string,"tag": string
@@ -71,14 +97,14 @@ isOneToOne: false
                   ]
                 },"items": {
                   Row: {
-                    "cluster_id": number | null,"description": string | null,"discussion_url": string | null,"embedded_at": string | null,"embedding": unknown,"enriched_at": string | null,"fetched_at": string,"first_seen_at": string,"fts": unknown,"id": string,"image_url": string | null,"lang": string | null,"native_comments": number,"native_score": number,"pop_pct": number | null,"published_at": string,"quality": number | null,"reading_min": number | null,"source_id": number,"summarized_at": string | null,"tagged_at": string | null,"title": string,"tldr": string | null,"url": string
+                    "cluster_id": number | null,"description": string | null,"discussion_url": string | null,"embedded_at": string | null,"embedding": unknown,"enriched_at": string | null,"fetched_at": string,"first_seen_at": string,"fts": unknown,"id": string,"image_url": string | null,"lang": string | null,"native_comments": number,"native_score": number,"native_tags": (string)[],"pop_pct": number | null,"published_at": string,"quality": number | null,"reading_min": number | null,"source_id": number,"summarized_at": string | null,"tagged_at": string | null,"title": string,"tldr": string | null,"url": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "cluster_id"?: number | null,"description"?: string | null,"discussion_url"?: string | null,"embedded_at"?: string | null,"embedding"?: unknown,"enriched_at"?: string | null,"fetched_at"?: string,"first_seen_at"?: string,"fts"?: never,"id": string,"image_url"?: string | null,"lang"?: string | null,"native_comments"?: number,"native_score"?: number,"pop_pct"?: number | null,"published_at": string,"quality"?: number | null,"reading_min"?: number | null,"source_id": number,"summarized_at"?: string | null,"tagged_at"?: string | null,"title": string,"tldr"?: string | null,"url": string
+                    "cluster_id"?: number | null,"description"?: string | null,"discussion_url"?: string | null,"embedded_at"?: string | null,"embedding"?: unknown,"enriched_at"?: string | null,"fetched_at"?: string,"first_seen_at"?: string,"fts"?: never,"id": string,"image_url"?: string | null,"lang"?: string | null,"native_comments"?: number,"native_score"?: number,"native_tags"?: (string)[],"pop_pct"?: number | null,"published_at": string,"quality"?: number | null,"reading_min"?: number | null,"source_id": number,"summarized_at"?: string | null,"tagged_at"?: string | null,"title": string,"tldr"?: string | null,"url": string
                   }
                   Update: {
-                    "cluster_id"?: number | null,"description"?: string | null,"discussion_url"?: string | null,"embedded_at"?: string | null,"embedding"?: unknown,"enriched_at"?: string | null,"fetched_at"?: string,"first_seen_at"?: string,"fts"?: never,"id"?: string,"image_url"?: string | null,"lang"?: string | null,"native_comments"?: number,"native_score"?: number,"pop_pct"?: number | null,"published_at"?: string,"quality"?: number | null,"reading_min"?: number | null,"source_id"?: number,"summarized_at"?: string | null,"tagged_at"?: string | null,"title"?: string,"tldr"?: string | null,"url"?: string
+                    "cluster_id"?: number | null,"description"?: string | null,"discussion_url"?: string | null,"embedded_at"?: string | null,"embedding"?: unknown,"enriched_at"?: string | null,"fetched_at"?: string,"first_seen_at"?: string,"fts"?: never,"id"?: string,"image_url"?: string | null,"lang"?: string | null,"native_comments"?: number,"native_score"?: number,"native_tags"?: (string)[],"pop_pct"?: number | null,"published_at"?: string,"quality"?: number | null,"reading_min"?: number | null,"source_id"?: number,"summarized_at"?: string | null,"tagged_at"?: string | null,"title"?: string,"tldr"?: string | null,"url"?: string
                   }
                   Relationships: [
                     {

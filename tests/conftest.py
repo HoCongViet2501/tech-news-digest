@@ -55,7 +55,9 @@ def _isolated_cwd(
 # Integration tests run against a local Supabase Postgres (`supabase status`, port 54322).
 TEST_DB_ENV = "DIGEST_TEST_DB_URL"
 _LOCAL_HOSTS = {"localhost", "127.0.0.1", "::1"}
-_CONTENT_TABLES = "public.item_tags, public.tags, public.items, public.clusters, public.sources"
+_CONTENT_TABLES = ", ".join(
+    f"public.{t}" for t in ("item_mentions", "item_tags", "tags", "items", "clusters", "sources")
+)
 
 
 @pytest.fixture

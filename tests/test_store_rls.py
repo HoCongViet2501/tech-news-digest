@@ -16,7 +16,7 @@ from digest.store import NewItem, PostgresStore, SourceSpec
 
 pytestmark = pytest.mark.integration
 
-CONTENT_TABLES = ("sources", "items", "clusters", "tags", "item_tags")
+CONTENT_TABLES = ("sources", "items", "clusters", "tags", "item_tags", "item_mentions")
 CLIENT_ROLES = ("anon", "authenticated")
 T0 = datetime(2026, 11, 15, 7, 0, tzinfo=UTC)
 ITEM_ID = "a" * 40
