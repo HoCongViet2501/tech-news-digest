@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
+import { CardActions } from "@/components/CardActions";
 import { Cover } from "@/components/Cover";
 import { getFeed, getItem } from "@/lib/data";
 import { ageLabel, compactNumber, shortSourceName } from "@/lib/format";
@@ -60,6 +61,9 @@ async function Item({ params }: Pick<PageProps<"/items/[id]">, "params">) {
       <h1 lang={card.lang ?? undefined} className="text-2xl leading-tight font-bold sm:text-3xl">
         {card.title}
       </h1>
+      <div className="mt-3 empty:hidden">
+        <CardActions id={card.id} tags={card.tags} source={card.source} variant="page" />
+      </div>
       {card.tags.length ? (
         <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="Tags">
           {card.tags.map((t) => (
@@ -103,6 +107,8 @@ async function Item({ params }: Pick<PageProps<"/items/[id]">, "params">) {
         <a
           href={card.url}
           rel="noopener"
+          data-item-id={card.id}
+          data-dwell
           className="rounded-full bg-zinc-900 px-5 py-2 text-sm font-medium text-white hover:bg-zinc-700 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
         >
           Read the original ↗
@@ -112,6 +118,8 @@ async function Item({ params }: Pick<PageProps<"/items/[id]">, "params">) {
             key={m.sourceId}
             href={m.discussionUrl ?? undefined}
             rel="noopener"
+            data-item-id={card.id}
+            data-dwell
             className="rounded-full border border-zinc-300 px-5 py-2 text-sm hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-800"
           >
             Discuss on {shortSourceName(m.sourceKind, m.sourceName)} ({compactNumber(m.comments)}) ↗

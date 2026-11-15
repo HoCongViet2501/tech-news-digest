@@ -1,15 +1,34 @@
+import { execFileSync } from "node:child_process";
+
 import { defineConfig, devices } from "@playwright/test";
 
 const port = 3000;
 const isCI = Boolean(process.env.CI);
 
-// Locally, NEXT_PUBLIC_SUPABASE_* come from .env.local (Next reads it too); CI sets them
-// from `supabase status`. The API tests below need them in this process as well.
+// NEXT_PUBLIC_SUPABASE_* are needed here too: by the API specs and the user seeding in
+// global setup (this process and its workers), and by the web server it starts.
+// Order: exported env (CI sets it from `supabase status`), then .env.local, then the
+// running local stack itself. Without the last step a checkout with no .env.local (a
+// fresh clone or a git worktree) silently skipped the API specs even with the stack up.
 try {
   process.loadEnvFile(".env.local");
 } catch {
-  // No .env.local (CI).
+  // No .env.local.
 }
+if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+  try {
+    const status = JSON.parse(
+      execFileSync("supabase", ["status", "-o", "json"], { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }),
+    ) as { API_URL?: string; PUBLISHABLE_KEY?: string; ANON_KEY?: string };
+    process.env.NEXT_PUBLIC_SUPABASE_URL ||= status.API_URL;
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||= status.PUBLISHABLE_KEY ?? status.ANON_KEY;
+  } catch {
+    // Local stack not running: the DB-backed specs fail or skip with a clear message.
+  }
+}
+// Email/password sign-in for the account specs (local Supabase only, see
+// src/lib/auth-config.ts). `next build` must see it too: CI sets it for the whole job.
+process.env.NEXT_PUBLIC_DEV_PASSWORD_LOGIN ??= "1";
 
 export default defineConfig({
   testDir: "./e2e",

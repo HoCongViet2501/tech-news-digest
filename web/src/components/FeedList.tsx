@@ -133,7 +133,7 @@ export function FeedList({ children, firstIds, query, asOf }: Props) {
   );
 }
 
-function Chunk({ children }: { children: ReactNode }) {
+export function Chunk({ children }: { children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   // null = rendered; a number = collapsed to an empty block of that height.
   const [collapsed, setCollapsed] = useState<number | null>(null);

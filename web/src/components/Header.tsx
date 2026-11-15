@@ -3,12 +3,13 @@ import Link from "next/link";
 
 import { site } from "@/lib/site";
 
+import { AccountMenu } from "./AccountMenu";
 import { ThemeToggle } from "./ThemeToggle";
 
 export function Header() {
   return (
     <header className="sticky top-0 z-20 border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950">
-      <div className="mx-auto flex h-14 max-w-7xl items-center gap-3 px-4">
+      <div className="mx-auto flex h-14 max-w-7xl items-center gap-2 px-4 sm:gap-3">
         <Link href="/" className="shrink-0 text-lg font-bold tracking-tight">
           {site.name}
         </Link>
@@ -41,6 +42,7 @@ export function Header() {
           </svg>
         </Link>
         <ThemeToggle />
+        <AccountMenu />
       </div>
     </header>
   );

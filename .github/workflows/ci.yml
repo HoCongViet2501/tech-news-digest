@@ -103,6 +103,10 @@ jobs:
     if: needs.changes.outputs.web == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      # Local-only email/password sign-in for the account specs. Baked in by `pnpm build`
+      # below; the app also requires a localhost Supabase URL (src/lib/auth-config.ts).
+      NEXT_PUBLIC_DEV_PASSWORD_LOGIN: "1"
     defaults:
       run:
         working-directory: web
@@ -120,7 +124,8 @@ jobs:
 
       # Supabase CLI comes from web/package.json (pinned devDependency).
       # Services nothing uses yet are excluded to keep startup fast. The web needs
-      # Postgres, PostgREST and the Kong gateway; postgres-meta serves `pnpm db:types`.
+      # Postgres, PostgREST, Auth (GoTrue, with the invite hook from config.toml) and the
+      # Kong gateway; postgres-meta serves `pnpm db:types`.
       - name: Start local Supabase
         run: pnpm exec supabase start -x studio,imgproxy,mailpit,logflare,vector,edge-runtime,supavisor,realtime,storage-api
 

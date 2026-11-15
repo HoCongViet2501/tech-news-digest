@@ -4,8 +4,9 @@ import pg from "pg";
 
 // Test-only content for the e2e suite. Everything here is marked as a fixture:
 // sources have kind `e2e_*` and URLs on the reserved `.invalid` TLD, tags start with
-// `e2e-`. Seeding is an idempotent upsert (never a truncate), and cleanup deletes only
-// those rows, because the local database is shared with other work.
+// `e2e-`, users and invites have `@e2e.invalid` emails. Seeding is an idempotent upsert
+// (never a truncate), and cleanup deletes only those rows, because the local database is
+// shared with other work.
 
 export const DB_URL = process.env.E2E_DB_URL ?? "postgresql://postgres:postgres@127.0.0.1:54322/postgres";
 
@@ -21,6 +22,20 @@ export const SOURCES = {
 export const TAGS = {
   topic: { slug: "e2e-topic", name: "E2E Topic", parent: null, description: "Fixture parent tag." },
   child: { slug: "e2e-child", name: "E2E Child", parent: "e2e-topic", description: "Fixture child tag." },
+  // Onboarding needs three tags.
+  extra: { slug: "e2e-extra", name: "E2E Extra", parent: null, description: "Fixture tag for onboarding." },
+} as const;
+
+/**
+ * Email/password accounts (local Supabase only; the hosted project has no Email provider).
+ * `reader` and `viewer` are invited; `stranger` is not, so the "before user created" hook
+ * rejects it.
+ */
+export const USERS = {
+  reader: { email: "e2e-reader@e2e.invalid", password: "e2e-reader-password" },
+  // Used only by screenshots.spec.ts, so screenshots never race the account specs.
+  viewer: { email: "e2e-viewer@e2e.invalid", password: "e2e-viewer-password" },
+  stranger: { email: "e2e-stranger@e2e.invalid", password: "e2e-stranger-password" },
 } as const;
 
 type Source = keyof typeof SOURCES;
@@ -87,6 +102,20 @@ export const ITEMS = {
     comments: 20,
     tags: [],
   },
+  extra: {
+    key: "extra",
+    source: "hn",
+    title: "Event sourcing with Kafka in production (e2e extra)",
+    description: null,
+    lang: "en",
+    imageUrl: null,
+    hoursAgo: 2,
+    popPct: 0.85,
+    quality: 0.8,
+    score: 70,
+    comments: 15,
+    tags: [TAGS.extra.slug],
+  },
   sibling: {
     key: "sibling",
     source: "lobsters",
@@ -145,7 +174,7 @@ export async function seed(): Promise<void> {
       sourceIds[key] = Number(rows[0].id);
     }
 
-    for (const t of [TAGS.topic, TAGS.child]) {
+    for (const t of Object.values(TAGS)) {
       await db.query(
         `insert into public.tags (slug, name, parent, description) values ($1, $2, $3, $4)
          on conflict (slug) do update
@@ -229,6 +258,70 @@ export async function seed(): Promise<void> {
       ).rows[0].id;
     await db.query(`update public.items set cluster_id = $1 where id = any($2)`, [clusterId, members]);
 
+    // Invite the reader and viewer only. The stranger must not exist, so its sign-up hits the hook.
+    for (const u of INVITED) {
+      await db.query(
+        `insert into public.invites (email) values ($1)
+         on conflict (lower(email)) where email is not null do nothing`,
+        [u.email],
+      );
+    }
+    await db.query(`delete from public.invites where lower(email) = $1`, [USERS.stranger.email]);
+    await db.query(`delete from auth.users where lower(email) = $1`, [USERS.stranger.email]);
+
+    await db.query("commit");
+  } catch (err) {
+    await db.query("rollback");
+    throw err;
+  } finally {
+    await db.end();
+  }
+  await seedUsers();
+}
+
+const INVITED = [USERS.reader, USERS.viewer];
+
+/**
+ * Creates the invited users through Supabase Auth (so the hook and the profiles trigger
+ * run as in production). Needs NEXT_PUBLIC_SUPABASE_URL / _ANON_KEY; without them (e.g.
+ * `pnpm e2e:seed` before the env is known) only content is seeded.
+ */
+async function seedUsers(): Promise<void> {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key) {
+    console.warn("NEXT_PUBLIC_SUPABASE_URL / _ANON_KEY not set: e2e users not seeded.");
+    return;
+  }
+  if (!LOCAL_HOSTS.has(new URL(url).hostname)) throw new Error(`Refusing to seed users into ${url}`);
+  for (const u of INVITED) {
+    const res = await fetch(`${url}/auth/v1/signup`, {
+      method: "POST",
+      headers: { apikey: key, "Content-Type": "application/json" },
+      body: JSON.stringify(u),
+    });
+    if (!res.ok) {
+      const body = (await res.json().catch(() => ({}))) as { error_code?: string };
+      if (body.error_code !== "user_already_exists") {
+        throw new Error(`Could not create e2e user ${u.email}: HTTP ${res.status} ${JSON.stringify(body)}`);
+      }
+    }
+    await resetUser(u.email);
+  }
+}
+
+/** Clears an e2e user's choices and behavior (follows, blocks, events, snapshots, profile text). */
+export async function resetUser(email: string): Promise<void> {
+  if (!email.endsWith("@e2e.invalid")) throw new Error(`Not an e2e user: ${email}`);
+  const db = await connect();
+  try {
+    const user = `select id from auth.users where lower(email) = $1`;
+    const args = [email];
+    await db.query("begin");
+    for (const table of ["user_tags", "user_sources", "events", "impressions", "feed_snapshots", "tag_affinity"]) {
+      await db.query(`delete from public.${table} where user_id in (${user})`, args);
+    }
+    await db.query(`update public.profiles set profile_text = null where user_id in (${user})`, args);
     await db.query("commit");
   } catch (err) {
     await db.query("rollback");
@@ -247,6 +340,9 @@ export async function cleanup(): Promise<void> {
     await db.query(`delete from public.items where source_id in (${e2eSources})`);
     await db.query(`delete from public.item_mentions where source_id in (${e2eSources})`);
     await db.query(`delete from public.tags where slug like 'e2e-%'`);
+    // Cascades to profiles and every user_* / events / snapshot row of these users.
+    await db.query(`delete from auth.users where email like '%@e2e.invalid'`);
+    await db.query(`delete from public.invites where email like '%@e2e.invalid'`);
     await db.query(`delete from public.sources where kind like 'e2e\\_%'`);
     await db.query("commit");
   } catch (err) {
