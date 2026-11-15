@@ -1,12 +1,18 @@
 """`python -m digest ingest`: one content-store run (docs/PLAN.md §13 Ingestion).
 
-Steps 1-4, 8 and 10 of the plan: sync sources.yaml, fetch the due sources, normalize
-and upsert, enrich pending items, recompute pop_pct, record source health. Tagging,
-embeddings, LLM, clustering and TL;DR come in later phases.
+In order: sync sources.yaml and taxonomy.yaml; fetch the due sources; normalize and
+upsert (items keep their source's native tags, and every (item, source) pair gets an
+item_mentions row); enrich; embed (fastembed, title + description); cluster near-
+duplicates over 72 h; tag (native -> rule -> embedding, then the LLM fallback that also
+scores quality, capped by `ingest.llm_calls_per_run`); recompute pop_pct; record source
+health. TL;DR comes in a later phase.
 
 Every step is resumable: items are upserted by id, record_fetch runs only after a
-source's items are stored (so a crash leaves the source due), and enrichment works off
-the `enriched_at` queue, so whatever a killed run left undone is picked up by the next.
+source's items are stored (so a crash leaves the source due), and enrichment, embedding
+and tagging work off the `enriched_at` / `embedded_at` / `tagged_at` queues (each stage
+only takes items whose previous stage is done), so whatever a killed run left undone is
+picked up by the next. Clustering re-reads the whole window each run and only writes
+what changed.
 """
 
 import asyncio
@@ -23,7 +29,10 @@ from urllib.parse import urlsplit
 import httpx
 from pydantic import BaseModel, ValidationError
 
+from digest.ai.llm import LLMChain
+from digest.cluster import cluster_recent
 from digest.config import Config
+from digest.embedding import Embedder, item_text
 from digest.enrich import Enrichment, RobotsCache, enrich_many
 from digest.fetchers import (
     devto,
@@ -41,6 +50,8 @@ from digest.models import Item
 from digest.normalize import normalize
 from digest.store import ContentStore, EnrichmentUpdate, FetchOutcome, NewItem, Source, Stage
 from digest.store.models import SourceSpec
+from digest.tagger import tag_pending
+from digest.taxonomy import Taxonomy
 
 log = logging.getLogger(__name__)
 
@@ -55,13 +66,20 @@ class IngestStats(BaseModel):
     not_modified: int = 0  # feeds that answered 304
     errors: int = 0  # sources whose fetch or store write failed
     enriched: int = 0  # items taken off the enrich queue
+    embedded: int = 0
+    clustered: int = 0  # near-duplicate groups created or extended
+    tagged: int = 0  # items taken off the tag queue (done)
+    llm_calls: int = 0  # LLM tag + quality batches
+    llm_waiting: int = 0  # items left for the LLM in a later run
     duration_s: float = 0.0
 
     def line(self) -> str:
         return (
             f"ingest due={self.due} fetched={self.fetched} new={self.new} "
             f"refreshed={self.refreshed} not_modified={self.not_modified} "
-            f"errors={self.errors} enriched={self.enriched} duration={self.duration_s:.1f}s"
+            f"errors={self.errors} enriched={self.enriched} embedded={self.embedded} "
+            f"clustered={self.clustered} tagged={self.tagged} llm_calls={self.llm_calls} "
+            f"llm_waiting={self.llm_waiting} duration={self.duration_s:.1f}s"
         )
 
 
@@ -363,6 +381,30 @@ async def enrich_pending(
     return saved
 
 
+# --- embeddings ---------------------------------------------------------------
+
+EMBED_CHUNK = 256  # items written per round trip, so a killed run keeps what it embedded
+
+
+def embed_pending(store: ContentStore, embedder: Embedder, cfg: Config, now: datetime) -> int:
+    """Embed up to `ingest.embed.per_run` enriched items from title + description."""
+    ec = cfg.ingest.embed
+    pending = store.pending(Stage.EMBED, ec.per_run, after=Stage.ENRICH)
+    saved = 0
+    started = time.monotonic()
+    for start in range(0, len(pending), EMBED_CHUNK):
+        chunk = pending[start : start + EMBED_CHUNK]
+        vectors = embedder.embed([item_text(i.title, i.description, ec.max_chars) for i in chunk])
+        saved += store.save_embeddings(
+            {item.id: vector.tolist() for item, vector in zip(chunk, vectors, strict=True)}, now
+        )
+    if pending:
+        log.info(
+            "embed: %d items with %s in %.1fs", saved, embedder.name, time.monotonic() - started
+        )
+    return saved
+
+
 # --- the run ------------------------------------------------------------------
 
 
@@ -375,7 +417,12 @@ async def run_ingest(
     now: datetime,
     github_token: str | None = None,
     devto_pause_seconds: float = 1.0,
+    taxonomy: Taxonomy | None = None,
+    embedder: Embedder | None = None,
+    chain: LLMChain | None = None,
 ) -> IngestStats:
+    """One run. Without an embedder the embed, cluster and tag stages are skipped;
+    without a taxonomy, tagging is; without an LLM chain, tagging stops after step 3."""
     started = time.monotonic()
     stats = IngestStats()
 
@@ -387,6 +434,12 @@ async def run_ingest(
             synced.updated,
             synced.disabled,
         )
+    if taxonomy is not None:
+        tags = store.sync_tags(taxonomy.specs())
+        if tags.changed:
+            log.info(
+                "tags: %d added, %d updated, %d retired", tags.inserted, tags.updated, tags.disabled
+            )
 
     due = store.due_sources(now, slack=timedelta(minutes=cfg.ingest.due_slack_minutes))
     stats.due = len(due)
@@ -395,6 +448,23 @@ async def run_ingest(
     store_results(store, results, now, stats)
 
     stats.enriched = await enrich_pending(store, cfg, client, now)
+
+    if embedder is not None:
+        stats.embedded = embed_pending(store, embedder, cfg, now)
+        stats.clustered = cluster_recent(store, embedder, cfg.ingest.cluster, now=now)
+        if taxonomy is not None:
+            tagged = tag_pending(
+                store,
+                taxonomy,
+                embedder,
+                cfg.ingest.tagging,
+                now=now,
+                chain=chain,
+                llm_calls=cfg.ingest.llm_calls_per_run,
+                source_names={s.id: s.name for s in store.list_sources()},
+            )
+            stats.tagged, stats.llm_calls = tagged.tagged, tagged.llm_calls
+            stats.llm_waiting = tagged.llm_waiting
 
     changed = store.recompute_pop_pct(now, timedelta(days=cfg.ingest.pop_window_days))
     log.info("pop_pct: %d items changed", changed)

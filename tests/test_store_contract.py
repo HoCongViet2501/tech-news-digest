@@ -13,14 +13,19 @@ from digest.store import (
     ContentStore,
     EnrichmentUpdate,
     FetchOutcome,
+    ItemTag,
     MemoryStore,
     NewItem,
     PostgresStore,
     SourceSpec,
     Stage,
     StoreError,
+    TagMethod,
+    TagSpec,
+    TagUpdate,
     load_sources,
 )
+from digest.taxonomy import load_taxonomy
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 T0 = datetime(2026, 11, 15, 7, 0, tzinfo=UTC)
@@ -232,6 +237,69 @@ def test_upsert_leaves_items_of_another_source_alone(store: ContentStore) -> Non
     assert (item.source_id, item.native_score, item.fetched_at) == (alpha, 10, T0)
 
 
+def test_upsert_records_a_mention_per_source(store: ContentStore) -> None:
+    store.sync_sources([spec("Alpha"), spec("Beta")])
+    alpha, beta = (s.id for s in store.list_sources())
+    one = f"{1:040x}"
+    store.upsert_items([make_item(1, alpha, native_score=10, discussion_url="https://a/1")])
+    later = T0 + timedelta(hours=1)
+    store.upsert_items([make_item(1, beta, native_score=99, native_comments=7, fetched_at=later)])
+    # Both sources see it again: each refreshes only its own mention.
+    store.upsert_items([make_item(1, alpha, native_score=20, fetched_at=later)])
+    store.upsert_items(
+        [make_item(1, beta, native_score=120, discussion_url="https://b/1", fetched_at=later)]
+    )
+
+    mentions = store.get_mentions([one, "f" * 40])
+
+    assert [
+        (m.source_id, m.native_score, m.native_comments, m.discussion_url, m.first_seen_at)
+        for m in mentions
+    ] == [
+        # A refresh without a discussion URL keeps the stored one.
+        (alpha, 20, 0, "https://a/1", T0),
+        (beta, 120, 0, "https://b/1", later),
+    ]
+    [item] = store.get_items([one])
+    assert (item.source_id, item.native_score) == (alpha, 20)
+
+
+def test_upsert_stores_and_merges_native_tags(store: ContentStore) -> None:
+    store.sync_sources([spec("Alpha"), spec("Beta")])
+    alpha, beta = (s.id for s in store.list_sources())
+    one = f"{1:040x}"
+    store.upsert_items([make_item(1, alpha, native_tags=["go", "web"])])
+    store.mark_done(Stage.TAG, [one], T0)
+
+    # Nothing new from another source: the item stays tagged.
+    store.upsert_items([make_item(1, beta, native_tags=["web"])])
+    [item] = store.get_items([one])
+    assert (item.native_tags, item.tagged_at) == (["go", "web"], T0)
+
+    # New tags from another source are merged in and the item is tagged again.
+    result = store.upsert_items([make_item(1, beta, native_tags=["kafka", "go"])])
+    assert result.other_source == 1
+    [item] = store.get_items([one])
+    assert (item.native_tags, item.tagged_at) == (["go", "web", "kafka"], None)
+    assert item.source_id == alpha
+
+
+def test_native_tags_are_normalized_from_items() -> None:
+    from digest.models import Item
+
+    item = Item(
+        id="a" * 40,
+        source="devto",
+        title="t",
+        url="https://x.example/",
+        score=1,
+        published_at=T0,
+        tags=["Large Language Models", " Go ", "go", ""],
+    )
+
+    assert NewItem.from_item(item, 1, T0).native_tags == ["large-language-models", "go"]
+
+
 def test_upsert_duplicate_ids_in_batch_last_wins(store: ContentStore, source_id: int) -> None:
     result = store.upsert_items(
         [make_item(1, source_id, native_score=1), make_item(1, source_id, native_score=9)]
@@ -402,3 +470,210 @@ def test_pop_pct_only_counts_the_window(store: ContentStore, source_id: int) -> 
     store.upsert_items([make_item(2, source_id, native_score=1)])  # score dropped
     assert store.recompute_pop_pct(T0, timedelta(days=7)) == 2
     assert pcts(store, 1, 2) == pytest.approx([1, 0], abs=1e-6)
+
+
+# --- tags ------------------------------------------------------------------
+
+NATIVE, RULE, EMBED, LLM = TagMethod.NATIVE, TagMethod.RULE, TagMethod.EMBED, TagMethod.LLM
+TAG_STEPS = frozenset({NATIVE, RULE, EMBED})
+
+
+def tag(slug: str, parent: str | None = None, **kw: object) -> TagSpec:
+    data: dict[str, object] = {"slug": slug, "name": slug.title(), "parent": parent}
+    return TagSpec.model_validate(data | kw)
+
+
+TAGS = [tag("backend"), tag("messaging", "backend"), tag("kafka", "messaging", aliases=["k"])]
+
+
+def test_sync_tags_inserts_updates_and_retires(store: ContentStore) -> None:
+    first = store.sync_tags(TAGS)
+    again = store.sync_tags(TAGS)
+    assert (first.inserted, first.updated, first.disabled) == (3, 0, 0)
+    assert not again.changed
+
+    changed = store.sync_tags([TAGS[0], tag("messaging", "backend", description="Queues")])
+
+    assert (changed.inserted, changed.updated, changed.disabled) == (0, 1, 1)
+    tags = {t.slug: t for t in store.list_tags()}
+    assert tags["kafka"].active is False  # retired, never deleted
+    assert tags["messaging"].description == "Queues"
+    assert [t.slug for t in store.list_tags(active_only=True)] == ["backend", "messaging"]
+
+    back = store.sync_tags(TAGS)
+    assert (back.inserted, back.updated, back.disabled) == (0, 2, 0)
+    assert store.list_tags(active_only=True) == store.list_tags()
+    assert {t.slug: t.aliases for t in store.list_tags()}["kafka"] == ["k"]
+
+
+def test_sync_real_taxonomy_is_idempotent(store: ContentStore) -> None:
+    specs = load_taxonomy(REPO_ROOT / "taxonomy.yaml").specs()
+
+    first = store.sync_tags(specs)
+
+    assert first.inserted == len(specs) >= 60
+    assert not store.sync_tags(specs).changed
+
+
+def test_sync_tags_rejects_unknown_parent(store: ContentStore) -> None:
+    with pytest.raises(StoreError):
+        store.sync_tags([tag("kafka", "nowhere")])
+
+
+def test_save_tags_replaces_only_the_given_methods(store: ContentStore, source_id: int) -> None:
+    store.sync_tags(TAGS)
+    store.upsert_items([make_item(1, source_id), make_item(2, source_id)])
+    one, two = f"{1:040x}", f"{2:040x}"
+
+    store.save_tags(
+        [
+            TagUpdate(
+                id=one,
+                methods=TAG_STEPS,
+                tags=[ItemTag(tag="backend", confidence=0.7, method=EMBED)],
+            ),
+            TagUpdate(
+                id=two,
+                methods=TAG_STEPS,
+                tags=[ItemTag(tag="kafka", confidence=0.9, method=RULE)],
+                done=True,
+            ),
+        ],
+        T0,
+    )
+    assert store.pending(Stage.TAG, limit=10) == store.get_items([one])
+
+    # The LLM step replaces embedding guesses with its own tags and sets quality.
+    count = store.save_tags(
+        [
+            TagUpdate(
+                id=one,
+                methods=frozenset({EMBED, LLM}),
+                tags=[ItemTag(tag="messaging", confidence=0.85, method=LLM)],
+                quality=0.4,
+                done=True,
+            )
+        ],
+        T0 + timedelta(hours=1),
+    )
+
+    assert count == 1
+    assert [(t.item_id, t.tag, t.method) for t in store.get_item_tags([one, two])] == [
+        (one, "messaging", LLM),
+        (two, "kafka", RULE),
+    ]
+    first, second = store.get_items([one, two])
+    assert (first.quality, first.tagged_at) == (pytest.approx(0.4), T0 + timedelta(hours=1))
+    assert (second.quality, second.tagged_at) == (None, T0)
+
+    # Re-running the first three steps keeps LLM tags; a tag found again by another
+    # method keeps the higher confidence.
+    store.save_tags(
+        [
+            TagUpdate(
+                id=one,
+                methods=TAG_STEPS,
+                tags=[
+                    ItemTag(tag="kafka", confidence=0.95, method=NATIVE),
+                    ItemTag(tag="messaging", confidence=0.6, method=EMBED),
+                ],
+            )
+        ],
+        T0,
+    )
+    assert [(t.tag, t.method) for t in store.get_item_tags([one])] == [
+        ("kafka", NATIVE),
+        ("messaging", LLM),
+    ]
+    assert store.get_items([one])[0].quality == pytest.approx(0.4)  # None keeps it
+
+
+def test_save_tags_rejects_unknown_tag_or_item(store: ContentStore, source_id: int) -> None:
+    store.sync_tags(TAGS)
+    store.upsert_items([make_item(1, source_id)])
+    with pytest.raises(StoreError):
+        store.save_tags(
+            [
+                TagUpdate(
+                    id=f"{1:040x}",
+                    methods=TAG_STEPS,
+                    tags=[ItemTag(tag="nope", confidence=0.9, method=RULE)],
+                )
+            ],
+            T0,
+        )
+    with pytest.raises(StoreError):
+        store.save_tags([TagUpdate(id="f" * 40, methods=TAG_STEPS)], T0)
+    assert store.save_tags([], T0) == 0
+
+
+# --- embeddings ------------------------------------------------------------
+
+
+def unit(*hot: int) -> list[float]:
+    vector = [0.0] * 384
+    for i in hot:
+        vector[i] = 1 / len(hot) ** 0.5
+    return vector
+
+
+def test_embeddings_round_trip_as_halfvec(store: ContentStore, source_id: int) -> None:
+    store.upsert_items([make_item(n, source_id) for n in (1, 2, 3)])
+    one, two = f"{1:040x}", f"{2:040x}"
+    vector = [((i % 7) - 3) / 10 for i in range(384)]
+
+    count = store.save_embeddings({one: vector, two: unit(5), "f" * 40: unit(1)}, T0)
+
+    assert count == 2
+    stored = store.get_embeddings([one, two, f"{3:040x}"])
+    assert stored.keys() == {one, two}
+    assert stored[one] == pytest.approx(vector, abs=1e-3)
+    assert stored[two][5] == pytest.approx(1.0)
+    assert [i.id for i in store.pending(Stage.EMBED, limit=10)] == [f"{3:040x}"]
+    assert store.get_items([one])[0].embedded_at == T0
+    # Only embedded items are ready for tagging.
+    assert {i.id for i in store.pending(Stage.TAG, limit=10, after=Stage.EMBED)} == {one, two}
+    with pytest.raises(StoreError):
+        store.save_embeddings({one: [0.1] * 10}, T0)
+
+
+# --- clusters --------------------------------------------------------------
+
+
+def test_recent_items_are_embedded_and_in_the_window(store: ContentStore, source_id: int) -> None:
+    store.upsert_items([make_item(n, source_id) for n in (1, 2, 100)])
+    store.save_embeddings({f"{n:040x}": unit(n) for n in (1, 100)}, T0)
+
+    recent = store.recent_items(T0 - timedelta(hours=72))
+
+    assert [i.id for i in recent] == [f"{1:040x}"]
+
+
+def test_merge_cluster_creates_extends_and_merges(store: ContentStore, source_id: int) -> None:
+    store.upsert_items(
+        [make_item(n, source_id, fetched_at=T0 + timedelta(minutes=n)) for n in range(1, 6)]
+    )
+    ids = [f"{n:040x}" for n in range(1, 6)]
+
+    a = store.merge_cluster([ids[1], ids[0]])
+    b = store.merge_cluster([ids[3], ids[2]])
+    assert a != b
+    assert store.merge_cluster([ids[0], ids[1]]) == a  # idempotent
+    assert [(c.id, c.canonical_item_id, c.item_ids) for c in store.list_clusters()] == [
+        (a, ids[0], ids[:2]),
+        (b, ids[2], ids[2:4]),
+    ]
+
+    # A new item linking both clusters merges them into the older one.
+    merged = store.merge_cluster([ids[4], ids[3], ids[1]])
+
+    assert merged == min(a, b)
+    [cluster] = store.list_clusters()
+    assert (cluster.canonical_item_id, cluster.item_ids) == (ids[0], ids)
+    assert {i.cluster_id for i in store.get_items(ids)} == {merged}
+
+
+def test_merge_cluster_needs_two_known_items(store: ContentStore, source_id: int) -> None:
+    store.upsert_items([make_item(1, source_id)])
+    with pytest.raises(StoreError):
+        store.merge_cluster([f"{1:040x}", "f" * 40])

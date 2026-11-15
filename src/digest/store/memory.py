@@ -2,19 +2,27 @@
 
 from bisect import bisect_left, bisect_right
 from collections import defaultdict
-from collections.abc import Callable, Sequence
+from collections.abc import Callable, Mapping, Sequence
 from datetime import UTC, datetime, timedelta
 
-from digest.store.base import DEFAULT_DUE_SLACK, StoreError
+import numpy as np
+
+from digest.store.base import DEFAULT_DUE_SLACK, EMBEDDING_DIM, StoreError
 from digest.store.models import (
+    Cluster,
     EnrichmentUpdate,
     FetchOutcome,
+    Mention,
     NewItem,
     Source,
     SourceSpec,
     Stage,
     StoredItem,
+    StoredItemTag,
     SyncResult,
+    Tag,
+    TagSpec,
+    TagUpdate,
     UpsertResult,
 )
 
@@ -25,6 +33,12 @@ class MemoryStore:
     def __init__(self, clock: Callable[[], datetime] = lambda: datetime.now(UTC)) -> None:
         self._sources: dict[int, Source] = {}
         self._items: dict[str, StoredItem] = {}
+        self._mentions: dict[tuple[str, int], Mention] = {}
+        self._tags: dict[str, Tag] = {}
+        self._item_tags: dict[tuple[str, str], StoredItemTag] = {}
+        self._embeddings: dict[str, list[float]] = {}
+        self._clusters: dict[int, Cluster] = {}
+        self._next_cluster_id = 1
         self._next_source_id = 1
         self._clock = clock  # stands in for the created_at default of now()
 
@@ -100,24 +114,53 @@ class MemoryStore:
                     **item.model_dump(), first_seen_at=item.fetched_at
                 )
                 new_ids.append(item.id)
-            elif current.source_id != item.source_id:
-                other_source += 1
             else:
-                self._items[item.id] = current.model_copy(
-                    update={
+                update: dict[str, object] = {}
+                added = [t for t in item.native_tags if t not in current.native_tags]
+                if added:
+                    update |= {"native_tags": [*current.native_tags, *added], "tagged_at": None}
+                if current.source_id == item.source_id:
+                    update |= {
                         "native_score": item.native_score,
                         "native_comments": item.native_comments,
                         "fetched_at": item.fetched_at,
                     }
-                )
-                refreshed += 1
+                    refreshed += 1
+                else:
+                    other_source += 1
+                if update:
+                    self._items[item.id] = current.model_copy(update=update)
+            self._mention(item)
         return UpsertResult(new_ids=new_ids, refreshed=refreshed, other_source=other_source)
+
+    def _mention(self, item: NewItem) -> None:
+        key = (item.id, item.source_id)
+        current = self._mentions.get(key)
+        self._mentions[key] = Mention(
+            item_id=item.id,
+            source_id=item.source_id,
+            discussion_url=item.discussion_url
+            or (current.discussion_url if current is not None else None),
+            native_score=item.native_score,
+            native_comments=item.native_comments,
+            first_seen_at=current.first_seen_at if current is not None else item.fetched_at,
+        )
+
+    def get_mentions(self, ids: Sequence[str]) -> list[Mention]:
+        wanted = set(ids)
+        found = [m for m in self._mentions.values() if m.item_id in wanted]
+        return sorted(found, key=lambda m: (m.item_id, m.first_seen_at, m.source_id))
 
     def get_items(self, ids: Sequence[str]) -> list[StoredItem]:
         return [self._items[i] for i in dict.fromkeys(ids) if i in self._items]
 
-    def pending(self, stage: Stage, limit: int) -> list[StoredItem]:
-        todo = [i for i in self._items.values() if getattr(i, stage.column) is None]
+    def pending(self, stage: Stage, limit: int, *, after: Stage | None = None) -> list[StoredItem]:
+        todo = [
+            i
+            for i in self._items.values()
+            if getattr(i, stage.column) is None
+            and (after is None or getattr(i, after.column) is not None)
+        ]
         todo.sort(key=lambda i: i.id)
         todo.sort(key=lambda i: i.first_seen_at, reverse=True)
         return todo[: max(limit, 0)]
@@ -168,3 +211,115 @@ class MemoryStore:
                     self._items[item.id] = item.model_copy(update={"pop_pct": pct})
                     changed += 1
         return changed
+
+    # --- tags --------------------------------------------------------------
+
+    def sync_tags(self, specs: Sequence[TagSpec]) -> SyncResult:
+        wanted = {spec.slug: spec for spec in specs}
+        for spec in wanted.values():
+            if spec.parent is not None and spec.parent not in wanted:
+                raise StoreError(f"tag {spec.slug}: unknown parent {spec.parent}")
+        inserted = updated = disabled = 0
+        for slug, spec in wanted.items():
+            tag = Tag(**spec.model_dump(), active=True)
+            current = self._tags.get(slug)
+            if current is None:
+                inserted += 1
+            elif current != tag:
+                updated += 1
+            self._tags[slug] = tag
+        for slug, tag in list(self._tags.items()):
+            if slug not in wanted and tag.active:
+                self._tags[slug] = tag.model_copy(update={"active": False})
+                disabled += 1
+        return SyncResult(inserted=inserted, updated=updated, disabled=disabled)
+
+    def list_tags(self, *, active_only: bool = False) -> list[Tag]:
+        return sorted(
+            (t for t in self._tags.values() if t.active or not active_only), key=lambda t: t.slug
+        )
+
+    def save_tags(self, updates: Sequence[TagUpdate], at: datetime) -> int:
+        batch = {u.id: u for u in updates}
+        for u in batch.values():
+            if u.id not in self._items:
+                raise StoreError(f"unknown item id {u.id}")
+            unknown = [t.tag for t in u.tags if t.tag not in self._tags]
+            if unknown:
+                raise StoreError(f"unknown tags {unknown}")
+        for u in batch.values():
+            for key, row in list(self._item_tags.items()):
+                if row.item_id == u.id and row.method in u.methods:
+                    del self._item_tags[key]
+            for tag in u.tags:
+                key = (u.id, tag.tag)
+                current = self._item_tags.get(key)
+                if current is None or tag.confidence > current.confidence:
+                    self._item_tags[key] = StoredItemTag(item_id=u.id, **tag.model_dump())
+            item = self._items[u.id]
+            update: dict[str, object] = {}
+            if u.quality is not None:
+                update["quality"] = u.quality
+            if u.done:
+                update["tagged_at"] = at
+            if update:
+                self._items[u.id] = item.model_copy(update=update)
+        return len(batch)
+
+    def get_item_tags(self, ids: Sequence[str]) -> list[StoredItemTag]:
+        wanted = set(ids)
+        found = [t for t in self._item_tags.values() if t.item_id in wanted]
+        return sorted(found, key=lambda t: (t.item_id, -t.confidence, t.tag))
+
+    # --- embeddings --------------------------------------------------------
+
+    def save_embeddings(self, vectors: Mapping[str, Sequence[float]], at: datetime) -> int:
+        count = 0
+        for item_id, vector in vectors.items():
+            item = self._items.get(item_id)
+            if item is None:
+                continue
+            if len(vector) != EMBEDDING_DIM:
+                raise StoreError(f"embedding of {item_id} has {len(vector)} dims")
+            # halfvec storage: round-trip through float16 like Postgres does.
+            self._embeddings[item_id] = [float(v) for v in np.float16(vector)]
+            self._items[item_id] = item.model_copy(update={"embedded_at": at})
+            count += 1
+        return count
+
+    def get_embeddings(self, ids: Sequence[str]) -> dict[str, list[float]]:
+        return {i: self._embeddings[i] for i in dict.fromkeys(ids) if i in self._embeddings}
+
+    # --- clusters ----------------------------------------------------------
+
+    def recent_items(self, since: datetime) -> list[StoredItem]:
+        found = [
+            i for i in self._items.values() if i.published_at >= since and i.embedded_at is not None
+        ]
+        return sorted(found, key=lambda i: (i.published_at, i.id))
+
+    def merge_cluster(self, item_ids: Sequence[str]) -> int:
+        members = [self._items[i] for i in dict.fromkeys(item_ids) if i in self._items]
+        if len(members) < 2:
+            raise StoreError("a cluster needs at least two known items")
+        existing = sorted({m.cluster_id for m in members if m.cluster_id is not None})
+        ids = {m.id for m in members}
+        for cluster_id in existing:
+            ids.update(self._clusters[cluster_id].item_ids)
+        if existing:
+            target = existing[0]
+            for cluster_id in existing[1:]:
+                del self._clusters[cluster_id]
+        else:
+            target = self._next_cluster_id
+            self._next_cluster_id += 1
+        items = sorted((self._items[i] for i in ids), key=lambda i: (i.first_seen_at, i.id))
+        self._clusters[target] = Cluster(
+            id=target, canonical_item_id=items[0].id, item_ids=[i.id for i in items]
+        )
+        for item in items:
+            self._items[item.id] = item.model_copy(update={"cluster_id": target})
+        return target
+
+    def list_clusters(self) -> list[Cluster]:
+        return sorted(self._clusters.values(), key=lambda c: c.id)

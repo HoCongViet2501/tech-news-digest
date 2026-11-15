@@ -101,6 +101,57 @@ class GitHubSearchIngestConfig(_Strict):
     zero_fork_min_stars: int = Field(default=200, ge=0)
 
 
+class EmbedConfig(_Strict):
+    """Local embeddings (fastembed). The model is cached in cache_dir, which ingest.yml
+    keeps with actions/cache so runners do not download it every run."""
+
+    model: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+    cache_dir: str = ".cache/fastembed"
+    batch_size: int = Field(default=64, gt=0)
+    threads: int | None = Field(default=None, gt=0)  # None: onnxruntime picks
+    per_run: int = Field(default=2000, ge=0)  # items embedded per run
+    max_chars: int = Field(default=1000, gt=0)  # title + description, cut (model keeps 128 tokens)
+
+
+class TaggingConfig(_Strict):
+    """Four-step tagger (docs/PLAN.md §15 Tagging). Confidences are fixed per step; the
+    embedding step maps cosine similarity into [embed_confidence_min, embed_confidence_max]."""
+
+    per_run: int = Field(default=2000, ge=0)  # items taken off the tag queue per run
+    native_confidence: float = Field(default=0.95, ge=0, le=1)
+    rule_confidence: float = Field(default=0.9, ge=0, le=1)  # keyword in the title
+    # Keyword only in the description: often a passing mention ("Available for Windows,
+    # macOS, Linux"), so below `confident` and left for the LLM to confirm or replace.
+    rule_description_confidence: float = Field(default=0.7, ge=0, le=1)
+    # A tag at or above this is "confident": later steps (embedding, LLM) are skipped.
+    confident: float = Field(default=0.8, ge=0, le=1)
+    embed_threshold: float = Field(default=0.55, ge=-1, le=1)  # cosine vs tag description
+    # Per-slug overrides: "frontend" matched backend posts, "crypto-web3" cryptography ones.
+    embed_thresholds: dict[str, float] = Field(
+        default_factory=lambda: {"frontend": 0.7, "crypto-web3": 0.6}
+    )
+    embed_confidence_min: float = Field(default=0.6, ge=0, le=1)
+    embed_confidence_max: float = Field(default=0.75, ge=0, le=1)
+    embed_max_tags: int = Field(default=2, ge=0)
+    # LLM fallback: only items whose best tag-description cosine reaches this (a coarse
+    # "is it tech at all" filter), with no confident tag, first seen within llm_max_age_hours.
+    llm_min_similarity: float = Field(default=0.25, ge=-1, le=1)
+    llm_batch_size: int = Field(default=20, gt=0)
+    llm_confidence: float = Field(default=0.85, ge=0, le=1)
+    llm_max_age_hours: int = Field(default=24, gt=0)
+    llm_description_chars: int = Field(default=300, gt=0)
+
+
+class ClusterConfig(_Strict):
+    """Near-duplicate clustering (docs/PLAN.md §15 Dedupe)."""
+
+    window_hours: int = Field(default=72, gt=0)
+    title_threshold: float = Field(default=0.92, ge=-1, le=1)
+    # Only pairs whose stored (title + description) vectors reach this get their titles
+    # embedded and compared; keeps the per-run cost to a fraction of the window.
+    prefilter: float = Field(default=0.5, ge=-1, le=1)
+
+
 class IngestConfig(_Strict):
     """`python -m digest ingest` (Part 2 content store, docs/PLAN.md §13 Ingestion)."""
 
@@ -113,7 +164,10 @@ class IngestConfig(_Strict):
     # RSS entries older than this are skipped, so a first fetch never imports an archive.
     rss_max_age_days: int = Field(default=30, gt=0)
     github_search: GitHubSearchIngestConfig = Field(default_factory=GitHubSearchIngestConfig)
-    llm_calls_per_run: int = Field(default=20, ge=0)  # reserved for W2 tagging; unused
+    llm_calls_per_run: int = Field(default=20, ge=0)  # LLM tag + quality batches per run
+    embed: EmbedConfig = Field(default_factory=EmbedConfig)
+    tagging: TaggingConfig = Field(default_factory=TaggingConfig)
+    cluster: ClusterConfig = Field(default_factory=ClusterConfig)
 
 
 class Config(_Strict):

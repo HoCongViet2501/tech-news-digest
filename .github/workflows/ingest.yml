@@ -1,6 +1,7 @@
 name: ingest
 
-# Content store ingestion (docs/PLAN.md §13): fetch due sources, enrich, pop_pct.
+# Content store ingestion (docs/PLAN.md §13): fetch due sources, enrich, embed,
+# cluster, tag (+ LLM fallback), pop_pct.
 on:
   schedule:
     - cron: "0 */3 * * *"
@@ -47,6 +48,19 @@ jobs:
 
       - run: uv sync --locked
 
+      # The fastembed model (~0.24 GB) is downloaded once and kept with actions/cache.
+      # The key names the model from config.yaml, so switching models starts a new cache.
+      - name: Embedding model name
+        id: embed
+        run: |
+          model=$(uv run python -c 'from pathlib import Path; from digest.config import load_config; print(load_config(Path("config.yaml")).ingest.embed.model)')
+          echo "model=${model//\//-}" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/cache@v4
+        with:
+          path: .cache/fastembed
+          key: fastembed-${{ steps.embed.outputs.model }}
+
       # The DB URL (session pooler) is passed only through env, never inlined.
       # GITHUB_TOKEN raises the GitHub Search API rate limit; it is never logged.
       - name: Ingest
@@ -54,3 +68,7 @@ jobs:
         env:
           DIGEST_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
           GITHUB_TOKEN: ${{ github.token }}
+          # LLM tag fallback + quality (free tiers); keys are never logged.
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}

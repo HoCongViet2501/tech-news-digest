@@ -564,9 +564,11 @@ items(id text pk /*sha1 canonical url*/, cluster_id, source_id, title, url, disc
       description, image_url, lang, reading_min, published_at, fetched_at,
       native_score int, native_comments int, pop_pct real /*per-source percentile, 7 days*/,
       quality real /*0–1, LLM*/, tldr text, embedding halfvec(384), fts tsvector,
-      first_seen_at, enriched_at, tagged_at, embedded_at, summarized_at /*stage queue*/)
+      native_tags text[], first_seen_at,
+      enriched_at, tagged_at, embedded_at, summarized_at /*stage queue*/)
+item_mentions(item_id, source_id, discussion_url, native_score, native_comments, first_seen_at)
 clusters(id, canonical_item_id, item_ids text[])
-tags(slug pk, name, parent, description, aliases text[])        -- seeded from taxonomy.yaml
+tags(slug pk, name, parent, description, aliases text[], active) -- seeded from taxonomy.yaml
 item_tags(item_id, tag, confidence real, method /*native|rule|embed|llm*/)
 invites(id, email null, github_login null, invited_at, used_at)  -- match by email OR GitHub login
 profiles(user_id pk, display_name, lang, profile_text, profile_embedded_at, user_vec halfvec(384),
@@ -669,9 +671,10 @@ Every phase ends in a runnable state. All Part 1 conventions in `CLAUDE.md` stil
    - A second fetch of an unchanged feed gets 304 when the server sends `ETag` / `Last-Modified` (some feeds, e.g. Go Blog and Cloudflare, send neither).
 
 ### W2 — Tags and embeddings
-1. Owner approves `taxonomy.yaml` (~60 tags, aliases, descriptions); seed `tags`.
-2. Four-step tagger (§15), fastembed with the cached model, `ai/prompts/tag.md`.
-3. Near-duplicate clustering (moved from W1): title cosine ≥ 0.92 within 72 h → same cluster.
+0. Keep what the W1 fetch step dropped: `items.native_tags` (the source's own tags, merged across sources; new tags re-queue the item for tagging) and `item_mentions` (one row per item and source, with that source's discussion link, score and comments). `items.source_id` stays the first source. Needed by the tagger (step 1) and the "also on HN · Lobsters" card.
+1. Owner approves `taxonomy.yaml` (~60 tags, aliases, descriptions); seed `tags` on every ingest run. Tags removed from the YAML are retired (`tags.active = false`), never deleted, because `item_tags` cascades.
+2. Four-step tagger (§15), fastembed with the cached model, `ai/prompts/tag.md`. Parent tags are implied at read time, not stored. An item waiting for the LLM is retried each run until it is `ingest.tagging.llm_max_age_hours` old, then keeps its non-LLM tags.
+3. Near-duplicate clustering (moved from W1): title cosine ≥ 0.92 within 72 h → same cluster. Titles are embedded transiently for pairs whose stored vectors are already close; pairs from the same source or with different version numbers are never merged.
 4. `scripts/label_sample.py` exports 200 items for labeling; `scripts/eval_tags.py` reports precision/recall.
 5. **Acceptance:** precision ≥ 0.85 and recall ≥ 0.70 (**owner labels manually**); 1000 items embedded in < 60 s on Actions; the same story on HN and Lobsters ends up in one cluster.
 
@@ -686,6 +689,11 @@ Every phase ends in a runnable state. All Part 1 conventions in `CLAUDE.md` stil
 2. TL;DR generated in the pipeline for the popular pool.
 3. Cached public pages (15 min) to save DB and Vercel quota. Next 16 runs with `cacheComponents: true`, so this is `"use cache"` + `cacheLife`, not the `revalidate` segment config.
 4. GitHub Pages becomes a redirect to the web app.
+   - Implementation notes (2026-11-15, steps 1 and 3):
+     - Sorts are separate static routes (`/`, `/upvoted`, `/discussed`), not `?sort=`, so each one is prerendered and cached instead of rendered per request.
+     - Read RPCs live in `supabase/migrations/*_w3_public_read.sql`. The Popular weights sit in the SQL function `popular_score` until W4 moves them to `ranking_config` (§15).
+     - The W1 trigram index on the raw `title` is replaced by one on `immutable_unaccent(lower(title))`, which is what search compares.
+     - CI seeds the e2e fixtures before `pnpm build`, because the build prerenders pages from the DB.
 5. **Acceptance:** Lighthouse mobile ≥ 90; tag pages show only matching items; searching "kien truc" finds "kiến trúc"; Playwright covers browsing Popular, a tag page and search; snapshot tests for cards with `& < >` and emoji; **owner reviews the UI manually**.
 
 ### W4 — Accounts and personalization v1

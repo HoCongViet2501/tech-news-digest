@@ -1,5 +1,6 @@
 """Pydantic models crossing the content-store boundary (Postgres tables in supabase/)."""
 
+from collections.abc import Sequence
 from datetime import datetime
 from enum import StrEnum
 from typing import Self
@@ -90,6 +91,20 @@ class FetchOutcome(_Model):
         return self
 
 
+def normalize_native_tags(tags: Sequence[str]) -> list[str]:
+    """Lowercase, trim, join inner whitespace with '-', drop empties and duplicates.
+
+    Taxonomy aliases are matched exactly against these, so "Large Language Models" from
+    HF Papers and "large-language-models" from dev.to end up the same.
+    """
+    out: dict[str, None] = {}
+    for tag in tags:
+        norm = "-".join(tag.lower().split())
+        if norm:
+            out[norm] = None
+    return list(out)
+
+
 class NewItem(_Model):
     """What the fetch step writes. Enrichment, tags, embeddings, etc. are filled by later stages."""
 
@@ -103,6 +118,7 @@ class NewItem(_Model):
     fetched_at: AwareDatetime
     native_score: int = 0
     native_comments: int = 0
+    native_tags: list[str] = Field(default_factory=list)  # the source's own tags, normalized
 
     @classmethod
     def from_item(cls, item: Item, source_id: int, fetched_at: datetime) -> Self:
@@ -112,12 +128,12 @@ class NewItem(_Model):
             title=item.title,
             url=item.url,
             discussion_url=item.discussion_url,
-            # Item.description is being added in a parallel W1 step; tolerate its absence.
-            description=getattr(item, "description", None),
+            description=item.description,
             published_at=item.published_at,
             fetched_at=fetched_at,
             native_score=item.score,
             native_comments=item.comments,
+            native_tags=normalize_native_tags(item.tags),
         )
 
 
@@ -138,11 +154,23 @@ class StoredItem(NewItem):
     summarized_at: AwareDatetime | None = None
 
 
+class Mention(_Model):
+    """An item_mentions row: one source that listed the item, with its own popularity."""
+
+    item_id: str
+    source_id: int
+    discussion_url: str | None = None
+    native_score: int = 0
+    native_comments: int = 0
+    first_seen_at: AwareDatetime
+
+
 class UpsertResult(_Model):
     new_ids: list[str] = Field(default_factory=list)  # inserted by this call, in input order
     refreshed: int = 0  # already known from the same source; popularity refreshed
-    # Already known from another source (same canonical URL): left untouched, since one
-    # source's points must not overwrite another's (pop_pct is per source).
+    # Already known from another source (same canonical URL): the items row keeps the
+    # first source's popularity (pop_pct is per source); this source's numbers go to its
+    # item_mentions row, and its native tags are merged into the item's.
     other_source: int = 0
 
 
@@ -155,3 +183,68 @@ class EnrichmentUpdate(_Model):
     description: str | None = None
     reading_min: int | None = Field(default=None, ge=0, le=32767)
     lang: str | None = None
+
+
+class TagSpec(_Model):
+    """A tag as synced from taxonomy.yaml into the tags table; slug is its natural key."""
+
+    slug: str = Field(pattern=r"^[a-z0-9][a-z0-9-]*$")
+    name: str
+    parent: str | None = None
+    description: str | None = None
+    aliases: list[str] = Field(default_factory=list)
+
+
+class Tag(TagSpec):
+    """A tags row. Tags removed from the YAML are retired (active = false), never deleted."""
+
+    active: bool = True
+
+
+class TagMethod(StrEnum):
+    """Which tagger step assigned a tag (docs/PLAN.md §15 Tagging)."""
+
+    NATIVE = "native"
+    RULE = "rule"
+    EMBED = "embed"
+    LLM = "llm"
+
+
+class ItemTag(_Model):
+    tag: str
+    confidence: float = Field(ge=0, le=1)
+    method: TagMethod
+
+
+class StoredItemTag(ItemTag):
+    item_id: str
+
+
+class TagUpdate(_Model):
+    """What a tagging step writes for one item: its tags from `methods` are replaced by
+    `tags` (each of which must use one of those methods); tags from other methods stay.
+    `quality` None keeps the stored value; `done` sets tagged_at."""
+
+    id: str = Field(pattern=r"^[0-9a-f]{40}$")
+    methods: frozenset[TagMethod]
+    tags: list[ItemTag] = Field(default_factory=list)
+    quality: float | None = Field(default=None, ge=0, le=1)
+    done: bool = False
+
+    @model_validator(mode="after")
+    def _tags_within_methods(self) -> Self:
+        stray = {t.method for t in self.tags} - self.methods
+        if stray:
+            raise ValueError(f"tags use methods outside {sorted(self.methods)}: {sorted(stray)}")
+        slugs = [t.tag for t in self.tags]
+        if len(set(slugs)) != len(slugs):
+            raise ValueError(f"duplicate tags: {slugs}")
+        return self
+
+
+class Cluster(_Model):
+    """A clusters row: near-duplicate items (docs/PLAN.md §15 Dedupe)."""
+
+    id: int
+    canonical_item_id: str
+    item_ids: list[str]

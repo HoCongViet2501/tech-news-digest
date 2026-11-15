@@ -4,12 +4,16 @@ DIGEST_TEST_DB_URL, on the local Supabase Postgres (integration marker)."""
 import asyncio
 import json
 from datetime import timedelta
+from pathlib import Path
 
 import httpx
 import pytest
 
 from conftest import NOW, fixture_bytes
+from digest.ai.fake import fake_chain
+from digest.ai.llm import AIUnavailable, LLMChain
 from digest.config import Config
+from digest.embedding import HashEmbedder
 from digest.http import make_client
 from digest.ingest import FetchContext, IngestStats, fetch_sources, run_ingest
 from digest.offline import offline_transport
@@ -21,8 +25,12 @@ from digest.store import (
     SourcesFile,
     Stage,
     StoredItem,
+    TagMethod,
 )
 from digest.store.sources_yaml import API_SOURCES
+from digest.taxonomy import load_taxonomy
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
 
 ETAG = '"lwn-v1"'
 LWN_FEED = "https://lwn.net/headlines/rss"
@@ -96,21 +104,39 @@ def store(request: pytest.FixtureRequest) -> ContentStore:
 
 @pytest.fixture
 def cfg() -> Config:
+    # HashEmbedder similarities are lower than the real model's, so the embedding and
+    # LLM thresholds are lowered to give every tagger step something to do.
+    tagging = {"embed_threshold": 0.2, "llm_min_similarity": 0.1, "llm_batch_size": 5}
     return Config.model_validate(
-        {"profile": "Backend developer.", "ingest": {"enrich_per_run": 1000}}
+        {"profile": "Backend developer.", "ingest": {"enrich_per_run": 1000, "tagging": tagging}}
     )
 
 
-def ingest(store: ContentStore, cfg: Config, web: FakeWeb, now=NOW) -> IngestStats:
+TAXONOMY = load_taxonomy(REPO_ROOT / "taxonomy.yaml")
+
+
+def ingest(
+    store: ContentStore, cfg: Config, web: FakeWeb, now=NOW, chain: LLMChain | None = None
+) -> IngestStats:
     async def go() -> IngestStats:
         async with make_client(httpx.MockTransport(web)) as client:
-            return await run_ingest(store, cfg, SPECS, client, now=now, devto_pause_seconds=0)
+            return await run_ingest(
+                store,
+                cfg,
+                SPECS,
+                client,
+                now=now,
+                devto_pause_seconds=0,
+                taxonomy=TAXONOMY,
+                embedder=HashEmbedder(),
+                chain=chain if chain is not None else fake_chain(cfg.ai),
+            )
 
     return asyncio.run(go())
 
 
 def all_items(store: ContentStore) -> list[StoredItem]:
-    return store.pending(Stage.TAG, limit=100_000)  # nothing is tagged in W1
+    return store.pending(Stage.SUMMARIZE, limit=100_000)  # nothing is summarized in W2
 
 
 def by_name(store: ContentStore) -> dict[str, Source]:
@@ -313,10 +339,23 @@ def test_fetch_respects_per_host_and_overall_limits(cfg: Config) -> None:
 
 def test_stats_line() -> None:
     stats = IngestStats(
-        due=3, fetched=10, new=4, refreshed=6, not_modified=1, errors=1, enriched=4, duration_s=2.25
+        due=3,
+        fetched=10,
+        new=4,
+        refreshed=6,
+        not_modified=1,
+        errors=1,
+        enriched=4,
+        embedded=4,
+        clustered=1,
+        tagged=3,
+        llm_calls=1,
+        llm_waiting=1,
+        duration_s=2.25,
     )
     assert stats.line() == (
-        "ingest due=3 fetched=10 new=4 refreshed=6 not_modified=1 errors=1 enriched=4 duration=2.2s"
+        "ingest due=3 fetched=10 new=4 refreshed=6 not_modified=1 errors=1 enriched=4 "
+        "embedded=4 clustered=1 tagged=3 llm_calls=1 llm_waiting=1 duration=2.2s"
     )
 
 
@@ -331,3 +370,100 @@ def test_rss_entries_older_than_max_age_are_skipped(store: ContentStore, cfg: Co
     assert all(i.published_at >= NOW - timedelta(days=2) for i in lwn)
     # The fixture also has older entries, which the default 30 days would keep.
     assert len(lwn) < 15
+
+
+# --- W2: native tags, mentions, embeddings, tags -------------------------------
+
+
+class FailingLLM:
+    """Every provider fails, like a day of exhausted free tiers."""
+
+    def __init__(self) -> None:
+        self.calls = 0
+
+    def complete(self, *args: object, **kwargs: object) -> None:
+        self.calls += 1
+        raise AIUnavailable("down")
+
+
+def test_run_stores_native_tags_and_mentions(store: ContentStore, cfg: Config) -> None:
+    ingest(store, cfg, FakeWeb())
+
+    items = all_items(store)
+    sources = by_name(store)
+    lobsters = [i for i in items if i.source_id == sources["Lobsters"].id]
+    assert lobsters and all(i.native_tags for i in lobsters)
+    # Offline both dev.to tags serve one fixture: the second source only adds mentions.
+    java, go = sources["dev.to #java"].id, sources["dev.to #go"].id
+    devto_ids = [i.id for i in items if i.source_id == java]
+    mentions = store.get_mentions(devto_ids)
+    assert {m.source_id for m in mentions} == {java, go}
+    assert len(mentions) == 2 * len(devto_ids)
+
+
+def test_run_embeds_and_tags_every_item(store: ContentStore, cfg: Config) -> None:
+    stats = ingest(store, cfg, FakeWeb())
+
+    items = all_items(store)
+    assert stats.embedded == len(items)
+    assert store.pending(Stage.EMBED, limit=100_000) == []
+    assert store.pending(Stage.TAG, limit=100_000) == []
+    assert stats.tagged == len(items)
+    assert stats.llm_calls > 0 and stats.llm_waiting == 0
+    assert {t.slug for t in store.list_tags(active_only=True)} == set(TAXONOMY.by_slug)
+    rows = store.get_item_tags([i.id for i in items])
+    methods = {r.method for r in rows}
+    assert {TagMethod.NATIVE, TagMethod.RULE, TagMethod.LLM} <= methods
+    assert {r.tag for r in rows} <= set(TAXONOMY.by_slug)
+    # The LLM scored quality for exactly the items it was asked about.
+    llm_items = {r.item_id for r in rows if r.method == TagMethod.LLM}
+    assert all(i.quality is not None for i in items if i.id in llm_items)
+
+
+def test_llm_outage_keeps_tags_and_retries_until_too_old(store: ContentStore, cfg: Config) -> None:
+    down = FailingLLM()
+
+    stats = ingest(store, cfg, FakeWeb(), chain=down)  # type: ignore[arg-type]
+
+    assert down.calls == 1  # an outage stops the stage after one failed batch
+    assert stats.llm_waiting > 0
+    waiting = store.pending(Stage.TAG, limit=100_000)
+    assert len(waiting) == stats.llm_waiting
+    assert all(i.quality is None for i in waiting)
+    # Their step 1-3 tags are stored already.
+    assert any(r.method == TagMethod.EMBED for r in store.get_item_tags([i.id for i in waiting]))
+
+    # Still young: retried (and failing again) on the next run.
+    retry = ingest(store, cfg, FakeWeb(), now=NOW + timedelta(hours=3), chain=down)  # type: ignore[arg-type]
+    assert (down.calls, retry.llm_waiting) == (2, stats.llm_waiting)
+
+    # Past llm_max_age_hours: tagged with what they have, no more calls.
+    later = NOW + timedelta(hours=cfg.ingest.tagging.llm_max_age_hours + 1)
+    final = ingest(store, cfg, FakeWeb(), now=later, chain=down)  # type: ignore[arg-type]
+    assert down.calls == 2
+    assert final.llm_waiting == 0
+    assert store.pending(Stage.TAG, limit=100_000) == []
+
+
+def test_llm_calls_are_capped_per_run(store: ContentStore, cfg: Config) -> None:
+    capped = cfg.model_copy(
+        update={"ingest": cfg.ingest.model_copy(update={"llm_calls_per_run": 1})}
+    )
+
+    first = ingest(store, capped, FakeWeb())
+
+    assert first.llm_calls == 1
+    assert first.llm_waiting > 0
+    second = ingest(store, capped, FakeWeb(), now=NOW + timedelta(minutes=5))
+    assert second.llm_calls == 1
+    assert second.llm_waiting == max(0, first.llm_waiting - capped.ingest.tagging.llm_batch_size)
+
+
+def test_rerun_rewrites_no_clusters(store: ContentStore, cfg: Config) -> None:
+    ingest(store, cfg, FakeWeb())
+    before = store.list_clusters()
+
+    stats = ingest(store, cfg, FakeWeb(), now=NOW + timedelta(minutes=5))
+
+    assert stats.clustered == 0
+    assert store.list_clusters() == before

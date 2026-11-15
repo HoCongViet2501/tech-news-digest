@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "beautifulsoup4>=4.15.0",
+    "fastembed>=0.9.1",
     "feedparser>=6.0.14",
     "httpx>=0.28.1",
     "jinja2>=3.1.6",
@@ -47,4 +48,4 @@ dev = [
 ]
 
 [tool.ruff.lint.isort]
-known-first-party = ["digest", "refresh_fixtures", "conftest", "snapshot", "fakes"]
+known-first-party = ["digest", "refresh_fixtures", "label_sample", "eval_tags", "conftest", "snapshot", "fakes"]

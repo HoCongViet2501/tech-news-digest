@@ -8,6 +8,7 @@ parsing and rendering without network access, API keys or quota.
 import hashlib
 import json
 import logging
+import re
 from collections.abc import Callable
 from types import SimpleNamespace
 from typing import Any
@@ -18,6 +19,7 @@ from digest.config import AIConfig
 
 PROVIDER_NAME = "offline-fake"
 ITEMS_MARKER = "\nItems:\n"
+TAXONOMY_LINE = re.compile(r"^- ([a-z0-9][a-z0-9-]*): ", re.MULTILINE)
 PREFIX = "[offline]"
 
 log = logging.getLogger(__name__)
@@ -56,17 +58,30 @@ class FakeLLMClient:
 
     def __init__(self, output_language: str = "vi") -> None:
         self.texts = TEXTS.get(output_language, TEXTS["en"])
-        self.handlers: dict[str, Callable[[dict[str, Any]], dict[str, Any]]] = {
+        self.handlers: dict[str, Callable[[dict[str, Any], str], dict[str, Any]]] = {
             _template_head("score"): self._score,
             _template_head("summarize"): self._summarize,
+            _template_head("tag"): self._tag,
         }
         self.chat = SimpleNamespace(completions=SimpleNamespace(create=self._create))
 
-    def _score(self, item: dict[str, Any]) -> dict[str, Any]:
+    def _score(self, item: dict[str, Any], prompt: str) -> dict[str, Any]:
         reason = self.texts["reason"].format(source=item.get("source", "?"))
         return {**_score(item), "reason": f"{PREFIX} {reason}"}
 
-    def _summarize(self, item: dict[str, Any]) -> dict[str, Any]:
+    def _tag(self, item: dict[str, Any], prompt: str) -> dict[str, Any]:
+        """Taxonomy slugs whose words all appear in the title (at most 3), else one slug
+        picked by the id, plus a quality derived from the id. Deterministic, and only
+        ever slugs listed in the prompt."""
+        words = set(re.findall(r"[a-z0-9]+", str(item.get("title", "")).lower()))
+        known = TAXONOMY_LINE.findall(prompt)
+        slugs = [s for s in known if set(s.split("-")) <= words]
+        if not slugs and known:
+            slugs = [known[_digest(str(item.get("id")), "tag") % len(known)]]
+        quality = _digest(str(item.get("id")), "quality") % 11 / 10
+        return {"id": item.get("id"), "tags": slugs[:3], "quality": quality}
+
+    def _summarize(self, item: dict[str, Any], prompt: str) -> dict[str, Any]:
         summary = self.texts["summary"].format(
             title=item.get("title", ""),
             source=item.get("source", "?"),
@@ -84,7 +99,7 @@ class FakeLLMClient:
         if handler is None or ITEMS_MARKER not in prompt:
             return "{}"
         items = json.loads(prompt.rsplit(ITEMS_MARKER, 1)[1])
-        return json.dumps({"items": [handler(item) for item in items]}, ensure_ascii=False)
+        return json.dumps({"items": [handler(item, prompt) for item in items]}, ensure_ascii=False)
 
     def _create(self, **kwargs: Any) -> SimpleNamespace:
         prompt = "\n".join(m["content"] for m in kwargs["messages"])

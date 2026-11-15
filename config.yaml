@@ -59,4 +59,34 @@ ingest:
     max_fork_ratio: 0.5     # forks > ratio x stars: bot forks
     min_fork_ratio: 0.005   # with >= zero_fork_min_stars stars, fewer forks: bought stars
     zero_fork_min_stars: 200
-  llm_calls_per_run: 20     # reserved for W2 tagging; not used yet
+  llm_calls_per_run: 20     # LLM tag + quality batches (20 items each) per run
+  embed:                    # local embeddings with fastembed (docs/PLAN.md §13)
+    model: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+    cache_dir: .cache/fastembed   # ingest.yml caches this with actions/cache
+    batch_size: 64
+    per_run: 2000           # enriched items embedded per run (title + description)
+    max_chars: 1000         # the model reads 128 tokens anyway
+  tagging:                  # four-step tagger (docs/PLAN.md §15), stops when confident
+    per_run: 2000
+    native_confidence: 0.95 # source tag -> taxonomy alias
+    rule_confidence: 0.9    # keyword regex in the title
+    rule_description_confidence: 0.7  # keyword only in the description: tentative
+    confident: 0.8          # a tag at or above this skips the embedding and LLM steps
+    # Cosine vs. the description of `embed: true` tags. Calibrated on 1000 real items:
+    # at 0.5 about a third of hits were wrong, at 0.55 most were right.
+    embed_threshold: 0.55
+    embed_thresholds: {frontend: 0.7, crypto-web3: 0.6}
+    embed_confidence_min: 0.6
+    embed_confidence_max: 0.75
+    embed_max_tags: 2
+    # LLM fallback: only items with no confident tag whose best tag-description cosine
+    # reaches this (below ~0.25 it is mostly sports, courts, space flights).
+    llm_min_similarity: 0.25
+    llm_batch_size: 20
+    llm_confidence: 0.85
+    llm_max_age_hours: 24   # an item waiting for the LLM gives up after this
+    llm_description_chars: 300
+  cluster:                  # near-duplicates (docs/PLAN.md §15 Dedupe)
+    window_hours: 72
+    title_threshold: 0.92   # title cosine, from transient title embeddings
+    prefilter: 0.5          # stored-vector cosine a pair needs before titles are compared

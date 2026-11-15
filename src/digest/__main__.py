@@ -27,6 +27,7 @@ from digest.ai.summarizer import gather_context, summarize_items
 from digest.config import Config, ConfigError, load_config
 from digest.deliver.pages import build_pages
 from digest.deliver.telegram import DeliveryError, send_messages
+from digest.embedding import make_embedder
 from digest.fetchers import fetch_all
 from digest.filter import apply_filters, rank
 from digest.health import render_health, stale_sources
@@ -45,6 +46,7 @@ from digest.state import (
 )
 from digest.store import ContentStore, PostgresStore, SourceSpec, load_sources
 from digest.store.dburl import DB_URL_ENV, DbUrlError, resolve_db_url
+from digest.taxonomy import Taxonomy, load_taxonomy
 
 SOURCE_NAMES = ("hn", "github", "lobsters", "reddit", "rss")
 TELEGRAM_ENV = ("TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID")
@@ -93,6 +95,9 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     ingest.add_argument("--config", type=Path, default=Path("config.yaml"), help="path to config")
     ingest.add_argument(
         "--sources", type=Path, default=Path("sources.yaml"), help="path to sources.yaml"
+    )
+    ingest.add_argument(
+        "--taxonomy", type=Path, default=Path("taxonomy.yaml"), help="path to taxonomy.yaml"
     )
     ingest.add_argument("--allow-remote", action="store_true", help=remote_help)
 
@@ -232,7 +237,9 @@ def _connect(url: str) -> AbstractContextManager[ContentStore] | None:
         return None
 
 
-async def _run_ingest(store: ContentStore, cfg: Config, specs: list[SourceSpec]) -> IngestStats:
+async def _run_ingest(
+    store: ContentStore, cfg: Config, specs: list[SourceSpec], taxonomy: Taxonomy
+) -> IngestStats:
     offline = is_offline()
     async with make_client(offline_transport() if offline else None) as client:
         return await run_ingest(
@@ -243,6 +250,10 @@ async def _run_ingest(store: ContentStore, cfg: Config, specs: list[SourceSpec])
             now=datetime.now(UTC),
             github_token=os.environ.get("GITHUB_TOKEN") or None,
             devto_pause_seconds=0 if offline else 1.0,
+            taxonomy=taxonomy,
+            # Offline (and in tests) a hashing stand-in: the model is never downloaded.
+            embedder=make_embedder(cfg.ingest.embed, offline=offline),
+            chain=_make_chain(cfg),
         )
 
 
@@ -250,6 +261,7 @@ def ingest_main(args: argparse.Namespace, db_env: Mapping[str, str]) -> int:
     try:
         cfg = load_config(args.config)
         specs = load_sources(args.sources).specs()  # a bad file fails before connecting
+        taxonomy = load_taxonomy(args.taxonomy)
         url = resolve_db_url(db_env, allow_remote=args.allow_remote)
     except (ConfigError, DbUrlError) as exc:
         print(exc, file=sys.stderr)
@@ -261,7 +273,7 @@ def ingest_main(args: argparse.Namespace, db_env: Mapping[str, str]) -> int:
     if store is None:
         return 1
     with store as opened:
-        stats = asyncio.run(_run_ingest(opened, cfg, specs))
+        stats = asyncio.run(_run_ingest(opened, cfg, specs, taxonomy))
     log.info("%s", stats.line())
     print(stats.line())
     return 0

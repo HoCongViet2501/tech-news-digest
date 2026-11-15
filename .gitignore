@@ -30,3 +30,4 @@ playwright/.cache/
 
 # Supabase CLI (supabase/.gitignore covers .temp and .branches)
 .supabase/
+.cache/

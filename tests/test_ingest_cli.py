@@ -24,6 +24,8 @@ def args(*extra: str) -> list[str]:
         str(REPO_ROOT / "config.yaml"),
         "--sources",
         str(REPO_ROOT / "sources.yaml"),
+        "--taxonomy",
+        str(REPO_ROOT / "taxonomy.yaml"),
         *extra,
     ]
 

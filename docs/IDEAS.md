@@ -49,3 +49,11 @@ it could become a per-user "Radar" tab with manifests stored per user.
 - Reddit via the official OAuth API, Bluesky via an app password, Product Hunt votes via a GraphQL token.
 - Hashnode feed once its current GraphQL endpoint is confirmed.
 - PWA / web push notifications. Telegram already covers push, so this stays out of Part 2.
+
+## Pace LLM tag batches (W2)
+
+A backlog run (1100 items) sent 14 tag batches back to back and Gemini's free tier
+answered 429 after that; the tagger then stops and the items wait for the next run
+(bounded by `ingest.tagging.llm_max_age_hours`), which is the intended degradation.
+Normal runs need ~3-5 batches. If 429s show up in steady state, a short pause between
+batches (or a per-provider RPM setting) would spread them out.

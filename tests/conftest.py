@@ -38,8 +38,10 @@ def cfg() -> Config:
 
 @pytest.fixture(autouse=True)
 def _offline(monkeypatch: pytest.MonkeyPatch) -> None:
-    """Tests never touch the real network: the CLI serves fixtures instead."""
+    """Tests never touch the real network: the CLI serves fixtures instead, and uses the
+    hashing embedder. HF_HUB_OFFLINE makes any accidental model load fail, not download."""
     monkeypatch.setenv("DIGEST_OFFLINE", "1")
+    monkeypatch.setenv("HF_HUB_OFFLINE", "1")
 
 
 @pytest.fixture(autouse=True)
