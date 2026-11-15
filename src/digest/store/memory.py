@@ -3,7 +3,9 @@
 from bisect import bisect_left, bisect_right
 from collections import defaultdict
 from collections.abc import Callable, Mapping, Sequence
+from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
+from uuid import UUID
 
 import numpy as np
 
@@ -15,6 +17,8 @@ from digest.store.models import (
     FetchOutcome,
     Mention,
     NewItem,
+    PendingProfile,
+    PruneResult,
     Source,
     SourceSpec,
     Stage,
@@ -31,6 +35,16 @@ _SPEC_FIELDS = ("name", "category", "base_weight", "cadence_hours")
 POPULAR_WINDOW = timedelta(days=7)  # public.popular_feed's pool
 
 
+@dataclass
+class MemoryProfile:
+    """A public.profiles row, reduced to what the pipeline reads and writes."""
+
+    text: str | None
+    updated_at: datetime
+    embedded_at: datetime | None = None
+    user_vec: list[float] | None = None
+
+
 class MemoryStore:
     def __init__(self, clock: Callable[[], datetime] = lambda: datetime.now(UTC)) -> None:
         self._sources: dict[int, Source] = {}
@@ -40,6 +54,12 @@ class MemoryStore:
         self._item_tags: dict[tuple[str, str], StoredItemTag] = {}
         self._embeddings: dict[str, list[float]] = {}
         self._clusters: dict[int, Cluster] = {}
+        # W4 user data. Tests fill these directly: follow_centroids stands in for
+        # public.follow_centroid(), impressions / feed_snapshots hold created_at values.
+        self.profiles: dict[UUID, MemoryProfile] = {}
+        self.follow_centroids: dict[UUID, list[float]] = {}
+        self.impressions: list[datetime] = []
+        self.feed_snapshots: list[datetime] = []
         self.ranking = RankingConfig()  # the migration seeds the row with the defaults
         self._next_cluster_id = 1
         self._next_source_id = 1
@@ -370,3 +390,53 @@ class MemoryStore:
                 self._items[item_id] = item.model_copy(update={"tldr": tldr, "summarized_at": at})
                 count += 1
         return count
+
+    # --- user profiles and activity (W4) -------------------------------------
+
+    def pending_profiles(self, limit: int) -> list[PendingProfile]:
+        pending = sorted(
+            (
+                (p.updated_at, str(user_id), user_id, p)
+                for user_id, p in self.profiles.items()
+                if p.embedded_at is None and p.text is not None
+            ),
+        )[: max(limit, 0)]
+        return [
+            PendingProfile(
+                user_id=user_id,
+                text=p.text or "",
+                updated_at=p.updated_at,
+                centroid=self.follow_centroids.get(user_id),
+            )
+            for _, _, user_id, p in pending
+        ]
+
+    def save_profile_vector(
+        self, profile: PendingProfile, vector: Sequence[float] | None, at: datetime
+    ) -> bool:
+        if vector is not None and len(vector) != EMBEDDING_DIM:
+            raise StoreError(f"profile vector has {len(vector)} dims")
+        row = self.profiles.get(profile.user_id)
+        if (
+            row is None
+            or row.updated_at != profile.updated_at
+            or row.embedded_at is not None
+            or row.text is None
+        ):
+            return False
+        row.user_vec = None if vector is None else [float(v) for v in np.float16(vector)]
+        row.embedded_at = at
+        row.updated_at = self._clock()  # profiles_touch
+        return True
+
+    def prune_activity(
+        self, *, impressions_before: datetime, snapshots_before: datetime
+    ) -> PruneResult:
+        kept_impressions = [t for t in self.impressions if t >= impressions_before]
+        kept_snapshots = [t for t in self.feed_snapshots if t >= snapshots_before]
+        result = PruneResult(
+            impressions=len(self.impressions) - len(kept_impressions),
+            feed_snapshots=len(self.feed_snapshots) - len(kept_snapshots),
+        )
+        self.impressions, self.feed_snapshots = kept_impressions, kept_snapshots
+        return result

@@ -4,6 +4,7 @@ from collections.abc import Sequence
 from datetime import datetime
 from enum import StrEnum
 from typing import Self
+from uuid import UUID
 
 from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, model_validator
 
@@ -248,3 +249,50 @@ class Cluster(_Model):
     id: int
     canonical_item_id: str
     item_ids: list[str]
+
+
+class PendingProfile(_Model):
+    """A profile whose free text still needs an embedding (docs/PLAN.md §15 Cold start).
+
+    `centroid` is public.follow_centroid() at read time (None without followed tags).
+    `updated_at` is the version read: the write is skipped when the row changed since.
+    The user id and the text are personal data: kept out of repr, never logged."""
+
+    user_id: UUID = Field(repr=False)
+    text: str = Field(repr=False)
+    updated_at: AwareDatetime
+    centroid: list[float] | None = Field(default=None, repr=False)
+
+
+class PruneResult(_Model):
+    """Rows deleted by the activity retention (docs/PLAN.md §17 DB size)."""
+
+    impressions: int = 0
+    feed_snapshots: int = 0
+
+
+class FeedMention(BaseModel):
+    """One entry of feed_card.mentions; the other keys of the JSON object are ignored."""
+
+    model_config = ConfigDict(frozen=True)
+
+    source_id: int
+    source_name: str
+
+
+class FeedCard(_Model):
+    """One public.feed_card row from feed_for_user, plus items.tldr (feed cards leave
+    the TL;DR out; only the item page shows it)."""
+
+    id: str
+    title: str
+    url: str
+    discussion_url: str | None = None
+    description: str | None = None
+    published_at: datetime
+    source_id: int
+    source_name: str
+    upvotes: int = 0
+    comments: int = 0
+    mentions: list[FeedMention] = Field(default_factory=list)
+    tldr: str | None = None

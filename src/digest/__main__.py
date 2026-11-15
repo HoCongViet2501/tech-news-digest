@@ -1,6 +1,9 @@
 """CLI entry point.
 
-- `python -m digest run [--dry-run] [--only ...] [--date ...]`: the daily Telegram digest.
+- `python -m digest run [--dry-run] [--only ...] [--date ...] [--allow-remote]`: the daily
+  Telegram digest. With DIGEST_DB_URL and a configured owner who follows tags, it is the
+  owner's My Feed top items (digest.owner_feed); otherwise, or when the DB fails, the
+  Part 1 digest (fetch, filter, AI score and summarize).
 - `python -m digest ingest [--allow-remote]`: one content-store run (needs DIGEST_DB_URL).
 - `python -m digest health [--dry-run] [--allow-remote]`: Telegram warning for failing sources.
 """
@@ -37,6 +40,7 @@ from digest.logs import setup_logging
 from digest.models import Digest, Item, ScoredItem
 from digest.normalize import normalize
 from digest.offline import is_offline, offline_transport
+from digest.owner_feed import OwnerFeedStore, owner_configured, owner_items
 from digest.render import render_telegram, render_warning
 from digest.state import (
     StateError,
@@ -87,8 +91,9 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     run.add_argument("--config", type=Path, default=Path("config.yaml"), help="path to config")
     run.add_argument("--data-dir", type=Path, default=Path("data"), help="state directory")
     run.add_argument("--site-dir", type=Path, default=Path("site"), help="Pages output directory")
-
     remote_help = "allow a non-local DIGEST_DB_URL outside GitHub Actions"
+    run.add_argument("--allow-remote", action="store_true", help=remote_help)
+
     ingest = commands.add_parser(
         "ingest", help="fetch due sources into the content store (DIGEST_DB_URL)"
     )
@@ -223,6 +228,75 @@ def add_summaries(
     return digest.model_copy(update={"items": items, "stats": stats})
 
 
+def summarize_missing(
+    cfg: Config,
+    digest: Digest,
+    chain: LLMChain | None,
+    transport: httpx.AsyncBaseTransport | None = None,
+) -> Digest:
+    """My Feed digest: items without a stored TL;DR get a Part 1 summary from the LLM
+    chain (article text, else HN comments / repo description). A failed batch leaves its
+    items without one."""
+    missing = [item for item in digest.items if not item.summary]
+    if chain is None or not cfg.ai.enabled or not missing:
+        return digest
+    contexts = asyncio.run(_contexts(cfg, missing, transport))
+    summarized, completions = summarize_items(chain, cfg, missing, contexts)
+    by_id = {item.id: item for item in summarized}
+    items = [by_id.get(item.id, item) for item in digest.items]
+    stats = dict(digest.stats)
+    for c in completions:
+        stats["ai"] = c.provider
+        stats["ai_tokens_in"] = int(stats.get("ai_tokens_in", 0)) + c.prompt_tokens
+        stats["ai_tokens_out"] = int(stats.get("ai_tokens_out", 0)) + c.completion_tokens
+    stats["summarized"] = sum(1 for i in missing if by_id[i.id].summary)
+    return digest.model_copy(update={"items": items, "stats": stats})
+
+
+def _open_owner_store(url: str) -> AbstractContextManager[OwnerFeedStore]:
+    return PostgresStore.connect(url)
+
+
+def owner_digest(
+    cfg: Config,
+    db_env: Mapping[str, str],
+    *,
+    allow_remote: bool,
+    seen: dict[str, str],
+    run_date: date,
+    chain: LLMChain | None,
+) -> Digest | None:
+    """The owner's My Feed digest, or None for the Part 1 digest: no owner configured, no
+    DIGEST_DB_URL, no account or followed tags, nothing new, or any DB error. Logs carry
+    no URL, user id or email."""
+    if not owner_configured(cfg):
+        return None
+    try:
+        url = resolve_db_url(db_env, allow_remote=allow_remote)
+    except DbUrlError as exc:
+        log.warning("my feed: %s; sending the Part 1 digest", exc)
+        return None
+    if url is None:
+        return None
+    try:
+        with _open_owner_store(url) as store:
+            found = owner_items(store, cfg, seen)
+    except Exception as exc:  # the Part 1 digest must still go out
+        log.warning("my feed: database error (%s); sending the Part 1 digest", type(exc).__name__)
+        return None
+    if found is None:
+        return None
+    items, candidates = found
+    stats: dict[str, int | str] = {
+        "feed": "owner",
+        "candidates": candidates,
+        "sent": len(items),
+        "tldr": sum(1 for i in items if i.summary),
+    }
+    digest = Digest(date=run_date, items=items, stats=stats)
+    return summarize_missing(cfg, digest, chain, offline_transport() if is_offline() else None)
+
+
 def _open_store(url: str) -> AbstractContextManager[ContentStore]:
     return PostgresStore.connect(url)
 
@@ -347,18 +421,35 @@ def main(argv: Sequence[str] | None = None) -> int:
     )
 
     chain = _make_chain(cfg)
-    digest = build_digest(cfg, asyncio.run(_fetch(cfg, now, args.only)), seen, run_date, chain)
-    if chain is not None:
-        digest = add_summaries(cfg, digest, chain, offline_transport() if is_offline() else None)
-    log.info("stats %s", " ".join(f"{k}={v}" for k, v in digest.stats.items()))
-
     language = cfg.ai.output_language
-    all_failed = digest.stats["fetched"] == 0
-    if all_failed:
-        log.error("every source returned 0 items; sending a warning instead of a digest")
-        messages = [render_warning(run_date, language)]
+    all_failed = False
+    # My Feed only for today's run over every source; --date / --only re-run Part 1.
+    digest = None
+    if args.date is None and args.only is None:
+        digest = owner_digest(
+            cfg,
+            db_env,
+            allow_remote=args.allow_remote,
+            seen=seen,
+            run_date=run_date,
+            chain=chain,
+        )
+    if digest is not None:
+        log.info("stats %s", " ".join(f"{k}={v}" for k, v in digest.stats.items()))
+        messages = render_telegram(digest, language, cfg.web.base_url)
     else:
-        messages = render_telegram(digest, language)
+        fetched = asyncio.run(_fetch(cfg, now, args.only))
+        digest = build_digest(cfg, fetched, seen, run_date, chain)
+        if chain is not None:
+            transport = offline_transport() if is_offline() else None
+            digest = add_summaries(cfg, digest, chain, transport)
+        log.info("stats %s", " ".join(f"{k}={v}" for k, v in digest.stats.items()))
+        all_failed = digest.stats["fetched"] == 0
+        if all_failed:
+            log.error("every source returned 0 items; sending a warning instead of a digest")
+            messages = [render_warning(run_date, language)]
+        else:
+            messages = render_telegram(digest, language)
 
     if args.dry_run:
         print("\n\n".join(messages))

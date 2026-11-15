@@ -17,6 +17,7 @@ LABELS = {
     "vi": {
         "title": "Bản tin công nghệ",
         "discussion": "thảo luận",
+        "original": "bài gốc",
         "also_on": "cũng có trên",
         "archive": "Lưu trữ",
         "empty": "Hôm nay không có tin mới.",
@@ -31,6 +32,7 @@ LABELS = {
     "en": {
         "title": "Tech digest",
         "discussion": "discussion",
+        "original": "original",
         "also_on": "also on",
         "archive": "Archive",
         "empty": "Nothing new today.",
@@ -67,12 +69,16 @@ _env.filters["score10"] = lambda value: f"{value:g}/10"
 _env.filters["html_text"] = lambda value: str(escape(value))
 
 
-def render_telegram(digest: Digest, language: str) -> list[str]:
-    """One or more parse_mode=HTML messages, each <= 4096 chars; items are never split."""
+def render_telegram(digest: Digest, language: str, web_base_url: str = "") -> list[str]:
+    """One or more parse_mode=HTML messages, each <= 4096 chars; items are never split.
+
+    With `web_base_url` (the owner's My Feed digest), titles link to the web app's item
+    page and an extra link points to the original article."""
     macros = _env.get_template("telegram.j2").module
     t = labels(language)
+    web = web_base_url.strip().rstrip("/")
     header = str(macros.header(digest, t)).strip()
-    blocks = [str(macros.item(n, item, t)).strip() for n, item in enumerate(digest.items, 1)]
+    blocks = [str(macros.item(n, item, t, web)).strip() for n, item in enumerate(digest.items, 1)]
     if not blocks:
         blocks = [t["empty"]]
 

@@ -652,9 +652,14 @@ def test_onboarding_sets_tags_and_queues_the_profile_text(world: World) -> None:
     conn.execute(
         "update public.profiles set profile_embedded_at = now() where user_id = %s", (user,)
     )
-    follow(conn, user, ["backend", "ai", "rust"])  # text unchanged: stays embedded
+    follow(conn, user, ["backend", "ai", "go"])  # nothing changed: stays embedded
     embedded = conn.execute("select profile_embedded_at is not null from public.profiles")
     assert embedded.fetchone() == (True,)
+    # Other tags: user_vec holds the old centroid, so the text is queued again
+    # (w4_profile_refresh).
+    follow(conn, user, ["backend", "ai", "rust"])
+    embedded = conn.execute("select profile_embedded_at is not null from public.profiles")
+    assert embedded.fetchone() == (False,)
 
     call(conn, user, "select public.update_profile(p_profile_text => 'Go services')")
 

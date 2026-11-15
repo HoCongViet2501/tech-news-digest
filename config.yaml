@@ -41,8 +41,19 @@ ai:
       api_key_env: OPENROUTER_API_KEY
 
 delivery:
-  telegram: {enabled: true}
+  telegram:
+    enabled: true
+    # The owner's web account (docs/PLAN.md §16 W4 step 6). With DIGEST_DB_URL set, and
+    # once this account exists and follows tags, the daily digest is its My Feed top
+    # max_items; until then (or if the DB fails) it is the Part 1 digest above.
+    owner_github_login: HoCongViet2501
+    owner_email: ""
   pages: {enabled: true, base_url: "https://hocongviet2501.github.io/tech-news-digest/"}
+
+# The Part 2 web app. Telegram links titles to {base_url}/items/<id> when this is set
+# (e.g. the Vercel production URL), and to the original articles while it is empty.
+web:
+  base_url: ""
 
 # Part 2 content store: `python -m digest ingest` (ingest.yml, every 3 h).
 # Sources for it live in sources.yaml.
@@ -98,6 +109,9 @@ ingest:
     input_chars: 1500       # article text sent per item (keeps a batch inside free-tier TPM)
     min_chars: 120          # less article/description text than this: skipped, not summarized
     max_chars: 600          # TL;DR length cap; longer answers are cut at a sentence end
+  profiles:                 # onboarding free text -> profiles.user_vec (docs/PLAN.md §15)
+    per_run: 50             # profiles embedded per run
+    text_weight: 0.5        # user_vec = normalize(0.5·text + 0.5·followed-tags centroid)
 
 # Per-user ranking (docs/PLAN.md §15). Synced into the ranking_config table on every
 # ingest run; the ranking itself lives only in SQL (my_feed, feed_for_user, popular_feed).
@@ -121,3 +135,8 @@ ranking:
   max_per_source: 3
   explore_ratio: 0.125        # every 8th slot is a Popular "explore" item
   snapshot_minutes: 30        # a first page reuses a snapshot this young, else re-ranks
+
+# Per-user activity kept in the DB; older rows are deleted at the start of each ingest run.
+retention:
+  impressions_days: 30
+  feed_snapshots_days: 1      # my_feed cursors only live 2 h

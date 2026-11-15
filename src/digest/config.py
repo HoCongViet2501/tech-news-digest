@@ -81,6 +81,12 @@ class AIConfig(_Strict):
 
 class TelegramConfig(_Strict):
     enabled: bool = True
+    # The owner's account in the web app (docs/PLAN.md §16 W4 step 6). When it is found
+    # in auth.users (via DIGEST_DB_URL) and follows tags, the daily digest is the owner's
+    # My Feed top max_items; otherwise the Part 1 digest. GitHub login is matched against
+    # the GitHub identity, email against a confirmed account email (case-insensitive).
+    owner_github_login: str = ""
+    owner_email: str = ""
 
 
 class PagesConfig(_Strict):
@@ -175,6 +181,15 @@ class TldrConfig(_Strict):
     max_chars: int = Field(default=600, gt=0)  # longer answers are cut at a sentence end
 
 
+class ProfileEmbedConfig(_Strict):
+    """Embedding the onboarding free text into profiles.user_vec (docs/PLAN.md §15)."""
+
+    per_run: int = Field(default=50, ge=0)  # profiles embedded per ingest run; 0 turns it off
+    # user_vec = normalize(text_weight·text + (1 - text_weight)·follow_centroid); both are
+    # unit vectors, so 0.5 gives the free text and the followed tags the same pull.
+    text_weight: float = Field(default=0.5, ge=0, le=1)
+
+
 class IngestConfig(_Strict):
     """`python -m digest ingest` (Part 2 content store, docs/PLAN.md §13 Ingestion)."""
 
@@ -192,6 +207,7 @@ class IngestConfig(_Strict):
     tagging: TaggingConfig = Field(default_factory=TaggingConfig)
     cluster: ClusterConfig = Field(default_factory=ClusterConfig)
     tldr: TldrConfig = Field(default_factory=TldrConfig)
+    profiles: ProfileEmbedConfig = Field(default_factory=ProfileEmbedConfig)
 
 
 class RankingConfig(_Strict):
@@ -229,6 +245,20 @@ class RankingConfig(_Strict):
         return self
 
 
+class RetentionConfig(_Strict):
+    """How long per-user activity rows are kept; pruned at the start of each ingest run."""
+
+    impressions_days: int = Field(default=30, gt=0)
+    feed_snapshots_days: int = Field(default=1, gt=0)  # my_feed cursors live 2 h anyway
+
+
+class WebConfig(_Strict):
+    """The Part 2 web app. base_url (e.g. the Vercel URL) is where Telegram links to
+    item pages; empty: Telegram links only to the original articles."""
+
+    base_url: str = ""
+
+
 class Config(_Strict):
     profile: str
     timezone: str = "Asia/Ho_Chi_Minh"
@@ -239,6 +269,8 @@ class Config(_Strict):
     delivery: DeliveryConfig = Field(default_factory=DeliveryConfig)
     ingest: IngestConfig = Field(default_factory=IngestConfig)
     ranking: RankingConfig = Field(default_factory=RankingConfig)
+    retention: RetentionConfig = Field(default_factory=RetentionConfig)
+    web: WebConfig = Field(default_factory=WebConfig)
 
     @field_validator("timezone")
     @classmethod

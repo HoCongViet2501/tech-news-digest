@@ -11,6 +11,8 @@ from digest.store.models import (
     FetchOutcome,
     Mention,
     NewItem,
+    PendingProfile,
+    PruneResult,
     Source,
     SourceSpec,
     Stage,
@@ -151,4 +153,26 @@ class ContentStore(Protocol):
     def save_tldrs(self, tldrs: Mapping[str, str], at: datetime) -> int:
         """Store each TL;DR and set summarized_at. Unknown ids are skipped. Returns rows
         updated. Items skipped without a TL;DR use mark_done(Stage.SUMMARIZE, ...)."""
+        ...
+
+    # --- user profiles and activity (W4) -------------------------------------
+
+    def pending_profiles(self, limit: int) -> list[PendingProfile]:
+        """Profiles with profile_text whose profile_embedded_at is null, oldest
+        updated_at first, at most `limit`, each with its follow_centroid()."""
+        ...
+
+    def save_profile_vector(
+        self, profile: PendingProfile, vector: Sequence[float] | None, at: datetime
+    ) -> bool:
+        """Set user_vec (EMBEDDING_DIM values, or None) and profile_embedded_at = at,
+        unless the row changed since `profile` was read (text, follows or anything else
+        bumped updated_at): then nothing is written and the next run picks it up again.
+        Returns whether the row was written."""
+        ...
+
+    def prune_activity(
+        self, *, impressions_before: datetime, snapshots_before: datetime
+    ) -> PruneResult:
+        """Delete impressions and feed_snapshots created before the given times."""
         ...

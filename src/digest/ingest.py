@@ -1,18 +1,22 @@
 """`python -m digest ingest`: one content-store run (docs/PLAN.md §13 Ingestion).
 
-In order: sync sources.yaml and taxonomy.yaml; fetch the due sources; normalize and
+In order: sync sources.yaml, `ranking:` and taxonomy.yaml; prune old per-user activity
+(impressions, feed snapshots; `retention:`); fetch the due sources; normalize and
 upsert (items keep their source's native tags, and every (item, source) pair gets an
-item_mentions row); enrich; embed (fastembed, title + description); cluster near-
-duplicates over 72 h; tag (native -> rule -> embedding, then the LLM fallback that also
-scores quality, capped by `ingest.llm_calls_per_run`); recompute pop_pct; TL;DR for the
-Popular pool (digest.tldr, capped by `ingest.tldr.calls_per_run`); record source health.
+item_mentions row); enrich; embed (fastembed, title + description); embed pending user
+profiles (free text + followed-tags centroid -> profiles.user_vec, digest.profiles,
+capped by `ingest.profiles.per_run`); cluster near-duplicates over 72 h; tag (native ->
+rule -> embedding, then the LLM fallback that also scores quality, capped by
+`ingest.llm_calls_per_run`); recompute pop_pct; TL;DR for the Popular pool
+(digest.tldr, capped by `ingest.tldr.calls_per_run`); record source health.
 
 Every step is resumable: items are upserted by id, record_fetch runs only after a
 source's items are stored (so a crash leaves the source due), and enrichment, embedding,
-tagging and TL;DR work off the `enriched_at` / `embedded_at` / `tagged_at` /
-`summarized_at` queues (embedding and tagging only take items whose previous stage is
-done), so whatever a killed run left undone is picked up by the next. Clustering
-re-reads the whole window each run and only writes what changed.
+tagging, TL;DR and profiles work off the `enriched_at` / `embedded_at` / `tagged_at` /
+`summarized_at` / `profiles.profile_embedded_at` queues (embedding and tagging only
+take items whose previous stage is done), so whatever a killed run left undone is
+picked up by the next. Clustering re-reads the whole window each run and only writes
+what changed.
 """
 
 import asyncio
@@ -48,6 +52,7 @@ from digest.fetchers import (
 )
 from digest.models import Item
 from digest.normalize import normalize
+from digest.profiles import embed_profiles
 from digest.store import ContentStore, EnrichmentUpdate, FetchOutcome, NewItem, Source, Stage
 from digest.store.models import SourceSpec
 from digest.tagger import tag_pending
@@ -68,6 +73,7 @@ class IngestStats(BaseModel):
     errors: int = 0  # sources whose fetch or store write failed
     enriched: int = 0  # items taken off the enrich queue
     embedded: int = 0
+    profiles: int = 0  # user profiles embedded
     clustered: int = 0  # near-duplicate groups created or extended
     tagged: int = 0  # items taken off the tag queue (done)
     llm_calls: int = 0  # LLM tag + quality batches
@@ -83,6 +89,7 @@ class IngestStats(BaseModel):
             f"ingest due={self.due} fetched={self.fetched} new={self.new} "
             f"refreshed={self.refreshed} not_modified={self.not_modified} "
             f"errors={self.errors} enriched={self.enriched} embedded={self.embedded} "
+            f"profiles={self.profiles} "
             f"clustered={self.clustered} tagged={self.tagged} llm_calls={self.llm_calls} "
             f"llm_waiting={self.llm_waiting} tldr={self.tldr} tldr_calls={self.tldr_calls} "
             f"tldr_skipped={self.tldr_skipped} tldr_waiting={self.tldr_waiting} "
@@ -428,7 +435,7 @@ async def run_ingest(
     embedder: Embedder | None = None,
     chain: LLMChain | None = None,
 ) -> IngestStats:
-    """One run. Without an embedder the embed, cluster and tag stages are skipped;
+    """One run. Without an embedder the embed, profile, cluster and tag stages are skipped;
     without a taxonomy, tagging is; without an LLM chain, tagging stops after step 3 and
     TL;DR is skipped."""
     started = time.monotonic()
@@ -444,6 +451,16 @@ async def run_ingest(
         )
     if store.sync_ranking(cfg.ranking):
         log.info("ranking config updated")
+    pruned = store.prune_activity(
+        impressions_before=now - timedelta(days=cfg.retention.impressions_days),
+        snapshots_before=now - timedelta(days=cfg.retention.feed_snapshots_days),
+    )
+    if pruned.impressions or pruned.feed_snapshots:
+        log.info(
+            "retention: deleted %d impressions, %d feed snapshots",
+            pruned.impressions,
+            pruned.feed_snapshots,
+        )
     if taxonomy is not None:
         tags = store.sync_tags(taxonomy.specs())
         if tags.changed:
@@ -461,6 +478,7 @@ async def run_ingest(
 
     if embedder is not None:
         stats.embedded = embed_pending(store, embedder, cfg, now)
+        stats.profiles = embed_profiles(store, embedder, cfg, now)
         stats.clustered = cluster_recent(store, embedder, cfg.ingest.cluster, now=now)
         if taxonomy is not None:
             tagged = tag_pending(

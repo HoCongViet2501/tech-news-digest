@@ -8,6 +8,7 @@ from collections.abc import Mapping, Sequence
 from datetime import datetime, timedelta
 from types import TracebackType
 from typing import Self
+from uuid import UUID
 
 import psycopg
 from psycopg import sql
@@ -19,9 +20,12 @@ from digest.store.base import DEFAULT_DUE_SLACK, EMBEDDING_DIM, StoreError
 from digest.store.models import (
     Cluster,
     EnrichmentUpdate,
+    FeedCard,
     FetchOutcome,
     Mention,
     NewItem,
+    PendingProfile,
+    PruneResult,
     Source,
     SourceSpec,
     Stage,
@@ -268,6 +272,58 @@ _SAVE_TLDRS = """
 update public.items i set tldr = u.tldr, summarized_at = %s
 from unnest(%s::text[], %s::text[]) as u(id, tldr)
 where i.id = u.id
+"""
+
+
+# Profiles whose free text needs an embedding, with the followed-tags centroid it is
+# combined with (docs/PLAN.md §15 Cold start). Uses profiles_pending_embed_idx.
+_PENDING_PROFILES = """
+select p.user_id, p.profile_text as text, p.updated_at,
+       public.follow_centroid(p.user_id)::extensions.vector::real[] as centroid
+from public.profiles p
+where p.profile_embedded_at is null and p.profile_text is not null
+order by p.updated_at, p.user_id
+limit %s
+"""
+
+# Skipped when the row changed since it was read: a new text or new followed tags bump
+# updated_at (profiles_touch, user_tags_follow_changed), and the next run re-reads it.
+_SAVE_PROFILE_VECTOR = """
+update public.profiles
+set user_vec = %s::extensions.halfvec, profile_embedded_at = %s
+where user_id = %s and updated_at = %s
+  and profile_embedded_at is null and profile_text is not null
+"""
+
+# The owner of the Telegram digest: GitHub login from the GitHub identity (filled by
+# Supabase Auth from GitHub, unlike user_metadata on email sign-ups), or a confirmed
+# email. Two matches are ambiguous: the caller treats them as none.
+_FIND_USER = """
+select u.id
+from auth.users u
+where u.deleted_at is null
+  and not u.is_anonymous
+  and (
+    (%(login)s <> '' and exists (
+      select 1 from auth.identities i
+      where i.user_id = u.id and i.provider = 'github'
+        and lower(coalesce(
+              i.identity_data ->> 'user_name', i.identity_data ->> 'preferred_username'
+            )) = lower(%(login)s)
+    ))
+    or (%(email)s <> '' and u.email_confirmed_at is not null
+        and lower(u.email) = lower(%(email)s))
+  )
+limit 2
+"""
+
+# feed_cards leaves tldr out of list cards; the digest wants it, so join it back.
+_FEED_FOR_USER = """
+select f.id, f.title, f.url, f.discussion_url, f.description, f.published_at,
+       f.source_id, f.source_name, f.upvotes, f.comments, f.mentions, i.tldr
+from public.feed_for_user(%s, %s) with ordinality as f
+join public.items i on i.id = f.id
+order by f.ordinality
 """
 
 
@@ -613,6 +669,64 @@ class PostgresStore:
         with self._conn.transaction(), self._conn.cursor() as cur:
             cur.execute(_SAVE_TLDRS, (at, list(tldrs), list(tldrs.values())))
             return cur.rowcount
+
+    # --- user profiles and activity (W4) -------------------------------------
+
+    def pending_profiles(self, limit: int) -> list[PendingProfile]:
+        if limit <= 0:
+            return []
+        with self._conn.transaction(), self._conn.cursor(row_factory=dict_row) as cur:
+            cur.execute(_PENDING_PROFILES, (limit,))
+            return [PendingProfile.model_validate(row) for row in cur.fetchall()]
+
+    def save_profile_vector(
+        self, profile: PendingProfile, vector: Sequence[float] | None, at: datetime
+    ) -> bool:
+        if vector is not None and len(vector) != EMBEDDING_DIM:
+            raise StoreError(f"profile vector has {len(vector)} dims")
+        text = None if vector is None else "[" + ",".join(f"{float(x):.6g}" for x in vector) + "]"
+        with self._conn.transaction(), self._conn.cursor() as cur:
+            cur.execute(_SAVE_PROFILE_VECTOR, (text, at, profile.user_id, profile.updated_at))
+            return cur.rowcount == 1
+
+    def prune_activity(
+        self, *, impressions_before: datetime, snapshots_before: datetime
+    ) -> PruneResult:
+        with self._conn.transaction(), self._conn.cursor() as cur:
+            cur.execute(
+                "delete from public.impressions where created_at < %s", (impressions_before,)
+            )
+            impressions = cur.rowcount
+            cur.execute(
+                "delete from public.feed_snapshots where created_at < %s", (snapshots_before,)
+            )
+            return PruneResult(impressions=impressions, feed_snapshots=cur.rowcount)
+
+    # --- owner digest (W4 step 6) --------------------------------------------
+    # The pipeline connects as postgres, which can read auth.users and call
+    # feed_for_user (service_role / postgres only).
+
+    def find_user(self, *, github_login: str, email: str) -> UUID | None:
+        with self._conn.transaction(), self._conn.cursor() as cur:
+            cur.execute(_FIND_USER, {"login": github_login.strip(), "email": email.strip()})
+            rows = cur.fetchall()
+        return rows[0][0] if len(rows) == 1 else None
+
+    def follows_tags(self, user_id: UUID) -> bool:
+        query = """
+            select exists (
+              select 1 from public.user_tags where user_id = %s and state = 'follow'
+            )
+        """
+        with self._conn.transaction(), self._conn.cursor() as cur:
+            cur.execute(query, (user_id,))
+            row = cur.fetchone()
+        return bool(row and row[0])
+
+    def feed_for_user(self, user_id: UUID, n: int) -> list[FeedCard]:
+        with self._conn.transaction(), self._conn.cursor(row_factory=dict_row) as cur:
+            cur.execute(_FEED_FOR_USER, (user_id, n))
+            return [FeedCard.model_validate(row) for row in cur.fetchall()]
 
     # --- helpers -----------------------------------------------------------
 

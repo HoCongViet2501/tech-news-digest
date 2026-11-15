@@ -355,6 +355,7 @@ def test_stats_line() -> None:
         errors=1,
         enriched=4,
         embedded=4,
+        profiles=2,
         clustered=1,
         tagged=3,
         llm_calls=1,
@@ -367,7 +368,7 @@ def test_stats_line() -> None:
     )
     assert stats.line() == (
         "ingest due=3 fetched=10 new=4 refreshed=6 not_modified=1 errors=1 enriched=4 "
-        "embedded=4 clustered=1 tagged=3 llm_calls=1 llm_waiting=1 tldr=2 tldr_calls=1 "
+        "embedded=4 profiles=2 clustered=1 tagged=3 llm_calls=1 llm_waiting=1 tldr=2 tldr_calls=1 "
         "tldr_skipped=1 tldr_waiting=3 duration=2.2s"
     )
 

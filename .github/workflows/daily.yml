@@ -27,9 +27,12 @@ jobs:
 
       - run: uv sync --locked
 
+      # The owner's My Feed top 10 once the owner's web account follows tags; until
+      # then, or when the DB is unreachable, the Part 1 digest (src/digest/owner_feed.py).
       - name: Run digest
         run: uv run python -m digest run
         env:
+          DIGEST_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
