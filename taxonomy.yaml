@@ -1,0 +1,436 @@
+# Shared tag taxonomy for Part 2 (docs/PLAN.md §15 Tagging, W2 step 1).
+# DRAFT 2026-11-15 — awaiting owner approval. Seeded into the `tags` table.
+#
+# Fields:
+#   slug         stable id (a-z0-9-); never rename once users follow it
+#   name         display name
+#   parent       optional; following a parent also matches its children in tag_match
+#   description  one sentence; used for embedding similarity (step 3) and shown in the UI
+#   aliases      native tags from sources (dev.to, Lobsters, GitHub topics, HF keywords)
+#                mapped to this slug (step 1, confidence 0.95); lowercase, exact match
+#   keywords     case-insensitive regexes on title + description (step 2, confidence 0.9);
+#                matched with word boundaries; kept conservative, refined with the W2 eval set
+#   embed        true = also eligible for embedding-based tagging (step 3); broad topics only
+#
+# Language and tool tags rely on aliases + keywords (+ LLM); the embedding experiment
+# (§11) showed zero-shot embeddings are unreliable for them.
+
+tags:
+  # ---------------------------------------------------------------- AI
+  - slug: ai
+    name: AI & Machine Learning
+    description: Artificial intelligence and machine learning, models, research and tooling.
+    aliases: [artificial-intelligence, machinelearning, machine-learning, ml, deeplearning, deep-learning, genai, generative-ai]
+    keywords: ['artificial intelligence', 'machine learning', 'generative ai']
+    embed: true
+  - slug: llm
+    name: LLMs
+    parent: ai
+    description: Large language models, model releases, prompting, fine-tuning and evaluation.
+    aliases: [llms, large-language-models, gpt, chatgpt, claude, gemini, llama, openai, anthropic, mistral, qwen, deepseek]
+    keywords: ['LLMs?', 'large language models?', 'GPT-\d', 'Claude', 'Gemini', 'Llama \d', 'fine-tun(e|ing)']
+    embed: true
+  - slug: ai-agents
+    name: AI Agents
+    parent: ai
+    description: Autonomous and multi-step AI agents, agent frameworks, tool use and orchestration.
+    aliases: [agents, agentic, ai-agent, autonomous-agents, multi-agent, langchain, langgraph]
+    keywords: ['AI agents?', 'agentic', 'multi-agent', 'agent framework']
+    embed: true
+  - slug: mcp
+    name: MCP
+    parent: ai
+    description: The Model Context Protocol, MCP servers and clients for connecting AI to tools and data.
+    aliases: [model-context-protocol, mcp-server]
+    keywords: ['MCP', 'Model Context Protocol']
+  - slug: ai-coding
+    name: AI Coding Tools
+    parent: ai
+    description: AI-assisted software development, coding agents and code assistants in the editor or terminal.
+    aliases: [copilot, github-copilot, cursor, claude-code, codex, coding-agent, ai-coding, vibe-coding]
+    keywords: ['coding agents?', 'code assistants?', 'Copilot', 'Cursor', 'Claude Code', 'vibe coding']
+    embed: true
+  - slug: rag
+    name: RAG & Embeddings
+    parent: ai
+    description: Retrieval-augmented generation, embeddings, vector databases and semantic search.
+    aliases: [retrieval-augmented-generation, embeddings, vector-search, vector-database, pgvector, semantic-search]
+    keywords: ['RAG', 'retrieval[- ]augmented', 'embeddings?', 'vector (search|database|store)']
+  - slug: local-llm
+    name: Local & Open Models
+    parent: ai
+    description: Running open-weight models locally, quantization and inference engines.
+    aliases: [ollama, llama-cpp, llamacpp, gguf, open-weights, open-source-llm, vllm, quantization]
+    keywords: ['Ollama', 'llama\.cpp', 'GGUF', 'open[- ]weights?', 'quantiz(ed|ation)', 'vLLM']
+  - slug: ml-research
+    name: ML Research
+    parent: ai
+    description: Machine learning research papers, benchmarks and new training or architecture techniques.
+    aliases: [papers, arxiv, research, reinforcement-learning, transformers, diffusion]
+    keywords: ['arXiv', 'benchmark results?', 'state[- ]of[- ]the[- ]art']
+    embed: true
+
+  # ---------------------------------------------------------------- DevOps & cloud
+  - slug: devops
+    name: DevOps & Cloud
+    description: Building, shipping and operating software, infrastructure, cloud and platform tooling.
+    aliases: [devops, sre, operations, infrastructure]
+    keywords: ['DevOps', 'SRE']
+    embed: true
+  - slug: kubernetes
+    name: Kubernetes
+    parent: devops
+    description: Kubernetes clusters, operators, Helm and the cloud native ecosystem.
+    aliases: [k8s, helm, kubectl, cloud-native, cncf, operators]
+    keywords: ['Kubernetes', 'K8s', 'Helm', 'kubectl']
+    embed: true
+  - slug: docker
+    name: Containers
+    parent: devops
+    description: Docker, container images, runtimes and registries.
+    aliases: [containers, container, podman, oci, dockerfile, containerd]
+    keywords: ['Docker', 'containers?', 'Podman', 'Dockerfile']
+  - slug: ci-cd
+    name: CI/CD
+    parent: devops
+    description: Continuous integration and delivery pipelines, build systems and release automation.
+    aliases: [cicd, continuous-integration, continuous-delivery, github-actions, gitlab-ci, jenkins, argocd, gitops]
+    keywords: ['CI/CD', 'GitHub Actions', 'GitLab CI', 'Jenkins', 'Argo ?CD', 'GitOps']
+  - slug: iac
+    name: Infrastructure as Code
+    parent: devops
+    description: Terraform, OpenTofu, Pulumi, Ansible and other infrastructure-as-code tools.
+    aliases: [terraform, opentofu, pulumi, ansible, infrastructure-as-code, crossplane]
+    keywords: ['Terraform', 'OpenTofu', 'Pulumi', 'Ansible', 'infrastructure as code']
+  - slug: observability
+    name: Observability
+    parent: devops
+    description: Monitoring, logging, tracing and metrics with tools like Prometheus, Grafana and OpenTelemetry.
+    aliases: [monitoring, logging, tracing, metrics, prometheus, grafana, opentelemetry, otel]
+    keywords: ['observability', 'OpenTelemetry', 'Prometheus', 'Grafana', 'distributed tracing']
+    embed: true
+  - slug: cloud
+    name: Cloud Platforms
+    parent: devops
+    description: AWS, Google Cloud, Azure and other cloud providers, managed services and serverless.
+    aliases: [aws, gcp, google-cloud, azure, serverless, lambda, cloudflare, cloud-computing]
+    keywords: ['AWS', 'Google Cloud', 'GCP', 'Azure', 'serverless', 'Lambda']
+    embed: true
+  - slug: platform-engineering
+    name: Platform Engineering
+    parent: devops
+    description: Internal developer platforms, developer experience and running engineering infrastructure at scale.
+    aliases: [platform-engineering, devex, developer-experience, idp, backstage]
+    keywords: ['platform engineering', 'developer experience', 'internal developer platform']
+  - slug: linux
+    name: Linux & Systems
+    parent: devops
+    description: Linux, the kernel, shells and operating system internals.
+    aliases: [kernel, unix, bash, shell, systemd, operating-systems, freebsd]
+    keywords: ['Linux', 'kernel', 'systemd', 'Bash']
+
+  # ---------------------------------------------------------------- Languages
+  - slug: languages
+    name: Programming Languages
+    description: Programming language news, design, compilers and type systems.
+    aliases: [programming-languages, plt, compilers, type-systems, language-design]
+    keywords: ['compilers?', 'type systems?', 'language design']
+    embed: true
+  - slug: javascript
+    name: JavaScript
+    parent: languages
+    description: The JavaScript language and ECMAScript proposals.
+    aliases: [js, ecmascript, tc39, es2025, es2026]
+    keywords: ['JavaScript', 'ECMAScript', 'TC39']
+  - slug: typescript
+    name: TypeScript
+    parent: languages
+    description: The TypeScript language, compiler and type-level programming.
+    aliases: [ts, tsc]
+    keywords: ['TypeScript']
+  - slug: python
+    name: Python
+    parent: languages
+    description: The Python language, packaging, and frameworks such as Django and FastAPI.
+    aliases: [py, cpython, django, fastapi, flask, pydantic, uv, pip]
+    keywords: ['Python', 'Django', 'FastAPI', 'PyPI']
+  - slug: golang
+    name: Go
+    parent: languages
+    description: The Go programming language, its runtime, tooling and libraries.
+    aliases: [go, golang]
+    keywords: ['Golang', 'Go 1\.\d+', 'go\.dev', 'Go (modules|generics|runtime|toolchain)', 'written in Go', 'in Go$']
+  - slug: java
+    name: Java
+    parent: languages
+    description: Java and the JVM, OpenJDK releases, performance and the Java ecosystem.
+    aliases: [jvm, jdk, openjdk, graalvm, jakarta-ee, hibernate, jpa]
+    keywords: ['Java', 'JVM', 'OpenJDK', 'JDK \d+', 'GraalVM', 'Hibernate']
+  - slug: spring
+    name: Spring
+    parent: java
+    description: Spring Boot, Spring Framework and the Spring ecosystem.
+    aliases: [springboot, spring-boot, spring-framework, spring-cloud]
+    keywords: ['Spring Boot', 'Spring Framework', 'Spring Cloud']
+  - slug: kotlin
+    name: Kotlin
+    parent: languages
+    description: The Kotlin language for JVM, Android and multiplatform.
+    aliases: [kotlin-multiplatform, kmp, ktor]
+    keywords: ['Kotlin']
+  - slug: rust
+    name: Rust
+    parent: languages
+    description: The Rust programming language, its tooling and crates.
+    aliases: [rustlang, cargo]
+    keywords: ['Rust']
+  - slug: dotnet
+    name: .NET & C#
+    parent: languages
+    description: C#, .NET and the Microsoft developer ecosystem.
+    aliases: [csharp, c-sharp, aspnet, aspnetcore, net]
+    keywords: ['C#', '\.NET', 'ASP\.NET']
+
+  # ---------------------------------------------------------------- Backend
+  - slug: backend
+    name: Backend
+    description: Server-side development, APIs, services and backend architecture.
+    aliases: [backend, server-side, webdev-backend]
+    keywords: ['backend']
+    embed: true
+  - slug: nodejs
+    name: Node.js & JS Runtimes
+    parent: backend
+    description: Node.js, Deno, Bun and server-side JavaScript frameworks such as NestJS, Express and Fastify.
+    aliases: [node, node-js, deno, bun, nestjs, express, fastify, npm]
+    keywords: ['Node\.js', 'Deno', 'Bun', 'NestJS', 'Fastify', 'Express\.js']
+  - slug: api-design
+    name: APIs
+    parent: backend
+    description: REST, GraphQL and gRPC API design, versioning and documentation.
+    aliases: [api, rest, restful, graphql, grpc, openapi, swagger]
+    keywords: ['REST(ful)? APIs?', 'GraphQL', 'gRPC', 'OpenAPI']
+  - slug: microservices
+    name: Microservices
+    parent: backend
+    description: Microservice architectures, service meshes and event-driven services.
+    aliases: [microservice, service-mesh, istio, event-driven, eventdriven, saga]
+    keywords: ['microservices?', 'service mesh', 'event[- ]driven']
+  - slug: messaging
+    name: Messaging & Streaming
+    parent: backend
+    description: Message brokers, queues and event streaming platforms.
+    aliases: [message-queue, queues, rabbitmq, nats, pulsar, event-streaming, pubsub, sqs]
+    keywords: ['message (queue|broker)s?', 'RabbitMQ', 'NATS', 'Pulsar', 'event streaming']
+    embed: true
+  - slug: kafka
+    name: Kafka
+    parent: messaging
+    description: Apache Kafka, Kafka-compatible platforms like Redpanda, and stream processing.
+    aliases: [apache-kafka, redpanda, kafka-streams, confluent, flink]
+    keywords: ['Kafka', 'Redpanda', 'Flink']
+  - slug: distributed-systems
+    name: Distributed Systems
+    parent: backend
+    description: Consensus, replication, consistency and the theory and practice of distributed systems.
+    aliases: [distributed, consensus, raft, paxos, crdt]
+    keywords: ['distributed systems?', 'consensus', 'Raft', 'Paxos', 'CRDTs?', 'replication']
+    embed: true
+  - slug: system-design
+    name: System Design & Architecture
+    parent: backend
+    description: Software architecture, scalability and how large systems are designed and run.
+    aliases: [systemdesign, architecture, software-architecture, scalability, design-patterns]
+    keywords: ['system design', 'software architecture', 'scal(ability|ing) to']
+    embed: true
+
+  # ---------------------------------------------------------------- Databases & data
+  - slug: databases
+    name: Databases
+    description: Database engines, SQL, query performance, storage and data modelling.
+    aliases: [database, db, sql, nosql, databases]
+    keywords: ['databases?', 'SQL', 'query planner', 'indexes']
+    embed: true
+  - slug: postgres
+    name: PostgreSQL
+    parent: databases
+    description: PostgreSQL, its extensions and the Postgres ecosystem.
+    aliases: [postgresql, pg, supabase, neon, timescaledb]
+    keywords: ['Postgres(QL)?']
+  - slug: mysql
+    name: MySQL
+    parent: databases
+    description: MySQL, MariaDB, Vitess and PlanetScale.
+    aliases: [mariadb, vitess, planetscale]
+    keywords: ['MySQL', 'MariaDB', 'Vitess']
+  - slug: redis
+    name: Redis & Caching
+    parent: databases
+    description: Redis, Valkey and caching strategies.
+    aliases: [valkey, caching, cache, memcached]
+    keywords: ['Redis', 'Valkey', 'caching']
+  - slug: mongodb
+    name: MongoDB
+    parent: databases
+    description: MongoDB and document databases.
+    aliases: [mongo, document-database]
+    keywords: ['MongoDB']
+  - slug: sqlite
+    name: SQLite
+    parent: databases
+    description: SQLite and embedded databases, including libSQL and Turso.
+    aliases: [libsql, turso]
+    keywords: ['SQLite', 'libSQL']
+  - slug: analytics-db
+    name: Analytics Databases
+    parent: databases
+    description: OLAP and analytical engines such as ClickHouse, DuckDB and cloud data warehouses.
+    aliases: [clickhouse, duckdb, olap, data-warehouse, snowflake, bigquery]
+    keywords: ['ClickHouse', 'DuckDB', 'OLAP', 'data warehouse']
+  - slug: data-engineering
+    name: Data Engineering
+    parent: databases
+    description: Data pipelines, ETL, orchestration and processing frameworks.
+    aliases: [etl, spark, airflow, dbt, data-pipeline, dataengineering]
+    keywords: ['ETL', 'data pipelines?', 'Apache Spark', 'Airflow', 'dbt']
+
+  # ---------------------------------------------------------------- Frontend & web
+  - slug: frontend
+    name: Frontend
+    description: Building user interfaces for the web, frameworks, styling and the browser platform.
+    aliases: [frontend, front-end, webdev, web-development, ui]
+    keywords: ['frontend', 'front-end']
+    embed: true
+  - slug: react
+    name: React
+    parent: frontend
+    description: React, React Server Components and the React ecosystem.
+    aliases: [reactjs, react-native-web, rsc, jsx]
+    keywords: ['React']
+  - slug: nextjs
+    name: Next.js
+    parent: frontend
+    description: Next.js and Vercel's React framework.
+    aliases: [next, next-js]
+    keywords: ['Next\.js']
+  - slug: web-frameworks
+    name: Other Web Frameworks
+    parent: frontend
+    description: Vue, Svelte, Angular, Astro, Solid and other frontend frameworks.
+    aliases: [vue, vuejs, svelte, sveltekit, angular, astro, solidjs, remix, nuxt, htmx]
+    keywords: ['Vue(\.js)?', 'Svelte(Kit)?', 'Angular', 'Astro', 'SolidJS', 'Nuxt', 'htmx']
+  - slug: css
+    name: CSS & Design
+    parent: frontend
+    description: CSS, Tailwind, layout, design systems and accessibility.
+    aliases: [tailwind, tailwindcss, design-systems, a11y, accessibility, ux]
+    keywords: ['CSS', 'Tailwind', 'accessibility', 'design system']
+  - slug: web-platform
+    name: Web Platform & Browsers
+    parent: frontend
+    description: Browser engines, web standards and new web platform APIs.
+    aliases: [browsers, chrome, firefox, safari, web-standards, html, web-apis]
+    keywords: ['Chrome \d+', 'Firefox', 'Safari', 'web platform', 'browser engine']
+  - slug: webassembly
+    name: WebAssembly
+    parent: frontend
+    description: WebAssembly, WASI and running compiled code in the browser and on servers.
+    aliases: [wasm, wasi]
+    keywords: ['WebAssembly', 'Wasm', 'WASI']
+
+  # ---------------------------------------------------------------- Security
+  - slug: security
+    name: Security
+    description: Application and infrastructure security, attacks, defenses and security tooling.
+    aliases: [security, infosec, appsec, cybersecurity, netsec]
+    keywords: ['security', 'attackers?', 'malware']
+    embed: true
+  - slug: vulnerabilities
+    name: Vulnerabilities
+    parent: security
+    description: CVEs, exploits, zero-days and security advisories.
+    aliases: [cve, exploit, zero-day, 0day, rce, vulnerability]
+    keywords: ['CVE-\d{4}-\d+', 'zero-day', 'exploit(s|ed)?', 'remote code execution', 'vulnerabilit(y|ies)']
+  - slug: supply-chain
+    name: Supply Chain Security
+    parent: security
+    description: Dependency and package security, malicious packages, SBOMs and signing.
+    aliases: [supply-chain-security, sbom, sigstore, dependency-security, typosquatting]
+    keywords: ['supply[- ]chain', 'malicious packages?', 'SBOM', 'typosquat']
+  - slug: auth
+    name: Auth & Identity
+    parent: security
+    description: Authentication, authorization, OAuth, OIDC and passkeys.
+    aliases: [authentication, authorization, oauth, oidc, passkeys, sso, identity, jwt]
+    keywords: ['OAuth', 'OIDC', 'passkeys?', 'authentication', 'single sign-on']
+  - slug: cryptography
+    name: Cryptography
+    parent: security
+    description: Encryption, TLS, post-quantum cryptography and cryptographic protocols.
+    aliases: [encryption, tls, ssl, post-quantum, pqc]
+    keywords: ['cryptograph(y|ic)', 'encryption', 'TLS', 'post-quantum']
+
+  # ---------------------------------------------------------------- Engineering practice
+  - slug: engineering
+    name: Software Engineering
+    description: The craft and practice of building software, beyond any single technology.
+    aliases: [software-engineering, programming, coding, best-practices]
+    keywords: ['software engineering']
+    embed: true
+  - slug: developer-tools
+    name: Developer Tools
+    parent: engineering
+    description: Editors, terminals, CLIs, Git and tools that make developers more productive.
+    aliases: [devtools, tools, cli, terminal, vscode, neovim, vim, git, ide, productivity]
+    keywords: ['CLI', 'VS ?Code', 'Neovim', 'terminal', '\bgit\b', 'developer tools?']
+    embed: true
+  - slug: open-source
+    name: Open Source
+    parent: engineering
+    description: Open source projects, licensing, maintainers and trending repositories.
+    aliases: [opensource, oss, foss, github, licensing]
+    keywords: ['open[- ]source', 'OSS', 'maintainers?']
+  - slug: testing
+    name: Testing
+    parent: engineering
+    description: Unit, integration and end-to-end testing, test tooling and quality practices.
+    aliases: [tdd, unit-testing, e2e, playwright, jest, vitest, pytest, qa]
+    keywords: ['testing', 'unit tests?', 'end-to-end tests?', 'Playwright', 'TDD']
+  - slug: performance
+    name: Performance
+    parent: engineering
+    description: Profiling, benchmarking and making software faster or cheaper to run.
+    aliases: [optimization, profiling, benchmarks, perf, latency]
+    keywords: ['performance', 'profil(e|ing)', 'benchmarks?']
+  - slug: engineering-management
+    name: Engineering Management
+    parent: engineering
+    description: Leading engineering teams, careers, processes and engineering culture.
+    aliases: [management, leadership, career, teams, engineering-culture]
+    keywords: ['engineering managers?', 'tech lead', 'career']
+
+  # ---------------------------------------------------------------- Other
+  - slug: mobile
+    name: Mobile
+    description: iOS, Android and cross-platform mobile development.
+    aliases: [android, ios, swift, swiftui, flutter, react-native, dart, mobile-development]
+    keywords: ['iOS', 'Android', 'Swift(UI)?', 'Flutter', 'React Native']
+    embed: true
+  - slug: hardware
+    name: Hardware
+    description: Chips, GPUs, embedded systems and the hardware that software runs on.
+    aliases: [embedded, gpu, cpu, chips, arm, risc-v, iot, raspberry-pi]
+    keywords: ['GPUs?', 'CPUs?', 'RISC-V', 'embedded', 'Raspberry Pi']
+    embed: true
+  - slug: industry
+    name: Tech Industry
+    description: Company news, funding, acquisitions, layoffs and the business of technology.
+    aliases: [business, startups, funding, layoffs, acquisitions, hiring]
+    keywords: ['raises \$', 'funding round', 'layoffs?', 'acquires', 'acquisition']
+    embed: true
+  - slug: crypto-web3
+    name: Crypto & Web3
+    description: Cryptocurrencies, blockchains, NFTs and web3.
+    aliases: [crypto, cryptocurrency, blockchain, bitcoin, ethereum, web3, nft, defi, solana]
+    keywords: ['crypto(currency)?', 'blockchain', 'Bitcoin', 'Ethereum', 'NFTs?', 'web3']
+    embed: true
