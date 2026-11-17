@@ -1,0 +1,203 @@
+{
+ "date": "2026-11-17",
+ "items": [
+  {
+   "id": "1e9e8b1e72e80dc1e6324fab098f45a0805508d3",
+   "source": "github",
+   "title": "vstorm-co/agenticos: Open-source, self-hosted AI agent platform for your company's AI teammates. Build, run and govern agents on your own servers and models: shared chat, RAG, skills, a real browser, 4,700+ MCP servers, budgets, approvals and an audit trail. An alternative to ChatGPT Enterprise and Grok Bot. Apache-2.0, built on Pydantic AI.",
+   "url": "https://github.com/vstorm-co/agenticos",
+   "discussion_url": null,
+   "score": 59,
+   "comments": 0,
+   "published_at": "2026-11-17T12:48:27.194795+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "description": "Open-source, self-hosted AI agent platform for your company's AI teammates. Build, run and govern agents on your own servers and models: shared chat, RAG, skills, a real browser, 4,700+ MCP servers, budgets, approvals and an audit trail. An alternative to ChatGPT Enterprise and Grok Bot…",
+   "relevance": 9.0,
+   "reason": "Nền tảng AI agent self-hosted, hỗ trợ MCP servers, phù hợp với DevOps và AI tooling.",
+   "summary": "AgenticOS là một nền tảng mã nguồn mở (Apache-2.0) giúp xây dựng và quản lý các AI agent tự host trên hạ tầng riêng. Nền tảng này tích hợp Pydantic AI, hỗ trợ hơn 4.700 MCP servers, cung cấp môi trường chat chung, RAG, công cụ trình duyệt thực và khả năng chuyển đổi tác vụ coding sang Claude Code hoặc Codex.",
+   "why_it_matters": "Cung cấp một giải pháp tự host mạnh mẽ để tích hợp các coding agent và MCP vào luồng phát triển và hạ tầng DevOps của bạn."
+  },
+  {
+   "id": "14832d8209b1a065a42f45170960b4963ddc015a",
+   "source": "github",
+   "title": "google-research/paper-orchestra: PaperOrchestra is a multi-agent framework for automated AI research paper writing.",
+   "url": "https://github.com/google-research/paper-orchestra",
+   "discussion_url": null,
+   "score": 313,
+   "comments": 0,
+   "published_at": "2026-11-17T12:48:27.194795+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "description": "PaperOrchestra is a multi-agent framework for automated AI research paper writing.",
+   "relevance": 8.0,
+   "reason": "Multi-agent framework cho AI research, hữu ích cho việc tự động hóa nghiên cứu.",
+   "summary": "PaperOrchestra là một framework đa tác giả (multi-agent) tự động hóa quá trình viết bài báo nghiên cứu AI từ các tài liệu thô. Hệ thống phối hợp các agent chuyên biệt để xử lý việc tổng hợp tài liệu, lập dàn ý, viết nội dung, tạo biểu đồ và xuất ra bản thảo LaTeX sẵn sàng nộp hội nghị.",
+   "why_it_matters": "Mang đến một ví dụ thực tế về kiến trúc multi-agent phức tạp để tự động hóa các tài liệu kỹ thuật dài bằng LLM."
+  },
+  {
+   "id": "4a3141e52198d5a2a630240a35194d29a6840d66",
+   "source": "github",
+   "title": "openai/whisper: Robust Speech Recognition via Large-Scale Weak Supervision",
+   "url": "https://github.com/openai/whisper",
+   "discussion_url": null,
+   "score": 126,
+   "comments": 0,
+   "published_at": "2026-11-17T12:48:27.194795+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "description": "Robust Speech Recognition via Large-Scale Weak Supervision",
+   "relevance": 8.0,
+   "reason": "Mô hình nhận diện giọng nói Speech Recognition từ OpenAI.",
+   "summary": "Whisper là mô hình nhận diện giọng nói đa nhiệm mã nguồn mở của OpenAI, được huấn luyện trên lượng lớn dữ liệu giám sát yếu. Mô hình sử dụng kiến trúc Transformer sequence-to-sequence để xử lý nhận diện giọng nói đa ngôn ngữ, dịch thuật và phát hiện ngôn ngữ trong một pipeline duy nhất.",
+   "why_it_matters": "Là công cụ tiêu chuẩn trong ngành để tích hợp tính năng chuyển giọng nói thành văn bản vào các ứng dụng full-stack hoặc backend."
+  },
+  {
+   "id": "5c4fbe651718d4da5c59ec884e3a3072acbb109d",
+   "source": "hn",
+   "title": "Optimizely compromised, served malware on Zoom, GitLab",
+   "url": "https://blog.report-uri.com/worlds-largest-brands-infected-with-malware-via-optimizely",
+   "discussion_url": "https://news.ycombinator.com/item?id=50524767",
+   "score": 227,
+   "comments": 99,
+   "published_at": "2026-11-16T23:00:34Z",
+   "tags": [],
+   "also_on": [],
+   "description": null,
+   "relevance": 8.0,
+   "reason": "Lỗ hổng bảo mật chuỗi cung ứng ảnh hưởng đến Zoom và GitLab.",
+   "summary": "Nền tảng Optimizely Web đã bị xâm phạm, dẫn đến việc mã độc JavaScript được tiêm vào các tệp snippet của nhiều tổ chức lớn như Zoom và GitLab. Mã độc này thực hiện đánh cắp thông tin, thay đổi địa chỉ ví crypto và phân phối các gói khai thác lỗ hổng thông qua bên thứ ba.",
+   "why_it_matters": "Nhấn mạnh tầm quan trọng của các chính sách bảo mật như CSP và việc giám sát chặt chẽ các phụ thuộc JavaScript bên thứ ba trong quy trình CI/CD và kiến trúc web."
+  },
+  {
+   "id": "be9818d4acab693bcbc4aad67cb5b37c66df1380",
+   "source": "hn",
+   "title": "The Active Directory Era Is Finally Over",
+   "url": "https://infisical.com/blog/active-directory-machine-identity",
+   "discussion_url": "https://news.ycombinator.com/item?id=50517815",
+   "score": 122,
+   "comments": 77,
+   "published_at": "2026-11-16T14:15:31Z",
+   "tags": [],
+   "also_on": [],
+   "description": null,
+   "relevance": 8.0,
+   "reason": "Đánh giá về Active Directory và các giải pháp thay thế trong hạ tầng IT.",
+   "summary": "Bài viết thảo luận về việc Active Directory (AD) đã lỗi thời khi không còn đáp ứng được quy mô quản lý danh tính của các hệ thống đám mây hiện đại. Kiến trúc cũ này gặp khó khăn lớn trong việc định danh và xác thực danh tính máy chủ (machine identity) trong các môi trường như Kubernetes.",
+   "why_it_matters": "Làm nổi bật những thách thức cốt lõi trong việc quản lý danh tính máy (machine identity) và bảo mật hạ tầng cloud-native."
+  },
+  {
+   "id": "9d110a9f87ec3ca06576a775ab675e9013318df1",
+   "source": "github",
+   "title": "koala73/worldmonitor: Real-time global intelligence dashboard. AI-powered news aggregation, geopolitical monitoring, and infrastructure tracking in a unified situational awareness interface",
+   "url": "https://github.com/koala73/worldmonitor",
+   "discussion_url": null,
+   "score": 74,
+   "comments": 0,
+   "published_at": "2026-11-17T12:48:27.194795+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "description": "Real-time global intelligence dashboard. AI-powered news aggregation, geopolitical monitoring, and infrastructure tracking in a unified situational awareness interface",
+   "relevance": 8.0,
+   "reason": "Dashboard AI-powered theo dõi tình hình thế giới và hạ tầng thời gian thực.",
+   "summary": "World Monitor là một dashboard trí tuệ toàn cầu thời gian thực, tích hợp tin tức chạy bằng AI, giám sát địa chính trị và theo dõi hạ tầng. Dự án cung cấp giao diện đa nền tảng gồm web app, ứng dụng desktop Tauri, terminal dashboard qua npx và hỗ trợ Docker để tự host toàn bộ stack.",
+   "why_it_matters": "Cung cấp một giải pháp tự host gọn nhẹ với Docker và hỗ trợ MCP, giúp bạn dễ dàng tích hợp giám sát dữ liệu thời gian thực vào quy trình DevOps của mình."
+  },
+  {
+   "id": "1004f5b1d037c0c2fe304003270d8c81c8403abd",
+   "source": "github",
+   "title": "getarcaneapp/arcane: Modern Docker Management, Designed for Everyone",
+   "url": "https://github.com/getarcaneapp/arcane",
+   "discussion_url": null,
+   "score": 46,
+   "comments": 0,
+   "published_at": "2026-11-17T12:48:27.194795+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "description": "Modern Docker Management, Designed for Everyone",
+   "relevance": 8.0,
+   "reason": "Công cụ quản lý Docker hiện đại, rất hợp với DevOps.",
+   "summary": "Arcane là một công cụ quản lý Docker hiện đại, được thiết kế với giao diện dễ sử dụng cho mọi đối tượng. Phiên bản chính hiện tại đang tập trung phát triển nhánh v3 với nhiều cải tiến về tính năng và quy trình quản lý.",
+   "why_it_matters": "Là một công cụ tiện ích giúp đơn giản hóa việc quản lý container Docker trong các môi trường phát triển và vận hành hàng ngày của bạn."
+  },
+  {
+   "id": "c1028619aee2c844319f391ad5d9a029b01403ad",
+   "source": "github",
+   "title": "s0ld13rr/pentestcode: PentestCode - Multi-agent AI penetration testing system with persistent engagement state, strategic coordination, and parallel autonomous operations.",
+   "url": "https://github.com/s0ld13rr/pentestcode",
+   "discussion_url": null,
+   "score": 35,
+   "comments": 0,
+   "published_at": "2026-11-17T12:48:27.194795+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "description": "PentestCode - Multi-agent AI penetration testing system with persistent engagement state, strategic coordination, and parallel autonomous operations.",
+   "relevance": 8.0,
+   "reason": "Hệ thống AI đa tác phong tự động kiểm thử bảo mật pentest.",
+   "summary": "PentestCode là một hệ thống kiểm thử xâm nhập tự động đa tác nhân chạy trên terminal, được thiết kế theo mô hình chiến lược gia - điều phối viên với 13 tác nhân chuyên biệt. Hệ thống hỗ trợ hơn 20 nhà cung cấp LLM qua ai-sdk và duy trì trạng thái tương tác có cấu trúc xuyên suốt quá trình thực thi.",
+   "why_it_matters": "Mang lại cái nhìn thực tế về cách các hệ thống multi-agent phối hợp tự động hóa quy trình phức tạp, hữu ích cho việc kiểm tra bảo mật hạ tầng và ứng dụng."
+  },
+  {
+   "id": "af0dbff81890d964003283715361654342c9b3a8",
+   "source": "hn",
+   "title": "Kubernetes Is Strengthening Its Position as the AI Platform of Choice",
+   "url": "https://cloudnativenow.com/features/kubernetes-is-strengthening-its-position-as-the-ai-platform-of-choice",
+   "discussion_url": "https://news.ycombinator.com/item?id=50523037",
+   "score": 19,
+   "comments": 6,
+   "published_at": "2026-11-16T20:48:53Z",
+   "tags": [],
+   "also_on": [],
+   "description": null,
+   "relevance": 8.0,
+   "reason": "Kubernetes củng cố vị thế làm nền tảng triển khai AI, chuẩn xác cho DevOps.",
+   "summary": "Kubernetes đang củng cố vị thế là nền tảng AI chính với các cải tiến nhắm vào hiệu suất GPU, cụm quy mô lớn và bảo mật cho agent. Phiên bản Kubernetes 1.38 chuẩn bị ra mắt sẽ mang lại gang scheduling ổn định và tính năng nén đối tượng API trước khi lưu vào etcd để giảm áp lực lưu trữ.",
+   "why_it_matters": "Giúp bạn tối ưu hóa việc quản lý các cụm Kubernetes lớn và các workload AI/GPU nặng trong hệ thống phân tán của mình."
+  },
+  {
+   "id": "1145968ff554457a4ea1ee30deff522c6a6ab1e1",
+   "source": "github",
+   "title": "isair/jarvis: A 100% private and local AI assistant for your desktop. Always present, able to jump into conversations. Supports unlimited MCP tools and unlimited memory with self-learning. Free WisprFlow alternative with its dictation support. Runs on macOS, Windows and Linux.",
+   "url": "https://github.com/isair/jarvis",
+   "discussion_url": null,
+   "score": 25,
+   "comments": 0,
+   "published_at": "2026-11-17T12:48:27.194795+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "description": "A 100% private and local AI assistant for your desktop. Always present, able to jump into conversations. Supports unlimited MCP tools and unlimited memory with self-learning. Free WisprFlow alternative with its dictation support. Runs on macOS, Windows and Linux.",
+   "relevance": 8.0,
+   "reason": "Trợ lý AI chạy local hỗ trợ MCP tools và memory, rất hợp xu hướng AI tools.",
+   "summary": "Jarvis là trợ lý AI cá nhân hoàn toàn riêng tư và chạy cục bộ, hỗ trợ tương tác bằng giọng nói lẫn văn bản trên macOS, Windows và Linux. Ứng dụng tích hợp công cụ MCP không giới hạn, bộ nhớ cá nhân tự học và khả năng đọc chính tả tương tự WisprFlow.",
+   "why_it_matters": "Là một công cụ AI chạy local tuyệt vời hỗ trợ MCP, giúp bạn tự động hóa công việc hàng ngày mà không lo lộ dữ liệu nhạy cảm."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 100,
+  "fetched_github": 45,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 170,
+  "after_dedupe": 167,
+  "after_filter": 74,
+  "ai": "gemini",
+  "ai_tokens_in": 13803,
+  "ai_tokens_out": 4012,
+  "sent": 10,
+  "summarized": 10
+ }
+}
