@@ -1,0 +1,205 @@
+{
+ "date": "2026-11-19",
+ "items": [
+  {
+   "id": "16043a46c1095fcbe01ae003f3c150546907a41b",
+   "source": "hn",
+   "title": "Unauthenticated remote code execution in Nginx",
+   "url": "https://wiz.io/blog/nginx-http2-rce-vulnerabilities",
+   "discussion_url": "https://news.ycombinator.com/item?id=50547374",
+   "score": 1239,
+   "comments": 541,
+   "published_at": "2026-11-18T15:19:55Z",
+   "tags": [],
+   "also_on": [],
+   "description": "https://www.cve.org/CVERecord?id=CVE-2026-123633 https://www.cve.org/CVERecord?id=CVE-2026-123007",
+   "relevance": 9.0,
+   "reason": "Lỗ hổng RCE cực kỳ nghiêm trọng trong Nginx, cần chú ý cho DevOps.",
+   "summary": "Wiz Research và các bên khác đã phát hiện ra hai lỗ hổng RCE nghiêm trọng trong NGINX (CVE-2026-123633 và CVE-2026-123007) liên quan đến HTTP/2. Các lỗi này cho phép kẻ tấn công chưa xác thực chiếm quyền điều khiển server hoặc đánh cắp dữ liệu ngay cả khi mã ứng dụng an toàn. F5 đã phát hành các bản vá bảo mật để khắc phục vấn đề này.",
+   "why_it_matters": "Việc nắm bắt các lỗ hổng zero-day và RCE nghiêm trọng trên NGINX là cực kỳ quan trọng để bảo vệ hạ tầng production và hệ thống phân tán mà bạn đang vận hành."
+  },
+  {
+   "id": "973516cb974f4c351328f1edd0204cc13606444d",
+   "source": "hn",
+   "title": "KVM: x86: Unconditionally reset MMU context when emulating INIT (CVE-2026-99312)",
+   "url": "https://cve.org/CVERecord?id=CVE-2026-99312",
+   "discussion_url": "https://news.ycombinator.com/item?id=50548004",
+   "score": 180,
+   "comments": 116,
+   "published_at": "2026-11-18T16:06:21Z",
+   "tags": [],
+   "also_on": [],
+   "description": null,
+   "relevance": 9.0,
+   "reason": "Lỗ hổng bảo mật nhân Linux KVM, tối quan trọng cho DevOps.",
+   "summary": "Mô tả ngắn gọn về lỗ hổng CVE-2026-99312 liên quan đến KVM x86 trong việc reset MMU context khi mô phỏng lệnh INIT. Nội dung chi tiết bị ẩn do trang web yêu cầu bật JavaScript.",
+   "why_it_matters": "Lỗ hổng liên quan đến ảo hóa KVM và kernel x86 ít tác động trực tiếp đến công việc phát triển full-stack và DevOps ứng dụng hàng ngày của bạn."
+  },
+  {
+   "id": "77ff48ef191d0b8fa54d3dbdc614bb512166ee6d",
+   "source": "hn",
+   "title": "Multiple vulnerabilities in Regexp and String case conversion",
+   "url": "https://ruby-lang.org/en/news/2026/11/18/multiple-vulnerabilities-in-regexp-and-string",
+   "discussion_url": "https://news.ycombinator.com/item?id=50554038",
+   "score": 149,
+   "comments": 45,
+   "published_at": "2026-11-18T23:52:50Z",
+   "tags": [],
+   "also_on": [
+    "lobsters"
+   ],
+   "description": null,
+   "relevance": 9.0,
+   "reason": "Lỗ hổng bảo mật quan trọng trong Regexp và String của Ruby.",
+   "summary": "Bảy lỗ hổng bảo mật bao gồm tràn bộ nhớ heap và đọc ngoài giới hạn đã được phát hiện trong engine biểu thức chính quy (regex) và tính năng chuyển đổi chữ hoa/chữ thường của Ruby. Các lỗ hổng này có thể dẫn đến việc thực thi mã từ xa (RCE) hoặc rò rỉ bộ nhớ, đòi hỏi người dùng phải nâng cấp lên các phiên bản Ruby mới nhất. Các bản vá đã được phát hành trong Ruby 4.0.10, 3.4.13 và 3.3.14.",
+   "why_it_matters": "Nếu stack của bạn có sử dụng Ruby, việc cập nhật các bản vá RCE này là bắt buộc để tránh bị khai thác lỗ hổng bảo mật nghiêm trọng."
+  },
+  {
+   "id": "52b03674c398defef86a32e816c8eecf41d222f1",
+   "source": "github",
+   "title": "colbymchenry/codegraph: Pre-indexed code knowledge graph, auto syncs on code changes, for Claude Code, Codex, Gemini, Cursor, OpenCode, AntiGravity, Kiro, CoPilot, and Hermes Agent — fewer tokens, fewer tool calls, 100% local",
+   "url": "https://github.com/colbymchenry/codegraph",
+   "discussion_url": null,
+   "score": 119,
+   "comments": 0,
+   "published_at": "2026-11-19T12:08:40.253001+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "description": "Pre-indexed code knowledge graph, auto syncs on code changes, for Claude Code, Codex, Gemini, Cursor, OpenCode, AntiGravity, Kiro, CoPilot, and Hermes Agent — fewer tokens, fewer tool calls, 100% local",
+   "relevance": 9.0,
+   "reason": "Công cụ code knowledge graph tối ưu cho coding agents và LLM.",
+   "summary": "CodeGraph là một công cụ mã nguồn mở giúp xây dựng biểu đồ tri thức mã nguồn (code knowledge graph) cục bộ và tự động đồng bộ theo thời gian thực khi có thay đổi code. Công cụ này cung cấp tích hợp sẵn qua MCP cho các AI coding agent như Claude Code, Cursor, và GitHub Copilot để cung cấp ngữ cảnh chính xác với ít token hơn.",
+   "why_it_matters": "Công cụ này tối ưu hóa trực tiếp cho các AI coding agent và MCP, giúp tăng tốc quy trình làm việc hằng ngày của bạn với các trợ lý lập trình."
+  },
+  {
+   "id": "cbaef75a70f11713bf7f75f66fc24a64971dea66",
+   "source": "github",
+   "title": "ansible/ansible: Ansible is a radically simple IT automation platform that makes your applications and systems easier to deploy and maintain. Automate everything from code deployment to network configuration to cloud management, in a language that approaches plain English, using SSH, with no agents to install on remote systems. https://docs.ansible.com .",
+   "url": "https://github.com/ansible/ansible",
+   "discussion_url": null,
+   "score": 133,
+   "comments": 0,
+   "published_at": "2026-11-19T12:08:40.253001+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "description": "Ansible is a radically simple IT automation platform that makes your applications and systems easier to deploy and maintain. Automate everything from code deployment to network configuration to cloud management, in a language that approaches plain English, using SSH, with no agents to install on…",
+   "relevance": 9.0,
+   "reason": "Công cụ tự động hóa IT và quản lý cloud kinh điển cho DevOps.",
+   "summary": "Ansible là một nền tảng tự động hóa IT mã nguồn mở giúp quản lý cấu hình, triển khai ứng dụng và cung cấp hạ tầng đám mây mà không cần cài đặt agent trên các hệ thống từ xa. Công cụ này sử dụng SSH và mô tả hạ tầng bằng ngôn ngữ dễ đọc, hỗ trợ các tác vụ phức tạp như rolling update không có thời gian downtime.",
+   "why_it_matters": "Đây là một công cụ CI/CD và tự động hóa hạ tầng cốt lõi, hoàn toàn phù hợp với công việc DevOps và quản lý cloud hằng ngày của bạn."
+  },
+  {
+   "id": "b60814c79d7c5271b7f17ff25ad1964e5a1a84cc",
+   "source": "lobsters",
+   "title": "Actual curl rewrites in rust",
+   "url": "https://daniel.haxx.se/blog/2026/11/17/actual-curl-rewrites-in-rust",
+   "discussion_url": "https://lobste.rs/s/1dj9w1/actual_curl_rewrites_rust",
+   "score": 112,
+   "comments": 61,
+   "published_at": "2026-11-17T07:37:05.550000-06:00",
+   "tags": [
+    "rust"
+   ],
+   "also_on": [],
+   "description": null,
+   "relevance": 8.0,
+   "reason": "Dự án curl viết lại bằng Rust, rất hữu ích cho backend/DevOps.",
+   "summary": "Bài viết bàn về hiện tượng các công cụ AI tự động chuyển đổi mã nguồn C của dự án curl sang Rust gần đây. Tác giả chỉ ra rằng mặc dù AI có thể tạo ra bản sao nhờ tài liệu phong phú của curl, nhưng việc duy trì dự án phụ thuộc rất lớn vào cộng đồng và hàng trăm bản sửa lỗi liên tục thay vì chỉ riêng ngôn ngữ lập trình.",
+   "why_it_matters": null
+  },
+  {
+   "id": "0f9bbc307b8e8a5249cf09e2d01260d70714ff30",
+   "source": "github",
+   "title": "ethanplusai/sellbird: Sellbird (formerly Harvey): the open-source outreach platform that runs on your Claude or ChatGPT plan. Finds companies and decision makers, verifies emails, writes personal cold email, sends it and handles the replies.",
+   "url": "https://github.com/ethanplusai/sellbird",
+   "discussion_url": null,
+   "score": 237,
+   "comments": 0,
+   "published_at": "2026-11-19T12:08:40.253001+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "description": "Sellbird (formerly Harvey): the open-source outreach platform that runs on your Claude or ChatGPT plan. Finds companies and decision makers, verifies emails, writes personal cold email, sends it and handles the replies.",
+   "relevance": 8.0,
+   "reason": "Mã nguồn mở outreach platform chạy trên LLM rất đáng chú ý.",
+   "summary": "Sellbird là nền tảng open-source giúp tự động hóa quá trình outreach, tìm kiếm công ty, xác thực email và gửi cold email cá nhân hóa. Công cụ này chạy trực tiếp trên máy cá nhân thông qua các CLI của Claude Pro/Max hoặc ChatGPT, không tính phí qua API token.",
+   "why_it_matters": null
+  },
+  {
+   "id": "392b48e9ee01cc9f98988001eded35236b11fb03",
+   "source": "lobsters",
+   "title": "nginx2root",
+   "url": "https://xint.io/blog/nginx2root-remote-code-execution",
+   "discussion_url": "https://lobste.rs/s/wj2svg/nginx2root",
+   "score": 67,
+   "comments": 13,
+   "published_at": "2026-11-18T09:28:56.196000-06:00",
+   "tags": [
+    "security"
+   ],
+   "also_on": [],
+   "description": null,
+   "relevance": 8.0,
+   "reason": "Khai thác lỗ hổng bảo mật liên quan đến Nginx và root server.",
+   "summary": "Năm lỗ hổng RCE không cần xác thực mới đã được phát hiện trong các cấu hình khác nhau của web server NGINX, đi kèm với một lỗ hổng trong nhân Linux. Khi kết hợp chuỗi lỗi này, kẻ tấn công có thể thoát khỏi container Docker và chiếm quyền root trên host.",
+   "why_it_matters": null
+  },
+  {
+   "id": "d393800a98520761f0be692106378a45bea3370a",
+   "source": "github",
+   "title": "appwrite/appwrite: The open-source cloud for agents & devs. Including Auth, Databases, Storage, Functions, Messaging, Hosting, Realtime, WAF and more",
+   "url": "https://github.com/appwrite/appwrite",
+   "discussion_url": null,
+   "score": 232,
+   "comments": 0,
+   "published_at": "2026-11-19T12:08:40.253001+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "description": "The open-source cloud for agents & devs. Including Auth, Databases, Storage, Functions, Messaging, Hosting, Realtime, WAF and more",
+   "relevance": 8.0,
+   "reason": "Cloud mã nguồn mở cho developers và agents tích hợp đầy đủ backend.",
+   "summary": "Appwrite là nền tảng cloud mã nguồn mở tích hợp sẵn Model Context Protocol (MCP) dành cho các developer và coding agent. Nền tảng cung cấp đầy đủ các dịch vụ backend như Auth, Databases, Storage, Functions và Messaging, hỗ trợ self-host qua Docker.",
+   "why_it_matters": null
+  },
+  {
+   "id": "686b3c8e266bb24f33614b21e0a3a537c6ef72bb",
+   "source": "github",
+   "title": "nestjs/nest: A progressive TypeScript framework for Node.js backends: from a small API in one file to efficient, scalable, enterprise-grade systems 🚀",
+   "url": "https://github.com/nestjs/nest",
+   "discussion_url": null,
+   "score": 214,
+   "comments": 0,
+   "published_at": "2026-11-19T12:08:40.253001+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "description": "A progressive TypeScript framework for Node.js backends: from a small API in one file to efficient, scalable, enterprise-grade systems 🚀",
+   "relevance": 8.0,
+   "reason": "Framework NestJS phổ biến cho backend TypeScript.",
+   "summary": "NestJS là một progressive framework viết bằng TypeScript dành cho Node.js, giúp xây dựng các hệ thống backend có tính cấu trúc, dễ mở rộng và bảo trì. Framework này cung cấp sẵn các module, dependency injection cùng với hệ sinh thái phong phú bao gồm các gói tích hợp AI, MCP và quản lý database.",
+   "why_it_matters": null
+  }
+ ],
+ "stats": {
+  "fetched_hn": 100,
+  "fetched_github": 50,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 175,
+  "after_dedupe": 173,
+  "after_filter": 63,
+  "ai": "gemini",
+  "ai_tokens_in": 14141,
+  "ai_tokens_out": 4074,
+  "sent": 10,
+  "summarized": 10
+ }
+}
