@@ -1,0 +1,204 @@
+{
+ "date": "2026-11-20",
+ "items": [
+  {
+   "id": "2c1ffd03d809ae0570abbb7a8b2403f190284616",
+   "source": "hn",
+   "title": "PostgreSQL 19 Released",
+   "url": "https://postgresql.org/about/news/postgresql-19-released-3449",
+   "discussion_url": "https://news.ycombinator.com/item?id=50560357",
+   "score": 100,
+   "comments": 7,
+   "published_at": "2026-11-19T14:11:37Z",
+   "tags": [],
+   "also_on": [
+    "lobsters"
+   ],
+   "description": null,
+   "relevance": 10.0,
+   "reason": "Phát hành phiên bản lớn PostgreSQL 19, cực kỳ quan trọng cho backend và cơ sở dữ liệu.",
+   "summary": "PostgreSQL 19 ra mắt với nhiều cải tiến lớn, tập trung vào hiệu suất và quản trị ở quy mô lớn. Phiên bản này giới thiệu lệnh REPACK (CONCURRENTLY) giúp dọn dẹp bảng bị phình (bloat) mà không khóa thao tác đọc/ghi, cùng extension pg_plan_advice để kiểm soát ổn định kế hoạch thực thi truy vấn.",
+   "why_it_matters": "Giúp bạn tối ưu hóa hiệu suất và bảo trì các hệ thống cơ sở dữ liệu PostgreSQL lớn trong môi trường production mà không gây downtime."
+  },
+  {
+   "id": "cd785972e812196cb5fdd97a64448d5c3cacf531",
+   "source": "hn",
+   "title": "15M web servers on one VM – smoltcp, DPDK, AF_XDP",
+   "url": "https://kapteko.com/15-million-webservers",
+   "discussion_url": "https://news.ycombinator.com/item?id=50556533",
+   "score": 389,
+   "comments": 41,
+   "published_at": "2026-11-19T05:56:36Z",
+   "tags": [],
+   "also_on": [
+    "lobsters"
+   ],
+   "description": null,
+   "relevance": 9.0,
+   "reason": "Kiến trúc mạng hiệu năng cao và Linux networking rất phù hợp với hệ thống phân tán.",
+   "summary": "Bài viết thảo luận về thách thức kỹ thuật và các giới hạn hệ điều hành khi cố gắng chạy 15 triệu web server trên một máy ảo duy nhất với tài nguyên hạn chế. Tác giả phân tích các system call cơ bản như listen, accept, recv và giới hạn về port TCP trong Linux.",
+   "why_it_matters": "Cung cấp cái nhìn sâu sắc về hệ thống phân tán và các giới hạn cốt lõi của Linux network stack khi thiết kế hệ thống hiệu năng cao."
+  },
+  {
+   "id": "5a7839424fb0a9f6a671b2d6ffc46921fe3e465d",
+   "source": "hn",
+   "title": "Distributed, high-performance blob storage on SQLite",
+   "url": "https://zerodha.tech/blog/high-performance-distributed-blob-storage",
+   "discussion_url": "https://news.ycombinator.com/item?id=50557537",
+   "score": 276,
+   "comments": 71,
+   "published_at": "2026-11-19T08:39:45Z",
+   "tags": [],
+   "also_on": [
+    "lobsters"
+   ],
+   "description": null,
+   "relevance": 9.0,
+   "reason": "Thiết kế hệ thống lưu trữ blob phân tán trên SQLite cực kỳ đáng học hỏi.",
+   "summary": "Nhóm phát triển xây dựng Blobasaur, một server lưu trữ blob phân tán, nhẹ dựa trên SQLite để giải quyết bài toán đọc/ghi JSON blob dung lượng từ vài KB đến MB với tốc độ cao. Dự án này được thiết kế nhằm thay thế các giải pháp như SSDB hay CouchDB để đạt độ trễ mili-giây trên phần cứng thông thường.",
+   "why_it_matters": "Mang lại một giải pháp lưu trữ blob hiệu năng cao, dễ bảo trì cho các hệ thống backend cần xử lý dữ liệu JSON lớn với tần suất cao."
+  },
+  {
+   "id": "c555fb6e232cd62644b0b99292e61af8e42d83a7",
+   "source": "github",
+   "title": "datazip-inc/olake-go: OLake Go: open-source replication from databases, Kafka and S3 to Apache Iceberg and Parquet. Sources: Postgres, MySQL, MongoDB, Oracle, MSSQL, DB2, Kafka, S3. Formerly datazip-inc/olake. Table maintenance lives in datazip-inc/olake-fusion.",
+   "url": "https://github.com/datazip-inc/olake-go",
+   "discussion_url": null,
+   "score": 84,
+   "comments": 0,
+   "published_at": "2026-11-20T11:57:26.336859+07:00",
+   "tags": [
+    "go"
+   ],
+   "also_on": [],
+   "description": "OLake Go: open-source replication from databases, Kafka and S3 to Apache Iceberg and Parquet. Sources: Postgres, MySQL, MongoDB, Oracle, MSSQL, DB2, Kafka, S3. Formerly datazip-inc/olake. Table maintenance lives in datazip-inc/olake-fusion.",
+   "relevance": 9.0,
+   "reason": "Công cụ Go tích hợp Kafka, cơ sở dữ liệu và Apache Iceberg sát với stack của bạn.",
+   "summary": "OLake Go là một engine nạp dữ liệu mã nguồn mở hiệu năng cao, hỗ trợ đồng bộ dữ liệu từ các cơ sở dữ liệu, Kafka và S3 sang Apache Iceberg hoặc Parquet. Công cụ này cung cấp tính năng Full sync và CDC với khả năng tự động phát hiện schema mà không cần phụ thuộc vào Spark hay Flink.",
+   "why_it_matters": "Giúp xây dựng các pipeline dữ liệu và kiến trúc data lakehouse thời gian thực một cách nhanh chóng, nhẹ nhàng ngay trong các hạ tầng CI/CD và Docker."
+  },
+  {
+   "id": "b5ab0a55536c7354ee81fd471e2202480444f8f4",
+   "source": "hn",
+   "title": "Postgres 19 is out, and it's available on Neon and Databricks Lakebase",
+   "url": "https://databricks.com/blog/postgresql-19-available-lakebase",
+   "discussion_url": "https://news.ycombinator.com/item?id=50568643",
+   "score": 30,
+   "comments": 14,
+   "published_at": "2026-11-20T00:37:31Z",
+   "tags": [],
+   "also_on": [],
+   "description": null,
+   "relevance": 9.0,
+   "reason": "Cập nhật hệ sinh thái PostgreSQL 19 trên các nền tảng đám mây lớn.",
+   "summary": "PostgreSQL 19 chính thức phát hành chung với các tính năng cốt lõi như REPACK, hỗ trợ quản lý plan query và cải thiện hiệu suất replicate. Phiên bản này giải quyết các vấn đề vận hành kinh điển như bảng bị phình, kế hoạch truy vấn không ổn định và độ trễ của replica.",
+   "why_it_matters": "Cung cấp cho bạn các công cụ vận hành trực tiếp trong core để quản lý và tối ưu hóa các cluster PostgreSQL quy mô lớn một cách an toàn."
+  },
+  {
+   "id": "db0a328fdd9ad4da7418e960d48a16453752a4cc",
+   "source": "hn",
+   "title": "How the European Commission rolled out Matrix to more than 40k staff",
+   "url": "https://element.io/blog/how-the-european-commission-rolled-out-matrix-to-more-than-40-000-staff",
+   "discussion_url": "https://news.ycombinator.com/item?id=50558533",
+   "score": 679,
+   "comments": 331,
+   "published_at": "2026-11-19T10:58:29Z",
+   "tags": [],
+   "also_on": [],
+   "description": null,
+   "relevance": 8.0,
+   "reason": "Case study triển khai Matrix quy mô lớn cho thấy kỹ thuật hệ thống rất hay.",
+   "summary": "Ủy ban Châu Âu đã triển khai thành công ứng dụng nhắn tin Matrix cho hơn 40.000 nhân viên. Hệ thống này sử dụng tiêu chuẩn mở Matrix để đảm bảo khả năng tương tác, tính bảo mật và chủ quyền kỹ thuật số trong giao tiếp.",
+   "why_it_matters": "Cung cấp một góc nhìn thực tế về việc áp dụng giải pháp giao tiếp mã nguồn mở, bảo mật quy mô lớn trong môi trường doanh nghiệp và tổ chức nhà nước."
+  },
+  {
+   "id": "f82d195d3e1b5c14e8045f55b45c40cb84412443",
+   "source": "hn",
+   "title": "Ruby2ßhell: Pre-authentication RCE on stock Rails",
+   "url": "https://verialabs.com/ruby2shell",
+   "discussion_url": "https://news.ycombinator.com/item?id=50556287",
+   "score": 389,
+   "comments": 167,
+   "published_at": "2026-11-19T05:09:11Z",
+   "tags": [],
+   "also_on": [
+    "lobsters"
+   ],
+   "description": null,
+   "relevance": 8.0,
+   "reason": "Lỗ hổng bảo mật RCE nghiêm trọng trên Rails, hữu ích cho kiến trúc sư phần mềm.",
+   "summary": "Lỗ hổng Ruby2Shell (heap overflow 1 byte) trong hàm chuyển đổi chữ hoa/thường của Ruby cho phép thực thi mã từ xa (RCE) mà không cần xác thực trên các cấu hình mặc định của Rails và Sinatra. Lỗ hổng này ảnh hưởng đến nhiều phiên bản Ruby và các phần mềm tự host phổ biến như GitLab, GitHub Enterprise, và Mastodon.",
+   "why_it_matters": "Đây là một cảnh báo bảo mật cực kỳ quan trọng đối với các ứng dụng Web sử dụng Ruby, yêu cầu cập nhật bản vá ngay lập tức để tránh rủi ro RCE."
+  },
+  {
+   "id": "21575d48062cf7968a0874dbba33dede06d118fb",
+   "source": "hn",
+   "title": "Someone reported java4shell bug in September 2026",
+   "url": "https://github.com/openjdk/jdk/pull/32781",
+   "discussion_url": "https://news.ycombinator.com/item?id=50558906",
+   "score": 396,
+   "comments": 106,
+   "published_at": "2026-11-19T11:47:03Z",
+   "tags": [],
+   "also_on": [],
+   "description": null,
+   "relevance": 8.0,
+   "reason": "Lỗ hổng bảo mật Java liên quan trực tiếp đến backend stack Java của bạn.",
+   "summary": "Một lỗ hổng mang tên Java4Shell được báo cáo trong OpenJDK, xuất phát từ việc giải mã Base64 bằng AVX-512 xử lý sai các khối dữ liệu ngắn hoặc không hợp lệ. Lỗi này gây tràn bộ đệm và có nguy cơ hỏng vùng nhớ heap trên JVM.",
+   "why_it_matters": "Ảnh hưởng trực tiếp đến hệ sinh thái backend Java mà bạn đang sử dụng, đòi hỏi phải theo dõi sát sao các bản vá từ OpenJDK hoặc thêm cờ JVM tạm thời."
+  },
+  {
+   "id": "a8c3e1c7c44f7afafb5e068b3260d64dfa409d44",
+   "source": "lobsters",
+   "title": "Java4Shell is a reason to use Java",
+   "url": "https://mccue.dev/pages/11-18-26-java4shell",
+   "discussion_url": "https://lobste.rs/s/a1uff5/java4shell_is_reason_use_java",
+   "score": 43,
+   "comments": 15,
+   "published_at": "2026-11-18T08:21:42.798000-06:00",
+   "tags": [
+    "java",
+    "security"
+   ],
+   "also_on": [],
+   "description": null,
+   "relevance": 8.0,
+   "reason": "Thảo luận kỹ thuật về các vấn đề bảo mật và đặc trưng của hệ sinh thái Java.",
+   "summary": "Bài viết phân tích về sự cố Java4Shell và ưu điểm của Java trong việc kiểm soát mã native nhờ tính năng kiểm tra nghiêm ngặt. Ngoài ra, hiệu năng của Java kết hợp JIT compiler hiện nay có thể cạnh tranh tốt với C++ và các ngôn ngữ khác.",
+   "why_it_matters": "Củng cố niềm tin vào hệ sinh thái Java/Spring backend của bạn, đồng thời nhấn mạnh tầm quan trọng của việc quản lý an toàn bộ nhớ và các thư viện native trong kiến trúc hệ thống."
+  },
+  {
+   "id": "a8749d9c217b2610aa9f1cfcea7da1c4c92e01a6",
+   "source": "github",
+   "title": "tianma-if/edgeever: AI-native note-taking app & Evernote/Obsidian alternative. Instant all-platform sync, rich notes (tables, mind maps, diagrams, posters), web clipper & MCP. 100% free on Cloudflare or Docker.",
+   "url": "https://github.com/tianma-if/edgeever",
+   "discussion_url": null,
+   "score": 45,
+   "comments": 0,
+   "published_at": "2026-11-20T11:57:26.336859+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "description": "AI-native note-taking app & Evernote/Obsidian alternative. Instant all-platform sync, rich notes (tables, mind maps, diagrams, posters), web clipper & MCP. 100% free on Cloudflare or Docker.",
+   "relevance": 8.0,
+   "reason": "Ứng dụng ghi chú tích hợp MCP chạy Docker hỗ trợ tối ưu workflow lập trình.",
+   "summary": "EdgeEver là một ứng dụng ghi chú mã nguồn mở mang phong cách AI-native, thay thế cho Evernote hay Obsidian với khả năng đồng bộ đa nền tảng và hỗ trợ MCP. Dự án này có thể triển khai miễn phí 100% trên Cloudflare hoặc tự host bằng Docker.",
+   "why_it_matters": "Cung cấp một công cụ mã nguồn mở thú vị hỗ trợ MCP và tích hợp AI, dễ dàng deploy nhanh chóng qua Docker cho nhu cầu cá nhân hoặc công việc."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 93,
+  "fetched_github": 52,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 170,
+  "after_dedupe": 164,
+  "after_filter": 75,
+  "ai": "gemini",
+  "ai_tokens_in": 14423,
+  "ai_tokens_out": 4187,
+  "sent": 10,
+  "summarized": 10
+ }
+}
