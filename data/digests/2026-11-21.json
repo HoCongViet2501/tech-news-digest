@@ -1,0 +1,203 @@
+{
+ "date": "2026-11-21",
+ "items": [
+  {
+   "id": "0fa0232fce0d48b0636706fdcd36733a23caf5ff",
+   "source": "github",
+   "title": "awslabs/cli-agent-orchestrator: Multi-agent orchestration for AI coding CLIs — Claude Code, Kiro, Codex, and more, coordinated in isolated tmux sessions",
+   "url": "https://github.com/awslabs/cli-agent-orchestrator",
+   "discussion_url": null,
+   "score": 11,
+   "comments": 0,
+   "published_at": "2026-11-21T11:52:39.866412+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "description": "Multi-agent orchestration for AI coding CLIs — Claude Code, Kiro, Codex, and more, coordinated in isolated tmux sessions",
+   "relevance": 9.0,
+   "reason": "Công cụ quản lý đa agent AI lập trình trong tmux, cực kỳ hữu ích cho DevOps và AI tooling.",
+   "summary": "CLI Agent Orchestrator (CAO) là công cụ mã nguồn mở giúp điều phối nhiều AI coding CLI (như Claude Code, Kiro, Codex) hoạt động song song hoặc tuần tự trong các tmux session cô lập. Công cụ này cung cấp local server, Web UI, hỗ trợ triển khai trên Kubernetes (Amazon EKS) cùng tính năng quản lý memory và cross-zone workflow.",
+   "why_it_matters": "Công cụ này giúp bạn tối ưu hóa quy trình làm việc DevOps và coding hàng ngày bằng cách tự động hóa và quản lý song song nhiều AI agent trên môi trường local hoặc cụm Kubernetes."
+  },
+  {
+   "id": "a7cf62d343d0c00b113eea7391198d2d04b5e555",
+   "source": "github",
+   "title": "phone-harness/phone-harness: let your agent control your phone",
+   "url": "https://github.com/phone-harness/phone-harness",
+   "discussion_url": null,
+   "score": 198,
+   "comments": 0,
+   "published_at": "2026-11-21T11:52:39.866412+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "description": "let your agent control your phone",
+   "relevance": 8.0,
+   "reason": "Công cụ AI agent kiểm soát điện thoại, rất phù hợp với xu hướng AI tooling.",
+   "summary": "Phone Harness là thư viện cho phép các coding agent như Claude Code hoặc Codex tương tác trực tiếp với điện thoại thật thông qua cửa sổ iPhone Mirroring, adb trên Android hoặc qua môi trường đám mây (Cloud phone). Công cụ cung cấp CLI và tích hợp MCP giúp agent tự động thực hiện các thao tác cảm ứng, nhập liệu và đọc màn hình.",
+   "why_it_matters": "Mang lại khả năng kiểm thử ứng dụng mobile tự động bằng AI end-to-end ngay trên thiết bị thực hoặc cloud thông qua các công cụ dòng lệnh quen thuộc."
+  },
+  {
+   "id": "9fe3e937f57a693052b0cfb8dd8b9c04c11f348c",
+   "source": "hn",
+   "title": "Language Models Can Rewrite Their Own Weights",
+   "url": "https://arxiv.org/abs/2611.21885",
+   "discussion_url": "https://news.ycombinator.com/item?id=50577265",
+   "score": 366,
+   "comments": 114,
+   "published_at": "2026-11-20T16:29:06Z",
+   "tags": [],
+   "also_on": [],
+   "description": null,
+   "relevance": 8.0,
+   "reason": "Nghiên cứu AI về việc Language Models tự viết trọng số.",
+   "summary": "Nghiên cứu mới chứng minh mô hình ngôn ngữ lớn (LLM) có khả năng tự chẩn đoán lỗi và chỉnh sửa trực tiếp trọng số (weights) của chính nó thông qua quá trình suy luận mà không cần qua các vòng training hay tính toán gradient tốn kém. Phương pháp này giúp mô hình cải thiện độ chính xác qua từng phiên làm việc và tự phục hồi các bản sao bị lỗi.",
+   "why_it_matters": "Đây là bước tiến đột phá về kiến trúc LLM, định hình tương lai của các hệ thống tự cải tiến mà không phụ thuộc vào hạ tầng huấn luyện mô hình phức tạp."
+  },
+  {
+   "id": "0c225b4f567f0f12853079912c8a59b2bda3b7b9",
+   "source": "github",
+   "title": "agentscope-ai/agentscope: Build and run agents you can see, understand and trust.",
+   "url": "https://github.com/agentscope-ai/agentscope",
+   "discussion_url": null,
+   "score": 69,
+   "comments": 0,
+   "published_at": "2026-11-21T11:52:39.866412+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "description": "Build and run agents you can see, understand and trust.",
+   "relevance": 8.0,
+   "reason": "Framework mã nguồn mở để xây dựng và quản lý AI agent.",
+   "summary": "AgentScope 2.0 là framework mã nguồn mở được thiết kế cho Python 3.11+ nhằm xây dựng các hệ thống AI agent dựa trên khả năng suy luận và sử dụng công cụ của LLM thay vì ép buộc bằng các prompt cứng nhắc. Phiên bản này bổ sung tính năng quản lý profile giọng nói, tương tác thời gian thực qua WebRTC, định tuyến model và khả năng chạy code trong các môi trường sandbox như Docker hoặc Kubernetes.",
+   "why_it_matters": "Cung cấp một framework mạnh mẽ, sẵn sàng cho môi trường production để bạn phát triển các ứng dụng agentic phức tạp kết hợp với các công cụ DevOps và LLM."
+  },
+  {
+   "id": "0000282282406879db0bb3598c7fd8ebbb0fcc66",
+   "source": "hn",
+   "title": "Frostbite: A new CPU architecture discovered, designed and verified by AI",
+   "url": "https://architectlabs.com/blog/frostbite",
+   "discussion_url": "https://news.ycombinator.com/item?id=50572503",
+   "score": 634,
+   "comments": 330,
+   "published_at": "2026-11-20T10:01:41Z",
+   "tags": [],
+   "also_on": [],
+   "description": null,
+   "relevance": 7.0,
+   "reason": "Kiến trúc CPU mới được thiết kế bởi AI, rất đáng chú ý về AI technology.",
+   "summary": "Frostbite là kiến trúc CPU tổng quát hoàn toàn mới dựa trên interaction nets, được phát hiện, thiết kế và xác thực end-to-end bởi AI. Kiến trúc này loại bỏ trạng thái chia sẻ có thể thay đổi (shared mutable state) để khai thác tính song song cao, đạt hiệu suất năng lượng vượt trội so với các CPU superscalar hiện đại.",
+   "why_it_matters": "Cung cấp cái nhìn sâu sắc về cách AI đang cách mạng hóa thiết kế phần cứng và hệ thống phân tán ở cấp độ thấp, mở rộng biên giới công nghệ mà bạn đang quan tâm."
+  },
+  {
+   "id": "8d319652f14e2c9b8e52876942138d38a8ba7725",
+   "source": "github",
+   "title": "microsoft/markitdown: Python tool for converting files and office documents to Markdown.",
+   "url": "https://github.com/microsoft/markitdown",
+   "discussion_url": null,
+   "score": 281,
+   "comments": 0,
+   "published_at": "2026-11-21T11:52:39.866412+07:00",
+   "tags": [
+    "python"
+   ],
+   "also_on": [],
+   "description": "Python tool for converting files and office documents to Markdown.",
+   "relevance": 7.0,
+   "reason": "Công cụ Python hữu ích để chuyển đổi tài liệu sang Markdown.",
+   "summary": "MarkItDown là một tiện ích Python mã nguồn mở do Microsoft phát triển giúp chuyển đổi các tài liệu văn phòng, file đa phương tiện và web sang định dạng Markdown. Công cụ này được thiết kế để chuẩn hóa dữ liệu đầu vào cho các LLM và pipeline phân tích văn bản mà vẫn giữ nguyên cấu trúc tài liệu. Nó hỗ trợ nhiều định dạng từ PDF, Word, Excel cho đến âm thanh và hình ảnh thông qua các dependency tùy chọn.",
+   "why_it_matters": "Công cụ này giúp bạn dễ dàng cấp dữ liệu tài liệu thô dưới dạng Markdown tối ưu token cho các LLM và ứng dụng AI tự động hóa của mình."
+  },
+  {
+   "id": "525b41fea234e76fd50c2975da6a3b0a63c3bf88",
+   "source": "hn",
+   "title": "DreamCoder: Coding harness and IDE from the author of Mastering Emacs",
+   "url": "https://masteringemacs.org/article/announcing-dreamcoder",
+   "discussion_url": "https://news.ycombinator.com/item?id=50581110",
+   "score": 150,
+   "comments": 28,
+   "published_at": "2026-11-20T20:03:59Z",
+   "tags": [],
+   "also_on": [
+    "lobsters"
+   ],
+   "description": null,
+   "relevance": 7.0,
+   "reason": "Coding harness và IDE mới từ tác giả nổi tiếng, hợp xu hướng AI tooling.",
+   "summary": "DreamCoder là một công cụ lập trình tích hợp AI (coding harness and IDE) do tác giả cuốn sách Mastering Emacs phát triển sau 15 tháng làm việc. Dự án này được thiết kế để vượt qua các hạn chế của các giao diện dòng lệnh (terminal) truyền thống hiện đang phổ biến ở các coding agent khác. Nó mang lại trải nghiệm điều khiển và tương tác trực quan hơn cho lập trình viên khi làm việc cùng các AI agent.",
+   "why_it_matters": "Công cụ này cung cấp một giao diện và môi trường làm việc chuyên biệt hơn cho developer thường xuyên sử dụng các tác nhân AI phức tạp."
+  },
+  {
+   "id": "b9daecdb6589e38c5519e6ca6120c62b7ef2c870",
+   "source": "lobsters",
+   "title": "Mutex poisoning is not for everyone",
+   "url": "https://bertptrs.nl/2026/11/16/mutex-poisoning-is-not-for-everyone.html",
+   "discussion_url": "https://lobste.rs/s/uzn2t6/mutex_poisoning_is_not_for_everyone",
+   "score": 38,
+   "comments": 61,
+   "published_at": "2026-11-19T07:01:49.961000-06:00",
+   "tags": [
+    "rust"
+   ],
+   "also_on": [],
+   "description": null,
+   "relevance": 7.0,
+   "reason": "Bài viết kỹ thuật sâu về xử lý lỗi Mutex trong lập trình hệ thống.",
+   "summary": "Bài viết bàn về hiện tượng mutex poisoning trong lập trình đồng thời và tại sao cơ chế này có thể là một lựa chọn sai lầm cho phần lớn ứng dụng. Mutex poisoning tự động đánh dấu lỗi khi một luồng bị panic trong lúc đang giữ khóa, nhưng nó làm giảm hiệu năng, độ dễ đọc của mã và khuyến khích các pattern tồi. Tác giả phân tích cách hoạt động của mutex dưới tầng thấp sử dụng syscall futex và các thao tác atomic.",
+   "why_it_matters": "Bài viết mang lại góc nhìn sâu sắc về hệ thống phân tán và lập trình đồng thời, giúp tối ưu hóa hiệu năng và thiết kế cơ chế khóa trong các hệ thống backend."
+  },
+  {
+   "id": "41799f4b7bde42ad79105f1e6de2f2dd24a013a6",
+   "source": "github",
+   "title": "bendlang/bend: Bend 2: a fast language that blocks AI mistakes via proof. Install: curl -fsSL https://bend-lang.com/install.sh | sh",
+   "url": "https://github.com/bendlang/bend",
+   "discussion_url": null,
+   "score": 95,
+   "comments": 0,
+   "published_at": "2026-11-21T11:52:39.866412+07:00",
+   "tags": [
+    "typescript"
+   ],
+   "also_on": [],
+   "description": "Bend 2: a fast language that blocks AI mistakes via proof. Install: curl -fsSL https://bend-lang.com/install.sh | sh",
+   "relevance": 7.0,
+   "reason": "Ngôn ngữ lập trình mới tập trung vào kiểm thử an toàn và chặn lỗi AI.",
+   "summary": "Bend 2 là một ngôn ngữ lập trình hiệu năng cao có khả năng biên dịch nhanh chóng và chạy song song trên nhiều nhân CPU hoặc GPU, đồng thời tích hợp hệ thống kiểm tra lỗi bằng toán học thông qua file LAWS.bend. Ngôn ngữ này cho phép lập trình viên định nghĩa các quy luật bất biến (laws) để ngăn chặn AI tạo ra mã nguồn chứa lỗi logic. Trình biên dịch sẽ tự động xác minh các chứng minh toán học này để bảo đảm tính đúng đắn trước khi commit mã.",
+   "why_it_matters": "Đây là một công cụ thực tế giúp tự động hóa kiểm thử và ép buộc AI tuân thủ các quy tắc kiến trúc backend khắt khe mà không sợ vi phạm logic."
+  },
+  {
+   "id": "d77b5546421e2909b1c71f92c218be9cc42895ee",
+   "source": "hn",
+   "title": "Llms.txt and MCP didn't move the needle",
+   "url": "https://backpackforlaravel.com/articles/opinions/llms-txt-and-mcp-didn-t-move-the-needle-for-us-here-s-what-did",
+   "discussion_url": "https://news.ycombinator.com/item?id=50574772",
+   "score": 30,
+   "comments": 19,
+   "published_at": "2026-11-20T14:00:23Z",
+   "tags": [],
+   "also_on": [],
+   "description": null,
+   "relevance": 7.0,
+   "reason": "Thảo luận kỹ thuật thực tế về hiệu quả của llms.txt và giao thức MCP.",
+   "summary": "Tác giả chia sẻ kinh nghiệm thực tế về việc tối ưu hóa các thư viện phần mềm cho AI agent và nhận thấy rằng các xu hướng như llms.txt hay MCP server ít mang lại hiệu quả thực tế hơn mong đợi. Thay vào đó, việc duy trì API ổn định trong nhiều năm, tránh đổi tên hàm tùy tiện và giữ mã nguồn mở (giúp dữ liệu đào tạo phong phú) mới là yếu tố cốt lõi giúp AI agent viết mã chính xác. Sự ổn định này giúp agent không bị nhầm lẫn giữa các phiên bản cũ và mới của thư viện.",
+   "why_it_matters": "Góc nhìn này giúp bạn định hướng cách thiết kế các thư viện và hệ thống backend nội bộ sao cho thân thiện và dễ tích hợp nhất với các coding agent."
+  }
+ ],
+ "stats": {
+  "fetched_hn": 98,
+  "fetched_github": 52,
+  "fetched_lobsters": 25,
+  "fetched_rss": 0,
+  "fetched": 175,
+  "after_dedupe": 170,
+  "after_filter": 76,
+  "ai": "gemini",
+  "ai_tokens_in": 14824,
+  "ai_tokens_out": 4894,
+  "sent": 10,
+  "summarized": 10
+ }
+}
